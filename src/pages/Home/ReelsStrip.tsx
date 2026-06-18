@@ -21,7 +21,7 @@ export function ReelsStrip() {
             <RevealText
               as="h2"
               text="En sus palabras"
-              className="font-display mt-5 text-[12vw] leading-[0.88] text-guinda sm:text-6xl lg:text-7xl"
+              className="font-display mt-5 text-[12vw] leading-[0.88] text-ink sm:text-6xl lg:text-7xl"
             />
             <p className="mt-4 text-ink/70">
               Momentos en la calle, en directo desde{' '}

@@ -44,7 +44,7 @@ export default function Agenda() {
                   <div className="group grid items-center gap-6 py-8 md:grid-cols-[auto_1fr_auto] md:gap-10">
                     {/* Fecha */}
                     <div className="flex items-center gap-4 md:w-44">
-                      <span className="font-display text-6xl leading-none text-guinda">{d.dia}</span>
+                      <span className="font-display text-6xl leading-none text-ink">{d.dia}</span>
                       <div className="font-condensed uppercase leading-tight">
                         <span className="block text-lg font-semibold tracking-wide text-guinda">
                           {d.mes}
@@ -56,7 +56,7 @@ export default function Agenda() {
 
                     {/* Detalle */}
                     <div>
-                      <h2 className="font-condensed text-2xl font-semibold leading-tight text-ink md:text-3xl">
+                      <h2 className="font-condensed text-2xl font-semibold leading-tight text-ink transition-colors group-hover:text-guinda md:text-3xl">
                         {ev.titulo}
                       </h2>
                       <p className="mt-1.5 flex items-center gap-1.5 text-sm text-guinda">

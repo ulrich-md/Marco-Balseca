@@ -40,7 +40,7 @@ export default function Acciones() {
         </div>
       </section>
 
-      <Marquee tone="guinda" />
+      <Marquee tone="dark" />
       <CtaBand />
     </>
   )

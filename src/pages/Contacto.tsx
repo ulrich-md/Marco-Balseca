@@ -114,7 +114,7 @@ export default function Contacto() {
                     role="status"
                     aria-live="polite"
                   >
-                    <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-guinda text-bone">
+                    <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-guinda text-white">
                       <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="m5 12 5 5 9-11" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
@@ -193,7 +193,7 @@ export default function Contacto() {
 
           {/* Contacto directo + súmate */}
           <aside className="flex flex-col gap-6">
-            <div className="rounded-2xl bg-guinda p-7 text-bone md:p-8">
+            <div className="rounded-sm bg-black p-7 text-white md:p-8">
               <SectionLabel tone="bone">Directo</SectionLabel>
               <div className="mt-5 space-y-4">
                 <ButtonAnchor href={SOCIAL.whatsapp.url} tone="bone" variant="solid" full arrow>
@@ -201,17 +201,17 @@ export default function Contacto() {
                 </ButtonAnchor>
                 <a
                   href={`mailto:${SOCIAL.email.value}`}
-                  className="flex items-center gap-3 text-bone/85 transition-colors hover:text-sand"
+                  className="flex items-center gap-3 text-white/85 transition-colors hover:text-guinda"
                 >
                   <MailIcon /> {SOCIAL.email.value}
                 </a>
-                <p className="flex items-center gap-3 text-bone/85">
+                <p className="flex items-center gap-3 text-white/85">
                   <PinIcon /> {SITE.ciudad}, {SITE.estado}, {SITE.pais}
                 </p>
               </div>
 
-              <div className="mt-7 border-t border-bone/15 pt-6">
-                <p className="eyebrow text-bone/55">Síguelo</p>
+              <div className="mt-7 border-t border-white/15 pt-6">
+                <p className="eyebrow text-white/55">Síguelo</p>
                 <div className="mt-4 flex items-center gap-3">
                   {[
                     { I: InstagramIcon, ...SOCIAL.instagram },
@@ -224,18 +224,18 @@ export default function Contacto() {
                       target="_blank"
                       rel="noreferrer"
                       aria-label={label}
-                      className="flex h-11 w-11 items-center justify-center rounded-full border border-bone/20 text-bone/85 transition-colors hover:border-sand hover:text-sand"
+                      className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-white/85 transition-colors hover:border-guinda hover:text-guinda"
                     >
                       <I />
                     </a>
                   ))}
                 </div>
-                <p className="mt-3 text-sm text-bone/60">{SOCIAL.instagram.handle}</p>
+                <p className="mt-3 text-sm text-white/60">{SOCIAL.instagram.handle}</p>
               </div>
             </div>
 
-            <div className="rounded-2xl border border-ink/10 bg-white p-7 md:p-8">
-              <h3 className="font-condensed text-2xl font-semibold uppercase tracking-wide text-guinda">
+            <div className="rounded-sm border border-ink/10 bg-white p-7 md:p-8">
+              <h3 className="font-condensed text-2xl font-semibold uppercase tracking-wide text-ink">
                 Sé voluntario
               </h3>
               <p className="mt-3 text-mute">

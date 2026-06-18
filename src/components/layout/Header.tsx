@@ -38,7 +38,7 @@ export function Header() {
         }`}
       >
         <div className="container-x flex items-center justify-between gap-6">
-          <Wordmark tone="guinda" />
+          <Wordmark tone="ink" />
 
           <nav className="hidden items-center gap-7 lg:flex" aria-label="Principal">
             {NAV.map((item) => (
@@ -78,13 +78,13 @@ export function Header() {
               onClick={() => setMenuOpen(true)}
               aria-label="Abrir menú"
               aria-expanded={menuOpen}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-guinda/25 text-guinda lg:hidden"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/20 text-ink lg:hidden"
             >
               <span className="sr-only">Menú</span>
               <div className="flex flex-col gap-[5px]">
-                <span className="block h-px w-5 bg-guinda" />
-                <span className="block h-px w-5 bg-guinda" />
-                <span className="block h-px w-5 bg-guinda" />
+                <span className="block h-px w-5 bg-ink" />
+                <span className="block h-px w-5 bg-ink" />
+                <span className="block h-px w-5 bg-ink" />
               </div>
             </button>
           </div>

@@ -6,7 +6,7 @@ import { ButtonLink } from '../ui/Button'
 
 type Props = { open: boolean; onClose: () => void }
 
-/** Menú móvil full-screen en guinda. */
+/** Menú móvil full-screen en negro editorial, con guinda como acento. */
 export function MobileMenu({ open, onClose }: Props) {
   const { pathname } = useLocation()
 
@@ -21,14 +21,12 @@ export function MobileMenu({ open, onClose }: Props) {
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-[90] flex flex-col bg-guinda text-bone lg:hidden"
+          className="fixed inset-0 z-[90] flex flex-col bg-black text-white lg:hidden"
           initial={{ opacity: 0, y: -16 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -16 }}
           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div className="bg-grain absolute inset-0 opacity-60" aria-hidden />
-
           <nav className="relative flex flex-1 flex-col justify-center gap-1 px-6 pt-24">
             {NAV.map((item, i) => {
               const active = pathname === item.to
@@ -44,22 +42,22 @@ export function MobileMenu({ open, onClose }: Props) {
                     onClick={onClose}
                     className="font-display flex items-baseline gap-4 py-2 text-5xl sm:text-6xl"
                   >
-                    <span className="eyebrow w-8 shrink-0 text-sand/80">
+                    <span className="eyebrow w-8 shrink-0 text-guinda">
                       {String(i + 1).padStart(2, '0')}
                     </span>
-                    <span className={active ? 'text-sand' : 'text-bone'}>{item.label}</span>
+                    <span className={active ? 'text-guinda' : 'text-white'}>{item.label}</span>
                   </Link>
                 </motion.div>
               )
             })}
           </nav>
 
-          <div className="relative flex flex-col gap-5 border-t border-bone/15 px-6 py-7">
+          <div className="relative flex flex-col gap-5 border-t border-white/15 px-6 py-7">
             <ButtonLink to="/contacto" tone="bone" variant="solid" full onClick={onClose}>
               Súmate
             </ButtonLink>
-            <div className="flex items-center justify-between text-sm text-bone/70">
-              <a href={SOCIAL.instagram.url} target="_blank" rel="noreferrer" className="hover:text-sand">
+            <div className="flex items-center justify-between text-sm text-white/60">
+              <a href={SOCIAL.instagram.url} target="_blank" rel="noreferrer" className="hover:text-guinda">
                 {SOCIAL.instagram.handle}
               </a>
               <span>

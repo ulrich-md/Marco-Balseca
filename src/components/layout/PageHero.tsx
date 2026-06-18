@@ -12,19 +12,12 @@ type Props = {
 }
 
 /**
- * Banda hero CLARA para páginas internas: blanco/bone cálido, con el título
- * gigante en guinda. Guinda como acento (no como fondo dominante).
+ * Banda hero de página: blanco editorial, título gigante en NEGRO (ref. ESPN),
+ * guinda solo como acento (número, regla del índice).
  */
 export function PageHero({ index, label, title, intro, children }: Props) {
   return (
-    <section className="relative overflow-hidden bg-bone pt-32 pb-14 text-ink md:pt-44 md:pb-20">
-      <div aria-hidden className="absolute inset-x-0 top-0 h-1 bg-guinda" />
-      {/* halo guinda suave */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -right-[12%] -top-[24%] h-[80%] w-[55%] rounded-full"
-        style={{ background: 'radial-gradient(closest-side, rgba(110,34,51,0.06), transparent)' }}
-      />
+    <section className="relative overflow-hidden bg-white pt-32 pb-12 text-ink md:pt-44 md:pb-16">
       <div className="container-x relative">
         <SectionLabel num={index} tone="guinda">
           {label}
@@ -33,7 +26,7 @@ export function PageHero({ index, label, title, intro, children }: Props) {
           as="h1"
           text={title}
           onMount
-          className="font-display mt-6 text-[16vw] leading-[0.86] text-guinda sm:text-[12vw] lg:text-[9vw]"
+          className="font-display mt-6 text-[16vw] leading-[0.86] text-ink sm:text-[12vw] lg:text-[9vw]"
         />
         {intro && (
           <Reveal delay={0.15} className="mt-7 max-w-2xl">
@@ -41,6 +34,10 @@ export function PageHero({ index, label, title, intro, children }: Props) {
           </Reveal>
         )}
         {children}
+      </div>
+      {/* regla guinda fina al pie del hero */}
+      <div aria-hidden className="container-x mt-10 md:mt-14">
+        <div className="h-px w-full bg-ink/10" />
       </div>
     </section>
   )

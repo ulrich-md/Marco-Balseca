@@ -19,7 +19,7 @@ export function TrayectoriaTeaser() {
             <RevealText
               as="h2"
               text={'El camino,\npaso a paso'}
-              className="font-display mt-5 text-[14vw] leading-[0.86] text-guinda sm:text-7xl lg:text-8xl"
+              className="font-display mt-5 text-[14vw] leading-[0.86] text-ink sm:text-7xl lg:text-8xl"
             />
           </div>
           <div className="hidden md:block">
@@ -32,7 +32,7 @@ export function TrayectoriaTeaser() {
         <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 md:grid-cols-3">
           {hitos.map((h, i) => (
             <Reveal key={i} delay={i * 0.08} className="bg-bone p-7">
-              <span className="font-display text-3xl text-guinda/30">
+              <span className="font-display text-3xl text-ink/15">
                 {String(i + 1).padStart(2, '0')}
               </span>
               <p className="font-condensed mt-4 text-xl font-semibold uppercase tracking-wide text-guinda">

@@ -20,7 +20,7 @@ export function AccionesTeaser() {
             <RevealText
               as="h2"
               text="Lo que mueve a Tehuacán"
-              className="font-display mt-5 text-[12vw] leading-[0.88] text-guinda sm:text-6xl lg:text-7xl"
+              className="font-display mt-5 text-[12vw] leading-[0.88] text-ink sm:text-6xl lg:text-7xl"
             />
             <p className="mt-4 text-ink/70">
               Ejes de trabajo cercano y con resultados.{' '}

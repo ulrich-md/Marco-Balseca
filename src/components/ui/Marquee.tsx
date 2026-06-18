@@ -1,34 +1,25 @@
 type Props = {
-  tone?: 'guinda' | 'bone'
+  tone?: 'dark' | 'light'
   /** segundos por ciclo (más alto = más lento) */
   speed?: number
-  outline?: boolean
 }
 
 const SEGMENTS = ['TIUI CHIKAVAK', 'VÁMONOS RECIO', 'POR TEHUACÁN', 'POR NUESTRA GENTE']
 
 /**
- * Marquee lento e infinito con el lema. CSS puro, pausable en hover.
- * Se detiene con prefers-reduced-motion (regla global en index.css).
+ * Marquee lento e infinito con el lema. B&N con guinda como separador.
+ * CSS puro, pausable en hover. Se detiene con prefers-reduced-motion.
  */
-export function Marquee({ tone = 'guinda', speed = 34, outline = false }: Props) {
-  const bg = tone === 'guinda' ? 'bg-guinda text-bone' : 'bg-bone text-guinda'
-  const sep = tone === 'guinda' ? 'text-sand' : 'text-guinda-soft'
+export function Marquee({ tone = 'dark', speed = 34 }: Props) {
+  const bg = tone === 'dark' ? 'bg-black text-white' : 'bg-white text-ink border-y border-ink/10'
 
-  // Una "unidad" se repite 2 veces; translateX(-50%) hace el loop continuo.
   const unit = (
     <div className="flex shrink-0 items-center">
       {SEGMENTS.map((s, i) => (
         <span key={i} className="flex items-center">
-          <span
-            className={`font-display text-3xl md:text-5xl leading-none px-6 ${
-              outline ? 'text-outline' : ''
-            }`}
-          >
-            {s}
-          </span>
-          <span aria-hidden className={`text-xl md:text-2xl ${sep}`}>
-            ✶
+          <span className="font-display text-3xl leading-none px-6 md:text-5xl">{s}</span>
+          <span aria-hidden className="px-2 text-xl text-guinda md:text-2xl">
+            ✦
           </span>
         </span>
       ))}

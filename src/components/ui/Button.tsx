@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import type { ReactNode } from 'react'
 
 type Variant = 'solid' | 'outline' | 'ghost'
-type Tone = 'guinda' | 'bone'
+type Tone = 'guinda' | 'bone' | 'ink'
 
 type CommonProps = {
   children: ReactNode
@@ -20,14 +20,19 @@ function classes({ variant = 'solid', tone = 'guinda', full }: CommonProps) {
   const map: Record<Tone, Record<Variant, string>> = {
     guinda: {
       solid:
-        'bg-guinda text-bone hover:bg-guinda-soft hover:-translate-y-0.5 shadow-[0_10px_30px_-12px_rgba(110,34,51,0.6)]',
-      outline: 'border border-guinda/40 text-guinda hover:bg-guinda hover:text-bone hover:-translate-y-0.5',
+        'bg-guinda text-white hover:bg-guinda-soft hover:-translate-y-0.5 shadow-[0_10px_30px_-12px_rgba(110,34,51,0.6)]',
+      outline: 'border border-guinda/45 text-guinda hover:bg-guinda hover:text-white hover:-translate-y-0.5',
       ghost: 'text-guinda hover:bg-guinda/8',
     },
+    ink: {
+      solid: 'bg-ink text-white hover:bg-black hover:-translate-y-0.5 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)]',
+      outline: 'border border-ink/30 text-ink hover:bg-ink hover:text-white hover:-translate-y-0.5',
+      ghost: 'text-ink hover:bg-ink/8',
+    },
     bone: {
-      solid: 'bg-bone text-guinda hover:bg-white hover:-translate-y-0.5 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.45)]',
-      outline: 'border border-bone/45 text-bone hover:bg-bone hover:text-guinda hover:-translate-y-0.5',
-      ghost: 'text-bone hover:bg-bone/10',
+      solid: 'bg-white text-ink hover:bg-bone hover:-translate-y-0.5 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.45)]',
+      outline: 'border border-white/45 text-white hover:bg-white hover:text-ink hover:-translate-y-0.5',
+      ghost: 'text-white hover:bg-white/10',
     },
   }
   return `${base} ${map[tone][variant]} ${width}`

@@ -35,13 +35,13 @@ export function Lightbox({ reel, onClose }: Props) {
           aria-modal="true"
           aria-label={`Reel: ${reel.titulo}`}
         >
-          <div className="absolute inset-0 bg-guinda-deep/85 backdrop-blur-sm" />
+          <div className="absolute inset-0 bg-black/88 backdrop-blur-sm" />
 
           <button
             type="button"
             onClick={onClose}
             aria-label="Cerrar"
-            className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-bone/10 text-bone transition-colors hover:bg-bone/20"
+            className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
           >
             <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
@@ -72,10 +72,10 @@ export function Lightbox({ reel, onClose }: Props) {
 
             {/* Instagram: enlazamos al reel original (sin scripts de terceros). */}
             {reel.kind === 'instagram' && (
-              <div className="bg-grain flex h-full flex-col items-center justify-center gap-5 bg-guinda p-6 text-center">
-                <span className="eyebrow text-sand">Reel de Instagram</span>
-                <h3 className="font-display text-3xl text-bone">{reel.titulo}</h3>
-                <p className="max-w-[24ch] text-sm text-bone/70">
+              <div className="flex h-full flex-col items-center justify-center gap-5 bg-black p-6 text-center">
+                <span className="eyebrow text-guinda">Reel de Instagram</span>
+                <h3 className="font-display text-3xl text-white">{reel.titulo}</h3>
+                <p className="max-w-[24ch] text-sm text-white/70">
                   Reproduce el reel original en el perfil oficial de Marco.
                 </p>
                 <ButtonAnchor href={reel.instagramUrl ?? '#'} tone="bone" variant="solid" arrow>

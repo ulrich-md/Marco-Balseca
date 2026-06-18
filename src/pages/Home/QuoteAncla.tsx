@@ -14,7 +14,7 @@ export function QuoteAncla() {
           <RevealText
             as="p"
             text={'"La fuerza de Tehuacán\nestá en su gente."'}
-            className="font-display text-[9vw] leading-[0.95] text-guinda sm:text-5xl lg:text-6xl"
+            className="font-display text-[9vw] leading-[0.95] text-ink sm:text-5xl lg:text-6xl"
           />
           <Reveal delay={0.15}>
             <figcaption className="mt-7 text-sm uppercase tracking-[0.2em] text-mute">

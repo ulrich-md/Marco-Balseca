@@ -41,9 +41,9 @@ export function StatCounter({ value, suffix = '', placeholder = '[N]', label, to
     return () => cancelAnimationFrame(raf)
   }, [inView, hasData, value, reduce])
 
-  const numClass = tone === 'bone' ? 'text-bone' : 'text-guinda'
-  const labelClass = tone === 'bone' ? 'text-bone/65' : 'text-ink/60'
-  const phClass = tone === 'bone' ? 'text-sand/80' : 'text-guinda/35'
+  const numClass = tone === 'bone' ? 'text-white' : 'text-ink'
+  const labelClass = tone === 'bone' ? 'text-white/60' : 'text-mute'
+  const phClass = tone === 'bone' ? 'text-guinda' : 'text-guinda/45'
 
   return (
     <div ref={ref}>

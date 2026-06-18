@@ -17,7 +17,7 @@ export default function Home() {
         description="Marco Balseca, figura política y comunitaria de Tehuacán, Puebla. Tiui Chikavak — Vámonos recio. Por nuestra tierra y nuestra gente."
       />
       <Hero />
-      <Marquee tone="guinda" />
+      <Marquee tone="dark" />
       <StatsBand />
       <TrayectoriaTeaser />
       <AccionesTeaser />

@@ -28,8 +28,8 @@ export default function Conoceme() {
       <section className="bg-bone py-20 text-ink md:py-28">
         <div className="container-x grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
           <Reveal>
-            {/* REEMPLAZAR: retrato de apoyo de @marcobalseca1 */}
-            <PortraitPlaceholder className="aspect-[4/5] w-full" tone="guinda" />
+            {/* REEMPLAZAR: retrato de apoyo (B&N) de @marcobalseca1 */}
+            <PortraitPlaceholder className="aspect-[4/5] w-full" tone="grey" frame />
           </Reveal>
 
           <div>
@@ -37,7 +37,7 @@ export default function Conoceme() {
             <RevealText
               as="h2"
               text="Raíces en Tehuacán"
-              className="font-display mt-5 text-5xl leading-[0.9] text-guinda md:text-6xl"
+              className="font-display mt-5 text-5xl leading-[0.9] text-ink md:text-6xl"
             />
             <div className="mt-6 space-y-5 text-lg leading-relaxed text-ink/85">
               <p>
@@ -50,7 +50,7 @@ export default function Conoceme() {
                 práctica: escuchar primero, resolver después.{' '}
                 <span className="text-mute">// REEMPLAZAR: trayectoria profesional real.</span>
               </p>
-              <p className="border-l-2 border-guinda pl-5 font-condensed text-2xl font-medium uppercase tracking-wide text-guinda">
+              <p className="border-l-2 border-guinda pl-5 font-condensed text-2xl font-medium uppercase tracking-wide text-ink">
                 Su orgullo: las raíces, las lenguas maternas y la gente de Tehuacán.
               </p>
             </div>
@@ -58,7 +58,7 @@ export default function Conoceme() {
         </div>
       </section>
 
-      <Marquee tone="guinda" />
+      <Marquee tone="dark" />
 
       {/* Valores / pilares */}
       <section className="bg-white py-20 text-ink md:py-28">
@@ -67,14 +67,14 @@ export default function Conoceme() {
           <RevealText
             as="h2"
             text="Cuatro pilares"
-            className="font-display mt-5 text-5xl leading-[0.9] text-guinda md:text-7xl"
+            className="font-display mt-5 text-5xl leading-[0.9] text-ink md:text-7xl"
           />
 
           <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 sm:grid-cols-2">
             {PILARES.map((p, i) => (
               <Reveal key={p.num} delay={i * 0.06} className="bg-white p-8 md:p-10">
                 <div className="flex items-start gap-5">
-                  <span className="font-display text-4xl text-guinda/25">{p.num}</span>
+                  <span className="font-display text-4xl text-ink/15">{p.num}</span>
                   <div>
                     <h3 className="font-condensed text-2xl font-semibold uppercase tracking-wide text-guinda">
                       {p.titulo}

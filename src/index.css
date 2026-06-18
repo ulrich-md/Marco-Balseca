@@ -2,18 +2,25 @@
 
 /* =========================================================================
    MARCO BALSECA — Sistema de diseño / tokens centralizados
-   Paleta oficial: guinda + blanco/bone, alto contraste estilo campaña.
+   Editorial B&N de alto contraste (ref. ESPN / Yeezy): blanco + negro + gris
+   neutro como base; GUINDA como único acento filoso (titulares, marco, reglas,
+   estado activo). Nada de campos cálidos/crema.
    ========================================================================= */
 @theme {
-  /* ---- Color (identidad política real) ---- */
-  --color-guinda: #6e2233; /* vino/guinda dominante */
-  --color-guinda-deep: #4e1722; /* fondos oscuros */
-  --color-guinda-soft: #8a3145; /* hover / acentos */
-  --color-bone: #f4efea; /* secciones claras / texto inverso */
-  --color-white: #ffffff;
-  --color-ink: #1e1714; /* texto sobre claro */
-  --color-mute: #8a7e78; /* secundarios */
-  --color-sand: #d9c7a8; /* acento cálido fino */
+  /* ---- Acento de marca (guinda) ---- */
+  --color-guinda: #6e2233; /* acento principal (como el rojo de ESPN) */
+  --color-guinda-deep: #4e1722; /* variante profunda */
+  --color-guinda-soft: #9a2f44; /* hover / acento más vivo */
+
+  /* ---- Base neutra B&N ---- */
+  --color-black: #0b0b0b; /* negro real: campos oscuros, footer, CTA, menú */
+  --color-ink: #161616; /* texto sobre claro (neutro, no café) */
+  --color-white: #ffffff; /* campo dominante */
+  --color-bone: #f4f4f2; /* casi-blanco neutro (texto inverso sobre oscuro) */
+  --color-mist: #eaeaea; /* gris para bloques de foto / paneles alternos */
+  --color-mute: #5e5e5e; /* gris secundario (AA sobre blanco) */
+  --color-line: #1616161f; /* líneas finas */
+  --color-sand: #d9c7a8; /* legado, uso mínimo */
 
   /* ---- Tipografía ---- */
   --font-display: 'Anton', 'Oswald', 'Arial Narrow', system-ui, sans-serif;
@@ -143,6 +150,16 @@
       -webkit-text-stroke-width: 2.5px;
       text-stroke-width: 2.5px;
     }
+  }
+
+  /* Texto vertical (etiquetas tipo índice / año, ref. Yeezy/ESPN) */
+  .vertical-rl {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+  .vertical-lr {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
   }
 
   /* Textura sutil de papel/grano para bloques guinda */
