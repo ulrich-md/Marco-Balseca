@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6E2233"/>
+      <stop offset="1" stop-color="#4E1722"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1050" cy="60" r="360" fill="#D9C7A8" opacity="0.07"/>
+  <text x="80" y="120" font-family="Oswald, Arial Narrow, sans-serif" font-size="26"
+        font-weight="600" letter-spacing="6" fill="#D9C7A8">TEHUACÁN · PUEBLA</text>
+  <text x="74" y="330" font-family="Anton, Oswald, sans-serif" font-size="200"
+        fill="#F4EFEA" letter-spacing="-4">TIUI</text>
+  <text x="74" y="510" font-family="Anton, Oswald, sans-serif" font-size="200"
+        fill="none" stroke="#D9C7A8" stroke-width="3" letter-spacing="-4">CHIKAVAK</text>
+  <text x="80" y="585" font-family="Oswald, Arial Narrow, sans-serif" font-size="34"
+        font-weight="500" letter-spacing="2" fill="#F4EFEA">MARCO BALSECA — Vámonos recio</text>
+</svg>

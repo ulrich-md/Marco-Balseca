@@ -1,0 +1,219 @@
+@import 'tailwindcss';
+
+/* =========================================================================
+   MARCO BALSECA — Sistema de diseño / tokens centralizados
+   Paleta oficial: guinda + blanco/bone, alto contraste estilo campaña.
+   ========================================================================= */
+@theme {
+  /* ---- Color (identidad política real) ---- */
+  --color-guinda: #6e2233; /* vino/guinda dominante */
+  --color-guinda-deep: #4e1722; /* fondos oscuros */
+  --color-guinda-soft: #8a3145; /* hover / acentos */
+  --color-bone: #f4efea; /* secciones claras / texto inverso */
+  --color-white: #ffffff;
+  --color-ink: #1e1714; /* texto sobre claro */
+  --color-mute: #8a7e78; /* secundarios */
+  --color-sand: #d9c7a8; /* acento cálido fino */
+
+  /* ---- Tipografía ---- */
+  --font-display: 'Anton', 'Oswald', 'Arial Narrow', system-ui, sans-serif;
+  --font-condensed: 'Oswald', 'Arial Narrow', system-ui, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* ---- Easing ---- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-power3: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+/* =========================================================================
+   Base
+   ========================================================================= */
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  * {
+    border-color: color-mix(in srgb, var(--color-ink) 12%, transparent);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  /* Lenis controla el scroll; desactivamos el nativo cuando está activo */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-bone);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 400;
+    line-height: 0.92;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: var(--color-guinda);
+    color: var(--color-bone);
+  }
+
+  /* Foco accesible y visible (WCAG). Doble anillo (bone + guinda) para que
+     SIEMPRE haya contraste, tanto sobre guinda como sobre claro. Sigue el
+     border-radius del elemento (a diferencia de outline). */
+  :focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 2px var(--color-bone),
+      0 0 0 5px var(--color-guinda);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img,
+  svg,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+/* =========================================================================
+   Utilidades de marca
+   ========================================================================= */
+@layer utilities {
+  /* Display gigante de cartel */
+  .font-display {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    line-height: 0.86;
+  }
+  .font-condensed {
+    font-family: var(--font-condensed);
+  }
+
+  /* Etiqueta tipo índice: "01 — TRAYECTORIA" */
+  .eyebrow {
+    font-family: var(--font-sans);
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    font-size: 0.72rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  /* Lema en outline: relleno transparente + trazo en el color actual.
+     Usamos -webkit-text-fill-color (no `color: transparent`) para que
+     currentColor del trazo conserve el color real (guinda/sand/bone). */
+  .text-outline {
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 2px currentColor;
+    text-stroke: 2px currentColor;
+    paint-order: stroke fill;
+  }
+  @media (min-width: 768px) {
+    .text-outline {
+      -webkit-text-stroke-width: 2.5px;
+      text-stroke-width: 2.5px;
+    }
+  }
+
+  /* Textura sutil de papel/grano para bloques guinda */
+  .bg-grain {
+    background-image: radial-gradient(
+      color-mix(in srgb, var(--color-white) 4%, transparent) 1px,
+      transparent 1px
+    );
+    background-size: 4px 4px;
+  }
+
+  /* Línea fina de marca */
+  .rule {
+    height: 1px;
+    background: color-mix(in srgb, currentColor 22%, transparent);
+  }
+
+  .container-x {
+    width: 100%;
+    margin-inline: auto;
+    max-width: 88rem; /* ~1408px */
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-x {
+      padding-inline: 2.5rem;
+    }
+  }
+  @media (min-width: 1280px) {
+    .container-x {
+      padding-inline: 3.5rem;
+    }
+  }
+}
+
+/* =========================================================================
+   Animación base para split-text (fallback sin JS-heavy) y máscaras
+   ========================================================================= */
+.reveal-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+.reveal-line {
+  display: block;
+  overflow: hidden;
+}
+
+/* Marquee */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* =========================================================================
+   Accesibilidad: respeta prefers-reduced-motion
+   ========================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  html {
+    scroll-behavior: auto !important;
+  }
+}

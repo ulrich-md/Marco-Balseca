@@ -1,0 +1,98 @@
+/* =========================================================================
+   Constantes de marca y configuración del sitio — Marco Balseca
+   IDENTIDAD REAL (usar tal cual): nombre, lema náhuatl, Tehuacán/Puebla,
+   paleta guinda, Instagram @marcobalseca1.
+   TODO lo específico (cargos, cifras, fechas, propuestas) es PLACEHOLDER.
+   ========================================================================= */
+
+export const SITE = {
+  name: 'Marco Balseca',
+  /** Lema oficial — el corazón de la marca */
+  lema: {
+    nahuatl: 'Tiui Chikavak',
+    es: 'Vámonos recio',
+    lang: 'náhuatl',
+  },
+  ciudad: 'Tehuacán',
+  estado: 'Puebla',
+  pais: 'México',
+  tagline: 'Por nuestra tierra y nuestra gente.',
+  /** URL canónica de despliegue (ajustar al dominio real) */
+  url: 'https://marcobalseca.mx',
+  // REEMPLAZAR: descripción oficial aprobada por el equipo de Marco
+  descripcion:
+    'Marco Balseca, figura política y comunitaria de Tehuacán, Puebla. Tiui Chikavak — Vámonos recio. Por nuestra tierra, nuestra gente y nuestras raíces.',
+} as const
+
+/** Navegación principal (header + footer) */
+export const NAV = [
+  { label: 'Inicio', to: '/' },
+  { label: 'Conóceme', to: '/conoceme' },
+  { label: 'Trayectoria', to: '/trayectoria' },
+  { label: 'Acciones', to: '/acciones' },
+  { label: 'Reels', to: '/reels' },
+  { label: 'Agenda', to: '/agenda' },
+  { label: 'Contacto', to: '/contacto' },
+] as const
+
+/** Redes y contacto. Solo @marcobalseca1 es dato real verificado. */
+export const SOCIAL = {
+  instagram: {
+    label: 'Instagram',
+    handle: '@marcobalseca1',
+    url: 'https://www.instagram.com/marcobalseca1/',
+  },
+  // REEMPLAZAR: enlaces oficiales si existen
+  facebook: { label: 'Facebook', handle: 'Marco Balseca', url: '#' },
+  x: { label: 'X', handle: '@marcobalseca1', url: '#' },
+  // REEMPLAZAR: número oficial de WhatsApp del movimiento
+  whatsapp: {
+    label: 'WhatsApp',
+    numero: '52 200 000 0000',
+    url: 'https://wa.me/522000000000',
+  },
+  // REEMPLAZAR: correo oficial de contacto
+  email: { label: 'Correo', value: 'hola@marcobalseca.mx' },
+} as const
+
+/** Cifras clave del hero — PLACEHOLDERS con count-up. */
+export const STATS = [
+  // REEMPLAZAR: cifras reales (años de servicio, comunidades, etc.)
+  { value: 0, suffix: '', label: 'Años caminando Tehuacán', placeholder: '[N]' },
+  { value: 0, suffix: '', label: 'Colonias y juntas visitadas', placeholder: '[N]' },
+  { value: 0, suffix: '', label: 'Acciones comunitarias', placeholder: '[N]' },
+] as const
+
+/** Pilares / valores de identidad (Conóceme + teasers) */
+export const PILARES = [
+  {
+    num: '01',
+    titulo: 'Comunidad',
+    texto:
+      'La fuerza está en la gente. Escuchar de cerca, en la colonia y en la junta, antes de decidir. // REEMPLAZAR: enfoque comunitario real.',
+  },
+  {
+    num: '02',
+    titulo: 'Raíces y lenguas maternas',
+    texto:
+      'Orgullo por el náhuatl y por quienes lo hablan. Nuestra identidad no se traduce: se honra y se hereda.',
+  },
+  {
+    num: '03',
+    titulo: 'Trabajo',
+    texto:
+      'Resultados antes que ruido. Constancia, oficio y cuentas claras. // REEMPLAZAR: ejemplos concretos de trabajo.',
+  },
+  {
+    num: '04',
+    titulo: 'Cercanía',
+    texto:
+      'De tú a tú, sin distancia. La política se hace en la calle, con nombre y apellido: contigo.',
+  },
+] as const
+
+/** Frase ancla bilingüe para cierres de sección */
+export const ANCLA = {
+  nahuatl: 'Tiui chikavak',
+  es: 'Vámonos recio: por nuestra tierra, con nuestra gente.',
+}
