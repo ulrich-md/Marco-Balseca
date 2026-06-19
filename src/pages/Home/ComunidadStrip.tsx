@@ -50,8 +50,14 @@ export function ComunidadStrip() {
             <Reveal key={i} delay={(i % 4) * 0.05}>
               <figure className="group">
                 <div className="relative overflow-hidden">
-                  {/* REEMPLAZAR: foto B&N real del simpatizante (con consentimiento) */}
-                  <PortraitPlaceholder tone="grey" note={false} className="aspect-square w-full" />
+                  {/* Foto real: define `foto` en COMUNIDAD (data/site.ts) */}
+                  <PortraitPlaceholder
+                    tone="grey"
+                    note={false}
+                    src={p.foto}
+                    alt={`${p.rol} — ${p.colonia}`}
+                    className="aspect-square w-full"
+                  />
                   <span
                     aria-hidden
                     className="absolute bottom-0 left-0 h-1 w-0 bg-accent transition-all duration-500 ease-[var(--ease-out-expo)] group-hover:w-full"

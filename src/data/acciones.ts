@@ -14,8 +14,9 @@ export type Accion = {
   categoria: Categoria
   titulo: string
   resumen: string
-  // REEMPLAZAR: foto real de la acción/propuesta de @marcobalseca1
-  // imagen: '/acciones/xxxx.jpg'
+  /** Foto real: sube a public/assets/acciones/ y pon su ruta aquí.
+   *  Ej: imagen: '/assets/acciones/economia-local.jpg' */
+  imagen?: string
 }
 
 export const ACCIONES: Accion[] = [

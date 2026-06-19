@@ -65,9 +65,13 @@ export const COMUNIDAD_COUNT = 0
 /**
  * Comunidad / simpatizantes para la galería humana (patrón Community Landing).
  * Usamos ROLES (no nombres inventados) para humanizar con honestidad.
+ * Para mostrar la foto real: sube el archivo a public/assets/comunidad/ y
+ * pon su ruta en `foto` (ej. '/assets/comunidad/persona-1.jpg').
  * REEMPLAZAR: fotos y nombres reales de simpatizantes, con su consentimiento.
  */
-export const COMUNIDAD = [
+export type Simpatizante = { rol: string; colonia: string; foto?: string }
+
+export const COMUNIDAD: Simpatizante[] = [
   { rol: 'Vecina', colonia: 'Col. [nombre]' },
   { rol: 'Comerciante', colonia: 'Centro, Tehuacán' },
   { rol: 'Estudiante', colonia: 'Col. [nombre]' },
@@ -76,7 +80,7 @@ export const COMUNIDAD = [
   { rol: 'Joven', colonia: 'Col. [nombre]' },
   { rol: 'Comerciante', colonia: 'Mercado [nombre]' },
   { rol: 'Vecino', colonia: 'Col. [nombre]' },
-] as const
+]
 
 /** Pilares / valores de identidad (Conóceme + teasers) */
 export const PILARES = [
