@@ -20,11 +20,11 @@ export type Accion = {
 
 export const ACCIONES: Accion[] = [
   {
-    slug: 'raices-lenguas-maternas',
+    slug: 'raices-y-cultura',
     categoria: 'Raíces y cultura',
-    titulo: 'Orgullo náhuatl: lenguas maternas vivas',
+    titulo: 'Raíces y cultura viva de Tehuacán',
     resumen:
-      'Honrar y heredar el náhuatl en Tehuacán. // REEMPLAZAR: [propuesta] concreta de promoción cultural.',
+      'Honrar la historia y las tradiciones de Tehuacán. // REEMPLAZAR: [propuesta] concreta de promoción cultural.',
   },
   {
     slug: 'cerca-de-la-gente',

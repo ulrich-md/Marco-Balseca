@@ -22,8 +22,8 @@ export function TimelineItem({ hito, index, orientation }: Props) {
         aria-hidden
         className={
           isH
-            ? 'absolute -top-[2.45rem] left-0 h-3.5 w-3.5 rounded-full bg-guinda ring-4 ring-bone'
-            : 'absolute -left-[1.95rem] top-1.5 h-3.5 w-3.5 rounded-full bg-guinda ring-4 ring-bone'
+            ? 'absolute -top-[2.45rem] left-0 h-3.5 w-3.5 rounded-full bg-accent ring-4 ring-bone'
+            : 'absolute -left-[1.95rem] top-1.5 h-3.5 w-3.5 rounded-full bg-accent ring-4 ring-bone'
         }
       />
       <div className="rounded-2xl border border-ink/10 bg-white p-7 md:p-8">
@@ -40,7 +40,7 @@ export function TimelineItem({ hito, index, orientation }: Props) {
         </h3>
         <p className="mt-3 leading-relaxed text-ink/70">{hito.texto}</p>
         {hito.lugar && (
-          <p className="eyebrow mt-5 text-guinda/70">{hito.lugar}</p>
+          <p className="eyebrow mt-5 text-accent/70">{hito.lugar}</p>
         )}
       </div>
     </article>

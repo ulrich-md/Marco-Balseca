@@ -15,7 +15,7 @@ export function ReelsStrip() {
       <div className="container-x">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
-            <SectionLabel num="04" tone="guinda">
+            <SectionLabel num="04" tone="accent">
               Reels
             </SectionLabel>
             <RevealText
@@ -29,7 +29,7 @@ export function ReelsStrip() {
                 href="https://www.instagram.com/marcobalseca1/"
                 target="_blank"
                 rel="noreferrer"
-                className="font-medium text-guinda underline-offset-4 hover:underline"
+                className="font-medium text-accent underline-offset-4 hover:underline"
               >
                 @marcobalseca1
               </a>
@@ -37,7 +37,7 @@ export function ReelsStrip() {
             </p>
           </div>
           <div className="hidden md:block">
-            <ButtonLink to="/reels" tone="guinda" variant="outline">
+            <ButtonLink to="/reels" tone="accent" variant="outline">
               Ver todos los reels
             </ButtonLink>
           </div>
@@ -52,7 +52,7 @@ export function ReelsStrip() {
         </div>
 
         <div className="mt-8 md:hidden">
-          <ButtonLink to="/reels" tone="guinda" variant="outline" full>
+          <ButtonLink to="/reels" tone="accent" variant="outline" full>
             Ver todos los reels
           </ButtonLink>
         </div>

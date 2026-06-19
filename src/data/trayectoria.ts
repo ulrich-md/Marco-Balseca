@@ -43,9 +43,8 @@ export const TRAYECTORIA: Hito[] = [
   },
   {
     anio: 'Hoy',
-    titulo: 'Tiui Chikavak',
-    texto:
-      'El movimiento sigue. Vámonos recio, por nuestra tierra y nuestra gente.',
+    titulo: 'El movimiento sigue',
+    texto: 'Cerca de la gente, por nuestra tierra y nuestra gente, todos los días.',
     lugar: 'Tehuacán, Puebla',
   },
 ]

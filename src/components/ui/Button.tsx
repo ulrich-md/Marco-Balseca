@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import type { ReactNode } from 'react'
 
 type Variant = 'solid' | 'outline' | 'ghost'
-type Tone = 'guinda' | 'bone' | 'ink'
+type Tone = 'accent' | 'bone' | 'ink'
 
 type CommonProps = {
   children: ReactNode
@@ -15,14 +15,14 @@ type CommonProps = {
 const base =
   'group/btn inline-flex items-center justify-center gap-2.5 font-condensed font-semibold uppercase tracking-[0.12em] text-sm px-7 py-3.5 rounded-full transition-all duration-300 ease-[var(--ease-out-expo)] focus-visible:outline-offset-2'
 
-function classes({ variant = 'solid', tone = 'guinda', full }: CommonProps) {
+function classes({ variant = 'solid', tone = 'accent', full }: CommonProps) {
   const width = full ? 'w-full' : ''
   const map: Record<Tone, Record<Variant, string>> = {
-    guinda: {
+    accent: {
       solid:
-        'bg-guinda text-white hover:bg-guinda-soft hover:-translate-y-0.5 shadow-[0_10px_30px_-12px_rgba(110,34,51,0.6)]',
-      outline: 'border border-guinda/45 text-guinda hover:bg-guinda hover:text-white hover:-translate-y-0.5',
-      ghost: 'text-guinda hover:bg-guinda/8',
+        'bg-accent text-white hover:bg-accent-soft hover:-translate-y-0.5 shadow-[0_10px_30px_-12px_rgba(110,34,51,0.6)]',
+      outline: 'border border-accent/45 text-accent hover:bg-accent hover:text-white hover:-translate-y-0.5',
+      ghost: 'text-accent hover:bg-accent/8',
     },
     ink: {
       solid: 'bg-ink text-white hover:bg-black hover:-translate-y-0.5 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)]',

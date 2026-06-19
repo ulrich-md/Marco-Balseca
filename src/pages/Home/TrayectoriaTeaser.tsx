@@ -13,7 +13,7 @@ export function TrayectoriaTeaser() {
       <div className="container-x">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
-            <SectionLabel num="02" tone="guinda">
+            <SectionLabel num="02" tone="accent">
               Trayectoria
             </SectionLabel>
             <RevealText
@@ -23,7 +23,7 @@ export function TrayectoriaTeaser() {
             />
           </div>
           <div className="hidden md:block">
-            <ButtonLink to="/trayectoria" variant="outline" tone="guinda">
+            <ButtonLink to="/trayectoria" variant="outline" tone="accent">
               Ver trayectoria
             </ButtonLink>
           </div>
@@ -35,7 +35,7 @@ export function TrayectoriaTeaser() {
               <span className="font-display text-3xl text-ink/15">
                 {String(i + 1).padStart(2, '0')}
               </span>
-              <p className="font-condensed mt-4 text-xl font-semibold uppercase tracking-wide text-guinda">
+              <p className="font-condensed mt-4 text-xl font-semibold uppercase tracking-wide text-accent">
                 {h.anio}
               </p>
               <h3 className="mt-1 text-lg font-semibold text-ink">{h.titulo}</h3>
@@ -45,7 +45,7 @@ export function TrayectoriaTeaser() {
         </div>
 
         <div className="mt-8 md:hidden">
-          <ButtonLink to="/trayectoria" variant="outline" tone="guinda" full>
+          <ButtonLink to="/trayectoria" variant="outline" tone="accent" full>
             Ver trayectoria
           </ButtonLink>
         </div>

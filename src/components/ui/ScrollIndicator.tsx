@@ -1,9 +1,9 @@
 import { motion, useReducedMotion } from 'framer-motion'
 
 /** Indicador de scroll discreto para el hero. */
-export function ScrollIndicator({ tone = 'bone' }: { tone?: 'bone' | 'guinda' }) {
+export function ScrollIndicator({ tone = 'bone' }: { tone?: 'bone' | 'accent' }) {
   const reduce = useReducedMotion()
-  const color = tone === 'bone' ? 'text-bone/70' : 'text-guinda/70'
+  const color = tone === 'bone' ? 'text-bone/70' : 'text-accent/70'
 
   return (
     <div className={`flex items-center gap-3 ${color}`}>

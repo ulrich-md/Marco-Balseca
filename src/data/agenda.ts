@@ -30,7 +30,7 @@ export const AGENDA: Evento[] = [
   {
     id: 'ev-3',
     fechaISO: '2026-08-03',
-    titulo: '[Jornada cultural náhuatl]',
+    titulo: '[Jornada cultural de Tehuacán]',
     lugar: '[Sede], Tehuacán, Puebla',
     descripcion:
       'Celebración de lenguas maternas y tradición. // REEMPLAZAR: detalle real.',

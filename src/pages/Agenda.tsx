@@ -46,7 +46,7 @@ export default function Agenda() {
                     <div className="flex items-center gap-4 md:w-44">
                       <span className="font-display text-6xl leading-none text-ink">{d.dia}</span>
                       <div className="font-condensed uppercase leading-tight">
-                        <span className="block text-lg font-semibold tracking-wide text-guinda">
+                        <span className="block text-lg font-semibold tracking-wide text-accent">
                           {d.mes}
                         </span>
                         <span className="block text-sm text-mute">{d.anio}</span>
@@ -56,10 +56,10 @@ export default function Agenda() {
 
                     {/* Detalle */}
                     <div>
-                      <h2 className="font-condensed text-2xl font-semibold leading-tight text-ink transition-colors group-hover:text-guinda md:text-3xl">
+                      <h2 className="font-condensed text-2xl font-semibold leading-tight text-ink transition-colors group-hover:text-accent md:text-3xl">
                         {ev.titulo}
                       </h2>
-                      <p className="mt-1.5 flex items-center gap-1.5 text-sm text-guinda">
+                      <p className="mt-1.5 flex items-center gap-1.5 text-sm text-accent">
                         <PinIcon className="h-4 w-4" />
                         {ev.lugar}
                       </p>
@@ -73,7 +73,7 @@ export default function Agenda() {
                       <ButtonAnchor
                         href={ev.cta?.url ?? '#'}
                         external={false}
-                        tone="guinda"
+                        tone="accent"
                         variant="outline"
                         arrow
                         className="px-6 py-2.5 text-xs"
@@ -89,7 +89,7 @@ export default function Agenda() {
 
           <p className="mt-10 text-sm text-mute">
             // REEMPLAZAR: edita los eventos en
-            <code className="mx-1 rounded bg-ink/5 px-1.5 py-0.5 text-guinda">src/data/agenda.ts</code>.
+            <code className="mx-1 rounded bg-ink/5 px-1.5 py-0.5 text-accent">src/data/agenda.ts</code>.
           </p>
         </div>
       </section>

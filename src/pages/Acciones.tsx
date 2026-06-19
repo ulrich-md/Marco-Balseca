@@ -34,7 +34,7 @@ export default function Acciones() {
 
           <p className="mt-12 max-w-2xl text-sm text-mute">
             // REEMPLAZAR: cada tarjeta puede enlazar a una página de detalle por
-            <code className="mx-1 rounded bg-ink/5 px-1.5 py-0.5 text-guinda">slug</code>
+            <code className="mx-1 rounded bg-ink/5 px-1.5 py-0.5 text-accent">slug</code>
             con galería, propuestas puntuales y resultados.
           </p>
         </div>

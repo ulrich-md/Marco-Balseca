@@ -72,7 +72,7 @@ export default function Trayectoria() {
         >
           <div className="pointer-events-none absolute left-0 right-0 top-12 z-10">
             <div className="container-x flex items-center justify-between">
-              <SectionLabel tone="guinda">Línea de tiempo</SectionLabel>
+              <SectionLabel tone="accent">Línea de tiempo</SectionLabel>
               <span className="eyebrow text-mute">Desliza para avanzar →</span>
             </div>
           </div>
@@ -90,7 +90,7 @@ export default function Trayectoria() {
       {/* === Móvil / reduced-motion: vertical === */}
       <section className={`bg-bone py-16 ${reduce ? '' : 'lg:hidden'}`}>
         <div className="container-x">
-          <SectionLabel tone="guinda">Línea de tiempo</SectionLabel>
+          <SectionLabel tone="accent">Línea de tiempo</SectionLabel>
           <div className="relative mt-10 space-y-8 pl-8">
             {/* riel vertical */}
             <div className="absolute bottom-2 left-[6px] top-2 w-px bg-ink/15" />

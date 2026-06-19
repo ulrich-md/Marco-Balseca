@@ -13,13 +13,13 @@ type Props = {
 
 /**
  * Banda hero de página: blanco editorial, título gigante en NEGRO (ref. ESPN),
- * guinda solo como acento (número, regla del índice).
+ * accent solo como acento (número, regla del índice).
  */
 export function PageHero({ index, label, title, intro, children }: Props) {
   return (
     <section className="relative overflow-hidden bg-white pt-32 pb-12 text-ink md:pt-44 md:pb-16">
       <div className="container-x relative">
-        <SectionLabel num={index} tone="guinda">
+        <SectionLabel num={index} tone="accent">
           {label}
         </SectionLabel>
         <RevealText
@@ -35,9 +35,11 @@ export function PageHero({ index, label, title, intro, children }: Props) {
         )}
         {children}
       </div>
-      {/* regla guinda fina al pie del hero */}
+      {/* regla al pie con segmento rojo (ref. ESPN section divider) */}
       <div aria-hidden className="container-x mt-10 md:mt-14">
-        <div className="h-px w-full bg-ink/10" />
+        <div className="relative h-px w-full bg-ink/10">
+          <span className="absolute left-0 top-0 h-px w-28 bg-accent" />
+        </div>
       </div>
     </section>
   )

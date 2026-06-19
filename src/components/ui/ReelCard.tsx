@@ -62,15 +62,15 @@ export function ReelCard({ reel, index, onOpen }: Props) {
 
       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent" />
 
-      {/* marco guinda fino al hover */}
-      <span aria-hidden className="pointer-events-none absolute inset-2.5 border border-guinda opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+      {/* marco accent fino al hover */}
+      <span aria-hidden className="pointer-events-none absolute inset-2.5 border border-accent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-      <span className="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-guinda transition-transform duration-300 group-hover:scale-110">
+      <span className="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-accent transition-transform duration-300 group-hover:scale-110">
         <PlayIcon />
       </span>
 
       <div className="absolute inset-x-0 bottom-0 p-4">
-        <span className="eyebrow text-guinda">Reel · 9:16</span>
+        <span className="eyebrow text-accent">Reel · 9:16</span>
         <h3 className="font-condensed mt-1 text-lg font-semibold leading-tight text-white">
           {reel.titulo}
         </h3>

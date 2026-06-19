@@ -6,6 +6,7 @@ import { StatsBand } from './StatsBand'
 import { TrayectoriaTeaser } from './TrayectoriaTeaser'
 import { AccionesTeaser } from './AccionesTeaser'
 import { ReelsStrip } from './ReelsStrip'
+import { ComunidadStrip } from './ComunidadStrip'
 import { QuoteAncla } from './QuoteAncla'
 
 export default function Home() {
@@ -14,7 +15,7 @@ export default function Home() {
       <Seo
         title="Marco Balseca"
         path="/"
-        description="Marco Balseca, figura política y comunitaria de Tehuacán, Puebla. Tiui Chikavak — Vámonos recio. Por nuestra tierra y nuestra gente."
+        description="Marco Balseca, figura política y comunitaria de Tehuacán, Puebla. Cerca de la gente, por nuestra tierra. Súmate al movimiento."
       />
       <Hero />
       <Marquee tone="dark" />
@@ -22,6 +23,7 @@ export default function Home() {
       <TrayectoriaTeaser />
       <AccionesTeaser />
       <ReelsStrip />
+      <ComunidadStrip />
       <QuoteAncla />
       <CtaBand />
     </>

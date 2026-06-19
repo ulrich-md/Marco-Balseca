@@ -7,8 +7,8 @@ import { MobileMenu } from './MobileMenu'
 
 /**
  * Header fijo y claro. Todas las páginas abren con fondo claro (bone/blanco),
- * así que el header usa tinta guinda. Al hacer scroll, fondo blanco translúcido
- * + sombra suave. Menú móvil full-screen en guinda.
+ * así que el header usa tinta accent. Al hacer scroll, fondo blanco translúcido
+ * + sombra suave. Menú móvil full-screen en accent.
  */
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
@@ -25,7 +25,7 @@ export function Header() {
     <>
       <a
         href="#contenido"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-full focus:bg-guinda focus:px-4 focus:py-2 focus:text-bone"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-bone"
       >
         Saltar al contenido
       </a>
@@ -47,8 +47,8 @@ export function Header() {
                 to={item.to}
                 end={item.to === '/'}
                 className={({ isActive }) =>
-                  `group relative font-condensed text-sm font-medium uppercase tracking-[0.14em] transition-colors ${
-                    isActive ? 'text-guinda' : 'text-ink/65 hover:text-guinda'
+                  `group relative font-mono text-[0.72rem] uppercase tracking-[0.18em] transition-colors ${
+                    isActive ? 'text-accent' : 'text-ink/65 hover:text-accent'
                   }`
                 }
               >
@@ -56,7 +56,7 @@ export function Header() {
                   <>
                     {item.label}
                     <span
-                      className={`absolute -bottom-1.5 left-0 h-px bg-guinda transition-all duration-300 ease-[var(--ease-out-expo)] ${
+                      className={`absolute -bottom-1.5 left-0 h-px bg-accent transition-all duration-300 ease-[var(--ease-out-expo)] ${
                         isActive ? 'w-full' : 'w-0 group-hover:w-full'
                       }`}
                     />
@@ -68,7 +68,7 @@ export function Header() {
 
           <div className="flex items-center gap-3">
             <div className="hidden lg:block">
-              <ButtonLink to="/contacto" tone="guinda" variant="solid" arrow={false} className="px-6 py-2.5">
+              <ButtonLink to="/contacto" tone="accent" variant="solid" arrow={false} className="px-6 py-2.5">
                 Súmate
               </ButtonLink>
             </div>

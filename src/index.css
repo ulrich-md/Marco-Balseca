@@ -2,15 +2,15 @@
 
 /* =========================================================================
    MARCO BALSECA — Sistema de diseño / tokens centralizados
-   Editorial B&N de alto contraste (ref. ESPN / Yeezy): blanco + negro + gris
-   neutro como base; GUINDA como único acento filoso (titulares, marco, reglas,
-   estado activo). Nada de campos cálidos/crema.
+   Editorial B&N de alto contraste (Swiss Modernism 2.0, ref. ESPN / Yeezy):
+   blanco + negro + gris neutro como base; ROJO como único acento filoso
+   (estado activo, marco, reglas, etiquetas, CTA). Sin crema ni café.
    ========================================================================= */
 @theme {
-  /* ---- Acento de marca (guinda) ---- */
-  --color-guinda: #6e2233; /* acento principal (como el rojo de ESPN) */
-  --color-guinda-deep: #4e1722; /* variante profunda */
-  --color-guinda-soft: #9a2f44; /* hover / acento más vivo */
+  /* ---- Acento único (rojo editorial, ref. ESPN/Yeezy) ---- */
+  --color-accent: #e1251b; /* rojo de acento (único color del sistema) */
+  --color-accent-deep: #b81c12; /* hover/pressed */
+  --color-accent-soft: #f23b2e; /* acento más vivo */
 
   /* ---- Base neutra B&N ---- */
   --color-black: #0b0b0b; /* negro real: campos oscuros, footer, CTA, menú */
@@ -20,12 +20,12 @@
   --color-mist: #eaeaea; /* gris para bloques de foto / paneles alternos */
   --color-mute: #5e5e5e; /* gris secundario (AA sobre blanco) */
   --color-line: #1616161f; /* líneas finas */
-  --color-sand: #d9c7a8; /* legado, uso mínimo */
 
   /* ---- Tipografía ---- */
   --font-display: 'Anton', 'Oswald', 'Arial Narrow', system-ui, sans-serif;
   --font-condensed: 'Oswald', 'Arial Narrow', system-ui, sans-serif;
   --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
 
   /* ---- Easing ---- */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -84,18 +84,18 @@
   }
 
   ::selection {
-    background: var(--color-guinda);
+    background: var(--color-accent);
     color: var(--color-bone);
   }
 
-  /* Foco accesible y visible (WCAG). Doble anillo (bone + guinda) para que
-     SIEMPRE haya contraste, tanto sobre guinda como sobre claro. Sigue el
+  /* Foco accesible y visible (WCAG). Doble anillo (bone + accent) para que
+     SIEMPRE haya contraste, tanto sobre accent como sobre claro. Sigue el
      border-radius del elemento (a diferencia de outline). */
   :focus-visible {
     outline: none;
     box-shadow:
       0 0 0 2px var(--color-bone),
-      0 0 0 5px var(--color-guinda);
+      0 0 0 5px var(--color-accent);
   }
 
   a {
@@ -126,19 +126,19 @@
     font-family: var(--font-condensed);
   }
 
-  /* Etiqueta tipo índice: "01 — TRAYECTORIA" */
+  /* Etiqueta técnica tipo índice (mono, ref. ESPN/Yeezy): "01 — TRAYECTORIA" */
   .eyebrow {
-    font-family: var(--font-sans);
+    font-family: var(--font-mono);
     text-transform: uppercase;
-    letter-spacing: 0.24em;
-    font-size: 0.72rem;
-    font-weight: 600;
+    letter-spacing: 0.2em;
+    font-size: 0.7rem;
+    font-weight: 500;
     line-height: 1;
   }
 
   /* Lema en outline: relleno transparente + trazo en el color actual.
      Usamos -webkit-text-fill-color (no `color: transparent`) para que
-     currentColor del trazo conserve el color real (guinda/sand/bone). */
+     currentColor del trazo conserve el color real (accent/sand/bone). */
   .text-outline {
     -webkit-text-fill-color: transparent;
     -webkit-text-stroke: 2px currentColor;
@@ -162,7 +162,7 @@
     transform: rotate(180deg);
   }
 
-  /* Textura sutil de papel/grano para bloques guinda */
+  /* Textura sutil de papel/grano para bloques accent */
   .bg-grain {
     background-image: radial-gradient(
       color-mix(in srgb, var(--color-white) 4%, transparent) 1px,

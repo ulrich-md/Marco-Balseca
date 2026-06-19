@@ -25,7 +25,7 @@ export type Reel = {
 export const REELS: Reel[] = [
   {
     id: 'reel-1',
-    titulo: 'Tiui Chikavak — en la calle',
+    titulo: 'En la calle, con la gente',
     kind: 'instagram',
     // REEMPLAZAR: permalink real del reel de @marcobalseca1
     instagramUrl: 'https://www.instagram.com/marcobalseca1/',

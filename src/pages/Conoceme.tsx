@@ -6,7 +6,7 @@ import { RevealText } from '../components/ui/RevealText'
 import { Reveal } from '../components/ui/Reveal'
 import { Marquee } from '../components/ui/Marquee'
 import { PortraitPlaceholder } from '../components/ui/PortraitPlaceholder'
-import { PILARES, SITE } from '../data/site'
+import { PILARES } from '../data/site'
 
 export default function Conoceme() {
   return (
@@ -33,7 +33,7 @@ export default function Conoceme() {
           </Reveal>
 
           <div>
-            <SectionLabel tone="guinda">Origen y arraigo</SectionLabel>
+            <SectionLabel tone="accent">Origen y arraigo</SectionLabel>
             <RevealText
               as="h2"
               text="Raíces en Tehuacán"
@@ -50,7 +50,7 @@ export default function Conoceme() {
                 práctica: escuchar primero, resolver después.{' '}
                 <span className="text-mute">// REEMPLAZAR: trayectoria profesional real.</span>
               </p>
-              <p className="border-l-2 border-guinda pl-5 font-condensed text-2xl font-medium uppercase tracking-wide text-ink">
+              <p className="border-l-2 border-accent pl-5 font-condensed text-2xl font-medium uppercase tracking-wide text-ink">
                 Su orgullo: las raíces, las lenguas maternas y la gente de Tehuacán.
               </p>
             </div>
@@ -63,7 +63,7 @@ export default function Conoceme() {
       {/* Valores / pilares */}
       <section className="bg-white py-20 text-ink md:py-28">
         <div className="container-x">
-          <SectionLabel tone="guinda">Valores que lo mueven</SectionLabel>
+          <SectionLabel tone="accent">Valores que lo mueven</SectionLabel>
           <RevealText
             as="h2"
             text="Cuatro pilares"
@@ -76,7 +76,7 @@ export default function Conoceme() {
                 <div className="flex items-start gap-5">
                   <span className="font-display text-4xl text-ink/15">{p.num}</span>
                   <div>
-                    <h3 className="font-condensed text-2xl font-semibold uppercase tracking-wide text-guinda">
+                    <h3 className="font-condensed text-2xl font-semibold uppercase tracking-wide text-accent">
                       {p.titulo}
                     </h3>
                     <p className="mt-3 leading-relaxed text-ink/70">{p.texto}</p>
@@ -88,19 +88,19 @@ export default function Conoceme() {
         </div>
       </section>
 
-      {/* Frase ancla bilingüe (clara) */}
+      {/* Frase ancla (clara) */}
       <section className="relative overflow-hidden bg-bone py-24 text-ink md:py-32">
-        <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-guinda/15" />
+        <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-accent/20" />
         <div className="container-x relative text-center">
-          <span className="eyebrow text-guinda">{SITE.lema.lang}</span>
+          <span className="eyebrow text-accent">Por nuestra tierra</span>
           <RevealText
             as="p"
-            text={SITE.lema.nahuatl}
-            className="font-display mt-5 text-[18vw] leading-none text-guinda md:text-[10vw]"
+            text={'Cerca de\nla gente'}
+            className="font-display mt-5 text-[18vw] leading-[0.86] text-ink md:text-[10vw]"
           />
           <Reveal delay={0.12}>
             <p className="mx-auto mt-5 max-w-xl text-xl text-ink/70">
-              «Vámonos recio»: la fuerza de quien no olvida de dónde viene y camina con su gente.
+              La fuerza de quien no olvida de dónde viene y camina con su gente, todos los días.
             </p>
           </Reveal>
         </div>

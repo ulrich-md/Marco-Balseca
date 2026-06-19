@@ -1,13 +1,17 @@
 # Marco Balseca — Sitio personal y político
 
 Sitio multipágina de **Marco Balseca**, figura política y comunitaria de
-**Tehuacán, Puebla**. Identidad de campaña: paleta **guinda + blanco**, lema
-náhuatl **«Tiui Chikavak» (Vámonos recio)** y orgullo por las raíces y las
-lenguas maternas.
+**Tehuacán, Puebla**. El **nombre es el protagonista** (no hay eslogan).
 
-> Dirección de arte: editorial, cálida y cercana. Campo dominante claro
-> (blanco/bone) para dar aire, con el **guinda como acento fuerte** (lema,
-> retrato, etiquetas, CTA). Tipografía display gigante condensada.
+> Dirección de arte: **editorial Swiss / B&N de alto contraste** (ref. ESPN y
+> Yeezy). Base **blanco + negro + gris neutro**; **rojo `#E1251B` como único
+> acento**. Titulares negros gigantes (Anton), etiquetas técnicas en mono
+> (JetBrains Mono), grid editorial. Capa **humana de comunidad** (rostros de
+> simpatizantes + contador “ya se sumaron”) para que sea cercano y amigable.
+
+> Sistema de diseño asistido por el skill **UI/UX Pro Max** (instalado en
+> `.claude/skills/`): recomienda *Swiss Modernism 2.0 / Editorial Grid*, paleta
+> B&N + un acento, y el patrón *Community Landing*.
 
 ## Stack
 
@@ -52,16 +56,18 @@ Definidos en `src/index.css` (`@theme`):
 
 | Token            | Hex       | Uso |
 |------------------|-----------|-----|
-| `--color-guinda` | `#6E2233` | color de marca (acento dominante) |
-| `--color-guinda-deep` | `#4E1722` | fondos oscuros (footer) |
-| `--color-guinda-soft` | `#8A3145` | hover/detalles |
-| `--color-bone`   | `#F4EFEA` | blanco cálido (fondo base) |
-| `--color-white`  | `#FFFFFF` | secciones limpias |
-| `--color-ink`    | `#1E1714` | texto sobre claro |
-| `--color-mute`   | `#8A7E78` | secundarios / metadatos |
-| `--color-sand`   | `#D9C7A8` | acento cálido fino |
+| `--color-accent` | `#E1251B` | **rojo de acento** (único color del sistema) |
+| `--color-accent-deep` | `#B81C12` | hover/pressed |
+| `--color-accent-soft` | `#F23B2E` | acento más vivo |
+| `--color-black`  | `#0B0B0B` | campos oscuros (footer, CTA, menú) |
+| `--color-ink`    | `#161616` | texto sobre claro (negro neutro) |
+| `--color-white`  | `#FFFFFF` | campo dominante |
+| `--color-bone`   | `#F4F4F2` | casi-blanco neutro / texto inverso |
+| `--color-mist`   | `#EAEAEA` | gris para bloques de foto |
+| `--color-mute`   | `#5E5E5E` | secundarios / metadatos (AA) |
 
-Fuentes: **Anton** (display de cartel), **Oswald** (condensado), **Inter** (cuerpo).
+Fuentes: **Anton** (titular de cartel), **Oswald** (condensada), **Inter**
+(cuerpo), **JetBrains Mono** (etiquetas técnicas tipo índice).
 
 ## Cómo personalizar (placeholders)
 

@@ -35,7 +35,7 @@ function setCanonical(href: string) {
  */
 export function Seo({ title, description, path = '/', image = '/og-image.svg' }: SeoProps) {
   const fullTitle =
-    title === SITE.name ? `${SITE.name} — ${SITE.lema.nahuatl} · ${SITE.lema.es}` : `${title} — ${SITE.name}`
+    title === SITE.name ? `${SITE.name} — ${SITE.ciudad}, ${SITE.estado}` : `${title} — ${SITE.name}`
   const desc = description ?? SITE.descripcion
   const url = `${SITE.url}${path === '/' ? '' : path}`
 

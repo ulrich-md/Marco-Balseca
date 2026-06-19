@@ -1,18 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#6E2233"/>
-      <stop offset="1" stop-color="#4E1722"/>
-    </linearGradient>
-  </defs>
-  <rect width="1200" height="630" fill="url(#bg)"/>
-  <circle cx="1050" cy="60" r="360" fill="#D9C7A8" opacity="0.07"/>
-  <text x="80" y="120" font-family="Oswald, Arial Narrow, sans-serif" font-size="26"
-        font-weight="600" letter-spacing="6" fill="#D9C7A8">TEHUACÁN · PUEBLA</text>
-  <text x="74" y="330" font-family="Anton, Oswald, sans-serif" font-size="200"
-        fill="#F4EFEA" letter-spacing="-4">TIUI</text>
-  <text x="74" y="510" font-family="Anton, Oswald, sans-serif" font-size="200"
-        fill="none" stroke="#D9C7A8" stroke-width="3" letter-spacing="-4">CHIKAVAK</text>
-  <text x="80" y="585" font-family="Oswald, Arial Narrow, sans-serif" font-size="34"
-        font-weight="500" letter-spacing="2" fill="#F4EFEA">MARCO BALSECA — Vámonos recio</text>
+  <rect width="1200" height="630" fill="#FFFFFF"/>
+  <!-- bloque de foto gris (B&N) -->
+  <rect x="760" y="150" width="360" height="430" fill="#EAEAEA"/>
+  <circle cx="940" cy="320" r="78" fill="#CFCFCF"/>
+  <path d="M820 580 C 820 470, 880 430, 940 430 C 1000 430, 1060 470, 1060 580 Z" fill="#CFCFCF"/>
+  <!-- marco rojo fino (ref. Yeezy) -->
+  <rect x="748" y="138" width="384" height="454" fill="none" stroke="#E1251B" stroke-width="2"/>
+  <!-- etiqueta mono -->
+  <text x="80" y="120" font-family="'JetBrains Mono', monospace" font-size="22"
+        letter-spacing="6" fill="#E1251B">MARCO BALSECA — TEHUACÁN, PUEBLA</text>
+  <!-- nombre gigante negro -->
+  <text x="72" y="330" font-family="Anton, Oswald, sans-serif" font-size="180"
+        fill="#0B0B0B" letter-spacing="-2">MARCO</text>
+  <text x="72" y="500" font-family="Anton, Oswald, sans-serif" font-size="180"
+        fill="#0B0B0B" letter-spacing="-2">BALSECA</text>
+  <rect x="80" y="540" width="120" height="6" fill="#E1251B"/>
+  <text x="220" y="552" font-family="Inter, sans-serif" font-size="26"
+        font-weight="600" fill="#161616">Cerca de la gente. Por nuestra tierra.</text>
 </svg>

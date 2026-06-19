@@ -73,7 +73,7 @@ export function Lightbox({ reel, onClose }: Props) {
             {/* Instagram: enlazamos al reel original (sin scripts de terceros). */}
             {reel.kind === 'instagram' && (
               <div className="flex h-full flex-col items-center justify-center gap-5 bg-black p-6 text-center">
-                <span className="eyebrow text-guinda">Reel de Instagram</span>
+                <span className="eyebrow text-accent">Reel de Instagram</span>
                 <h3 className="font-display text-3xl text-white">{reel.titulo}</h3>
                 <p className="max-w-[24ch] text-sm text-white/70">
                   Reproduce el reel original en el perfil oficial de Marco.

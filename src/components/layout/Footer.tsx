@@ -6,24 +6,24 @@ import { scrollToTop } from '../../lib/SmoothScroll'
 import { InstagramIcon, FacebookIcon, XIcon, WhatsappIcon } from '../ui/Icons'
 
 const socialCls =
-  'flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-white/80 transition-colors hover:border-guinda hover:text-guinda'
+  'flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-white/80 transition-colors hover:border-accent hover:text-accent'
 
 export function Footer() {
   const year = new Date().getFullYear()
 
   return (
     <footer className="relative overflow-hidden bg-black text-white">
-      {/* Lema gigante */}
+      {/* Nombre gigante */}
       <div className="container-x relative pt-16 md:pt-24">
-        <p className="eyebrow text-guinda">
-          {SITE.lema.lang} · {SITE.ciudad}, {SITE.estado}
+        <p className="eyebrow text-accent">
+          {SITE.ciudad}, {SITE.estado} · {year}
         </p>
         <h2 className="font-display mt-4 text-[18vw] leading-[0.82] md:text-[13vw]">
-          <span className="block">Tiui</span>
-          <span className="block text-outline">Chikavak</span>
+          <span className="block">Marco</span>
+          <span className="block text-outline">Balseca</span>
         </h2>
         <p className="font-condensed mt-3 text-xl text-white/60 md:text-2xl">
-          Vámonos recio. {SITE.tagline}
+          {SITE.tagline}
         </p>
       </div>
 
@@ -56,7 +56,7 @@ export function Footer() {
           <ul className="mt-4 space-y-2.5">
             {NAV.map((item) => (
               <li key={item.to}>
-                <Link to={item.to} className="font-condensed text-lg text-white/80 transition-colors hover:text-guinda">
+                <Link to={item.to} className="font-condensed text-lg text-white/80 transition-colors hover:text-accent">
                   {item.label}
                 </Link>
               </li>
@@ -77,7 +77,7 @@ export function Footer() {
           {/* REEMPLAZAR: correo oficial */}
           <a
             href={`mailto:${SOCIAL.email.value}`}
-            className="mt-5 block text-sm text-white/70 underline-offset-4 hover:text-guinda hover:underline"
+            className="mt-5 block text-sm text-white/70 underline-offset-4 hover:text-accent hover:underline"
           >
             {SOCIAL.email.value}
           </a>
@@ -93,7 +93,7 @@ export function Footer() {
         <button
           type="button"
           onClick={scrollToTop}
-          className="font-condensed uppercase tracking-[0.18em] text-white/70 transition-colors hover:text-guinda"
+          className="font-condensed uppercase tracking-[0.18em] text-white/70 transition-colors hover:text-accent"
         >
           Volver arriba ↑
         </button>

@@ -10,7 +10,7 @@ export function StatsBand() {
       <div className="container-x">
         <div className="grid gap-10 md:grid-cols-[0.9fr_1.4fr] md:items-end">
           <div>
-            <SectionLabel num="01" tone="guinda">
+            <SectionLabel num="01" tone="accent">
               Quién es Marco
             </SectionLabel>
             <p className="mt-5 text-lg leading-relaxed text-ink/80">
@@ -29,7 +29,7 @@ export function StatsBand() {
                   suffix={s.suffix}
                   placeholder={s.placeholder}
                   label={s.label}
-                  tone="guinda"
+                  tone="accent"
                 />
               ))}
             </div>

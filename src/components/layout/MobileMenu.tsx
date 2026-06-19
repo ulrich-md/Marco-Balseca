@@ -6,7 +6,7 @@ import { ButtonLink } from '../ui/Button'
 
 type Props = { open: boolean; onClose: () => void }
 
-/** Menú móvil full-screen en negro editorial, con guinda como acento. */
+/** Menú móvil full-screen en negro editorial, con accent como acento. */
 export function MobileMenu({ open, onClose }: Props) {
   const { pathname } = useLocation()
 
@@ -42,10 +42,10 @@ export function MobileMenu({ open, onClose }: Props) {
                     onClick={onClose}
                     className="font-display flex items-baseline gap-4 py-2 text-5xl sm:text-6xl"
                   >
-                    <span className="eyebrow w-8 shrink-0 text-guinda">
+                    <span className="eyebrow w-8 shrink-0 text-accent">
                       {String(i + 1).padStart(2, '0')}
                     </span>
-                    <span className={active ? 'text-guinda' : 'text-white'}>{item.label}</span>
+                    <span className={active ? 'text-accent' : 'text-white'}>{item.label}</span>
                   </Link>
                 </motion.div>
               )
@@ -57,7 +57,7 @@ export function MobileMenu({ open, onClose }: Props) {
               Súmate
             </ButtonLink>
             <div className="flex items-center justify-between text-sm text-white/60">
-              <a href={SOCIAL.instagram.url} target="_blank" rel="noreferrer" className="hover:text-guinda">
+              <a href={SOCIAL.instagram.url} target="_blank" rel="noreferrer" className="hover:text-accent">
                 {SOCIAL.instagram.handle}
               </a>
               <span>

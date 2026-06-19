@@ -2,14 +2,14 @@ import { Link } from 'react-router-dom'
 import { SITE } from '../../data/site'
 
 type Props = {
-  tone?: 'bone' | 'guinda' | 'ink'
+  tone?: 'bone' | 'accent' | 'ink'
   className?: string
   onClick?: () => void
 }
 
 /** Wordmark "MARCO BALSECA" — sans condensado, bold, mayúsculas. */
 export function Wordmark({ tone = 'ink', className = '', onClick }: Props) {
-  const color = tone === 'bone' ? 'text-bone' : tone === 'ink' ? 'text-ink' : 'text-guinda'
+  const color = tone === 'bone' ? 'text-bone' : tone === 'ink' ? 'text-ink' : 'text-accent'
   return (
     <Link
       to="/"

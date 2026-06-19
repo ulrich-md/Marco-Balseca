@@ -4,7 +4,7 @@ type Props = {
   note?: boolean
   /** B&N: bloque gris claro o negro */
   tone?: 'grey' | 'black'
-  /** marco guinda fino (ref. Yeezy) */
+  /** marco accent fino (ref. Yeezy) */
   frame?: boolean
   rounded?: string
 }
@@ -13,7 +13,7 @@ type Props = {
  * Retrato heroico en BLANCO Y NEGRO — PLACEHOLDER.
  * REEMPLAZAR: retrato oficial recortado de @marcobalseca1 (idealmente en B&N
  * o duotono). Mientras tanto se dibuja una silueta digna en gris/negro neutro.
- * El guinda solo aparece como marco fino opcional. Nunca usa URLs rotas.
+ * El accent solo aparece como marco fino opcional. Nunca usa URLs rotas.
  */
 export function PortraitPlaceholder({
   className = '',
@@ -56,9 +56,9 @@ export function PortraitPlaceholder({
         <circle cx="200" cy="250" r="92" fill={`url(#fig-${tone})`} />
       </svg>
 
-      {/* Marco guinda fino (ref. Yeezy) */}
+      {/* Marco accent fino (ref. Yeezy) */}
       {frame && (
-        <span aria-hidden className="pointer-events-none absolute inset-3 border border-guinda md:inset-4" />
+        <span aria-hidden className="pointer-events-none absolute inset-3 border border-accent md:inset-4" />
       )}
 
       {note && (

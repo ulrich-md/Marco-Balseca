@@ -5,20 +5,19 @@ import { ButtonLink } from '../../components/ui/Button'
 import { ScrollIndicator } from '../../components/ui/ScrollIndicator'
 import { PortraitPlaceholder } from '../../components/ui/PortraitPlaceholder'
 import { useParallax } from '../../lib/useParallax'
-import { SITE } from '../../data/site'
+import { SITE, COMUNIDAD_COUNT } from '../../data/site'
 
-const HERO_INDEX = [
-  { label: 'Historia', to: '/conoceme' },
-  { label: 'Trayectoria', to: '/trayectoria' },
-  { label: 'Acciones', to: '/acciones' },
-  { label: 'Reels', to: '/reels' },
-  { label: 'Agenda', to: '/agenda' },
+const INDEX = [
+  { n: '01', label: 'Conóceme', to: '/conoceme' },
+  { n: '02', label: 'Trayectoria', to: '/trayectoria' },
+  { n: '03', label: 'Acciones', to: '/acciones' },
+  { n: '04', label: 'Reels', to: '/reels' },
+  { n: '05', label: 'Agenda', to: '/agenda' },
 ]
 
 export function Hero() {
   const reduce = useReducedMotion()
-  const portraitRef = useParallax<HTMLDivElement>(50)
-  const ghostRef = useParallax<HTMLDivElement>(-90)
+  const photoRef = useParallax<HTMLDivElement>(36)
   const year = new Date().getFullYear()
 
   const appear = (delay: number) =>
@@ -31,102 +30,112 @@ export function Hero() {
         }
 
   return (
-    <section className="relative flex min-h-[100svh] flex-col overflow-hidden bg-white text-ink">
-      <h1 className="sr-only">
-        Marco Balseca — Tiui Chikavak, vámonos recio. {SITE.ciudad}, {SITE.estado}.
-      </h1>
-
-      {/* Etiqueta vertical (ref. Yeezy "2016") */}
-      <div className="pointer-events-none absolute left-5 top-1/2 hidden -translate-y-1/2 lg:block">
-        <span className="vertical-rl eyebrow text-mute">
-          {SITE.ciudad} · {year}
-        </span>
-      </div>
-
+    <section className="relative overflow-hidden bg-white text-ink">
       {/* Índice vertical derecho (ref. ESPN) */}
       <nav
-        className="absolute right-6 top-1/2 z-20 hidden -translate-y-1/2 flex-col items-end gap-2.5 lg:flex"
-        aria-label="Índice"
+        className="absolute right-5 top-1/2 z-30 hidden -translate-y-1/2 flex-col items-end gap-3 xl:flex"
+        aria-label="Secciones"
       >
-        {HERO_INDEX.map((it) => (
-          <Link key={it.to} to={it.to} className="eyebrow text-ink/55 transition-colors hover:text-guinda">
-            {it.label}
+        {INDEX.map((it) => (
+          <Link key={it.to} to={it.to} className="group flex items-center gap-2">
+            <span className="eyebrow text-mute transition-colors group-hover:text-accent">{it.n}</span>
+            <span className="eyebrow text-ink transition-colors group-hover:text-accent">{it.label}</span>
           </Link>
         ))}
       </nav>
 
-      <div className="container-x relative z-10 flex flex-1 flex-col justify-center pt-28 pb-10 lg:pt-32">
-        {/* Eyebrow */}
-        <motion.div {...appear(0)} className="flex items-center justify-center gap-4">
-          <span className="eyebrow text-guinda">
-            {SITE.ciudad} · {SITE.estado}
+      <div className="container-x relative pt-28 lg:pt-32">
+        {/* Meta superior (mono) */}
+        <motion.div {...appear(0)} className="flex items-center justify-between border-b border-ink/15 pb-4">
+          <span className="eyebrow text-accent">Marco Balseca</span>
+          <span className="eyebrow text-mute">
+            {SITE.ciudad}, {SITE.estado} · {year}
           </span>
-          <span aria-hidden className="h-px w-8 bg-guinda" />
-          <span className="eyebrow text-ink/55">Por nuestra tierra</span>
         </motion.div>
 
-        {/* STAGE: TIUI (guinda, frente) · retrato B&N · CHIKAVAK (gris, fondo) */}
-        <div className="relative mx-auto mt-5 w-full max-w-4xl">
-          <div className="relative h-[60vh] max-h-[600px] min-h-[420px] w-full">
-            {/* marco fino guinda (ref. Yeezy) */}
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-x-2 inset-y-0 z-30 border border-guinda/55 sm:inset-x-10"
+        {/* Titular gigante — el NOMBRE es el héroe */}
+        <div className="relative mt-8 lg:mt-10">
+          {/* Acento rojo vertical (ref. ESPN 足球) */}
+          <span
+            aria-hidden
+            className="font-display pointer-events-none absolute -left-1 top-1 z-0 hidden select-none text-[7vw] leading-none text-accent lg:block"
+            style={{ writingMode: 'vertical-rl' }}
+          >
+            TEHUACÁN
+          </span>
+          <h1 className="relative z-20 lg:pl-[9vw]">
+            <RevealText
+              as="span"
+              text="Marco"
+              onMount
+              stagger={0.05}
+              className="font-display block text-[20vw] leading-[0.82] text-ink sm:text-[18vw] lg:text-[12vw]"
             />
+            <RevealText
+              as="span"
+              text="Balseca"
+              onMount
+              delay={0.12}
+              stagger={0.04}
+              className="font-display block text-[20vw] leading-[0.82] text-ink sm:text-[18vw] lg:text-[12vw]"
+            />
+          </h1>
+        </div>
 
-            {/* CHIKAVAK detrás (gris) — más ancho que el retrato, asoma a los lados */}
-            <div ref={ghostRef} aria-hidden className="absolute inset-x-0 bottom-[14%] z-0 text-center">
-              <span className="font-display text-[21vw] leading-none text-[#d2d2d2] md:text-[12.5vw]">
-                Chikavak
-              </span>
-            </div>
+        {/* Fila inferior: copy/CTA/comunidad (izq) + foto B&N (der) */}
+        <div className="mt-8 grid items-start gap-10 lg:mt-6 lg:grid-cols-[1fr_0.78fr] lg:gap-12">
+          <div className="lg:pl-[9vw] lg:pt-4">
+            <motion.p {...appear(0.45)} className="max-w-xl text-lg text-ink/75 md:text-xl">
+              Abogado y emprendedor de Tehuacán. {SITE.tagline} Hoy, acciones políticas y de
+              comunidad, todos los días.
+            </motion.p>
 
-            {/* Retrato B&N */}
-            <div
-              ref={portraitRef}
-              className="absolute inset-x-0 bottom-0 z-10 mx-auto h-[84%] w-[min(72%,330px)]"
+            <motion.div {...appear(0.55)} className="mt-7 flex flex-wrap items-center gap-4">
+              <ButtonLink to="/contacto" tone="accent" variant="solid">
+                Súmate
+              </ButtonLink>
+              <ButtonLink to="/conoceme" tone="ink" variant="outline">
+                Conoce a Marco
+              </ButtonLink>
+            </motion.div>
+
+            {/* Comunidad: avatares B&N + contador (cercanía + onboarding) */}
+            <motion.div
+              {...appear(0.65)}
+              className="mt-9 flex items-center gap-4 border-t border-ink/15 pt-6"
             >
-              {/* REEMPLAZAR: retrato oficial recortado (B&N) de @marcobalseca1 */}
-              <PortraitPlaceholder tone="grey" className="h-full w-full" note={false} />
-            </div>
+              <div className="flex -space-x-3" aria-hidden>
+                {[0, 1, 2, 3].map((i) => (
+                  <span
+                    key={i}
+                    className="h-10 w-10 rounded-full border-2 border-white bg-gradient-to-b from-[#d9d9d9] to-[#b8b8b8]"
+                  />
+                ))}
+                <span className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-accent text-xs font-bold text-white">
+                  +
+                </span>
+              </div>
+              <p className="text-sm leading-tight text-ink/70">
+                <span className="font-display block text-2xl leading-none text-ink">
+                  {COMUNIDAD_COUNT > 0 ? `${COMUNIDAD_COUNT}+` : '[N]'}
+                </span>
+                vecinas y vecinos ya se sumaron
+              </p>
+            </motion.div>
+          </div>
 
-            {/* TIUI al frente (guinda) */}
-            <div className="absolute inset-x-0 top-[2%] z-20 text-center">
-              <RevealText
-                as="span"
-                text="Tiui"
-                onMount
-                stagger={0.05}
-                className="font-display block text-[22vw] leading-none text-guinda md:text-[12vw]"
-              />
-            </div>
+          {/* Foto B&N, encajada bajo el titular (ref. ESPN) */}
+          <div ref={photoRef} className="relative lg:-mt-[7vw]">
+            {/* REEMPLAZAR: retrato oficial (B&N) de @marcobalseca1 */}
+            <PortraitPlaceholder tone="grey" frame className="aspect-[4/5] w-full" note={false} />
+            <span className="eyebrow absolute -bottom-3 left-3 bg-white px-2 py-1 text-mute">
+              Tehuacán, Puebla
+            </span>
           </div>
         </div>
 
-        {/* Apoyo con regla (ref. "By Kanye West") */}
-        <motion.div {...appear(0.4)} className="mx-auto mt-7 flex w-full max-w-md items-center gap-4">
-          <span aria-hidden className="h-px flex-1 bg-guinda/45" />
-          <span className="font-condensed whitespace-nowrap text-base font-semibold uppercase tracking-[0.22em] text-ink">
-            Vámonos recio
-          </span>
-          <span aria-hidden className="h-px flex-1 bg-guinda/45" />
-        </motion.div>
-        <motion.p {...appear(0.48)} className="mt-2 text-center text-xs uppercase tracking-[0.24em] text-mute">
-          Náhuatl · Por nuestra gente
-        </motion.p>
-
-        {/* CTAs */}
-        <motion.div {...appear(0.58)} className="mt-8 flex flex-wrap items-center justify-center gap-4">
-          <ButtonLink to="/contacto" tone="guinda" variant="solid">
-            Súmate
-          </ButtonLink>
-          <ButtonLink to="/conoceme" tone="ink" variant="outline">
-            Conoce su historia
-          </ButtonLink>
-        </motion.div>
-
-        <div className="mt-10 flex justify-center lg:mt-12">
-          <ScrollIndicator tone="guinda" />
+        <div className="flex justify-center py-10 lg:justify-start">
+          <ScrollIndicator tone="accent" />
         </div>
       </div>
     </section>

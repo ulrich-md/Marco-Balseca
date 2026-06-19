@@ -7,7 +7,7 @@ type Props = {
   /** texto a mostrar cuando aún no hay dato real (value === 0) */
   placeholder?: string
   label: string
-  tone?: 'guinda' | 'bone'
+  tone?: 'accent' | 'bone'
 }
 
 /**
@@ -43,7 +43,7 @@ export function StatCounter({ value, suffix = '', placeholder = '[N]', label, to
 
   const numClass = tone === 'bone' ? 'text-white' : 'text-ink'
   const labelClass = tone === 'bone' ? 'text-white/60' : 'text-mute'
-  const phClass = tone === 'bone' ? 'text-guinda' : 'text-guinda/45'
+  const phClass = tone === 'bone' ? 'text-accent' : 'text-accent/45'
 
   return (
     <div ref={ref}>

@@ -4,11 +4,11 @@ type Props = {
   speed?: number
 }
 
-const SEGMENTS = ['TIUI CHIKAVAK', 'VÁMONOS RECIO', 'POR TEHUACÁN', 'POR NUESTRA GENTE']
+const SEGMENTS = ['MARCO BALSECA', 'POR TEHUACÁN', 'CERCA DE LA GENTE', 'SÚMATE']
 
 /**
- * Marquee lento e infinito con el lema. B&N con guinda como separador.
- * CSS puro, pausable en hover. Se detiene con prefers-reduced-motion.
+ * Marquee lento e infinito. B&N con un cuadrito rojo como separador
+ * (acento único). CSS puro, pausable en hover. Respeta reduced-motion.
  */
 export function Marquee({ tone = 'dark', speed = 34 }: Props) {
   const bg = tone === 'dark' ? 'bg-black text-white' : 'bg-white text-ink border-y border-ink/10'
@@ -18,9 +18,7 @@ export function Marquee({ tone = 'dark', speed = 34 }: Props) {
       {SEGMENTS.map((s, i) => (
         <span key={i} className="flex items-center">
           <span className="font-display text-3xl leading-none px-6 md:text-5xl">{s}</span>
-          <span aria-hidden className="px-2 text-xl text-guinda md:text-2xl">
-            ✦
-          </span>
+          <span aria-hidden className="h-2 w-2 shrink-0 bg-accent" />
         </span>
       ))}
     </div>

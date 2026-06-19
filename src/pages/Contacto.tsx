@@ -36,7 +36,7 @@ function validate(f: Fields): Errors {
 }
 
 const inputBase =
-  'w-full rounded-xl border bg-white px-4 py-3 text-ink placeholder:text-mute/60 transition-colors focus:border-guinda focus:outline-none focus-visible:outline-none'
+  'w-full rounded-xl border bg-white px-4 py-3 text-ink placeholder:text-mute/60 transition-colors focus:border-accent focus:outline-none focus-visible:outline-none'
 
 export default function Contacto() {
   const [fields, setFields] = useState<Fields>(EMPTY)
@@ -70,7 +70,7 @@ export default function Contacto() {
 
   const fieldErr = (k: keyof Fields) =>
     errors[k] ? (
-      <span id={`err-${k}`} className="mt-1.5 block text-sm text-guinda">
+      <span id={`err-${k}`} role="alert" className="mt-1.5 block text-sm text-accent">
         {errors[k]}
       </span>
     ) : null
@@ -78,7 +78,7 @@ export default function Contacto() {
   const aria = (k: keyof Fields) => ({
     'aria-invalid': errors[k] ? true : undefined,
     'aria-describedby': errors[k] ? `err-${k}` : undefined,
-    className: `${inputBase} ${errors[k] ? 'border-guinda' : 'border-ink/15'}`,
+    className: `${inputBase} ${errors[k] ? 'border-accent' : 'border-ink/15'}`,
   })
 
   return (
@@ -93,14 +93,14 @@ export default function Contacto() {
         index="07"
         label="Contacto · Súmate"
         title={'Súmate al\nmovimiento'}
-        intro="Tu voz, nuestra tierra. Déjanos un mensaje, hazte voluntario o escríbenos directo por WhatsApp. Vámonos recio."
+        intro="Tu voz, nuestra tierra. Déjanos un mensaje, hazte voluntario o escríbenos directo por WhatsApp. Cuenta con nosotros."
       />
 
       <section className="bg-bone py-16 text-ink md:py-24">
         <div className="container-x grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           {/* Formulario */}
           <div>
-            <SectionLabel tone="guinda">Escríbenos</SectionLabel>
+            <SectionLabel tone="accent">Escríbenos</SectionLabel>
 
             <div className="relative mt-6">
               <AnimatePresence mode="wait">
@@ -110,24 +110,24 @@ export default function Contacto() {
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
-                    className="rounded-2xl border border-guinda/20 bg-white p-8 text-center"
+                    className="rounded-2xl border border-accent/20 bg-white p-8 text-center"
                     role="status"
                     aria-live="polite"
                   >
-                    <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-guinda text-white">
+                    <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-accent text-white">
                       <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="m5 12 5 5 9-11" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </div>
-                    <h3 className="font-display mt-5 text-3xl text-guinda">¡Gracias, {fields.nombre || 'compa'}!</h3>
+                    <h3 className="font-display mt-5 text-3xl text-accent">¡Gracias, {fields.nombre || 'compa'}!</h3>
                     <p className="mt-2 text-mute">
-                      Recibimos tu mensaje. El equipo de Marco te contactará pronto. Vámonos recio.
+                      Recibimos tu mensaje. El equipo de Marco te contactará pronto. ¡Gracias por sumarte!
                     </p>
                     <p className="mt-1 text-xs text-mute/70">
                       (Demo sin backend: el envío es simulado.)
                     </p>
                     <div className="mt-6">
-                      <Button onClick={reset} variant="outline" tone="guinda">
+                      <Button onClick={reset} variant="outline" tone="accent">
                         Enviar otro mensaje
                       </Button>
                     </div>
@@ -180,7 +180,7 @@ export default function Contacto() {
                     </label>
 
                     <div className="flex flex-wrap items-center gap-4">
-                      <Button type="submit" tone="guinda" variant="solid" arrow disabled={status === 'sending'}>
+                      <Button type="submit" tone="accent" variant="solid" arrow disabled={status === 'sending'}>
                         {status === 'sending' ? 'Enviando…' : 'Enviar mensaje'}
                       </Button>
                       <span className="text-xs text-mute">Campos con * son obligatorios.</span>
@@ -201,7 +201,7 @@ export default function Contacto() {
                 </ButtonAnchor>
                 <a
                   href={`mailto:${SOCIAL.email.value}`}
-                  className="flex items-center gap-3 text-white/85 transition-colors hover:text-guinda"
+                  className="flex items-center gap-3 text-white/85 transition-colors hover:text-accent"
                 >
                   <MailIcon /> {SOCIAL.email.value}
                 </a>
@@ -224,7 +224,7 @@ export default function Contacto() {
                       target="_blank"
                       rel="noreferrer"
                       aria-label={label}
-                      className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-white/85 transition-colors hover:border-guinda hover:text-guinda"
+                      className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-white/85 transition-colors hover:border-accent hover:text-accent"
                     >
                       <I />
                     </a>
@@ -242,8 +242,8 @@ export default function Contacto() {
                 Organiza tu colonia, suma a tu gente y camina con Marco. El movimiento se construye
                 de tú a tú.
               </p>
-              <p className="font-condensed mt-4 text-lg font-semibold uppercase tracking-wide text-guinda">
-                Tiui Chikavak — vámonos recio.
+              <p className="font-condensed mt-4 text-lg font-semibold uppercase tracking-wide text-accent">
+                Cerca de la gente. Por nuestra tierra.
               </p>
             </div>
           </aside>

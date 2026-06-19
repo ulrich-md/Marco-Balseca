@@ -27,7 +27,7 @@ export default function Reels() {
         intro="Video vertical, en directo desde el movimiento. Da clic para reproducir; la galería se enlaza con los reels oficiales de @marcobalseca1."
       >
         <div className="mt-8">
-          <ButtonAnchor href={SOCIAL.instagram.url} tone="guinda" variant="outline" arrow>
+          <ButtonAnchor href={SOCIAL.instagram.url} tone="accent" variant="outline" arrow>
             Seguir en Instagram
           </ButtonAnchor>
         </div>
@@ -45,7 +45,7 @@ export default function Reels() {
 
           <p className="mt-12 max-w-2xl text-sm text-mute">
             // REEMPLAZAR: agrega más reels en
-            <code className="mx-1 rounded bg-ink/5 px-1.5 py-0.5 text-guinda">src/data/reels.ts</code>
+            <code className="mx-1 rounded bg-ink/5 px-1.5 py-0.5 text-accent">src/data/reels.ts</code>
             con permalink de Instagram, id de YouTube o un MP4 propio (autoplay en hover).
           </p>
         </div>

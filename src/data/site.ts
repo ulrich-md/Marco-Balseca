@@ -1,27 +1,22 @@
 /* =========================================================================
    Constantes de marca y configuración del sitio — Marco Balseca
-   IDENTIDAD REAL (usar tal cual): nombre, lema náhuatl, Tehuacán/Puebla,
-   paleta guinda, Instagram @marcobalseca1.
-   TODO lo específico (cargos, cifras, fechas, propuestas) es PLACEHOLDER.
+   IDENTIDAD REAL (usar tal cual): nombre, Tehuacán/Puebla, Instagram
+   @marcobalseca1. Sistema editorial B&N con un único acento rojo.
+   TODO lo específico (cargos, cifras, fechas, propuestas, nombres) es PLACEHOLDER.
    ========================================================================= */
 
 export const SITE = {
   name: 'Marco Balseca',
-  /** Lema oficial — el corazón de la marca */
-  lema: {
-    nahuatl: 'Tiui Chikavak',
-    es: 'Vámonos recio',
-    lang: 'náhuatl',
-  },
   ciudad: 'Tehuacán',
   estado: 'Puebla',
   pais: 'México',
-  tagline: 'Por nuestra tierra y nuestra gente.',
+  /** Línea de apoyo, cercana y directa (sin lema/eslogan). */
+  tagline: 'Cerca de la gente. Por nuestra tierra.',
   /** URL canónica de despliegue (ajustar al dominio real) */
   url: 'https://marcobalseca.mx',
   // REEMPLAZAR: descripción oficial aprobada por el equipo de Marco
   descripcion:
-    'Marco Balseca, figura política y comunitaria de Tehuacán, Puebla. Tiui Chikavak — Vámonos recio. Por nuestra tierra, nuestra gente y nuestras raíces.',
+    'Marco Balseca, figura política y comunitaria de Tehuacán, Puebla. Cerca de la gente, por nuestra tierra. Súmate al movimiento.',
 } as const
 
 /** Navegación principal (header + footer) */
@@ -55,12 +50,32 @@ export const SOCIAL = {
   email: { label: 'Correo', value: 'hola@marcobalseca.mx' },
 } as const
 
-/** Cifras clave del hero — PLACEHOLDERS con count-up. */
+/** Cifras clave — PLACEHOLDERS con count-up (mientras valen 0 muestran [N]). */
 export const STATS = [
   // REEMPLAZAR: cifras reales (años de servicio, comunidades, etc.)
   { value: 0, suffix: '', label: 'Años caminando Tehuacán', placeholder: '[N]' },
   { value: 0, suffix: '', label: 'Colonias y juntas visitadas', placeholder: '[N]' },
   { value: 0, suffix: '', label: 'Acciones comunitarias', placeholder: '[N]' },
+] as const
+
+/** Contador de comunidad para el bloque "ya se sumaron". */
+// REEMPLAZAR: número real de personas sumadas. 0 muestra el placeholder [N].
+export const COMUNIDAD_COUNT = 0
+
+/**
+ * Comunidad / simpatizantes para la galería humana (patrón Community Landing).
+ * Usamos ROLES (no nombres inventados) para humanizar con honestidad.
+ * REEMPLAZAR: fotos y nombres reales de simpatizantes, con su consentimiento.
+ */
+export const COMUNIDAD = [
+  { rol: 'Vecina', colonia: 'Col. [nombre]' },
+  { rol: 'Comerciante', colonia: 'Centro, Tehuacán' },
+  { rol: 'Estudiante', colonia: 'Col. [nombre]' },
+  { rol: 'Productor', colonia: 'Junta [nombre]' },
+  { rol: 'Maestra', colonia: 'Col. [nombre]' },
+  { rol: 'Joven', colonia: 'Col. [nombre]' },
+  { rol: 'Comerciante', colonia: 'Mercado [nombre]' },
+  { rol: 'Vecino', colonia: 'Col. [nombre]' },
 ] as const
 
 /** Pilares / valores de identidad (Conóceme + teasers) */
@@ -73,9 +88,9 @@ export const PILARES = [
   },
   {
     num: '02',
-    titulo: 'Raíces y lenguas maternas',
+    titulo: 'Raíces e identidad',
     texto:
-      'Orgullo por el náhuatl y por quienes lo hablan. Nuestra identidad no se traduce: se honra y se hereda.',
+      'Orgullo por Tehuacán, su historia y sus tradiciones. Una identidad que se honra y se hereda, con respeto a todas sus raíces.',
   },
   {
     num: '03',
@@ -90,9 +105,3 @@ export const PILARES = [
       'De tú a tú, sin distancia. La política se hace en la calle, con nombre y apellido: contigo.',
   },
 ] as const
-
-/** Frase ancla bilingüe para cierres de sección */
-export const ANCLA = {
-  nahuatl: 'Tiui chikavak',
-  es: 'Vámonos recio: por nuestra tierra, con nuestra gente.',
-}

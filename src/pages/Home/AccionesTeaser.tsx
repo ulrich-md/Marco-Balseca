@@ -14,7 +14,7 @@ export function AccionesTeaser() {
       <div className="container-x">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
-            <SectionLabel num="03" tone="guinda">
+            <SectionLabel num="03" tone="accent">
               Acciones y propuestas
             </SectionLabel>
             <RevealText
@@ -28,7 +28,7 @@ export function AccionesTeaser() {
             </p>
           </div>
           <div className="hidden md:block">
-            <ButtonLink to="/acciones" variant="outline" tone="guinda">
+            <ButtonLink to="/acciones" variant="outline" tone="accent">
               Ver todas
             </ButtonLink>
           </div>
@@ -43,7 +43,7 @@ export function AccionesTeaser() {
         </div>
 
         <div className="mt-8 md:hidden">
-          <ButtonLink to="/acciones" variant="outline" tone="guinda" full>
+          <ButtonLink to="/acciones" variant="outline" tone="accent" full>
             Ver todas las acciones
           </ButtonLink>
         </div>
