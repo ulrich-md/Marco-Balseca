@@ -96,18 +96,27 @@ export default function Contacto() {
         title={'Súmate al\nmovimiento'}
         intro="Tu voz, nuestra tierra. Déjanos un mensaje, hazte voluntario o escríbenos directo por WhatsApp. Cuenta con nosotros."
       >
-        {/* Acento gráfico (cutout) junto al título. REEMPLAZAR -> si falta, no se ve nada (sin imagen rota). */}
-        <img
-          src="/assets/portraits/marco-fuerza.png"
-          alt=""
-          aria-hidden
-          loading="lazy"
-          decoding="async"
-          onError={(e) => {
-            e.currentTarget.style.display = 'none'
-          }}
-          className="pointer-events-none absolute bottom-0 right-0 hidden h-[88%] w-auto max-w-[32%] object-contain object-bottom grayscale lg:block"
-        />
+        {/* Acento gráfico (cutout claro). Lleva halo + sombra para separarse del
+            blanco (si no, la camisa clara se pierde). REEMPLAZAR -> si falta, no se ve nada. */}
+        <div aria-hidden className="pointer-events-none absolute bottom-0 right-0 hidden h-[90%] w-[34%] lg:block">
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(60% 55% at 62% 78%, rgba(22,22,22,0.10), transparent 70%)',
+            }}
+          />
+          <img
+            src="/assets/portraits/marco-fuerza.png"
+            alt=""
+            loading="lazy"
+            decoding="async"
+            onError={(e) => {
+              e.currentTarget.style.display = 'none'
+            }}
+            className="absolute bottom-0 right-0 h-full w-auto max-w-full object-contain object-bottom drop-shadow-[0_22px_45px_rgba(0,0,0,0.28)]"
+          />
+        </div>
       </PageHero>
 
       <section className="bg-bone py-16 text-ink md:py-24">

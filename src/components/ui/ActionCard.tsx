@@ -27,7 +27,7 @@ export function ActionCard({ accion, index }: Props) {
               onError={(e) => {
                 e.currentTarget.style.display = 'none'
               }}
-              className="absolute inset-0 h-full w-full object-cover grayscale transition-all duration-700 ease-[var(--ease-out-expo)] group-hover:scale-105 group-hover:grayscale-0"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-105"
             />
             {/* scrim superior para legibilidad de la etiqueta */}
             <span aria-hidden className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-black/45 to-transparent" />

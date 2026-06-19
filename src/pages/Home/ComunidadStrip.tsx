@@ -59,7 +59,7 @@ export function ComunidadStrip() {
                   onError={(e) => {
                     e.currentTarget.style.display = 'none'
                   }}
-                  className="h-auto w-full grayscale transition-all duration-700 ease-[var(--ease-out-expo)] group-hover:grayscale-0"
+                  className="h-auto w-full transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.03]"
                 />
                 <span
                   aria-hidden

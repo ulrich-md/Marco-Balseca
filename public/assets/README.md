@@ -4,10 +4,9 @@ Las fotos ya están **conectadas** al sitio. Todo lo que está en `public/` se
 publica con la misma ruta: `public/assets/portraits/marco-hero.png` →
 `/assets/portraits/marco-hero.png`.
 
-> **B&N editorial:** las fotos se muestran en escala de grises para conservar el
-> sistema (blanco/negro/rojo). En tarjetas (acciones, comunidad) aparecen a
-> **color al pasar el cursor**. La pieza social `#PuroTehuacán` se muestra a
-> color tal cual (ya trae su propio texto).
+> **Fotos a COLOR.** El layout es editorial (blanco/negro/rojo), pero las fotos
+> van a todo color para que el sitio se sienta vivo y cercano. Los cutouts
+> claros (camisas claras) llevan sombra/halo para separarse del fondo.
 
 > **Sin imágenes rotas:** cada `<img>` tiene un fallback. Si un archivo falta,
 > se oculta la imagen y queda el bloque de color (gris/negro). Nunca aparece el

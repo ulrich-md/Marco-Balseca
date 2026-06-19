@@ -11,7 +11,8 @@ type Props = {
   src?: string
   /** Texto alternativo (accesibilidad) cuando hay foto real */
   alt?: string
-  /** Convierte la foto a blanco y negro para conservar el sistema editorial */
+  /** Pasa la foto a blanco y negro. Por defecto FALSE: las fotos van a color
+   *  (a color se sienten vivas/cercanas; el B&N se veía apagado). */
   grayscale?: boolean
   /** 'cover' (recorta) o 'contain' (recorte transparente, sin recortar) */
   fit?: 'cover' | 'contain'
@@ -34,7 +35,7 @@ export function PortraitPlaceholder({
   rounded = 'rounded-none',
   src,
   alt = 'Marco Balseca',
-  grayscale = true,
+  grayscale = false,
   fit = 'cover',
   shadow = false,
 }: Props) {
