@@ -1,0 +1,4 @@
+# El motor de búsqueda (scripts/data) se instala con: npx uipro-cli init --ai claude
+# Se omite del repo por peso; SKILL.md queda versionado.
+data/
+scripts/
