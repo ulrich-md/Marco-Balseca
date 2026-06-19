@@ -2,6 +2,7 @@ import { SectionLabel } from '../../components/ui/SectionLabel'
 import { RevealText } from '../../components/ui/RevealText'
 import { Reveal } from '../../components/ui/Reveal'
 import { ButtonAnchor } from '../../components/ui/Button'
+import { ResponsiveImg } from '../../components/ui/ResponsiveImg'
 import { SOCIAL } from '../../data/site'
 
 /**
@@ -44,15 +45,13 @@ export function SocialStrip() {
           <div className="relative mx-auto w-full max-w-md">
             <span aria-hidden className="pointer-events-none absolute -inset-2 z-10 border border-accent" />
             {/* Pieza social tal cual (color, sin recortar). REEMPLAZAR -> si falta, no se ve nada (sin imagen rota). */}
-            <img
+            <ResponsiveImg
               src="/assets/social/social-purotehuacan.jpg"
-              alt="#PuroTehuacán — Marco Balseca"
-              loading="lazy"
-              decoding="async"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none'
-              }}
-              className="h-auto w-full"
+              alt="#PuroTehuacán — Marco Balseca con la comunidad"
+              width={485}
+              height={486}
+              sizes="(min-width: 1024px) 42vw, 92vw"
+              imgClassName="block h-auto w-full"
             />
           </div>
         </Reveal>

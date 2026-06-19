@@ -70,7 +70,7 @@ export function ReelCard({ reel, index, onOpen }: Props) {
       </span>
 
       <div className="absolute inset-x-0 bottom-0 p-4">
-        <span className="eyebrow text-accent">Reel · 9:16</span>
+        <span className="eyebrow text-accent-soft">Reel · 9:16</span>
         <h3 className="font-condensed mt-1 text-lg font-semibold leading-tight text-white">
           {reel.titulo}
         </h3>

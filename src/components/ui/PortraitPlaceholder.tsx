@@ -1,3 +1,5 @@
+import { ResponsiveImg } from './ResponsiveImg'
+
 type Props = {
   className?: string
   /** muestra la nota de reemplazo (solo cuando NO hay foto real) */
@@ -18,6 +20,10 @@ type Props = {
   fit?: 'cover' | 'contain'
   /** sombra suave (ideal para recortes transparentes) */
   shadow?: boolean
+  /** sizes para srcset (optimización responsiva) */
+  sizes?: string
+  /** carga ansiosa (hero, sobre el pliegue) */
+  eager?: boolean
 }
 
 /**
@@ -38,6 +44,8 @@ export function PortraitPlaceholder({
   grayscale = false,
   fit = 'cover',
   shadow = false,
+  sizes = '(min-width: 1024px) 42vw, 92vw',
+  eager = false,
 }: Props) {
   const base =
     tone === 'black'
@@ -61,17 +69,7 @@ export function PortraitPlaceholder({
       aria-label={src ? alt : 'Retrato de Marco Balseca (pendiente de reemplazar)'}
     >
       {src ? (
-        <img
-          src={src}
-          alt={alt}
-          loading="lazy"
-          decoding="async"
-          className={imgCls}
-          // Fallback de color: si la foto falta, se oculta y queda el bloque.
-          onError={(e) => {
-            e.currentTarget.style.display = 'none'
-          }}
-        />
+        <ResponsiveImg src={src} alt={alt} imgClassName={imgCls} sizes={sizes} eager={eager} />
       ) : (
         // Silueta busto B&N (placeholder)
         <svg

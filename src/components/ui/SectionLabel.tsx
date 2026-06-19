@@ -14,10 +14,13 @@ type Props = {
  */
 export function SectionLabel({ num, children, tone = 'accent', className = '' }: Props) {
   const text = tone === 'accent' ? 'text-ink' : 'text-white'
+  // Sobre oscuro usamos un rojo más vivo para cumplir contraste AA (4.5:1).
+  const numCls = tone === 'accent' ? 'text-accent' : 'text-accent-soft'
+  const ruleCls = tone === 'accent' ? 'bg-accent' : 'bg-accent-soft'
   return (
     <div className={`flex items-center gap-3 ${text} ${className}`}>
-      {num && <span className="eyebrow tabular-nums text-accent">{num}</span>}
-      <span aria-hidden className="h-px w-8 bg-accent" />
+      {num && <span className={`eyebrow tabular-nums ${numCls}`}>{num}</span>}
+      <span aria-hidden className={`h-px w-8 ${ruleCls}`} />
       <span className="eyebrow">{children}</span>
     </div>
   )

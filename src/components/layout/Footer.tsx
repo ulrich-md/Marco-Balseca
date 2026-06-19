@@ -21,7 +21,7 @@ export function Footer() {
       />
       {/* Nombre gigante */}
       <div className="container-x relative pt-16 md:pt-24">
-        <p className="eyebrow text-accent">
+        <p className="eyebrow text-accent-soft">
           {SITE.ciudad}, {SITE.estado} · {year}
         </p>
         <h2 className="font-display mt-4 text-[18vw] leading-[0.82] md:text-[13vw]">
@@ -62,7 +62,10 @@ export function Footer() {
           <ul className="mt-4 space-y-2.5">
             {NAV.map((item) => (
               <li key={item.to}>
-                <Link to={item.to} className="font-condensed text-lg text-white/80 transition-colors hover:text-accent">
+                <Link
+                  to={item.to}
+                  className="font-condensed flex min-h-[44px] items-center text-lg text-white/80 transition-colors hover:text-accent-soft"
+                >
                   {item.label}
                 </Link>
               </li>

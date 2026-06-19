@@ -69,15 +69,16 @@ export const COMUNIDAD_COUNT = 0
  * pon su ruta en `foto` (ej. '/assets/comunidad/persona-1.jpg').
  * REEMPLAZAR: fotos y nombres reales de simpatizantes, con su consentimiento.
  */
-export type Simpatizante = { rol: string; colonia: string; foto?: string }
+export type Simpatizante = { rol: string; colonia: string; foto?: string; w?: number; h?: number }
 
 // Fotos reales (momentos con la gente). Se usan tal cual, sin recortar (masonry).
+// w/h = dimensiones intrínsecas para reservar espacio (sin saltos de layout).
 // REEMPLAZAR: textos de colonia con datos reales.
 export const COMUNIDAD: Simpatizante[] = [
-  { rol: 'En el mercado', colonia: 'Centro, Tehuacán', foto: '/assets/comunidad/comunidad-mercado.jpg' },
-  { rol: 'Visita en la colonia', colonia: 'Col. [nombre]', foto: '/assets/comunidad/comunidad-visita.jpg' },
-  { rol: 'En la cancha', colonia: 'Col. [nombre]', foto: '/assets/comunidad/comunidad-cancha.jpg' },
-  { rol: 'Con las familias', colonia: 'Col. [nombre]', foto: '/assets/comunidad/comunidad-familia.jpg' },
+  { rol: 'En el mercado', colonia: 'Centro, Tehuacán', foto: '/assets/comunidad/comunidad-mercado.jpg', w: 492, h: 638 },
+  { rol: 'Visita en la colonia', colonia: 'Col. [nombre]', foto: '/assets/comunidad/comunidad-visita.jpg', w: 827, h: 822 },
+  { rol: 'En la cancha', colonia: 'Col. [nombre]', foto: '/assets/comunidad/comunidad-cancha.jpg', w: 827, h: 537 },
+  { rol: 'Con las familias', colonia: 'Col. [nombre]', foto: '/assets/comunidad/comunidad-familia.jpg', w: 1159, h: 1500 },
 ]
 
 /** Pilares / valores de identidad (Conóceme + teasers) */

@@ -5,6 +5,7 @@ import { PageHero } from '../components/layout/PageHero'
 import { Button, ButtonAnchor } from '../components/ui/Button'
 import { SectionLabel } from '../components/ui/SectionLabel'
 import { PortraitPlaceholder } from '../components/ui/PortraitPlaceholder'
+import { ResponsiveImg } from '../components/ui/ResponsiveImg'
 import {
   InstagramIcon,
   FacebookIcon,
@@ -106,15 +107,12 @@ export default function Contacto() {
                 'radial-gradient(60% 55% at 62% 78%, rgba(22,22,22,0.10), transparent 70%)',
             }}
           />
-          <img
+          <ResponsiveImg
             src="/assets/portraits/marco-fuerza.png"
             alt=""
-            loading="lazy"
-            decoding="async"
-            onError={(e) => {
-              e.currentTarget.style.display = 'none'
-            }}
-            className="absolute bottom-0 right-0 h-full w-auto max-w-full object-contain object-bottom drop-shadow-[0_22px_45px_rgba(0,0,0,0.28)]"
+            decorative
+            sizes="34vw"
+            imgClassName="absolute bottom-0 right-0 h-full w-auto max-w-full object-contain object-bottom drop-shadow-[0_22px_45px_rgba(0,0,0,0.28)]"
           />
         </div>
       </PageHero>

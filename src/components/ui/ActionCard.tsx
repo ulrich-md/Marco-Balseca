@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { ResponsiveImg } from './ResponsiveImg'
 import type { Accion } from '../../data/acciones'
 
 type Props = { accion: Accion; index: number }
@@ -18,16 +19,11 @@ export function ActionCard({ accion, index }: Props) {
       <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-b from-[#ededed] to-[#d4d4d4]">
         {accion.imagen ? (
           <>
-            <img
+            <ResponsiveImg
               src={accion.imagen}
               alt={accion.titulo}
-              loading="lazy"
-              decoding="async"
-              // Fallback: si falta la foto, queda el bloque gris (sin imagen rota).
-              onError={(e) => {
-                e.currentTarget.style.display = 'none'
-              }}
-              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-105"
+              sizes="(min-width: 1024px) 31vw, (min-width: 640px) 48vw, 94vw"
+              imgClassName="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-105"
             />
             {/* scrim superior para legibilidad de la etiqueta */}
             <span aria-hidden className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-black/45 to-transparent" />

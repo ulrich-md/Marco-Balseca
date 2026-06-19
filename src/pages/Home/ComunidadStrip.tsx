@@ -2,6 +2,7 @@ import { SectionLabel } from '../../components/ui/SectionLabel'
 import { RevealText } from '../../components/ui/RevealText'
 import { Reveal } from '../../components/ui/Reveal'
 import { ButtonLink } from '../../components/ui/Button'
+import { ResponsiveImg } from '../../components/ui/ResponsiveImg'
 import { COMUNIDAD, COMUNIDAD_COUNT } from '../../data/site'
 
 /**
@@ -51,16 +52,16 @@ export function ComunidadStrip() {
             <Reveal key={i} delay={(i % 4) * 0.05} className="mb-4 break-inside-avoid">
               <figure className="group relative overflow-hidden bg-mist">
                 {/* Foto tal cual. REEMPLAZAR -> si falta, queda el bloque gris (sin imagen rota). */}
-                <img
-                  src={p.foto}
-                  alt={`${p.rol} — ${p.colonia}`}
-                  loading="lazy"
-                  decoding="async"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none'
-                  }}
-                  className="h-auto w-full transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.03]"
-                />
+                {p.foto && (
+                  <ResponsiveImg
+                    src={p.foto}
+                    alt={`${p.rol} — ${p.colonia}`}
+                    width={p.w}
+                    height={p.h}
+                    sizes="(min-width: 1024px) 24vw, 48vw"
+                    imgClassName="block h-auto w-full transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.03]"
+                  />
+                )}
                 <span
                   aria-hidden
                   className="absolute bottom-0 left-0 z-10 h-1 w-0 bg-accent transition-all duration-500 ease-[var(--ease-out-expo)] group-hover:w-full"

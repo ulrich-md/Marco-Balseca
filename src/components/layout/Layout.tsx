@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useLocation, useOutlet } from 'react-router-dom'
 import { Header } from './Header'
@@ -23,7 +24,7 @@ export function Layout() {
           animate={reduce ? undefined : 'animate'}
           exit={reduce ? undefined : 'exit'}
         >
-          {outlet}
+          <Suspense fallback={<div className="min-h-[70vh]" />}>{outlet}</Suspense>
         </motion.main>
       </AnimatePresence>
       <Footer />

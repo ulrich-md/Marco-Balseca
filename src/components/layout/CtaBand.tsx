@@ -19,7 +19,7 @@ export function CtaBand() {
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.07] mix-blend-luminosity"
         style={{
-          backgroundImage: 'url(/assets/backgrounds/pattern-nahuatl.png)',
+          backgroundImage: 'url(/assets/backgrounds/pattern-nahuatl.webp)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}

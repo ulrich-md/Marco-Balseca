@@ -42,10 +42,10 @@ export function MobileMenu({ open, onClose }: Props) {
                     onClick={onClose}
                     className="font-display flex items-baseline gap-4 py-2 text-5xl sm:text-6xl"
                   >
-                    <span className="eyebrow w-8 shrink-0 text-accent">
+                    <span className="eyebrow w-8 shrink-0 text-accent-soft">
                       {String(i + 1).padStart(2, '0')}
                     </span>
-                    <span className={active ? 'text-accent' : 'text-white'}>{item.label}</span>
+                    <span className={active ? 'text-accent-soft' : 'text-white'}>{item.label}</span>
                   </Link>
                 </motion.div>
               )

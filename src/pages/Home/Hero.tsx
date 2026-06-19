@@ -132,6 +132,8 @@ export function Hero() {
               alt="Marco Balseca, Tehuacán"
               tone="grey"
               frame
+              eager
+              sizes="(min-width: 1024px) 40vw, 92vw"
               className="aspect-[4/5] w-full shadow-[0_30px_60px_-25px_rgba(0,0,0,0.5)]"
               note={false}
             />

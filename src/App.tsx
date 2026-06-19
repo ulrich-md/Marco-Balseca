@@ -1,15 +1,18 @@
+import { lazy } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Layout } from './components/layout/Layout'
 import { SmoothScroll, ScrollToTop } from './lib/SmoothScroll'
 
+// Home eager (landing); el resto se carga por ruta (code-splitting) para
+// aligerar el bundle inicial.
 import Home from './pages/Home'
-import Conoceme from './pages/Conoceme'
-import Trayectoria from './pages/Trayectoria'
-import Acciones from './pages/Acciones'
-import Reels from './pages/Reels'
-import Agenda from './pages/Agenda'
-import Contacto from './pages/Contacto'
-import NotFound from './pages/NotFound'
+const Conoceme = lazy(() => import('./pages/Conoceme'))
+const Trayectoria = lazy(() => import('./pages/Trayectoria'))
+const Acciones = lazy(() => import('./pages/Acciones'))
+const Reels = lazy(() => import('./pages/Reels'))
+const Agenda = lazy(() => import('./pages/Agenda'))
+const Contacto = lazy(() => import('./pages/Contacto'))
+const NotFound = lazy(() => import('./pages/NotFound'))
 
 export function App() {
   return (

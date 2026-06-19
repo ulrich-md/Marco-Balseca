@@ -8,6 +8,15 @@ type Props = {
   onClose: () => void
 }
 
+/** Convierte un permalink de Instagram (reel/post/tv) en su URL de embed oficial. */
+function igEmbedUrl(url?: string): string | null {
+  if (!url) return null
+  const m = url.match(/instagram\.com\/(reel|reels|p|tv)\/([^/?#]+)/i)
+  if (!m) return null
+  const kind = m[1] === 'reels' ? 'reel' : m[1]
+  return `https://www.instagram.com/${kind}/${m[2]}/embed`
+}
+
 /** Lightbox/modal para reproducir reels (MP4 / YouTube) o enlazar a Instagram. */
 export function Lightbox({ reel, onClose }: Props) {
   useEffect(() => {
@@ -70,19 +79,31 @@ export function Lightbox({ reel, onClose }: Props) {
               />
             )}
 
-            {/* Instagram: enlazamos al reel original (sin scripts de terceros). */}
-            {reel.kind === 'instagram' && (
-              <div className="flex h-full flex-col items-center justify-center gap-5 bg-black p-6 text-center">
-                <span className="eyebrow text-accent">Reel de Instagram</span>
-                <h3 className="font-display text-3xl text-white">{reel.titulo}</h3>
-                <p className="max-w-[24ch] text-sm text-white/70">
-                  Reproduce el reel original en el perfil oficial de Marco.
-                </p>
-                <ButtonAnchor href={reel.instagramUrl ?? '#'} tone="bone" variant="solid" arrow>
-                  Ver en Instagram
-                </ButtonAnchor>
-              </div>
-            )}
+            {/* Instagram: embed oficial vía iframe /embed cuando hay permalink de
+                reel/post; si no, panel con enlace (placeholder). */}
+            {reel.kind === 'instagram' &&
+              (igEmbedUrl(reel.instagramUrl) ? (
+                <iframe
+                  className="h-full w-full bg-white"
+                  src={igEmbedUrl(reel.instagramUrl)!}
+                  title={reel.titulo}
+                  loading="lazy"
+                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                  allowFullScreen
+                  scrolling="no"
+                />
+              ) : (
+                <div className="flex h-full flex-col items-center justify-center gap-5 bg-black p-6 text-center">
+                  <span className="eyebrow text-accent-soft">Reel de Instagram</span>
+                  <h3 className="font-display text-3xl text-white">{reel.titulo}</h3>
+                  <p className="max-w-[24ch] text-sm text-white/70">
+                    Pega el enlace del reel en <code>src/data/reels.ts</code> para verlo embebido aquí.
+                  </p>
+                  <ButtonAnchor href={reel.instagramUrl ?? '#'} tone="bone" variant="solid" arrow>
+                    Ver en Instagram
+                  </ButtonAnchor>
+                </div>
+              ))}
           </motion.div>
         </motion.div>
       )}
