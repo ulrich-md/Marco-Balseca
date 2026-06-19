@@ -2,12 +2,13 @@ import { SectionLabel } from '../../components/ui/SectionLabel'
 import { RevealText } from '../../components/ui/RevealText'
 import { Reveal } from '../../components/ui/Reveal'
 import { ButtonLink } from '../../components/ui/Button'
-import { PortraitPlaceholder } from '../../components/ui/PortraitPlaceholder'
 import { COMUNIDAD, COMUNIDAD_COUNT } from '../../data/site'
 
 /**
- * Galería de comunidad (patrón Community Landing): rostros reales de
- * simpatizantes + contador + onboarding. Aporta cercanía y confianza.
+ * Galería de comunidad (patrón Community Landing): momentos reales con la
+ * gente + contador + onboarding. Aporta cercanía y confianza.
+ * Fotos en MASONRY (CSS columns): se muestran TAL CUAL, sin recortar.
+ * B&N por coherencia editorial, con color al hover (interacción).
  */
 export function ComunidadStrip() {
   return (
@@ -44,28 +45,29 @@ export function ComunidadStrip() {
           </div>
         </Reveal>
 
-        {/* Rostros */}
-        <div className="mt-10 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
+        {/* Momentos reales (masonry, sin recortar) */}
+        <div className="mt-10 gap-4 [column-fill:balance] sm:columns-2 lg:columns-4">
           {COMUNIDAD.map((p, i) => (
-            <Reveal key={i} delay={(i % 4) * 0.05}>
-              <figure className="group">
-                <div className="relative overflow-hidden">
-                  {/* Foto real: define `foto` en COMUNIDAD (data/site.ts) */}
-                  <PortraitPlaceholder
-                    tone="grey"
-                    note={false}
-                    src={p.foto}
-                    alt={`${p.rol} — ${p.colonia}`}
-                    className="aspect-square w-full"
-                  />
-                  <span
-                    aria-hidden
-                    className="absolute bottom-0 left-0 h-1 w-0 bg-accent transition-all duration-500 ease-[var(--ease-out-expo)] group-hover:w-full"
-                  />
-                </div>
-                <figcaption className="mt-3">
-                  <p className="font-condensed text-lg font-semibold leading-tight text-ink">{p.rol}</p>
-                  <p className="eyebrow mt-1 text-mute">{p.colonia}</p>
+            <Reveal key={i} delay={(i % 4) * 0.05} className="mb-4 break-inside-avoid">
+              <figure className="group relative overflow-hidden bg-mist">
+                {/* Foto tal cual. REEMPLAZAR -> si falta, queda el bloque gris (sin imagen rota). */}
+                <img
+                  src={p.foto}
+                  alt={`${p.rol} — ${p.colonia}`}
+                  loading="lazy"
+                  decoding="async"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none'
+                  }}
+                  className="h-auto w-full grayscale transition-all duration-700 ease-[var(--ease-out-expo)] group-hover:grayscale-0"
+                />
+                <span
+                  aria-hidden
+                  className="absolute bottom-0 left-0 z-10 h-1 w-0 bg-accent transition-all duration-500 ease-[var(--ease-out-expo)] group-hover:w-full"
+                />
+                <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent p-4 pt-10">
+                  <p className="font-condensed text-lg font-semibold leading-tight text-white">{p.rol}</p>
+                  <p className="eyebrow mt-1 text-white/70">{p.colonia}</p>
                 </figcaption>
               </figure>
             </Reveal>

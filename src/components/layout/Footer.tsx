@@ -13,6 +13,12 @@ export function Footer() {
 
   return (
     <footer className="relative overflow-hidden bg-black text-white">
+      {/* Grano de película muy sutil (4KB) al 5% para textura editorial */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.05]"
+        style={{ backgroundImage: 'url(/assets/backgrounds/grain.png)', backgroundSize: '420px' }}
+      />
       {/* Nombre gigante */}
       <div className="container-x relative pt-16 md:pt-24">
         <p className="eyebrow text-accent">

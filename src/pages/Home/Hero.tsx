@@ -126,8 +126,15 @@ export function Hero() {
 
           {/* Foto B&N, encajada bajo el titular (ref. ESPN) */}
           <div ref={photoRef} className="relative lg:-mt-[7vw]">
-            {/* REEMPLAZAR: retrato oficial (B&N) de @marcobalseca1 */}
-            <PortraitPlaceholder tone="grey" frame className="aspect-[4/5] w-full" note={false} />
+            {/* Foto cutout transparente. REEMPLAZAR -> si falta, queda el bloque gris (sin imagen rota). */}
+            <PortraitPlaceholder
+              src="/assets/portraits/marco-hero.png"
+              alt="Marco Balseca, Tehuacán"
+              tone="grey"
+              frame
+              className="aspect-[4/5] w-full shadow-[0_30px_60px_-25px_rgba(0,0,0,0.5)]"
+              note={false}
+            />
             <span className="eyebrow absolute -bottom-3 left-3 bg-white px-2 py-1 text-mute">
               Tehuacán, Puebla
             </span>

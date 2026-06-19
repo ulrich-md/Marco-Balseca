@@ -2,10 +2,10 @@
    Ejes temáticos sugeridos para la agenda; el equipo ajusta el contenido real. */
 
 export type Categoria =
+  | 'Deporte'
+  | 'Educación'
   | 'Comunidad'
-  | 'Raíces y cultura'
   | 'Economía local'
-  | 'Juventud'
   | 'Seguridad'
   | 'Propuesta'
 
@@ -20,20 +20,36 @@ export type Accion = {
 }
 
 export const ACCIONES: Accion[] = [
+  // 4 tarjetas con foto real (categorías indicadas por el equipo).
   {
-    slug: 'raices-y-cultura',
-    categoria: 'Raíces y cultura',
-    titulo: 'Raíces y cultura viva de Tehuacán',
-    resumen:
-      'Honrar la historia y las tradiciones de Tehuacán. // REEMPLAZAR: [propuesta] concreta de promoción cultural.',
+    slug: 'deporte-voleibol',
+    categoria: 'Deporte',
+    titulo: 'Deporte que une a la colonia',
+    resumen: 'Activación deportiva con la comunidad. // REEMPLAZAR: [propuesta] concreta.',
+    imagen: '/assets/acciones/accion-deporte-voleibol.jpg',
   },
   {
-    slug: 'cerca-de-la-gente',
+    slug: 'deporte-copa',
+    categoria: 'Deporte',
+    titulo: 'Torneos y copas para la comunidad',
+    resumen: 'Torneos que convocan a las familias. // REEMPLAZAR: [propuesta] concreta.',
+    imagen: '/assets/acciones/accion-deporte-copa.jpg',
+  },
+  {
+    slug: 'educacion',
+    categoria: 'Educación',
+    titulo: 'Educación para nuestras juventudes',
+    resumen: 'Apoyo a estudiantes y escuelas. // REEMPLAZAR: [propuesta] concreta.',
+    imagen: '/assets/acciones/accion-educacion.jpg',
+  },
+  {
+    slug: 'obra-cancha',
     categoria: 'Comunidad',
-    titulo: 'Cerca de la gente, en cada colonia',
-    resumen:
-      'Recorridos, escucha y soluciones de barrio. // REEMPLAZAR: [propuesta] de cercanía comunitaria.',
+    titulo: 'Obra cercana: espacios para la gente',
+    resumen: 'Rehabilitación de espacios comunes. // REEMPLAZAR: [propuesta] concreta.',
+    imagen: '/assets/acciones/accion-obra-cancha.jpg',
   },
+  // Tarjetas adicionales sin foto aún (fallback de color, no imagen rota).
   {
     slug: 'economia-local',
     categoria: 'Economía local',
@@ -42,24 +58,10 @@ export const ACCIONES: Accion[] = [
       'Apoyo a comercio, oficio y emprendimiento local. // REEMPLAZAR: [propuesta] económica.',
   },
   {
-    slug: 'juventud-recia',
-    categoria: 'Juventud',
-    titulo: 'Juventud recia: oportunidades reales',
-    resumen:
-      'Educación, deporte y primer empleo. // REEMPLAZAR: [propuesta] para juventudes.',
-  },
-  {
     slug: 'seguridad-y-paz',
     categoria: 'Seguridad',
     titulo: 'Seguridad con cercanía y prevención',
     resumen:
       'Paz que se construye en comunidad. // REEMPLAZAR: [propuesta] de seguridad y prevención.',
-  },
-  {
-    slug: 'tierra-y-territorio',
-    categoria: 'Propuesta',
-    titulo: 'Por nuestra tierra: territorio y servicios',
-    resumen:
-      'Infraestructura, agua y servicios dignos. // REEMPLAZAR: [propuesta] territorial.',
   },
 ]

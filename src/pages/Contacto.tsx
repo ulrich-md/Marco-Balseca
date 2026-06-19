@@ -4,6 +4,7 @@ import { Seo } from '../lib/Seo'
 import { PageHero } from '../components/layout/PageHero'
 import { Button, ButtonAnchor } from '../components/ui/Button'
 import { SectionLabel } from '../components/ui/SectionLabel'
+import { PortraitPlaceholder } from '../components/ui/PortraitPlaceholder'
 import {
   InstagramIcon,
   FacebookIcon,
@@ -94,7 +95,20 @@ export default function Contacto() {
         label="Contacto · Súmate"
         title={'Súmate al\nmovimiento'}
         intro="Tu voz, nuestra tierra. Déjanos un mensaje, hazte voluntario o escríbenos directo por WhatsApp. Cuenta con nosotros."
-      />
+      >
+        {/* Acento gráfico (cutout) junto al título. REEMPLAZAR -> si falta, no se ve nada (sin imagen rota). */}
+        <img
+          src="/assets/portraits/marco-fuerza.png"
+          alt=""
+          aria-hidden
+          loading="lazy"
+          decoding="async"
+          onError={(e) => {
+            e.currentTarget.style.display = 'none'
+          }}
+          className="pointer-events-none absolute bottom-0 right-0 hidden h-[88%] w-auto max-w-[32%] object-contain object-bottom grayscale lg:block"
+        />
+      </PageHero>
 
       <section className="bg-bone py-16 text-ink md:py-24">
         <div className="container-x grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
@@ -193,6 +207,16 @@ export default function Contacto() {
 
           {/* Contacto directo + súmate */}
           <aside className="flex flex-col gap-6">
+            {/* Retrato cercano. REEMPLAZAR -> si falta, queda el bloque negro (sin imagen rota). */}
+            <PortraitPlaceholder
+              src="/assets/portraits/marco-corazon.png"
+              alt="Marco Balseca, cerca de la gente"
+              tone="black"
+              fit="contain"
+              rounded="rounded-sm"
+              className="aspect-[4/3] w-full"
+              note={false}
+            />
             <div className="rounded-sm bg-black p-7 text-white md:p-8">
               <SectionLabel tone="bone">Directo</SectionLabel>
               <div className="mt-5 space-y-4">

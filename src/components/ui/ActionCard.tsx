@@ -17,18 +17,29 @@ export function ActionCard({ accion, index }: Props) {
       {/* Imagen: foto real (data/acciones.ts -> imagen) o bloque gris B&N */}
       <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-b from-[#ededed] to-[#d4d4d4]">
         {accion.imagen ? (
-          <img
-            src={accion.imagen}
-            alt={accion.titulo}
-            loading="lazy"
-            className="absolute inset-0 h-full w-full object-cover grayscale transition-all duration-700 ease-[var(--ease-out-expo)] group-hover:scale-105 group-hover:grayscale-0"
-          />
+          <>
+            <img
+              src={accion.imagen}
+              alt={accion.titulo}
+              loading="lazy"
+              decoding="async"
+              // Fallback: si falta la foto, queda el bloque gris (sin imagen rota).
+              onError={(e) => {
+                e.currentTarget.style.display = 'none'
+              }}
+              className="absolute inset-0 h-full w-full object-cover grayscale transition-all duration-700 ease-[var(--ease-out-expo)] group-hover:scale-105 group-hover:grayscale-0"
+            />
+            {/* scrim superior para legibilidad de la etiqueta */}
+            <span aria-hidden className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-black/45 to-transparent" />
+          </>
         ) : (
           <span className="font-display absolute -bottom-4 -right-1 text-[7rem] leading-none text-ink/[0.07]">
             {String(index + 1).padStart(2, '0')}
           </span>
         )}
-        <span className="eyebrow absolute left-5 top-5 text-accent">{accion.categoria}</span>
+        <span className={`eyebrow absolute left-5 top-5 ${accion.imagen ? 'text-white' : 'text-accent'}`}>
+          {accion.categoria}
+        </span>
         {/* línea accent que se dibuja al hover (ref. ESPN/Yeezy) */}
         <span aria-hidden className="absolute bottom-0 left-0 z-10 h-0.5 w-0 bg-accent transition-all duration-500 ease-[var(--ease-out-expo)] group-hover:w-full" />
       </div>

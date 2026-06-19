@@ -71,15 +71,13 @@ export const COMUNIDAD_COUNT = 0
  */
 export type Simpatizante = { rol: string; colonia: string; foto?: string }
 
+// Fotos reales (momentos con la gente). Se usan tal cual, sin recortar (masonry).
+// REEMPLAZAR: textos de colonia con datos reales.
 export const COMUNIDAD: Simpatizante[] = [
-  { rol: 'Vecina', colonia: 'Col. [nombre]' },
-  { rol: 'Comerciante', colonia: 'Centro, Tehuacán' },
-  { rol: 'Estudiante', colonia: 'Col. [nombre]' },
-  { rol: 'Productor', colonia: 'Junta [nombre]' },
-  { rol: 'Maestra', colonia: 'Col. [nombre]' },
-  { rol: 'Joven', colonia: 'Col. [nombre]' },
-  { rol: 'Comerciante', colonia: 'Mercado [nombre]' },
-  { rol: 'Vecino', colonia: 'Col. [nombre]' },
+  { rol: 'En el mercado', colonia: 'Centro, Tehuacán', foto: '/assets/comunidad/comunidad-mercado.jpg' },
+  { rol: 'Visita en la colonia', colonia: 'Col. [nombre]', foto: '/assets/comunidad/comunidad-visita.jpg' },
+  { rol: 'En la cancha', colonia: 'Col. [nombre]', foto: '/assets/comunidad/comunidad-cancha.jpg' },
+  { rol: 'Con las familias', colonia: 'Col. [nombre]', foto: '/assets/comunidad/comunidad-familia.jpg' },
 ]
 
 /** Pilares / valores de identidad (Conóceme + teasers) */

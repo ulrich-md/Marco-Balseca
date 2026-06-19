@@ -7,6 +7,7 @@ import { TrayectoriaTeaser } from './TrayectoriaTeaser'
 import { AccionesTeaser } from './AccionesTeaser'
 import { ReelsStrip } from './ReelsStrip'
 import { ComunidadStrip } from './ComunidadStrip'
+import { SocialStrip } from './SocialStrip'
 import { QuoteAncla } from './QuoteAncla'
 
 export default function Home() {
@@ -24,6 +25,7 @@ export default function Home() {
       <AccionesTeaser />
       <ReelsStrip />
       <ComunidadStrip />
+      <SocialStrip />
       <QuoteAncla />
       <CtaBand />
     </>

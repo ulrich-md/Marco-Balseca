@@ -2,25 +2,29 @@ type Props = {
   className?: string
   /** muestra la nota de reemplazo (solo cuando NO hay foto real) */
   note?: boolean
-  /** B&N: bloque gris claro o negro */
+  /** B&N: bloque gris claro o negro (también es el color de fallback si la foto falta) */
   tone?: 'grey' | 'black'
   /** marco accent fino (ref. Yeezy) */
   frame?: boolean
   rounded?: string
-  /** Foto real. Si se define, se muestra en lugar del placeholder.
-   *  Ej: src="/assets/retrato/marco-hero.jpg" (archivo en public/assets/...) */
+  /** Foto real. Ej: src="/assets/portraits/marco-hero.png" */
   src?: string
   /** Texto alternativo (accesibilidad) cuando hay foto real */
   alt?: string
   /** Convierte la foto a blanco y negro para conservar el sistema editorial */
   grayscale?: boolean
+  /** 'cover' (recorta) o 'contain' (recorte transparente, sin recortar) */
+  fit?: 'cover' | 'contain'
+  /** sombra suave (ideal para recortes transparentes) */
+  shadow?: boolean
 }
 
 /**
  * Retrato en BLANCO Y NEGRO.
- * - Con `src`: muestra la foto real (object-cover, B&N por defecto).
- * - Sin `src`: dibuja una silueta digna en gris/negro neutro (placeholder).
- * El accent solo aparece como marco fino opcional. Nunca usa URLs rotas.
+ * - Con `src`: muestra la foto real. Si la foto faltara o fallara la carga,
+ *   se oculta el <img> y queda el color de fondo del bloque (gris/negro):
+ *   nunca se ve un ícono de imagen rota.
+ * - Sin `src`: dibuja una silueta digna (placeholder).
  */
 export function PortraitPlaceholder({
   className = '',
@@ -31,6 +35,8 @@ export function PortraitPlaceholder({
   src,
   alt = 'Marco Balseca',
   grayscale = true,
+  fit = 'cover',
+  shadow = false,
 }: Props) {
   const base =
     tone === 'black'
@@ -40,6 +46,13 @@ export function PortraitPlaceholder({
   const figTo = tone === 'black' ? '#161616' : '#dcdcdc'
   const noteCls = tone === 'black' ? 'bg-white/12 text-white/85' : 'bg-black/45 text-white/90'
 
+  const imgCls = [
+    'absolute inset-0 h-full w-full',
+    fit === 'contain' ? 'object-contain object-bottom' : 'object-cover',
+    grayscale ? 'grayscale' : '',
+    shadow ? 'drop-shadow-2xl' : '',
+  ].join(' ')
+
   return (
     <div
       className={`relative overflow-hidden ${rounded} ${base} ${className}`}
@@ -47,12 +60,16 @@ export function PortraitPlaceholder({
       aria-label={src ? alt : 'Retrato de Marco Balseca (pendiente de reemplazar)'}
     >
       {src ? (
-        // Foto real
         <img
           src={src}
           alt={alt}
           loading="lazy"
-          className={`absolute inset-0 h-full w-full object-cover ${grayscale ? 'grayscale' : ''}`}
+          decoding="async"
+          className={imgCls}
+          // Fallback de color: si la foto falta, se oculta y queda el bloque.
+          onError={(e) => {
+            e.currentTarget.style.display = 'none'
+          }}
         />
       ) : (
         // Silueta busto B&N (placeholder)
@@ -75,12 +92,12 @@ export function PortraitPlaceholder({
 
       {/* Marco accent fino (ref. Yeezy) */}
       {frame && (
-        <span aria-hidden className="pointer-events-none absolute inset-3 border border-accent md:inset-4" />
+        <span aria-hidden className="pointer-events-none absolute inset-3 z-10 border border-accent md:inset-4" />
       )}
 
       {note && !src && (
         <span
-          className={`absolute bottom-3 left-3 rounded-full px-3 py-1 text-[10px] font-medium uppercase tracking-[0.2em] backdrop-blur-sm ${noteCls}`}
+          className={`absolute bottom-3 left-3 z-10 rounded-full px-3 py-1 text-[10px] font-medium uppercase tracking-[0.2em] backdrop-blur-sm ${noteCls}`}
         >
           REEMPLAZAR · @marcobalseca1
         </span>

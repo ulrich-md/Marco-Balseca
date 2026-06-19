@@ -28,8 +28,14 @@ export default function Conoceme() {
       <section className="bg-bone py-20 text-ink md:py-28">
         <div className="container-x grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
           <Reveal>
-            {/* REEMPLAZAR: retrato de apoyo (B&N) de @marcobalseca1 */}
-            <PortraitPlaceholder className="aspect-[4/5] w-full" tone="grey" frame />
+            {/* Retrato principal. REEMPLAZAR -> si falta, queda el bloque gris (sin imagen rota). */}
+            <PortraitPlaceholder
+              src="/assets/portraits/marco-formal.jpg"
+              alt="Retrato de Marco Balseca"
+              className="aspect-[4/5] w-full"
+              tone="grey"
+              frame
+            />
           </Reveal>
 
           <div>
@@ -88,21 +94,33 @@ export default function Conoceme() {
         </div>
       </section>
 
-      {/* Frase ancla (clara) */}
-      <section className="relative overflow-hidden bg-bone py-24 text-ink md:py-32">
+      {/* Frase ancla (clara) con retrato de apoyo */}
+      <section className="relative overflow-hidden bg-bone py-20 text-ink md:py-28">
         <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-accent/20" />
-        <div className="container-x relative text-center">
-          <span className="eyebrow text-accent">Por nuestra tierra</span>
-          <RevealText
-            as="p"
-            text={'Cerca de\nla gente'}
-            className="font-display mt-5 text-[18vw] leading-[0.86] text-ink md:text-[10vw]"
-          />
-          <Reveal delay={0.12}>
-            <p className="mx-auto mt-5 max-w-xl text-xl text-ink/70">
-              La fuerza de quien no olvida de dónde viene y camina con su gente, todos los días.
-            </p>
+        <div className="container-x relative grid items-center gap-12 lg:grid-cols-2">
+          <Reveal>
+            {/* Apoyo. REEMPLAZAR -> si falta, queda el bloque gris (sin imagen rota). */}
+            <PortraitPlaceholder
+              src="/assets/portraits/marco-corazon-fondo.jpg"
+              alt="Marco Balseca con la comunidad"
+              tone="grey"
+              frame
+              className="aspect-[4/3] w-full"
+            />
           </Reveal>
+          <div>
+            <span className="eyebrow text-accent">Por nuestra tierra</span>
+            <RevealText
+              as="p"
+              text={'Cerca de\nla gente'}
+              className="font-display mt-5 text-[16vw] leading-[0.86] text-ink sm:text-7xl lg:text-8xl"
+            />
+            <Reveal delay={0.12}>
+              <p className="mt-5 max-w-xl text-xl text-ink/70">
+                La fuerza de quien no olvida de dónde viene y camina con su gente, todos los días.
+              </p>
+            </Reveal>
+          </div>
         </div>
       </section>
 
