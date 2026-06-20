@@ -1,6 +1,7 @@
 import { SectionLabel } from '../../components/ui/SectionLabel'
 import { RevealText } from '../../components/ui/RevealText'
 import { Reveal } from '../../components/ui/Reveal'
+import { ResponsiveImg } from '../../components/ui/ResponsiveImg'
 import { FacebookIcon, InstagramIcon } from '../../components/ui/Icons'
 import { SOCIAL } from '../../data/site'
 
@@ -20,6 +21,8 @@ type Red = {
   titulo: string
   resumen: string
   url: string
+  /** Miniatura real (foto propia) que representa el contenido. */
+  thumb: string
 }
 
 const REDES: Red[] = [
@@ -30,6 +33,7 @@ const REDES: Red[] = [
     titulo: 'Mi página oficial de Facebook',
     resumen: 'Recorridos, jornadas y el día a día con la gente de Tehuacán. Sígueme y comenta.',
     url: SOCIAL.facebook.url,
+    thumb: '/assets/portraits/marco-formal.jpg',
   },
   {
     brand: 'facebook',
@@ -38,6 +42,7 @@ const REDES: Red[] = [
     titulo: '#DelegadosEnMovimiento — Marco Balseca, microrregión 25',
     resumen: 'Diario Primera Línea: el delegado invita y explica el trabajo en territorio.',
     url: 'https://www.facebook.com/DiarioPrimeraLineaTH/videos/2010567689555570/',
+    thumb: '/assets/portraits/marco-corazon-fondo.jpg',
   },
   {
     brand: 'instagram',
@@ -46,6 +51,7 @@ const REDES: Red[] = [
     titulo: 'Atención a vecinos — Col. San Francisco 1ª sección',
     resumen: 'Reel destacado: escucha vecinal y atención cercana, casa por casa.',
     url: 'https://www.instagram.com/marcobalseca1/reel/DZp5ue_xllO/',
+    thumb: '/assets/comunidad/comunidad-visita.jpg',
   },
 ]
 
@@ -112,11 +118,20 @@ function SocialCard({ red }: { red: Red }) {
       rel="noreferrer"
       className="group flex cursor-pointer flex-col overflow-hidden rounded-sm border border-ink/12 bg-white transition-colors duration-200 hover:border-accent"
     >
-      <div className="relative flex aspect-[16/10] items-center justify-center bg-black">
-        <span aria-hidden className="bg-grain absolute inset-0 opacity-60" />
-        <Brand className="h-12 w-12 text-white/90" />
+      <div className="relative aspect-[16/10] overflow-hidden bg-black">
+        <ResponsiveImg
+          src={red.thumb}
+          alt=""
+          decorative
+          sizes="(min-width: 768px) 30vw, 92vw"
+          imgClassName="absolute inset-0 h-full w-full object-cover opacity-95 transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-105"
+        />
+        <span aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-black/20" />
         {red.kind !== 'page' && <PlayBadge />}
-        <span className="eyebrow absolute left-3 top-3 text-white/75">{red.marca}</span>
+        <span className="absolute left-3 top-3 inline-flex items-center gap-1.5">
+          <Brand className="h-4 w-4 text-white" />
+          <span className="eyebrow text-white/90">{red.marca}</span>
+        </span>
         <span aria-hidden className="pointer-events-none absolute inset-2.5 border border-white/0 transition-colors duration-300 group-hover:border-accent" />
       </div>
       <div className="flex flex-1 flex-col justify-between p-5">

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useInView, useReducedMotion } from 'framer-motion'
+import { RollingNumber } from './RollingNumber'
 
 /* =========================================================================
    Contador "en vivo": personas que ya conocen a Marco.
@@ -18,38 +19,15 @@ function seedNow() {
   return BASE + Math.max(0, Math.floor((Date.now() - LAUNCH) / SEED_STEP_MS))
 }
 
-const fmt = new Intl.NumberFormat('es-MX')
-
 type Props = { label?: string; tone?: 'ink' | 'bone' }
 
 export function LiveCounter({ label = 'personas ya conocen a Marco', tone = 'ink' }: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '0px 0px -10% 0px' })
   const reduce = useReducedMotion()
-  const target = useRef(seedNow())
-  const [count, setCount] = useState(() => Math.max(0, seedNow() - 160))
-
-  // Count-up al entrar en viewport
-  useEffect(() => {
-    if (!inView) return
-    target.current = seedNow()
-    if (reduce) {
-      setCount(target.current)
-      return
-    }
-    const from = Math.max(0, target.current - 160)
-    const dur = 1700
-    const start = performance.now()
-    let raf = 0
-    const tick = (now: number) => {
-      const p = Math.min(1, (now - start) / dur)
-      const eased = 1 - Math.pow(1 - p, 3)
-      setCount(Math.round(from + (target.current - from) * eased))
-      if (p < 1) raf = requestAnimationFrame(tick)
-    }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
-  }, [inView, reduce])
+  // Arranca en el valor real; los dígitos "ruedan" al montar (entrada) y en
+  // cada chunk en vivo, dando la sensación seamless de odómetro.
+  const [count, setCount] = useState(() => seedNow())
 
   // Incremento "en vivo" por CHUNKS de personas (varía: a veces +2, +4, +9…),
   // a intervalos también variables. Se siente orgánico, como gente sumándose
@@ -78,8 +56,8 @@ export function LiveCounter({ label = 'personas ya conocen a Marco', tone = 'ink
         </span>
         <span className="eyebrow text-accent">En vivo</span>
       </div>
-      <div className={`font-display mt-1 text-4xl leading-none tabular-nums md:text-5xl ${numCls}`}>
-        {fmt.format(count)}
+      <div className={`font-display mt-1 text-4xl leading-none md:text-5xl ${numCls}`}>
+        <RollingNumber value={count} />
       </div>
       <div className={`mt-1.5 text-sm leading-snug ${labelCls}`}>{label}</div>
     </div>
