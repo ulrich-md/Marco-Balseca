@@ -1,33 +1,53 @@
 import { SectionLabel } from '../../components/ui/SectionLabel'
 import { RevealText } from '../../components/ui/RevealText'
 import { Reveal } from '../../components/ui/Reveal'
+import { FacebookIcon, InstagramIcon } from '../../components/ui/Icons'
 import { SOCIAL } from '../../data/site'
 
 /* =========================================================================
    Prensa y redes — cobertura REAL y positiva sobre Marco Balseca.
-   - Embeds interactivos vía plugins/embeds oficiales (iframe, sin SDK):
-     · Página de Facebook (@balseca) — timeline en vivo.
-     · Video de Facebook (#DelegadosEnMovimiento).
-     · Reel destacado de Instagram (@marcobalseca1).
-   - Tarjetas de notas que enlazan a la fuente (siempre funcionan, sin CLS).
-   Cada embed trae enlace directo por si un ad-blocker lo bloquea.
-   Nota: Instagram NO permite incrustar el PERFIL completo por iframe; se
-   incrusta un reel destacado (embed oficial) + enlace al perfil.
+   IMPORTANTE: NO usamos iframes de plugins de Facebook/Instagram. Los
+   escáneres anti-phishing (Malwarebytes Browser Guard, etc.) marcan como
+   "phishing" cualquier frame de login/plugin de una marca incrustado en otro
+   dominio (patrón de login falso). Por eso usamos TARJETAS-ENLACE branded:
+   mismo contenido real, interacción al abrir la red, y CERO falsos positivos.
    ========================================================================= */
 
-const FB_PAGE = 'https://www.facebook.com/balseca'
-const FB_VIDEO = 'https://www.facebook.com/DiarioPrimeraLineaTH/videos/2010567689555570/'
-// Reel real destacado: "Atención a vecinos — Col. San Francisco 1ª sección"
-const IG_REEL = 'https://www.instagram.com/marcobalseca1/reel/DZp5ue_xllO/'
-const IG_REEL_EMBED = 'https://www.instagram.com/reel/DZp5ue_xllO/embed'
+type Red = {
+  brand: 'facebook' | 'instagram'
+  kind: 'page' | 'video' | 'reel'
+  marca: string
+  titulo: string
+  resumen: string
+  url: string
+}
 
-const pagePlugin = `https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(
-  FB_PAGE,
-)}&tabs=timeline&width=400&height=560&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true`
-
-const videoPlugin = `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(
-  FB_VIDEO,
-)}&show_text=false&width=560`
+const REDES: Red[] = [
+  {
+    brand: 'facebook',
+    kind: 'page',
+    marca: 'Facebook · @balseca',
+    titulo: 'Mi página oficial de Facebook',
+    resumen: 'Recorridos, jornadas y el día a día con la gente de Tehuacán. Sígueme y comenta.',
+    url: SOCIAL.facebook.url,
+  },
+  {
+    brand: 'facebook',
+    kind: 'video',
+    marca: 'Facebook · Video',
+    titulo: '#DelegadosEnMovimiento — Marco Balseca, microrregión 25',
+    resumen: 'Diario Primera Línea: el delegado invita y explica el trabajo en territorio.',
+    url: 'https://www.facebook.com/DiarioPrimeraLineaTH/videos/2010567689555570/',
+  },
+  {
+    brand: 'instagram',
+    kind: 'reel',
+    marca: 'Instagram · @marcobalseca1',
+    titulo: 'Atención a vecinos — Col. San Francisco 1ª sección',
+    resumen: 'Reel destacado: escucha vecinal y atención cercana, casa por casa.',
+    url: 'https://www.instagram.com/marcobalseca1/reel/DZp5ue_xllO/',
+  },
+]
 
 type Nota = {
   fuente: string
@@ -44,7 +64,7 @@ const NOTAS: Nota[] = [
     etiqueta: 'Seguridad y paz',
     titulo: '«Sí al desarme, sí a la paz»: Tehuacán abre el canje voluntario de armas',
     resumen:
-      'Como delegado de Gobernación de la microrregión 25, Marco Balseca explica el módulo de canje voluntario y confidencial de armas en el Palacio Municipal: una jornada por la paz y la seguridad de las familias.',
+      'Como delegado de Gobernación de la microrregión 25, Marco Balseca explica el módulo de canje voluntario y confidencial de armas en el Palacio Municipal: una jornada por la paz de las familias.',
     url: 'https://municipiospuebla.mx/nota/tehuacan/realizan-en-tehuacan-campana-de-canje-voluntario-de-armas',
   },
   {
@@ -73,20 +93,43 @@ const NOTAS: Nota[] = [
   },
 ]
 
-/** Cabecera de un tile de embed: marca + enlace directo (fallback garantizado). */
-function EmbedHead({ label, href }: { label: string; href: string }) {
+const PlayBadge = () => (
+  <span className="absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-accent">
+    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden>
+      <path d="M8 5v14l11-7z" />
+    </svg>
+  </span>
+)
+
+/** Tarjeta-enlace de red social (sin iframe): marca + CTA hacia la red real. */
+function SocialCard({ red }: { red: Red }) {
+  const Brand = red.brand === 'facebook' ? FacebookIcon : InstagramIcon
+  const cta = red.brand === 'facebook' ? 'Ver en Facebook' : 'Ver en Instagram'
   return (
-    <div className="flex items-center justify-between border-b border-ink/10 px-4 py-3">
-      <span className="eyebrow text-accent">{label}</span>
-      <a
-        href={href}
-        target="_blank"
-        rel="noreferrer"
-        className="eyebrow text-mute transition-colors hover:text-accent"
-      >
-        Ver ↗
-      </a>
-    </div>
+    <a
+      href={red.url}
+      target="_blank"
+      rel="noreferrer"
+      className="group flex cursor-pointer flex-col overflow-hidden rounded-sm border border-ink/12 bg-white transition-colors duration-200 hover:border-accent"
+    >
+      <div className="relative flex aspect-[16/10] items-center justify-center bg-black">
+        <span aria-hidden className="bg-grain absolute inset-0 opacity-60" />
+        <Brand className="h-12 w-12 text-white/90" />
+        {red.kind !== 'page' && <PlayBadge />}
+        <span className="eyebrow absolute left-3 top-3 text-white/75">{red.marca}</span>
+        <span aria-hidden className="pointer-events-none absolute inset-2.5 border border-white/0 transition-colors duration-300 group-hover:border-accent" />
+      </div>
+      <div className="flex flex-1 flex-col justify-between p-5">
+        <div>
+          <h3 className="font-condensed text-lg font-semibold leading-tight text-ink">{red.titulo}</h3>
+          <p className="mt-2 text-sm leading-relaxed text-ink/70">{red.resumen}</p>
+        </div>
+        <span className="font-condensed mt-4 inline-flex items-center gap-1 text-sm font-semibold uppercase tracking-wide text-ink transition-colors group-hover:text-accent">
+          {cta}
+          <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-1">↗</span>
+        </span>
+      </div>
+    </a>
   )
 }
 
@@ -117,7 +160,7 @@ function NewsCard({ nota }: { nota: Nota }) {
   )
 }
 
-/** Sección "En las noticias": prensa + redes reales y positivas. */
+/** Sección "En las noticias": prensa + redes reales y positivas (sin iframes). */
 export function PrensaStrip() {
   return (
     <section className="bg-bone py-20 text-ink md:py-28">
@@ -132,8 +175,8 @@ export function PrensaStrip() {
             />
             <Reveal delay={0.1}>
               <p className="mt-4 max-w-xl text-ink/70">
-                Prensa local y mis redes, en un solo lugar. Mira, comenta e interactúa —todo es real
-                y verificable.
+                Prensa local y mis redes, en un solo lugar. Toca cualquiera para verlo, comentar e
+                interactuar —todo es real y verificable.
               </p>
             </Reveal>
           </div>
@@ -158,64 +201,19 @@ export function PrensaStrip() {
           </div>
         </div>
 
-        {/* Fila de embeds interactivos: 3 columnas de alto parejo */}
-        <div className="mt-12 grid items-start gap-5 lg:grid-cols-3">
-          {/* Facebook (timeline en vivo) */}
-          <Reveal className="overflow-hidden rounded-sm border border-ink/12 bg-white">
-            <EmbedHead label="Facebook · @balseca" href={SOCIAL.facebook.url} />
-            <iframe
-              title="Página de Facebook de Marco Balseca"
-              src={pagePlugin}
-              className="h-[560px] w-full"
-              style={{ border: 'none', overflow: 'hidden' }}
-              scrolling="no"
-              frameBorder={0}
-              loading="lazy"
-              allow="encrypted-media; picture-in-picture; web-share"
-            />
-          </Reveal>
-
-          {/* Instagram (reel destacado — embed oficial) */}
-          <Reveal delay={0.06} className="overflow-hidden rounded-sm border border-ink/12 bg-white">
-            <EmbedHead label="Instagram · @marcobalseca1" href={IG_REEL} />
-            <iframe
-              title="Reel destacado de Marco Balseca en Instagram"
-              src={IG_REEL_EMBED}
-              className="h-[560px] w-full"
-              style={{ border: 'none', overflow: 'hidden' }}
-              scrolling="no"
-              frameBorder={0}
-              loading="lazy"
-              allow="encrypted-media; picture-in-picture; web-share"
-            />
-          </Reveal>
-
-          {/* Video de Facebook + nota destacada (apiladas) */}
-          <div className="flex flex-col gap-5">
-            <Reveal delay={0.12} className="overflow-hidden rounded-sm border border-ink/12 bg-white">
-              <EmbedHead label="Video · #DelegadosEnMovimiento" href={FB_VIDEO} />
-              <iframe
-                title="Marco Balseca, delegado de la microrregión 25 — video"
-                src={videoPlugin}
-                className="h-[300px] w-full"
-                style={{ border: 'none', overflow: 'hidden' }}
-                scrolling="no"
-                frameBorder={0}
-                loading="lazy"
-                allowFullScreen
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-              />
+        {/* Redes (tarjetas-enlace, sin iframe) */}
+        <div className="mt-12 grid gap-5 md:grid-cols-3">
+          {REDES.map((red, i) => (
+            <Reveal key={red.url} delay={i * 0.06}>
+              <SocialCard red={red} />
             </Reveal>
-            <Reveal delay={0.16} className="flex-1">
-              <NewsCard nota={NOTAS[0]} />
-            </Reveal>
-          </div>
+          ))}
         </div>
 
-        {/* Más notas de prensa (positivas) */}
-        <div className="mt-5 grid gap-5 md:grid-cols-3">
-          {NOTAS.slice(1).map((nota, i) => (
-            <Reveal key={nota.url} delay={0.05 + i * 0.06}>
+        {/* Notas de prensa (positivas) */}
+        <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {NOTAS.map((nota, i) => (
+            <Reveal key={nota.url} delay={i * 0.05}>
               <NewsCard nota={nota} />
             </Reveal>
           ))}
