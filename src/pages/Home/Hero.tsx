@@ -41,27 +41,6 @@ export function Hero() {
 
   return (
     <section className="relative overflow-hidden bg-white text-ink">
-      {/* Fondo animado: blobs B&N a la deriva + un toque de rojo + barrido + grano.
-          Sutil, nunca compite con el texto. Se congela con reduced-motion. */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-        <span
-          className="hero-blob animate-drift-a"
-          style={{ top: '-12%', left: '-8%', width: '48vw', height: '48vw', background: 'radial-gradient(circle, rgba(22,22,22,0.06), transparent 65%)' }}
-        />
-        <span
-          className="hero-blob animate-drift-b"
-          style={{ bottom: '-14%', right: '-6%', width: '42vw', height: '42vw', background: 'radial-gradient(circle, rgba(225,37,27,0.08), transparent 65%)' }}
-        />
-        <span
-          className="animate-sheen absolute inset-y-0 left-0 w-1/3 -skew-x-12"
-          style={{ background: 'linear-gradient(100deg, transparent, rgba(0,0,0,0.03), transparent)' }}
-        />
-        <span
-          className="absolute inset-0 opacity-[0.04]"
-          style={{ backgroundImage: 'url(/assets/backgrounds/grain.png)', backgroundSize: '420px' }}
-        />
-      </div>
-
       {/* Índice vertical derecho (ref. ESPN) */}
       <nav
         className="absolute right-5 top-1/2 z-30 hidden -translate-y-1/2 flex-col items-end gap-3 xl:flex"
@@ -86,10 +65,10 @@ export function Hero() {
 
         {/* Titular gigante — el NOMBRE es el héroe */}
         <div className="relative mt-8 lg:mt-10">
-          {/* Acento rojo vertical (ref. ESPN), con float sutil */}
+          {/* Acento rojo vertical (ref. ESPN) */}
           <span
             aria-hidden
-            className="font-display animate-float-y pointer-events-none absolute -left-1 top-1 z-0 hidden select-none text-[7vw] leading-none text-accent lg:block"
+            className="font-display pointer-events-none absolute -left-1 top-1 z-0 hidden select-none text-[7vw] leading-none text-accent lg:block"
             style={{ writingMode: 'vertical-rl' }}
           >
             TEHUACÁN

@@ -24,6 +24,7 @@ export default function Reels() {
         index="05"
         label="Reels"
         title="En la calle"
+        variant="dark"
         intro="Aquí me ves en la calle, con la gente: atención a vecinos, jornadas, deporte y la fiesta del Mundial en Tehuacán. Da clic para reproducir cualquier reel oficial de @marcobalseca1."
       >
         <div className="mt-8">

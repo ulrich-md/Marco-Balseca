@@ -9,13 +9,13 @@ import { useInView, useReducedMotion } from 'framer-motion'
    suba mientras se mira. Afina BASE/STEP_MS o conéctalo a datos reales
    (Instagram/Meta) cuando los tengas.
    ========================================================================= */
-const LAUNCH = Date.UTC(2026, 5, 15) // 15 jun 2026
-const BASE = 9200 // punto de partida creíble
-const STEP_MS = 6000 // ritmo base ≈ +1 cada 6 s
+const LAUNCH = Date.UTC(2026, 5, 20) // 20 jun 2026 (arranca ~15,000)
+const BASE = 15000 // punto de partida creíble (~15 mil)
+const SEED_STEP_MS = 60000 // crecimiento persistente lento (+1/min) → creíble día a día
 
 /** Valor "actual" anclado al tiempo (consistente entre recargas). */
 function seedNow() {
-  return BASE + Math.max(0, Math.floor((Date.now() - LAUNCH) / STEP_MS))
+  return BASE + Math.max(0, Math.floor((Date.now() - LAUNCH) / SEED_STEP_MS))
 }
 
 const fmt = new Intl.NumberFormat('es-MX')
@@ -51,15 +51,16 @@ export function LiveCounter({ label = 'personas ya conocen a Marco', tone = 'ink
     return () => cancelAnimationFrame(raf)
   }, [inView, reduce])
 
-  // Incremento "en vivo" mientras se mira (ritmo orgánico, ligeramente aleatorio)
+  // Incremento "en vivo" mientras se mira: más rápido pero creíble
+  // (~+1 cada 1.2–3.0 s, ritmo orgánico ligeramente aleatorio).
   useEffect(() => {
     if (!inView || reduce) return
     let timer: number
     const bump = () => {
       setCount((c) => c + 1)
-      timer = window.setTimeout(bump, 3200 + Math.random() * 4200)
+      timer = window.setTimeout(bump, 1200 + Math.random() * 1800)
     }
-    timer = window.setTimeout(bump, 3600)
+    timer = window.setTimeout(bump, 1400)
     return () => window.clearTimeout(timer)
   }, [inView, reduce])
 

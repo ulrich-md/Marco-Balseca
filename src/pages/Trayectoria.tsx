@@ -61,6 +61,8 @@ export default function Trayectoria() {
         index="03"
         label="Trayectoria"
         title={'El camino'}
+        variant="dark"
+        titleTone="outline"
         intro="De las raíces del agua mineral al trabajo de calle de hoy. Este es el camino que me trajo hasta aquí, contado con honestidad: de dónde vengo, qué aprendí y por qué sigo caminando Tehuacán."
       />
 

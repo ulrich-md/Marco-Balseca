@@ -218,44 +218,11 @@
   }
 }
 
-/* =========================================================================
-   Hero "vivo": fondo animado (blobs B&N a la deriva + acento), float sutil
-   y barrido. Monocromo + un toque de rojo. Se congelan con reduced-motion.
-   ========================================================================= */
-@keyframes drift-a {
-  0% { transform: translate3d(-6%, -4%, 0) scale(1); }
-  50% { transform: translate3d(9%, 7%, 0) scale(1.18); }
-  100% { transform: translate3d(-6%, -4%, 0) scale(1); }
-}
-@keyframes drift-b {
-  0% { transform: translate3d(7%, 5%, 0) scale(1.12); }
-  50% { transform: translate3d(-9%, -7%, 0) scale(1); }
-  100% { transform: translate3d(7%, 5%, 0) scale(1.12); }
-}
-@keyframes float-y {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-14px); }
-}
-@keyframes sheen {
-  0% { transform: translateX(-120%); }
-  100% { transform: translateX(220%); }
-}
+/* Punto "en vivo" del contador (único uso de animación continua, mínima). */
 @keyframes live-pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.35; transform: scale(0.7); }
 }
-
-.hero-blob {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(64px);
-  will-change: transform;
-  pointer-events: none;
-}
-.animate-drift-a { animation: drift-a 24s ease-in-out infinite; }
-.animate-drift-b { animation: drift-b 30s ease-in-out infinite; }
-.animate-float-y { animation: float-y 7s ease-in-out infinite; }
-.animate-sheen { animation: sheen 9s ease-in-out infinite; }
 .animate-live-pulse { animation: live-pulse 1.6s ease-in-out infinite; }
 
 /* =========================================================================
