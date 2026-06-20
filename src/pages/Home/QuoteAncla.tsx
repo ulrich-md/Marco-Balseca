@@ -18,7 +18,6 @@ export function QuoteAncla() {
           />
           <Reveal delay={0.15}>
             <figcaption className="eyebrow mt-7 text-mute">
-              {/* REEMPLAZAR: [cita] textual real de Marco Balseca */}
               Marco Balseca · <span className="text-accent">Tehuacán, Puebla</span>
             </figcaption>
           </Reveal>

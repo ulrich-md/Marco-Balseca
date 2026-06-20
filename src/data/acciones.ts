@@ -1,5 +1,5 @@
-/* Acciones / Propuestas — tarjetas editoriales. PLACEHOLDERS.
-   Ejes temáticos sugeridos para la agenda; el equipo ajusta el contenido real. */
+/* Acciones / Propuestas — tarjetas editoriales.
+   Ejes reales tomados de la actividad pública de @marcobalseca1. */
 
 export type Categoria =
   | 'Deporte'
@@ -14,54 +14,54 @@ export type Accion = {
   categoria: Categoria
   titulo: string
   resumen: string
-  /** Foto real: sube a public/assets/acciones/ y pon su ruta aquí.
-   *  Ej: imagen: '/assets/acciones/economia-local.jpg' */
   imagen?: string
 }
 
 export const ACCIONES: Accion[] = [
-  // 4 tarjetas con foto real (categorías indicadas por el equipo).
   {
     slug: 'deporte-voleibol',
     categoria: 'Deporte',
     titulo: 'Deporte que une a la colonia',
-    resumen: 'Activación deportiva con la comunidad. // REEMPLAZAR: [propuesta] concreta.',
+    resumen:
+      'Activación deportiva en las colonias, aprovechando el ánimo del Mundial 2026 en Tehuacán y el Complejo Cultural El Carmen como punto de encuentro.',
     imagen: '/assets/acciones/accion-deporte-voleibol.jpg',
   },
   {
     slug: 'deporte-copa',
     categoria: 'Deporte',
     titulo: 'Torneos y copas para la comunidad',
-    resumen: 'Torneos que convocan a las familias. // REEMPLAZAR: [propuesta] concreta.',
+    resumen:
+      'Torneos que convocan a las familias y dan vida a las canchas del barrio.',
     imagen: '/assets/acciones/accion-deporte-copa.jpg',
   },
   {
     slug: 'educacion',
     categoria: 'Educación',
     titulo: 'Educación para nuestras juventudes',
-    resumen: 'Apoyo a estudiantes y escuelas. // REEMPLAZAR: [propuesta] concreta.',
+    resumen:
+      'Cercanía con estudiantes e instituciones de Tehuacán (TecNM-Tehuacán, Universidad Levi): escuchar a las juventudes y abrir oportunidades.',
     imagen: '/assets/acciones/accion-educacion.jpg',
   },
   {
     slug: 'obra-cancha',
     categoria: 'Comunidad',
     titulo: 'Obra cercana: espacios para la gente',
-    resumen: 'Rehabilitación de espacios comunes. // REEMPLAZAR: [propuesta] concreta.',
+    resumen:
+      'Rehabilitación y dignificación de espacios comunes en las colonias.',
     imagen: '/assets/acciones/accion-obra-cancha.jpg',
   },
-  // Tarjetas adicionales sin foto aún (fallback de color, no imagen rota).
   {
     slug: 'economia-local',
     categoria: 'Economía local',
     titulo: 'Impulso a la economía de Tehuacán',
     resumen:
-      'Apoyo a comercio, oficio y emprendimiento local. // REEMPLAZAR: [propuesta] económica.',
+      'Apoyo al comercio, al oficio y al emprendimiento local, con la mirada práctica de quien ha emprendido.',
   },
   {
     slug: 'seguridad-y-paz',
     categoria: 'Seguridad',
     titulo: 'Seguridad con cercanía y prevención',
     resumen:
-      'Paz que se construye en comunidad. // REEMPLAZAR: [propuesta] de seguridad y prevención.',
+      'Paz que se construye en comunidad, con prevención y trabajo de barrio.',
   },
 ]

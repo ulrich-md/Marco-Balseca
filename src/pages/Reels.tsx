@@ -44,9 +44,7 @@ export default function Reels() {
           </div>
 
           <p className="mt-12 max-w-2xl text-sm text-mute">
-            // REEMPLAZAR: agrega más reels en
-            <code className="mx-1 rounded bg-ink/5 px-1.5 py-0.5 text-accent">src/data/reels.ts</code>
-            con permalink de Instagram, id de YouTube o un MP4 propio (autoplay en hover).
+            Reels de <a href="https://www.instagram.com/marcobalseca1/" target="_blank" rel="noreferrer" className="text-accent hover:underline">@marcobalseca1</a> en Instagram.
           </p>
         </div>
       </section>

@@ -1,23 +1,14 @@
-/* Reels — galería vertical 9:16 estilo Instagram.
-   Lista local fácil de actualizar. Listo para enlazar reels reales de
-   @marcobalseca1 (Instagram permalink, YouTube id o MP4 propio).
-
-   - kind: 'instagram' -> usa `instagramUrl` (se abre el reel original)
-   - kind: 'youtube'   -> usa `youtubeId` (embed en el lightbox)
-   - kind: 'mp4'       -> usa `src` (autoplay-on-hover + <video> en el modal)
-   Mientras no haya video, el componente muestra un bloque de marca (sin URLs rotas).
+/* Reels reales de @marcobalseca1 (Instagram).
+   - kind: 'instagram' → usa instagramUrl (igEmbedUrl() convierte a /embed)
+   - kind: 'youtube'   → usa youtubeId (embed en el lightbox)
+   - kind: 'mp4'       → usa src (autoplay-on-hover + <video> en el modal)
 */
 
 export type Reel = {
   id: string
   titulo: string
-  // Para hover-preview/modal con archivo propio:
-  // REEMPLAZAR: '/reels/mi-reel.mp4'
   src?: string
-  // O enlazar el reel original de Instagram:
-  // REEMPLAZAR: 'https://www.instagram.com/reel/XXXXXXXXXXX/'
   instagramUrl?: string
-  // O un id de YouTube (Shorts):
   youtubeId?: string
   kind: 'instagram' | 'youtube' | 'mp4'
 }
@@ -25,27 +16,50 @@ export type Reel = {
 export const REELS: Reel[] = [
   {
     id: 'reel-1',
-    titulo: 'En la calle, con la gente',
+    titulo: 'Atención a vecinos — Col. San Francisco 1ª sección',
     kind: 'instagram',
-    // REEMPLAZAR: permalink real del reel de @marcobalseca1
-    instagramUrl: 'https://www.instagram.com/marcobalseca1/',
+    instagramUrl: 'https://www.instagram.com/marcobalseca1/reel/DZp5ue_xllO/',
   },
   {
     id: 'reel-2',
-    titulo: 'Raíces que no se traducen',
+    titulo: 'La fiesta del Mundial en Tehuacán, con la gente',
     kind: 'instagram',
-    instagramUrl: 'https://www.instagram.com/marcobalseca1/',
+    instagramUrl: 'https://www.instagram.com/marcobalseca1/reel/DZh-CPJRqow/',
   },
   {
     id: 'reel-3',
-    titulo: 'Por nuestra tierra',
+    titulo: 'La fiesta del fútbol — Complejo Cultural El Carmen',
     kind: 'instagram',
-    instagramUrl: 'https://www.instagram.com/marcobalseca1/',
+    instagramUrl: 'https://www.instagram.com/marcobalseca1/reel/DZbSlIsxFl8/',
   },
   {
     id: 'reel-4',
-    titulo: 'Cerca de la gente',
+    titulo: 'Vecinos de San Vicente Ferrer organizándose',
     kind: 'instagram',
-    instagramUrl: 'https://www.instagram.com/marcobalseca1/',
+    instagramUrl: 'https://www.instagram.com/marcobalseca1/reel/DZa0EtoSpWy/',
+  },
+  {
+    id: 'reel-5',
+    titulo: 'Jornada de salud en la comunidad',
+    kind: 'instagram',
+    instagramUrl: 'https://www.instagram.com/marcobalseca1/reel/DZIN3yWRoMi/',
+  },
+  {
+    id: 'reel-6',
+    titulo: 'Graduados del TecNM-Tehuacán',
+    kind: 'instagram',
+    instagramUrl: 'https://www.instagram.com/marcobalseca1/reel/DY_P-i8uTKb/',
+  },
+  {
+    id: 'reel-7',
+    titulo: 'Visita a la Universidad Levi (Unilevi Tehuacán)',
+    kind: 'instagram',
+    instagramUrl: 'https://www.instagram.com/marcobalseca1/reel/DY8Kx00q_Ao/',
+  },
+  {
+    id: 'reel-8',
+    titulo: 'El Mundial en Puebla — Complejo Cultural El Carmen',
+    kind: 'instagram',
+    instagramUrl: 'https://www.instagram.com/marcobalseca1/reel/DY2AKVMxNQ6/',
   },
 ]

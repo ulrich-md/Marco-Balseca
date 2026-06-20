@@ -38,8 +38,8 @@ export function Footer() {
         <div>
           <Wordmark tone="bone" />
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/60">
-            Figura política y comunitaria de {SITE.ciudad}, {SITE.estado}. Por nuestra tierra,
-            nuestra gente y nuestras raíces.
+            Abogado y emprendedor de {SITE.ciudad}, hoy delegado de Gobernación de la microrregión
+            25. Acciones de comunidad, cerca de la gente. Por nuestra tierra.
           </p>
           <div className="mt-6 flex items-center gap-3">
             <a href={SOCIAL.instagram.url} target="_blank" rel="noreferrer" aria-label="Instagram @marcobalseca1" className={socialCls}>
@@ -83,7 +83,6 @@ export function Footer() {
               Quiero sumarme
             </ButtonLink>
           </div>
-          {/* REEMPLAZAR: correo oficial */}
           <a
             href={`mailto:${SOCIAL.email.value}`}
             className="mt-5 block text-sm text-white/70 underline-offset-4 hover:text-accent hover:underline"
@@ -98,7 +97,7 @@ export function Footer() {
         <p>
           © {year} {SITE.name}. {SITE.ciudad}, {SITE.estado}, {SITE.pais}.
         </p>
-        <p className="text-white/35">Contenido y cifras: placeholders pendientes de validación del equipo.</p>
+        <p className="text-white/35">Hecho en Tehuacán, Puebla.</p>
         <button
           type="button"
           onClick={scrollToTop}

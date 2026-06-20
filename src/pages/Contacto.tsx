@@ -227,9 +227,11 @@ export default function Contacto() {
             <div className="rounded-sm bg-black p-7 text-white md:p-8">
               <SectionLabel tone="bone">Directo</SectionLabel>
               <div className="mt-5 space-y-4">
-                <ButtonAnchor href={SOCIAL.whatsapp.url} tone="bone" variant="solid" full arrow>
-                  <WhatsappIcon className="h-5 w-5" /> WhatsApp
-                </ButtonAnchor>
+                {SOCIAL.whatsapp.url !== '#' && (
+                  <ButtonAnchor href={SOCIAL.whatsapp.url} tone="bone" variant="solid" full arrow>
+                    <WhatsappIcon className="h-5 w-5" /> WhatsApp
+                  </ButtonAnchor>
+                )}
                 <a
                   href={`mailto:${SOCIAL.email.value}`}
                   className="flex items-center gap-3 text-white/85 transition-colors hover:text-accent"

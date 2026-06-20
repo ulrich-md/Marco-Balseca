@@ -14,9 +14,11 @@ export function StatsBand() {
               Quién es Marco
             </SectionLabel>
             <p className="mt-5 text-lg leading-relaxed text-ink/80">
-              Abogado y emprendedor con raíces en Tehuacán. Hoy impulsa acciones políticas y de
-              comunidad, cerca de la gente.{' '}
-              <span className="text-mute">// REEMPLAZAR: bio breve aprobada por el equipo.</span>
+              Marco Balseca es abogado, con maestría en administración (MBA), y emprendedor con
+              raíces en Tehuacán. Hoy es delegado de Gobernación de la microrregión 25 de Tehuacán,
+              y su trabajo es de calle: recorre las colonias, escucha a vecinas y vecinos e impulsa
+              acciones de comunidad. Su manera de hacer las cosas es sencilla: escuchar primero,
+              resolver después.
             </p>
           </div>
 

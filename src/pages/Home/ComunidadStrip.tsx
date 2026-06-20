@@ -40,8 +40,7 @@ export function ComunidadStrip() {
               {COMUNIDAD_COUNT > 0 ? `${COMUNIDAD_COUNT}+` : '[N]'}
             </span>
             <span className="text-lg text-ink/70">
-              vecinas y vecinos ya se sumaron al movimiento.{' '}
-              <span className="text-mute">// REEMPLAZAR: número real (data/site.ts).</span>
+              vecinas y vecinos ya se sumaron al movimiento.
             </span>
           </div>
         </Reveal>

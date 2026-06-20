@@ -23,8 +23,7 @@ export function AccionesTeaser() {
               className="font-display mt-5 text-[12vw] leading-[0.88] text-ink sm:text-6xl lg:text-7xl"
             />
             <p className="mt-4 text-ink/70">
-              Ejes de trabajo cercano y con resultados.{' '}
-              <span className="text-mute">// REEMPLAZAR: prioridades reales.</span>
+              Ejes de trabajo cercano y con resultados, desde las colonias de Tehuacán.
             </p>
           </div>
           <div className="hidden md:block">

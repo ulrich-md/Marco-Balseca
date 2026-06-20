@@ -31,7 +31,7 @@ export default function Agenda() {
         index="06"
         label="Agenda y eventos"
         title={'Nos vemos\nen la calle'}
-        intro="Próximos recorridos, encuentros y giras comunitarias. Fechas y sedes son placeholders, fáciles de actualizar por el equipo."
+        intro="Próximos recorridos, encuentros y giras comunitarias. Fechas tentativas, pendientes de confirmación."
       />
 
       <section className="bg-bone py-16 text-ink md:py-24">
@@ -56,6 +56,9 @@ export default function Agenda() {
 
                     {/* Detalle */}
                     <div>
+                      <div className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-mute/30 bg-ink/5 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-mute">
+                        Tentativa
+                      </div>
                       <h2 className="font-condensed text-2xl font-semibold leading-tight text-ink transition-colors group-hover:text-accent md:text-3xl">
                         {ev.titulo}
                       </h2>
@@ -88,8 +91,7 @@ export default function Agenda() {
           </ul>
 
           <p className="mt-10 text-sm text-mute">
-            // REEMPLAZAR: edita los eventos en
-            <code className="mx-1 rounded bg-ink/5 px-1.5 py-0.5 text-accent">src/data/agenda.ts</code>.
+            Los eventos se actualizarán con fechas y sedes reales en cuanto estén confirmados.
           </p>
         </div>
       </section>

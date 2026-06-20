@@ -14,9 +14,8 @@ export const SITE = {
   tagline: 'Cerca de la gente. Por nuestra tierra.',
   /** URL canónica de despliegue (ajustar al dominio real) */
   url: 'https://marcobalseca.mx',
-  // REEMPLAZAR: descripción oficial aprobada por el equipo de Marco
   descripcion:
-    'Marco Balseca, figura política y comunitaria de Tehuacán, Puebla. Cerca de la gente, por nuestra tierra. Súmate al movimiento.',
+    'Marco Balseca, abogado y emprendedor de Tehuacán, Puebla. Delegado de Gobernación de la microrregión 25. Cerca de la gente, por nuestra tierra.',
 } as const
 
 /** Navegación principal (header + footer) */
@@ -30,23 +29,23 @@ export const NAV = [
   { label: 'Contacto', to: '/contacto' },
 ] as const
 
-/** Redes y contacto. Solo @marcobalseca1 es dato real verificado. */
+/** Redes y contacto. */
 export const SOCIAL = {
   instagram: {
     label: 'Instagram',
     handle: '@marcobalseca1',
     url: 'https://www.instagram.com/marcobalseca1/',
   },
-  // REEMPLAZAR: enlaces oficiales si existen
-  facebook: { label: 'Facebook', handle: 'Marco Balseca', url: '#' },
-  x: { label: 'X', handle: '@marcobalseca1', url: '#' },
-  // REEMPLAZAR: número oficial de WhatsApp del movimiento
+  facebook: { label: 'Facebook', handle: 'Marco Balseca', url: 'https://www.facebook.com/balseca' },
+  x: { label: 'X', handle: '@marcobalseca1', url: 'https://twitter.com/marcobalseca1' },
+  linktree: { label: 'Linktree', handle: 'linktr.ee/balseca', url: 'https://linktr.ee/balseca' },
+  // PENDIENTE: número oficial de WhatsApp del movimiento
   whatsapp: {
     label: 'WhatsApp',
-    numero: '52 200 000 0000',
-    url: 'https://wa.me/522000000000',
+    numero: '',
+    url: '#',
   },
-  // REEMPLAZAR: correo oficial de contacto
+  // VALIDAR: confirmar que hola@marcobalseca.mx existe y recibe correo
   email: { label: 'Correo', value: 'hola@marcobalseca.mx' },
 } as const
 
@@ -87,19 +86,19 @@ export const PILARES = [
     num: '01',
     titulo: 'Comunidad',
     texto:
-      'La fuerza está en la gente. Escuchar de cerca, en la colonia y en la junta, antes de decidir. // REEMPLAZAR: enfoque comunitario real.',
+      'La fuerza está en la gente. Escuchar de cerca, en la colonia y en la junta, antes de decidir.',
   },
   {
     num: '02',
     titulo: 'Raíces e identidad',
     texto:
-      'Orgullo por Tehuacán, su historia y sus tradiciones. Una identidad que se honra y se hereda, con respeto a todas sus raíces.',
+      'Orgullo por Tehuacán, su historia y sus tradiciones. Una identidad que se honra y se hereda.',
   },
   {
     num: '03',
     titulo: 'Trabajo',
     texto:
-      'Resultados antes que ruido. Constancia, oficio y cuentas claras. // REEMPLAZAR: ejemplos concretos de trabajo.',
+      'Resultados antes que ruido. Constancia, oficio y cercanía con cada familia.',
   },
   {
     num: '04',

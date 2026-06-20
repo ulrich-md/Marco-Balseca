@@ -47,17 +47,26 @@ export default function Conoceme() {
             />
             <div className="mt-6 space-y-5 text-lg leading-relaxed text-ink/85">
               <p>
-                El apellido Balseca tiene arraigo local, con tradición empresarial en Tehuacán.
-                Marco creció entendiendo el valor del trabajo, del oficio y de la palabra dada.{' '}
-                <span className="text-mute">// REEMPLAZAR: historia de origen verificable.</span>
+                Marco Balseca es abogado, con maestría en administración (MBA), y emprendedor de
+                Tehuacán, Puebla. Proviene de una familia con larga vocación de servicio público y
+                empresarial en la ciudad. Hoy, como delegado de Gobernación de la microrregión 25
+                de Tehuacán, dedica su tiempo a un trabajo cercano: acciones de comunidad, de tú a
+                tú con su gente.
               </p>
               <p>
-                Su formación como abogado y su experiencia como emprendedor le dieron una mirada
-                práctica: escuchar primero, resolver después.{' '}
-                <span className="text-mute">// REEMPLAZAR: trayectoria profesional real.</span>
+                Tehuacán es su casa y su causa. Su familia formó parte de la tradición empresarial
+                del agua mineral que dio nombre y orgullo a la ciudad. De ahí su forma de trabajar:
+                en la calle, en la colonia, escuchando antes de decidir. Lo dice y lo repite: la
+                fuerza de Tehuacán está en su gente.
+              </p>
+              <p>
+                Su formación como abogado y su experiencia como emprendedor le dan una mirada
+                práctica. Esa cercanía se ve en lo que impulsa cada semana: deporte que une a las
+                colonias, apoyo a las juventudes y a la educación, y jornadas que acercan servicios
+                a las familias.
               </p>
               <p className="border-l-2 border-accent pl-5 font-condensed text-2xl font-medium uppercase tracking-wide text-ink">
-                Su orgullo: las raíces, las lenguas maternas y la gente de Tehuacán.
+                La fuerza de Tehuacán está en su gente.
               </p>
             </div>
           </div>
