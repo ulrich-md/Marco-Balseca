@@ -2,6 +2,7 @@ import { SectionLabel } from '../../components/ui/SectionLabel'
 import { RevealText } from '../../components/ui/RevealText'
 import { Reveal } from '../../components/ui/Reveal'
 import { ResponsiveImg } from '../../components/ui/ResponsiveImg'
+import { FacebookProfileCard } from '../../components/ui/FacebookProfileCard'
 import { FacebookIcon, InstagramIcon } from '../../components/ui/Icons'
 import { SOCIAL } from '../../data/site'
 
@@ -27,13 +28,13 @@ type Red = {
 
 const REDES: Red[] = [
   {
-    brand: 'facebook',
-    kind: 'page',
-    marca: 'Facebook · @balseca',
-    titulo: 'Mi página oficial de Facebook',
-    resumen: 'Recorridos, jornadas y el día a día con la gente de Tehuacán. Sígueme y comenta.',
-    url: SOCIAL.facebook.url,
-    thumb: '/assets/portraits/marco-formal.jpg',
+    brand: 'instagram',
+    kind: 'reel',
+    marca: 'Instagram · @marcobalseca1',
+    titulo: 'Atención a vecinos — Col. San Francisco 1ª sección',
+    resumen: 'Reel destacado: escucha vecinal y atención cercana, casa por casa.',
+    url: 'https://www.instagram.com/marcobalseca1/reel/DZp5ue_xllO/',
+    thumb: '/assets/comunidad/comunidad-visita.jpg',
   },
   {
     brand: 'facebook',
@@ -43,15 +44,6 @@ const REDES: Red[] = [
     resumen: 'Diario Primera Línea: el delegado invita y explica el trabajo en territorio.',
     url: 'https://www.facebook.com/DiarioPrimeraLineaTH/videos/2010567689555570/',
     thumb: '/assets/portraits/marco-corazon-fondo.jpg',
-  },
-  {
-    brand: 'instagram',
-    kind: 'reel',
-    marca: 'Instagram · @marcobalseca1',
-    titulo: 'Atención a vecinos — Col. San Francisco 1ª sección',
-    resumen: 'Reel destacado: escucha vecinal y atención cercana, casa por casa.',
-    url: 'https://www.instagram.com/marcobalseca1/reel/DZp5ue_xllO/',
-    thumb: '/assets/comunidad/comunidad-visita.jpg',
   },
 ]
 
@@ -216,10 +208,13 @@ export function PrensaStrip() {
           </div>
         </div>
 
-        {/* Redes (tarjetas-enlace, sin iframe) */}
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
+        {/* Redes (sin iframe): widget de perfil de Facebook + tarjetas-enlace */}
+        <div className="mt-12 grid items-start gap-5 md:grid-cols-3">
+          <Reveal>
+            <FacebookProfileCard />
+          </Reveal>
           {REDES.map((red, i) => (
-            <Reveal key={red.url} delay={i * 0.06}>
+            <Reveal key={red.url} delay={(i + 1) * 0.06}>
               <SocialCard red={red} />
             </Reveal>
           ))}

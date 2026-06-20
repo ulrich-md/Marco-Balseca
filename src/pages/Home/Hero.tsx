@@ -3,8 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { RevealText } from '../../components/ui/RevealText'
 import { ButtonLink } from '../../components/ui/Button'
 import { ScrollIndicator } from '../../components/ui/ScrollIndicator'
-import { HeroCarousel, type HeroSlide } from '../../components/ui/HeroCarousel'
-import { HeroVideo } from '../../components/ui/HeroVideo'
+import { HeroVideo, type VideoPhoto } from '../../components/ui/HeroVideo'
 import { LiveCounter } from '../../components/ui/LiveCounter'
 import { useParallax } from '../../lib/useParallax'
 import { SITE, JUNTAS_AUXILIARES, COLONIAS_RECORRIDAS } from '../../data/site'
@@ -17,21 +16,14 @@ const INDEX = [
   { n: '05', label: 'Agenda', to: '/agenda' },
 ]
 
-// Montaje del "video" (su trabajo en territorio) — fotos reales de acciones.
-const WORK_PHOTOS = [
-  { src: '/assets/acciones/accion-deporte-voleibol.jpg', alt: 'Marco en activación deportiva' },
-  { src: '/assets/acciones/accion-educacion.jpg', alt: 'Marco con estudiantes de Tehuacán' },
-  { src: '/assets/acciones/accion-obra-cancha.jpg', alt: 'Obra comunitaria en la colonia' },
-  { src: '/assets/acciones/accion-deporte-copa.jpg', alt: 'Torneo comunitario' },
-]
-
-// Carrusel del hero: fotos REALES a color (retrato + momentos con la gente).
-const HERO_SLIDES: HeroSlide[] = [
-  { src: '/assets/portraits/marco-formal.jpg', alt: 'Marco Balseca, retrato', caption: 'Marco Balseca' },
-  { src: '/assets/comunidad/comunidad-familia.jpg', alt: 'Marco con las familias de Tehuacán', caption: 'Con las familias' },
-  { src: '/assets/comunidad/comunidad-mercado.jpg', alt: 'Marco en el mercado de Tehuacán', caption: 'En el mercado' },
-  { src: '/assets/comunidad/comunidad-cancha.jpg', alt: 'Marco en la cancha del barrio', caption: 'En la cancha' },
-  { src: '/assets/portraits/marco-corazon-fondo.jpg', alt: 'Marco con la comunidad', caption: 'Con la gente' },
+// Fotos REALES para el "video" principal del hero (montaje; usa el MP4 real
+// si se sube a /assets/video/marco-reel.mp4).
+const HERO_SLIDES: VideoPhoto[] = [
+  { src: '/assets/portraits/marco-formal.jpg', alt: 'Marco Balseca, retrato' },
+  { src: '/assets/comunidad/comunidad-familia.jpg', alt: 'Marco con las familias de Tehuacán' },
+  { src: '/assets/comunidad/comunidad-mercado.jpg', alt: 'Marco en el mercado de Tehuacán' },
+  { src: '/assets/comunidad/comunidad-cancha.jpg', alt: 'Marco en la cancha del barrio' },
+  { src: '/assets/portraits/marco-corazon-fondo.jpg', alt: 'Marco con la comunidad' },
 ]
 
 export function Hero() {
@@ -177,35 +169,48 @@ export function Hero() {
               </div>
             </motion.div>
 
-            {/* Video que se reproduce al cargar (montaje de fotos reales de su
-                trabajo). Si subes un MP4 a /assets/video/marco-reel.mp4 (+ .webm)
-                se usa automáticamente en lugar del montaje. */}
-            <motion.div {...appear(0.75)} className="mt-8">
-              <HeroVideo
-                photos={WORK_PHOTOS}
-                caption="Mi trabajo en territorio · microrregión 25"
-                videoSrc={{ mp4: '/assets/video/marco-reel.mp4', webm: '/assets/video/marco-reel.webm' }}
-                poster="/assets/acciones/accion-deporte-voleibol.jpg"
-                className="aspect-video w-full max-w-md"
-              />
-              <p className="mt-3 text-xs text-mute">
-                <span className="text-ink/70">En la prensa:</span> Municipios Puebla · Diario
-                Primera Línea · Gobierno de Tehuacán
-              </p>
+            {/* En la prensa: prueba social real (teaser de la sección de abajo) */}
+            <motion.div {...appear(0.75)} className="mt-8 border-t border-ink/15 pt-6">
+              <span className="eyebrow text-mute">En la prensa</span>
+              <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5">
+                {['Municipios Puebla', 'Diario Primera Línea', 'Gobierno de Tehuacán'].map(
+                  (fuente, idx) => (
+                    <span key={fuente} className="flex items-center gap-3">
+                      {idx > 0 && <span aria-hidden className="h-1 w-1 rounded-full bg-ink/30" />}
+                      <span className="font-condensed text-sm font-semibold uppercase tracking-wide text-ink/70">
+                        {fuente}
+                      </span>
+                    </span>
+                  ),
+                )}
+              </div>
+              <a
+                href="https://municipiospuebla.mx/nota/tehuacan/realizan-en-tehuacan-campana-de-canje-voluntario-de-armas"
+                target="_blank"
+                rel="noreferrer"
+                className="group mt-3 inline-flex max-w-md items-start gap-2 text-ink transition-colors hover:text-accent"
+              >
+                <span aria-hidden className="mt-2 h-px w-6 shrink-0 bg-accent transition-all duration-300 group-hover:w-9" />
+                <span className="font-condensed text-base font-medium leading-snug">
+                  «Sí al desarme, sí a la paz»: encabezo el canje voluntario de armas en Tehuacán →
+                </span>
+              </a>
             </motion.div>
           </div>
 
-          {/* Carrusel de fotos reales (crossfade + Ken Burns), con parallax sutil */}
+          {/* Media principal: VIDEO que se reproduce al cargar (montaje de fotos
+              reales; usa el MP4 real si se sube a /assets/video/marco-reel.mp4).
+              Pausa fuera de pantalla. Parallax sutil. */}
           <div ref={photoRef} className="relative lg:-mt-[7vw]">
-            <HeroCarousel
-              slides={HERO_SLIDES}
-              className="aspect-[4/5] w-full rounded-sm shadow-[0_30px_60px_-25px_rgba(0,0,0,0.5)]"
+            <HeroVideo
+              photos={HERO_SLIDES}
+              caption="En territorio · Tehuacán, Puebla"
+              videoSrc={{ mp4: '/assets/video/marco-reel.mp4', webm: '/assets/video/marco-reel.webm' }}
+              poster="/assets/portraits/marco-formal.jpg"
+              className="aspect-[4/5] w-full shadow-[0_30px_60px_-25px_rgba(0,0,0,0.5)]"
             />
             {/* marco accent fino (ref. Yeezy) */}
             <span aria-hidden className="pointer-events-none absolute inset-3 z-20 border border-accent md:inset-4" />
-            <span className="eyebrow absolute -bottom-3 left-3 z-30 bg-white px-2 py-1 text-mute">
-              Tehuacán, Puebla
-            </span>
           </div>
         </div>
 

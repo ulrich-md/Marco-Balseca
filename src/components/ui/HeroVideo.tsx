@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { AnimatePresence, motion, useInView, useReducedMotion } from 'framer-motion'
 
 export type VideoPhoto = { src: string; alt: string }
 
@@ -28,23 +28,36 @@ const EXPO = [0.16, 1, 0.3, 1] as const
  */
 export function HeroVideo({ photos, caption, videoSrc, poster, className = '', interval = 2400 }: Props) {
   const reduce = useReducedMotion()
+  const rootRef = useRef<HTMLDivElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const inView = useInView(rootRef, { margin: '0px 0px -10% 0px' })
   const [i, setI] = useState(0)
   const [videoFailed, setVideoFailed] = useState(false)
   const useVideo = !!videoSrc && !videoFailed
 
+  // Montaje: solo avanza cuando está en pantalla (ahorra trabajo fuera de vista).
   useEffect(() => {
-    if (useVideo || reduce || photos.length < 2) return
+    if (useVideo || reduce || !inView || photos.length < 2) return
     const id = window.setInterval(() => setI((p) => (p + 1) % photos.length), interval)
     return () => window.clearInterval(id)
-  }, [useVideo, reduce, photos.length, interval])
+  }, [useVideo, reduce, inView, photos.length, interval])
+
+  // Video real: pausa fuera de pantalla (guía UX: no malgastar datos/energía).
+  useEffect(() => {
+    const v = videoRef.current
+    if (!useVideo || !v) return
+    if (inView) v.play().catch(() => {})
+    else v.pause()
+  }, [useVideo, inView])
 
   const photo = photos[i]
   const s = pic(photo.src)
 
   return (
-    <div className={`group relative overflow-hidden rounded-sm bg-black ${className}`}>
+    <div ref={rootRef} className={`group relative overflow-hidden rounded-sm bg-black ${className}`}>
       {useVideo ? (
         <video
+          ref={videoRef}
           className="h-full w-full object-cover"
           autoPlay
           muted
