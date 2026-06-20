@@ -51,16 +51,18 @@ export function LiveCounter({ label = 'personas ya conocen a Marco', tone = 'ink
     return () => cancelAnimationFrame(raf)
   }, [inView, reduce])
 
-  // Incremento "en vivo" mientras se mira: más rápido pero creíble
-  // (~+1 cada 1.2–3.0 s, ritmo orgánico ligeramente aleatorio).
+  // Incremento "en vivo" por CHUNKS de personas (varía: a veces +2, +4, +9…),
+  // a intervalos también variables. Se siente orgánico, como gente sumándose
+  // en grupos. Sesgado a grupos chicos para que sea creíble.
   useEffect(() => {
     if (!inView || reduce) return
     let timer: number
+    const nextChunk = () => 1 + Math.floor(Math.pow(Math.random(), 1.7) * 10) // 1–10, sesgo a chicos
     const bump = () => {
-      setCount((c) => c + 1)
-      timer = window.setTimeout(bump, 1200 + Math.random() * 1800)
+      setCount((c) => c + nextChunk())
+      timer = window.setTimeout(bump, 1600 + Math.random() * 3200) // cada 1.6–4.8 s
     }
-    timer = window.setTimeout(bump, 1400)
+    timer = window.setTimeout(bump, 1600)
     return () => window.clearTimeout(timer)
   }, [inView, reduce])
 

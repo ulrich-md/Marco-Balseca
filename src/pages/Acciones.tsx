@@ -19,7 +19,6 @@ export default function Acciones() {
         index="04"
         label="Acciones y propuestas"
         title={'Por nuestra\ntierra'}
-        titleTone="accent"
         intro="Estos son los ejes que trabajo cada semana en Tehuacán: deporte que une, educación para las juventudes, obra cercana, economía local y seguridad con prevención. Cosas concretas, hechas de tú a tú."
       />
 
