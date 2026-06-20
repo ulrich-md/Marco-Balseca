@@ -41,6 +41,32 @@ export function Hero() {
 
   return (
     <section className="relative overflow-hidden bg-white text-ink">
+      {/* Textura editorial ESTÁTICA (sin animación, sin crema): malla de puntos
+          concentrada en el área inferior-izquierda + retícula fina. Da interés
+          al fondo sin competir con el nombre ni meter color. */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: 'radial-gradient(rgba(22,22,22,0.13) 1.2px, transparent 1.3px)',
+            backgroundSize: '24px 24px',
+            WebkitMaskImage: 'radial-gradient(58% 58% at 16% 82%, #000 0%, transparent 72%)',
+            maskImage: 'radial-gradient(58% 58% at 16% 82%, #000 0%, transparent 72%)',
+          }}
+        />
+        {/* Acento: bloque rojo fino tipo "+", sutil, abajo-izquierda */}
+        <div
+          className="absolute bottom-[16%] left-[2%] h-24 w-24 opacity-[0.6]"
+          style={{
+            backgroundImage:
+              'linear-gradient(var(--color-accent) 2px, transparent 2px), linear-gradient(90deg, var(--color-accent) 2px, transparent 2px)',
+            backgroundSize: '24px 24px',
+            WebkitMaskImage: 'linear-gradient(135deg, #000, transparent 75%)',
+            maskImage: 'linear-gradient(135deg, #000, transparent 75%)',
+          }}
+        />
+      </div>
+
       {/* Índice vertical derecho (ref. ESPN) */}
       <nav
         className="absolute right-5 top-1/2 z-30 hidden -translate-y-1/2 flex-col items-end gap-3 xl:flex"
@@ -140,6 +166,34 @@ export function Hero() {
                   <span className="text-sm text-ink/60">juntas auxiliares de Tehuacán</span>
                 </div>
               </div>
+            </motion.div>
+
+            {/* En la prensa: prueba social real (teaser de la sección de abajo) */}
+            <motion.div {...appear(0.75)} className="mt-8 border-t border-ink/15 pt-6">
+              <span className="eyebrow text-mute">En la prensa</span>
+              <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5">
+                {['Municipios Puebla', 'Diario Primera Línea', 'Gobierno de Tehuacán'].map(
+                  (fuente, idx) => (
+                    <span key={fuente} className="flex items-center gap-3">
+                      {idx > 0 && <span aria-hidden className="h-1 w-1 rounded-full bg-ink/30" />}
+                      <span className="font-condensed text-sm font-semibold uppercase tracking-wide text-ink/70">
+                        {fuente}
+                      </span>
+                    </span>
+                  ),
+                )}
+              </div>
+              <a
+                href="https://municipiospuebla.mx/nota/tehuacan/realizan-en-tehuacan-campana-de-canje-voluntario-de-armas"
+                target="_blank"
+                rel="noreferrer"
+                className="group mt-3 inline-flex max-w-md items-start gap-2 text-ink transition-colors hover:text-accent"
+              >
+                <span aria-hidden className="mt-2 h-px w-6 shrink-0 bg-accent transition-all duration-300 group-hover:w-9" />
+                <span className="font-condensed text-base font-medium leading-snug">
+                  «Sí al desarme, sí a la paz»: encabezo el canje voluntario de armas en Tehuacán →
+                </span>
+              </a>
             </motion.div>
           </div>
 
