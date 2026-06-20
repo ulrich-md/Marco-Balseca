@@ -31,7 +31,7 @@ export default function Agenda() {
         index="06"
         label="Agenda y eventos"
         title={'Nos vemos\nen la calle'}
-        intro="Próximos recorridos, encuentros y giras comunitarias. Fechas tentativas, pendientes de confirmación."
+        intro="Aquí te comparto mis próximos recorridos, encuentros y jornadas por las colonias de Tehuacán. Las fechas marcadas como tentativas las confirmo en cuanto cierro sede y hora: nos vemos en la calle."
       />
 
       <section className="bg-bone py-16 text-ink md:py-24">

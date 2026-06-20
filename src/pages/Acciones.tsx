@@ -19,7 +19,7 @@ export default function Acciones() {
         index="04"
         label="Acciones y propuestas"
         title={'Por nuestra\ntierra'}
-        intro="Causas, propuestas e iniciativas comunitarias. Una estructura clara, lista para llenarse con el trabajo real de Marco y su equipo."
+        intro="Estos son los ejes que trabajo cada semana en Tehuacán: deporte que une, educación para las juventudes, obra cercana, economía local y seguridad con prevención. Cosas concretas, hechas de tú a tú."
       />
 
       <section className="bg-white py-20 text-ink md:py-28">
@@ -33,9 +33,8 @@ export default function Acciones() {
           </div>
 
           <p className="mt-12 max-w-2xl text-sm text-mute">
-            // REEMPLAZAR: cada tarjeta puede enlazar a una página de detalle por
-            <code className="mx-1 rounded bg-ink/5 px-1.5 py-0.5 text-accent">slug</code>
-            con galería, propuestas puntuales y resultados.
+            Cada acción nace en la calle, escuchando a las familias. Si quieres que llevemos alguna
+            de estas iniciativas a tu colonia, escríbeme y la organizamos juntos.
           </p>
         </div>
       </section>

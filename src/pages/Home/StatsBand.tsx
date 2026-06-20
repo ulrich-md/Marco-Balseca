@@ -11,14 +11,15 @@ export function StatsBand() {
         <div className="grid gap-10 md:grid-cols-[0.9fr_1.4fr] md:items-end">
           <div>
             <SectionLabel num="01" tone="accent">
-              Quién es Marco
+              Quién soy
             </SectionLabel>
             <p className="mt-5 text-lg leading-relaxed text-ink/80">
-              Marco Balseca es abogado, con maestría en administración (MBA), y emprendedor con
-              raíces en Tehuacán. Hoy es delegado de Gobernación de la microrregión 25 de Tehuacán,
-              y su trabajo es de calle: recorre las colonias, escucha a vecinas y vecinos e impulsa
-              acciones de comunidad. Su manera de hacer las cosas es sencilla: escuchar primero,
-              resolver después.
+              Soy Marco Balseca: abogado, con maestría en administración (MBA), y emprendedor con
+              raíces hondas en Tehuacán. Vengo de una familia que ayudó a construir el Tehuacán del
+              agua mineral y del servicio público. Hoy soy delegado de Gobernación de la microrregión
+              25, y mi trabajo es de calle: recorro las colonias, escucho a vecinas y vecinos e
+              impulso acciones de comunidad. Mi manera de hacer las cosas es sencilla: escuchar
+              primero, resolver después.
             </p>
           </div>
 

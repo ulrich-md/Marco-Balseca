@@ -61,7 +61,7 @@ export default function Trayectoria() {
         index="03"
         label="Trayectoria"
         title={'El camino'}
-        intro="De las raíces al presente: los hitos que marcan el trabajo de Marco con su comunidad. Todas las fechas y logros son placeholders pendientes de validación."
+        intro="De las raíces del agua mineral al trabajo de calle de hoy. Este es el camino que me trajo hasta aquí, contado con honestidad: de dónde vengo, qué aprendí y por qué sigo caminando Tehuacán."
       />
 
       {/* === Desktop: horizontal pinned === */}

@@ -98,7 +98,7 @@ export function PortraitPlaceholder({
         <span
           className={`absolute bottom-3 left-3 z-10 rounded-full px-3 py-1 text-[10px] font-medium uppercase tracking-[0.2em] backdrop-blur-sm ${noteCls}`}
         >
-          REEMPLAZAR · @marcobalseca1
+          @marcobalseca1
         </span>
       )}
     </div>

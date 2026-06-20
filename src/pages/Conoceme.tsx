@@ -21,7 +21,7 @@ export default function Conoceme() {
         index="02"
         label="Conóceme"
         title={'Marco\nBalseca'}
-        intro="Abogado y emprendedor de Tehuacán, Puebla. Una figura cercana, de carácter recio, que hoy impulsa acciones políticas y de comunidad por su tierra y su gente."
+        intro="Soy abogado y emprendedor de Tehuacán, Puebla, hoy delegado de Gobernación de la microrregión 25. Vengo de una familia de servicio y de trabajo, y dedico mis días a una sola cosa: estar cerca de mi gente."
       />
 
       {/* Bio editorial */}
@@ -47,23 +47,28 @@ export default function Conoceme() {
             />
             <div className="mt-6 space-y-5 text-lg leading-relaxed text-ink/85">
               <p>
-                Marco Balseca es abogado, con maestría en administración (MBA), y emprendedor de
-                Tehuacán, Puebla. Proviene de una familia con larga vocación de servicio público y
-                empresarial en la ciudad. Hoy, como delegado de Gobernación de la microrregión 25
-                de Tehuacán, dedica su tiempo a un trabajo cercano: acciones de comunidad, de tú a
-                tú con su gente.
+                Soy abogado, con maestría en administración (MBA), y emprendedor de Tehuacán,
+                Puebla. Vengo de una familia con larga vocación de servicio público y de empresa en
+                la ciudad: la nuestra fue una de las casas del agua mineral que le dieron a Tehuacán
+                su nombre y su orgullo, junto a marcas como Peñafiel y Garci-Crespo.
               </p>
               <p>
-                Tehuacán es su casa y su causa. Su familia formó parte de la tradición empresarial
-                del agua mineral que dio nombre y orgullo a la ciudad. De ahí su forma de trabajar:
-                en la calle, en la colonia, escuchando antes de decidir. Lo dice y lo repite: la
-                fuerza de Tehuacán está en su gente.
+                El servicio lo aprendí en casa. Mi padre, Marco Antonio Balseca Chávez, fue
+                presidente municipal de Tehuacán entre 1981 y 1984 —de su gestión es el mural
+                emblemático que hoy es orgullo de la ciudad—. De él entendí que servir a Tehuacán no
+                es un cargo, sino una forma de vivir.
               </p>
               <p>
-                Su formación como abogado y su experiencia como emprendedor le dan una mirada
-                práctica. Esa cercanía se ve en lo que impulsa cada semana: deporte que une a las
-                colonias, apoyo a las juventudes y a la educación, y jornadas que acercan servicios
-                a las familias.
+                Mi formación como abogado y mi experiencia como emprendedor me dan una mirada
+                práctica: escuchar primero, resolver después. Esa cercanía se ve en lo que impulso
+                cada semana como delegado de la microrregión 25: deporte que une a las colonias,
+                apoyo a las juventudes y a la educación, y jornadas que acercan servicios a las
+                familias.
+              </p>
+              <p>
+                Tehuacán es mi casa y mi causa. Lo digo y lo repito en cada colonia que recorro: la
+                fuerza de esta ciudad está en su gente, y mientras pueda caminarla, voy a seguir
+                haciéndolo a tu lado.
               </p>
               <p className="border-l-2 border-accent pl-5 font-condensed text-2xl font-medium uppercase tracking-wide text-ink">
                 La fuerza de Tehuacán está en su gente.
@@ -126,7 +131,8 @@ export default function Conoceme() {
             />
             <Reveal delay={0.12}>
               <p className="mt-5 max-w-xl text-xl text-ink/70">
-                La fuerza de quien no olvida de dónde viene y camina con su gente, todos los días.
+                No olvido de dónde vengo, y por eso camino con mi gente todos los días: de tú a tú,
+                en la colonia, donde la vida de verdad sucede.
               </p>
             </Reveal>
           </div>

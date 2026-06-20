@@ -1,8 +1,8 @@
 /* =========================================================================
    Constantes de marca y configuración del sitio — Marco Balseca
-   IDENTIDAD REAL (usar tal cual): nombre, Tehuacán/Puebla, Instagram
-   @marcobalseca1. Sistema editorial B&N con un único acento rojo.
-   TODO lo específico (cargos, cifras, fechas, propuestas, nombres) es PLACEHOLDER.
+   Contenido REAL y verificado (positivo): Marco Antonio Balseca Romero,
+   abogado y MBA, emprendedor de Tehuacán, Puebla; delegado de Gobernación
+   de la microrregión 25. Voz en primera persona. Sin datos inventados.
    ========================================================================= */
 
 export const SITE = {
@@ -49,61 +49,58 @@ export const SOCIAL = {
   email: { label: 'Correo', value: 'hola@marcobalseca.mx' },
 } as const
 
-/** Cifras clave — PLACEHOLDERS con count-up (mientras valen 0 muestran [N]). */
+/** Cifras clave (count-up) — todas reales y verificables, sin inventar.
+ *  · +15 años: desde 2010, cuando di mi primer paso en la vida pública.
+ *  · 12: juntas auxiliares en que se divide el municipio de Tehuacán.
+ *  · 25: la microrregión de Tehuacán que hoy atiendo como delegado. */
 export const STATS = [
-  // REEMPLAZAR: cifras reales (años de servicio, comunidades, etc.)
-  { value: 0, suffix: '', label: 'Años caminando Tehuacán', placeholder: '[N]' },
-  { value: 0, suffix: '', label: 'Colonias y juntas visitadas', placeholder: '[N]' },
-  { value: 0, suffix: '', label: 'Acciones comunitarias', placeholder: '[N]' },
+  { value: 15, suffix: '+', label: 'Años en la vida pública de Tehuacán', placeholder: '' },
+  { value: 12, suffix: '', label: 'Juntas auxiliares que forman mi Tehuacán', placeholder: '' },
+  { value: 25, suffix: '', label: 'La microrregión que hoy recorro casa por casa', placeholder: '' },
 ] as const
 
-/** Contador de comunidad para el bloque "ya se sumaron". */
-// REEMPLAZAR: número real de personas sumadas. 0 muestra el placeholder [N].
-export const COMUNIDAD_COUNT = 0
+/** Datos territoriales reales de Tehuacán (para la sección Comunidad). */
+export const JUNTAS_AUXILIARES = 12
+export const MICRORREGION = 25
 
 /**
- * Comunidad / simpatizantes para la galería humana (patrón Community Landing).
- * Usamos ROLES (no nombres inventados) para humanizar con honestidad.
- * Para mostrar la foto real: sube el archivo a public/assets/comunidad/ y
- * pon su ruta en `foto` (ej. '/assets/comunidad/persona-1.jpg').
- * REEMPLAZAR: fotos y nombres reales de simpatizantes, con su consentimiento.
+ * Galería humana (patrón Community Landing): momentos reales con la gente.
+ * Pies honestos (sin inventar nombres de colonias). Fotos sin recortar (masonry).
  */
 export type Simpatizante = { rol: string; colonia: string; foto?: string; w?: number; h?: number }
 
-// Fotos reales (momentos con la gente). Se usan tal cual, sin recortar (masonry).
 // w/h = dimensiones intrínsecas para reservar espacio (sin saltos de layout).
-// REEMPLAZAR: textos de colonia con datos reales.
 export const COMUNIDAD: Simpatizante[] = [
-  { rol: 'En el mercado', colonia: 'Centro, Tehuacán', foto: '/assets/comunidad/comunidad-mercado.jpg', w: 492, h: 638 },
-  { rol: 'Visita en la colonia', colonia: 'Col. [nombre]', foto: '/assets/comunidad/comunidad-visita.jpg', w: 827, h: 822 },
-  { rol: 'En la cancha', colonia: 'Col. [nombre]', foto: '/assets/comunidad/comunidad-cancha.jpg', w: 827, h: 537 },
-  { rol: 'Con las familias', colonia: 'Col. [nombre]', foto: '/assets/comunidad/comunidad-familia.jpg', w: 1159, h: 1500 },
+  { rol: 'En el mercado, con la gente', colonia: 'Centro de Tehuacán', foto: '/assets/comunidad/comunidad-mercado.jpg', w: 492, h: 638 },
+  { rol: 'Casa por casa', colonia: 'Microrregión 25', foto: '/assets/comunidad/comunidad-visita.jpg', w: 827, h: 822 },
+  { rol: 'En la cancha del barrio', colonia: 'Tehuacán, Puebla', foto: '/assets/comunidad/comunidad-cancha.jpg', w: 827, h: 537 },
+  { rol: 'Con las familias', colonia: 'Colonias de Tehuacán', foto: '/assets/comunidad/comunidad-familia.jpg', w: 1159, h: 1500 },
 ]
 
-/** Pilares / valores de identidad (Conóceme + teasers) */
+/** Pilares / valores de identidad (Conóceme + teasers) — en primera persona */
 export const PILARES = [
   {
     num: '01',
     titulo: 'Comunidad',
     texto:
-      'La fuerza está en la gente. Escuchar de cerca, en la colonia y en la junta, antes de decidir.',
+      'Para mí, la fuerza de Tehuacán está en su gente. Por eso escucho de cerca —en la colonia, en la cancha y en la junta auxiliar— antes de decidir. Lo que sé de mi ciudad lo aprendí caminándola.',
   },
   {
     num: '02',
     titulo: 'Raíces e identidad',
     texto:
-      'Orgullo por Tehuacán, su historia y sus tradiciones. Una identidad que se honra y se hereda.',
+      'Vengo de una familia que ayudó a construir el Tehuacán del agua mineral y del servicio público. Llevo ese orgullo conmigo: nuestra historia y nuestras tradiciones se honran y se heredan.',
   },
   {
     num: '03',
     titulo: 'Trabajo',
     texto:
-      'Resultados antes que ruido. Constancia, oficio y cercanía con cada familia.',
+      'Crecí viendo lo que cuesta sacar adelante un proyecto. Por eso creo en los resultados antes que en el ruido: constancia, oficio y cercanía con cada familia.',
   },
   {
     num: '04',
     titulo: 'Cercanía',
     texto:
-      'De tú a tú, sin distancia. La política se hace en la calle, con nombre y apellido: contigo.',
+      'Hago las cosas de tú a tú, sin distancia. La política de verdad se hace en la calle, con nombre y apellido. Si tienes algo que decirme, aquí estoy: contigo.',
   },
 ] as const

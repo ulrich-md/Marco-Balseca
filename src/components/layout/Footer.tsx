@@ -38,8 +38,9 @@ export function Footer() {
         <div>
           <Wordmark tone="bone" />
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/60">
-            Abogado y emprendedor de {SITE.ciudad}, hoy delegado de Gobernación de la microrregión
-            25. Acciones de comunidad, cerca de la gente. Por nuestra tierra.
+            Soy abogado y emprendedor de {SITE.ciudad}, hoy delegado de Gobernación de la
+            microrregión 25. Vengo de una familia de servicio y de trabajo, y dedico mis días a las
+            acciones de comunidad. Cerca de la gente, por nuestra tierra.
           </p>
           <div className="mt-6 flex items-center gap-3">
             <a href={SOCIAL.instagram.url} target="_blank" rel="noreferrer" aria-label="Instagram @marcobalseca1" className={socialCls}>
@@ -51,9 +52,11 @@ export function Footer() {
             <a href={SOCIAL.x.url} target="_blank" rel="noreferrer" aria-label="X" className={socialCls}>
               <XIcon />
             </a>
-            <a href={SOCIAL.whatsapp.url} target="_blank" rel="noreferrer" aria-label="WhatsApp" className={socialCls}>
-              <WhatsappIcon />
-            </a>
+            {SOCIAL.whatsapp.url !== '#' && (
+              <a href={SOCIAL.whatsapp.url} target="_blank" rel="noreferrer" aria-label="WhatsApp" className={socialCls}>
+                <WhatsappIcon />
+              </a>
+            )}
           </div>
         </div>
 
@@ -76,7 +79,7 @@ export function Footer() {
         <div>
           <p className="eyebrow text-white/45">Súmate al movimiento</p>
           <p className="mt-4 text-sm leading-relaxed text-white/60">
-            Sé voluntario, organiza tu colonia y camina con nosotros.
+            Hazte voluntario, organiza tu colonia y caminemos juntos. Aquí me tienes, de tú a tú.
           </p>
           <div className="mt-5">
             <ButtonLink to="/contacto" tone="bone" variant="solid">
@@ -88,6 +91,14 @@ export function Footer() {
             className="mt-5 block text-sm text-white/70 underline-offset-4 hover:text-accent hover:underline"
           >
             {SOCIAL.email.value}
+          </a>
+          <a
+            href={SOCIAL.linktree.url}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-2 block text-sm text-white/70 underline-offset-4 hover:text-accent hover:underline"
+          >
+            {SOCIAL.linktree.handle}
           </a>
         </div>
       </div>

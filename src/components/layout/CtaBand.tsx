@@ -42,8 +42,8 @@ export function CtaBand() {
           </h2>
           <Reveal delay={0.1}>
             <p className="mx-auto mt-6 max-w-xl text-lg text-white/65 lg:mx-0">
-              Tu voz, nuestra tierra. Sé voluntario, organiza tu colonia y camina con Marco por
-              Tehuacán.
+              Tu voz, nuestra tierra. Hazte voluntario, organiza tu colonia y caminemos juntos por
+              Tehuacán. Aquí me tienes.
             </p>
           </Reveal>
           <Reveal delay={0.18}>
@@ -51,8 +51,8 @@ export function CtaBand() {
               <ButtonLink to="/contacto" tone="bone" variant="solid">
                 Quiero sumarme
               </ButtonLink>
-              <ButtonAnchor href={SOCIAL.whatsapp.url} tone="bone" variant="outline" arrow>
-                Escríbenos por WhatsApp
+              <ButtonAnchor href={SOCIAL.instagram.url} tone="bone" variant="outline" arrow>
+                Sígueme en Instagram
               </ButtonAnchor>
             </div>
           </Reveal>

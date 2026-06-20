@@ -24,7 +24,7 @@ export default function Reels() {
         index="05"
         label="Reels"
         title="En la calle"
-        intro="Video vertical, en directo desde el movimiento. Da clic para reproducir; la galería se enlaza con los reels oficiales de @marcobalseca1."
+        intro="Aquí me ves en la calle, con la gente: atención a vecinos, jornadas, deporte y la fiesta del Mundial en Tehuacán. Da clic para reproducir cualquier reel oficial de @marcobalseca1."
       >
         <div className="mt-8">
           <ButtonAnchor href={SOCIAL.instagram.url} tone="accent" variant="outline" arrow>

@@ -95,7 +95,7 @@ export default function Contacto() {
         index="07"
         label="Contacto · Súmate"
         title={'Súmate al\nmovimiento'}
-        intro="Tu voz, nuestra tierra. Déjanos un mensaje, hazte voluntario o escríbenos directo por WhatsApp. Cuenta con nosotros."
+        intro="Tu voz, nuestra tierra. Déjame un mensaje, hazte voluntario o escríbeme por mis redes. Aquí me tienes, de tú a tú: cuenta conmigo."
       >
         {/* Acento gráfico (cutout claro). Lleva halo + sombra para separarse del
             blanco (si no, la camisa clara se pierde). REEMPLAZAR -> si falta, no se ve nada. */}
@@ -142,7 +142,8 @@ export default function Contacto() {
                     </div>
                     <h3 className="font-display mt-5 text-3xl text-accent">¡Gracias, {fields.nombre || 'compa'}!</h3>
                     <p className="mt-2 text-mute">
-                      Recibimos tu mensaje. El equipo de Marco te contactará pronto. ¡Gracias por sumarte!
+                      Recibí tu mensaje y te contactaré pronto. Gracias por sumarte: esto lo
+                      construimos juntos.
                     </p>
                     <p className="mt-1 text-xs text-mute/70">
                       (Demo sin backend: el envío es simulado.)
@@ -269,11 +270,11 @@ export default function Contacto() {
 
             <div className="rounded-sm border border-ink/10 bg-white p-7 md:p-8">
               <h3 className="font-condensed text-2xl font-semibold uppercase tracking-wide text-ink">
-                Sé voluntario
+                Hazte voluntario
               </h3>
               <p className="mt-3 text-mute">
-                Organiza tu colonia, suma a tu gente y camina con Marco. El movimiento se construye
-                de tú a tú.
+                Organiza tu colonia, suma a tu gente y caminemos juntos. Este movimiento se
+                construye de tú a tú, y tú haces la diferencia.
               </p>
               <p className="font-condensed mt-4 text-lg font-semibold uppercase tracking-wide text-accent">
                 Cerca de la gente. Por nuestra tierra.

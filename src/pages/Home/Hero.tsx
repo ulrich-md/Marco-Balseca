@@ -5,7 +5,7 @@ import { ButtonLink } from '../../components/ui/Button'
 import { ScrollIndicator } from '../../components/ui/ScrollIndicator'
 import { PortraitPlaceholder } from '../../components/ui/PortraitPlaceholder'
 import { useParallax } from '../../lib/useParallax'
-import { SITE, COMUNIDAD_COUNT } from '../../data/site'
+import { SITE, JUNTAS_AUXILIARES } from '../../data/site'
 
 const INDEX = [
   { n: '01', label: 'Conóceme', to: '/conoceme' },
@@ -86,8 +86,8 @@ export function Hero() {
         <div className="mt-8 grid items-start gap-10 lg:mt-6 lg:grid-cols-[1fr_0.78fr] lg:gap-12">
           <div className="lg:pl-[9vw] lg:pt-4">
             <motion.p {...appear(0.45)} className="max-w-xl text-lg text-ink/75 md:text-xl">
-              Abogado y emprendedor de Tehuacán. {SITE.tagline} Hoy, acciones políticas y de
-              comunidad, todos los días.
+              Soy abogado y emprendedor de Tehuacán, hoy delegado de Gobernación de la microrregión
+              25. {SITE.tagline} Acciones de comunidad, todos los días.
             </motion.p>
 
             <motion.div {...appear(0.55)} className="mt-7 flex flex-wrap items-center gap-4">
@@ -117,9 +117,9 @@ export function Hero() {
               </div>
               <p className="text-sm leading-tight text-ink/70">
                 <span className="font-display block text-2xl leading-none text-ink">
-                  {COMUNIDAD_COUNT > 0 ? `${COMUNIDAD_COUNT}+` : '[N]'}
+                  {JUNTAS_AUXILIARES} juntas auxiliares
                 </span>
-                vecinas y vecinos ya se sumaron
+                y sus colonias, una por una
               </p>
             </motion.div>
           </div>

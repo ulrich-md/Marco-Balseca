@@ -3,7 +3,7 @@ import { RevealText } from '../../components/ui/RevealText'
 import { Reveal } from '../../components/ui/Reveal'
 import { ButtonLink } from '../../components/ui/Button'
 import { ResponsiveImg } from '../../components/ui/ResponsiveImg'
-import { COMUNIDAD, COMUNIDAD_COUNT } from '../../data/site'
+import { COMUNIDAD, MICRORREGION, JUNTAS_AUXILIARES } from '../../data/site'
 
 /**
  * Galería de comunidad (patrón Community Landing): momentos reales con la
@@ -22,7 +22,7 @@ export function ComunidadStrip() {
             </SectionLabel>
             <RevealText
               as="h2"
-              text={'Ya caminan\ncon Marco'}
+              text={'Caminamos\njuntos'}
               className="font-display mt-5 text-[13vw] leading-[0.86] text-ink sm:text-6xl lg:text-7xl"
             />
           </div>
@@ -33,14 +33,15 @@ export function ComunidadStrip() {
           </div>
         </div>
 
-        {/* Contador */}
+        {/* Contador — territorio real de Tehuacán (microrregión 25) */}
         <Reveal>
           <div className="mt-10 flex flex-wrap items-baseline gap-x-5 gap-y-1 border-y border-ink/15 py-7">
             <span className="font-display text-6xl leading-none text-accent md:text-7xl">
-              {COMUNIDAD_COUNT > 0 ? `${COMUNIDAD_COUNT}+` : '[N]'}
+              Microrregión {MICRORREGION}
             </span>
             <span className="text-lg text-ink/70">
-              vecinas y vecinos ya se sumaron al movimiento.
+              y las {JUNTAS_AUXILIARES} juntas auxiliares de Tehuacán: las recorro casa por casa,
+              escuchando antes de decidir.
             </span>
           </div>
         </Reveal>
