@@ -3,9 +3,10 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { RevealText } from '../../components/ui/RevealText'
 import { ButtonLink } from '../../components/ui/Button'
 import { ScrollIndicator } from '../../components/ui/ScrollIndicator'
-import { PortraitPlaceholder } from '../../components/ui/PortraitPlaceholder'
+import { HeroCarousel, type HeroSlide } from '../../components/ui/HeroCarousel'
+import { LiveCounter } from '../../components/ui/LiveCounter'
 import { useParallax } from '../../lib/useParallax'
-import { SITE, JUNTAS_AUXILIARES } from '../../data/site'
+import { SITE, JUNTAS_AUXILIARES, COLONIAS_RECORRIDAS } from '../../data/site'
 
 const INDEX = [
   { n: '01', label: 'Conóceme', to: '/conoceme' },
@@ -13,6 +14,15 @@ const INDEX = [
   { n: '03', label: 'Acciones', to: '/acciones' },
   { n: '04', label: 'Reels', to: '/reels' },
   { n: '05', label: 'Agenda', to: '/agenda' },
+]
+
+// Carrusel del hero: fotos REALES a color (retrato + momentos con la gente).
+const HERO_SLIDES: HeroSlide[] = [
+  { src: '/assets/portraits/marco-formal.jpg', alt: 'Marco Balseca, retrato', caption: 'Marco Balseca' },
+  { src: '/assets/comunidad/comunidad-familia.jpg', alt: 'Marco con las familias de Tehuacán', caption: 'Con las familias' },
+  { src: '/assets/comunidad/comunidad-mercado.jpg', alt: 'Marco en el mercado de Tehuacán', caption: 'En el mercado' },
+  { src: '/assets/comunidad/comunidad-cancha.jpg', alt: 'Marco en la cancha del barrio', caption: 'En la cancha' },
+  { src: '/assets/portraits/marco-corazon-fondo.jpg', alt: 'Marco con la comunidad', caption: 'Con la gente' },
 ]
 
 export function Hero() {
@@ -31,6 +41,27 @@ export function Hero() {
 
   return (
     <section className="relative overflow-hidden bg-white text-ink">
+      {/* Fondo animado: blobs B&N a la deriva + un toque de rojo + barrido + grano.
+          Sutil, nunca compite con el texto. Se congela con reduced-motion. */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+        <span
+          className="hero-blob animate-drift-a"
+          style={{ top: '-12%', left: '-8%', width: '48vw', height: '48vw', background: 'radial-gradient(circle, rgba(22,22,22,0.06), transparent 65%)' }}
+        />
+        <span
+          className="hero-blob animate-drift-b"
+          style={{ bottom: '-14%', right: '-6%', width: '42vw', height: '42vw', background: 'radial-gradient(circle, rgba(225,37,27,0.08), transparent 65%)' }}
+        />
+        <span
+          className="animate-sheen absolute inset-y-0 left-0 w-1/3 -skew-x-12"
+          style={{ background: 'linear-gradient(100deg, transparent, rgba(0,0,0,0.03), transparent)' }}
+        />
+        <span
+          className="absolute inset-0 opacity-[0.04]"
+          style={{ backgroundImage: 'url(/assets/backgrounds/grain.png)', backgroundSize: '420px' }}
+        />
+      </div>
+
       {/* Índice vertical derecho (ref. ESPN) */}
       <nav
         className="absolute right-5 top-1/2 z-30 hidden -translate-y-1/2 flex-col items-end gap-3 xl:flex"
@@ -44,7 +75,7 @@ export function Hero() {
         ))}
       </nav>
 
-      <div className="container-x relative pt-28 lg:pt-32">
+      <div className="container-x relative z-10 pt-28 lg:pt-32">
         {/* Meta superior (mono) */}
         <motion.div {...appear(0)} className="flex items-center justify-between border-b border-ink/15 pb-4">
           <span className="eyebrow text-accent">Marco Balseca</span>
@@ -55,10 +86,10 @@ export function Hero() {
 
         {/* Titular gigante — el NOMBRE es el héroe */}
         <div className="relative mt-8 lg:mt-10">
-          {/* Acento rojo vertical (ref. ESPN 足球) */}
+          {/* Acento rojo vertical (ref. ESPN), con float sutil */}
           <span
             aria-hidden
-            className="font-display pointer-events-none absolute -left-1 top-1 z-0 hidden select-none text-[7vw] leading-none text-accent lg:block"
+            className="font-display animate-float-y pointer-events-none absolute -left-1 top-1 z-0 hidden select-none text-[7vw] leading-none text-accent lg:block"
             style={{ writingMode: 'vertical-rl' }}
           >
             TEHUACÁN
@@ -82,7 +113,7 @@ export function Hero() {
           </h1>
         </div>
 
-        {/* Fila inferior: copy/CTA/comunidad (izq) + foto B&N (der) */}
+        {/* Fila inferior: copy/CTA/comunidad (izq) + carrusel (der) */}
         <div className="mt-8 grid items-start gap-10 lg:mt-6 lg:grid-cols-[1fr_0.78fr] lg:gap-12">
           <div className="lg:pl-[9vw] lg:pt-4">
             <motion.p {...appear(0.45)} className="max-w-xl text-lg text-ink/75 md:text-xl">
@@ -99,45 +130,49 @@ export function Hero() {
               </ButtonLink>
             </motion.div>
 
-            {/* Comunidad: avatares B&N + contador (cercanía + onboarding) */}
-            <motion.div
-              {...appear(0.65)}
-              className="mt-9 flex items-center gap-4 border-t border-ink/15 pt-6"
-            >
-              <div className="flex -space-x-3" aria-hidden>
-                {[0, 1, 2, 3].map((i) => (
-                  <span
-                    key={i}
-                    className="h-10 w-10 rounded-full border-2 border-white bg-gradient-to-b from-[#d9d9d9] to-[#b8b8b8]"
-                  />
-                ))}
-                <span className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-accent text-xs font-bold text-white">
-                  +
-                </span>
+            {/* Comunidad: avatares + contador EN VIVO + cifras territoriales */}
+            <motion.div {...appear(0.65)} className="mt-9 border-t border-ink/15 pt-6">
+              <div className="flex items-center gap-4">
+                <div className="flex -space-x-3" aria-hidden>
+                  {[0, 1, 2, 3].map((i) => (
+                    <span
+                      key={i}
+                      className="h-10 w-10 rounded-full border-2 border-white bg-gradient-to-b from-[#d9d9d9] to-[#b8b8b8]"
+                    />
+                  ))}
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-accent text-xs font-bold text-white">
+                    +
+                  </span>
+                </div>
+                <LiveCounter />
               </div>
-              <p className="text-sm leading-tight text-ink/70">
-                <span className="font-display block text-2xl leading-none text-ink">
-                  {JUNTAS_AUXILIARES} juntas auxiliares
-                </span>
-                y sus colonias, una por una
-              </p>
+
+              <div className="mt-6 flex flex-wrap gap-x-9 gap-y-3">
+                <div className="flex items-baseline gap-2">
+                  <span className="font-display text-2xl leading-none text-ink">
+                    +{COLONIAS_RECORRIDAS}
+                  </span>
+                  <span className="text-sm text-ink/60">colonias recorridas</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="font-display text-2xl leading-none text-ink">
+                    {JUNTAS_AUXILIARES}
+                  </span>
+                  <span className="text-sm text-ink/60">juntas auxiliares de Tehuacán</span>
+                </div>
+              </div>
             </motion.div>
           </div>
 
-          {/* Foto B&N, encajada bajo el titular (ref. ESPN) */}
+          {/* Carrusel de fotos reales (crossfade + Ken Burns), con parallax sutil */}
           <div ref={photoRef} className="relative lg:-mt-[7vw]">
-            {/* Foto cutout transparente. REEMPLAZAR -> si falta, queda el bloque gris (sin imagen rota). */}
-            <PortraitPlaceholder
-              src="/assets/portraits/marco-hero.png"
-              alt="Marco Balseca, Tehuacán"
-              tone="grey"
-              frame
-              eager
-              sizes="(min-width: 1024px) 40vw, 92vw"
-              className="aspect-[4/5] w-full shadow-[0_30px_60px_-25px_rgba(0,0,0,0.5)]"
-              note={false}
+            <HeroCarousel
+              slides={HERO_SLIDES}
+              className="aspect-[4/5] w-full rounded-sm shadow-[0_30px_60px_-25px_rgba(0,0,0,0.5)]"
             />
-            <span className="eyebrow absolute -bottom-3 left-3 bg-white px-2 py-1 text-mute">
+            {/* marco accent fino (ref. Yeezy) */}
+            <span aria-hidden className="pointer-events-none absolute inset-3 z-20 border border-accent md:inset-4" />
+            <span className="eyebrow absolute -bottom-3 left-3 z-30 bg-white px-2 py-1 text-mute">
               Tehuacán, Puebla
             </span>
           </div>

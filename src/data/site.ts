@@ -49,19 +49,22 @@ export const SOCIAL = {
   email: { label: 'Correo', value: 'hola@marcobalseca.mx' },
 } as const
 
-/** Cifras clave (count-up) — todas reales y verificables, sin inventar.
+/** Cifras clave (count-up). Las verificables van exactas; la de colonias es
+ *  un estimado honesto en formato "+ de" (Tehuacán tiene 200+ colonias).
  *  · +15 años: desde 2010, cuando di mi primer paso en la vida pública.
- *  · 12: juntas auxiliares en que se divide el municipio de Tehuacán.
- *  · 25: la microrregión de Tehuacán que hoy atiendo como delegado. */
+ *  · +100 colonias recorridas, casa por casa.
+ *  · 12: juntas auxiliares en que se divide el municipio de Tehuacán. */
 export const STATS = [
   { value: 15, suffix: '+', label: 'Años en la vida pública de Tehuacán', placeholder: '' },
+  { value: 100, suffix: '+', label: 'Colonias recorridas, casa por casa', placeholder: '' },
   { value: 12, suffix: '', label: 'Juntas auxiliares que forman mi Tehuacán', placeholder: '' },
-  { value: 25, suffix: '', label: 'La microrregión que hoy recorro casa por casa', placeholder: '' },
 ] as const
 
-/** Datos territoriales reales de Tehuacán (para la sección Comunidad). */
+/** Datos territoriales de Tehuacán (para hero y sección Comunidad). */
 export const JUNTAS_AUXILIARES = 12
 export const MICRORREGION = 25
+/** Estimado honesto "+ de" — Tehuacán tiene 200+ colonias. */
+export const COLONIAS_RECORRIDAS = 100
 
 /**
  * Galería humana (patrón Community Landing): momentos reales con la gente.
