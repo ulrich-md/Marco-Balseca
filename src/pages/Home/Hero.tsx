@@ -5,6 +5,7 @@ import { ButtonLink } from '../../components/ui/Button'
 import { ScrollIndicator } from '../../components/ui/ScrollIndicator'
 import { HeroVideo, type VideoPhoto } from '../../components/ui/HeroVideo'
 import { LiveCounter } from '../../components/ui/LiveCounter'
+import { CommunityAvatars } from '../../components/ui/CommunityAvatars'
 import { useParallax } from '../../lib/useParallax'
 import { SITE, JUNTAS_AUXILIARES, COLONIAS_RECORRIDAS } from '../../data/site'
 
@@ -14,14 +15,6 @@ const INDEX = [
   { n: '03', label: 'Acciones', to: '/acciones' },
   { n: '04', label: 'Reels', to: '/reels' },
   { n: '05', label: 'Agenda', to: '/agenda' },
-]
-
-// Avatares de la comunidad (imágenes de internet, stock de rostros diversos).
-const AVATARS = [
-  'https://randomuser.me/api/portraits/men/32.jpg',
-  'https://randomuser.me/api/portraits/women/44.jpg',
-  'https://randomuser.me/api/portraits/men/52.jpg',
-  'https://randomuser.me/api/portraits/women/68.jpg',
 ]
 
 // Fotos REALES para el "video" principal del hero (montaje; usa el MP4 real
@@ -147,24 +140,7 @@ export function Hero() {
             {/* Comunidad: avatares + contador EN VIVO + cifras territoriales */}
             <motion.div {...appear(0.65)} className="mt-9 border-t border-ink/15 pt-6">
               <div className="flex items-center gap-4">
-                <div className="flex -space-x-3" aria-hidden>
-                  {AVATARS.map((src, i) => (
-                    <img
-                      key={i}
-                      src={src}
-                      alt=""
-                      loading="lazy"
-                      decoding="async"
-                      onError={(e) => {
-                        e.currentTarget.style.display = 'none'
-                      }}
-                      className="h-10 w-10 rounded-full border-2 border-white bg-mist object-cover"
-                    />
-                  ))}
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-accent text-xs font-bold text-white">
-                    +
-                  </span>
-                </div>
+                <CommunityAvatars />
                 <LiveCounter />
               </div>
 

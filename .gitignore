@@ -24,3 +24,7 @@ dist-ssr
 
 # TS build info
 *.tsbuildinfo
+
+# Variables de entorno locales
+.env
+.env.local
