@@ -127,9 +127,9 @@ export function Hero() {
           </h1>
         </div>
 
-        {/* Fila inferior. En MÓVIL el orden DOM (copy/CTA → video → contador/prensa)
-            ya es el correcto; en desktop el auto-flow del grid coloca el copy y el
-            contador en la columna izquierda y el video a la derecha. */}
+        {/* Fila inferior. En MÓVIL el orden DOM es copy/CTA → contador → video →
+            prensa. En desktop, el placement explícito apila copy/contador/prensa
+            en la columna izquierda y el video (span 3 filas) a la derecha. */}
         <div className="mt-6 grid items-start lg:mt-0 lg:grid-cols-[1fr_0.78fr] lg:gap-x-12">
           {/* A — copy + CTA + redes */}
           <div className="lg:col-start-1 lg:row-start-1 lg:pl-[9vw] lg:pt-4">
@@ -167,25 +167,9 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Media principal: VIDEO. En móvil va aquí, justo bajo el copy/CTA. */}
-          <div
-            ref={photoRef}
-            className="relative mt-8 lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:mt-0 lg:-mt-[17vw]"
-          >
-            <HeroVideo
-              photos={HERO_SLIDES}
-              caption="En territorio · Tehuacán, Puebla"
-              videoSrc={{ mp4: '/assets/video/marco-reel.mp4', webm: '/assets/video/marco-reel.webm' }}
-              poster="/assets/portraits/marco-formal.jpg"
-              className="aspect-[4/5] w-full shadow-[0_30px_60px_-25px_rgba(0,0,0,0.5)]"
-            />
-            {/* marco accent fino (ref. Yeezy) */}
-            <span aria-hidden className="pointer-events-none absolute inset-3 z-20 border border-accent md:inset-4" />
-          </div>
-
-          {/* B — contador + cifras + prensa */}
+          {/* B1 — contador + cifras (en móvil va ANTES del video) */}
           <div className="lg:col-start-1 lg:row-start-2 lg:pl-[9vw]">
-            <motion.div {...appear(0.65)} className="mt-9 border-t border-ink/15 pt-6">
+            <motion.div {...appear(0.6)} className="mt-9 border-t border-ink/15 pt-6">
               <div className="flex items-center gap-4">
                 <CommunityAvatars />
                 <LiveCounter />
@@ -206,7 +190,26 @@ export function Hero() {
                 </div>
               </div>
             </motion.div>
+          </div>
 
+          {/* Media principal: VIDEO. En móvil va tras el contador. */}
+          <div
+            ref={photoRef}
+            className="relative mt-8 lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:mt-0 lg:-mt-[17vw]"
+          >
+            <HeroVideo
+              photos={HERO_SLIDES}
+              caption="En territorio · Tehuacán, Puebla"
+              videoSrc={{ mp4: '/assets/video/marco-reel.mp4', webm: '/assets/video/marco-reel.webm' }}
+              poster="/assets/portraits/marco-formal.jpg"
+              className="aspect-[4/5] w-full shadow-[0_30px_60px_-25px_rgba(0,0,0,0.5)]"
+            />
+            {/* marco accent fino (ref. Yeezy) */}
+            <span aria-hidden className="pointer-events-none absolute inset-3 z-20 border border-accent md:inset-4" />
+          </div>
+
+          {/* B2 — prensa (en móvil va tras el video) */}
+          <div className="lg:col-start-1 lg:row-start-3 lg:pl-[9vw]">
             <motion.div {...appear(0.75)} className="mt-8 border-t border-ink/15 pt-6">
               <span className="eyebrow text-mute">En la prensa</span>
               <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5">
