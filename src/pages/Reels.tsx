@@ -1,17 +1,13 @@
-import { useState } from 'react'
 import { Seo } from '../lib/Seo'
 import { PageHero } from '../components/layout/PageHero'
 import { CtaBand } from '../components/layout/CtaBand'
 import { Reveal } from '../components/ui/Reveal'
-import { ReelCard } from '../components/ui/ReelCard'
-import { Lightbox } from '../components/ui/Lightbox'
+import { InstagramEmbed } from '../components/ui/InstagramEmbed'
 import { ButtonAnchor } from '../components/ui/Button'
-import { type Reel } from '../data/reels'
 import { useReels } from '../lib/useContent'
 import { SOCIAL } from '../data/site'
 
 export default function Reels() {
-  const [active, setActive] = useState<Reel | null>(null)
   const { reels } = useReels()
 
   return (
@@ -26,7 +22,7 @@ export default function Reels() {
         index="05"
         label="Reels"
         title="En la calle"
-        intro="Aquí me ves en la calle, con la gente: atención a vecinos, jornadas, deporte y la fiesta del Mundial en Tehuacán. Da clic para reproducir cualquier reel oficial de @marcobalseca1."
+        intro="Aquí me ves en la calle, con la gente: atención a vecinos, jornadas, deporte y la fiesta del Mundial en Tehuacán. Reels oficiales de @marcobalseca1, directo desde Instagram."
       >
         <div className="mt-8">
           <ButtonAnchor href={SOCIAL.instagram.url} tone="accent" variant="outline" arrow>
@@ -37,23 +33,30 @@ export default function Reels() {
 
       <section className="bg-white py-20 text-ink md:py-28">
         <div className="container-x">
-          <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {reels.map((reel, i) => (
-              <Reveal key={reel.id} delay={(i % 4) * 0.06}>
-                <ReelCard reel={reel} index={i} onOpen={setActive} />
+              <Reveal key={reel.id} delay={(i % 3) * 0.06}>
+                <InstagramEmbed url={reel.instagramUrl} titulo={reel.titulo} />
               </Reveal>
             ))}
           </div>
 
           <p className="mt-12 max-w-2xl text-sm text-mute">
-            Reels de <a href="https://www.instagram.com/marcobalseca1/" target="_blank" rel="noreferrer" className="text-accent hover:underline">@marcobalseca1</a> en Instagram.
+            Reels de{' '}
+            <a
+              href="https://www.instagram.com/marcobalseca1/"
+              target="_blank"
+              rel="noreferrer"
+              className="text-accent hover:underline"
+            >
+              @marcobalseca1
+            </a>{' '}
+            en Instagram.
           </p>
         </div>
       </section>
 
       <CtaBand />
-
-      <Lightbox reel={active} onClose={() => setActive(null)} />
     </>
   )
 }

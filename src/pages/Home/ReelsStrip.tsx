@@ -1,15 +1,12 @@
-import { useState } from 'react'
 import { SectionLabel } from '../../components/ui/SectionLabel'
 import { RevealText } from '../../components/ui/RevealText'
 import { ButtonLink } from '../../components/ui/Button'
-import { ReelCard } from '../../components/ui/ReelCard'
-import { Lightbox } from '../../components/ui/Lightbox'
-import { type Reel } from '../../data/reels'
+import { Reveal } from '../../components/ui/Reveal'
+import { InstagramEmbed } from '../../components/ui/InstagramEmbed'
 import { useReels } from '../../lib/useContent'
 
-/** Franja de Reels en Inicio: solo 4; "ver más" lleva a /reels. */
+/** Franja de Reels en Inicio: 4 reels embebidos; "ver más" lleva a /reels. */
 export function ReelsStrip() {
-  const [active, setActive] = useState<Reel | null>(null)
   const { reels } = useReels()
   const cuatro = reels.slice(0, 4)
 
@@ -46,11 +43,11 @@ export function ReelsStrip() {
           </div>
         </div>
 
-        <div className="mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 [scrollbar-width:none] md:grid md:grid-cols-4 md:overflow-visible">
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {cuatro.map((reel, i) => (
-            <div key={reel.id} className="w-[68%] shrink-0 snap-start sm:w-[42%] md:w-auto">
-              <ReelCard reel={reel} index={i} onOpen={setActive} />
-            </div>
+            <Reveal key={reel.id} delay={(i % 4) * 0.06}>
+              <InstagramEmbed url={reel.instagramUrl} titulo={reel.titulo} />
+            </Reveal>
           ))}
         </div>
 
@@ -60,8 +57,6 @@ export function ReelsStrip() {
           </ButtonLink>
         </div>
       </div>
-
-      <Lightbox reel={active} onClose={() => setActive(null)} />
     </section>
   )
 }
