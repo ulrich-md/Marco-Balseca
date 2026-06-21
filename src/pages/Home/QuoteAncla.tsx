@@ -5,7 +5,7 @@ import { SectionLabel } from '../../components/ui/SectionLabel'
 /** Cita ancla editorial (placeholder de cita real). */
 export function QuoteAncla() {
   return (
-    <section className="bg-bone py-24 text-ink md:py-32">
+    <section className="bg-bone py-16 text-ink md:py-32">
       <div className="container-x">
         <div className="flex justify-center">
           <SectionLabel tone="accent">En sus palabras</SectionLabel>

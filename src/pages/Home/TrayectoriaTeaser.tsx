@@ -9,7 +9,7 @@ export function TrayectoriaTeaser() {
   const hitos = TRAYECTORIA.slice(0, 3)
 
   return (
-    <section className="bg-bone py-20 text-ink md:py-28">
+    <section className="bg-bone py-14 text-ink md:py-28">
       <div className="container-x">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>

@@ -127,39 +127,64 @@ export function Hero() {
           </h1>
         </div>
 
-        {/* Fila inferior: copy/CTA/comunidad (izq) + carrusel (der) */}
-        <div className="mt-6 grid items-start gap-10 lg:mt-0 lg:grid-cols-[1fr_0.78fr] lg:gap-12">
-          <div className="lg:pl-[9vw] lg:pt-4">
+        {/* Fila inferior. En MÓVIL el orden DOM (copy/CTA → video → contador/prensa)
+            ya es el correcto; en desktop el auto-flow del grid coloca el copy y el
+            contador en la columna izquierda y el video a la derecha. */}
+        <div className="mt-6 grid items-start lg:mt-0 lg:grid-cols-[1fr_0.78fr] lg:gap-x-12">
+          {/* A — copy + CTA + redes */}
+          <div className="lg:col-start-1 lg:row-start-1 lg:pl-[9vw] lg:pt-4">
             <motion.p {...appear(0.45)} className="max-w-xl text-lg text-ink/75 md:text-xl">
               Soy abogado y emprendedor de Tehuacán, hoy delegado de Gobernación de la microrregión
               25. {SITE.tagline} Acciones de comunidad, todos los días.
             </motion.p>
 
-            <motion.div {...appear(0.55)} className="mt-7 flex flex-wrap items-center gap-4">
-              <ButtonLink to="/contacto" tone="accent" variant="solid">
-                Súmate
-              </ButtonLink>
-              <ButtonLink to="/conoceme" tone="ink" variant="outline">
-                Conoce a Marco
-              </ButtonLink>
-              <span aria-hidden className="hidden h-6 w-px bg-ink/15 sm:block" />
-              <div className="flex items-center gap-2">
-                {HERO_SOCIAL.map(({ Icon, label, url }) => (
-                  <a
-                    key={label}
-                    href={url}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={label}
-                    className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 text-ink/70 transition-colors hover:border-accent hover:text-accent"
-                  >
-                    <Icon className="h-5 w-5" />
-                  </a>
-                ))}
+            <motion.div {...appear(0.55)} className="mt-7">
+              <div className="flex flex-wrap items-center gap-3">
+                <ButtonLink to="/contacto" tone="accent" variant="solid">
+                  Súmate
+                </ButtonLink>
+                <ButtonLink to="/conoceme" tone="ink" variant="outline">
+                  Conoce a Marco
+                </ButtonLink>
+              </div>
+              <div className="mt-5 flex items-center gap-3">
+                <span className="eyebrow text-mute">Sígueme</span>
+                <div className="flex items-center gap-2">
+                  {HERO_SOCIAL.map(({ Icon, label, url }) => (
+                    <a
+                      key={label}
+                      href={url}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={label}
+                      className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 text-ink/70 transition-colors hover:border-accent hover:text-accent"
+                    >
+                      <Icon className="h-5 w-5" />
+                    </a>
+                  ))}
+                </div>
               </div>
             </motion.div>
+          </div>
 
-            {/* Comunidad: avatares + contador EN VIVO + cifras territoriales */}
+          {/* Media principal: VIDEO. En móvil va aquí, justo bajo el copy/CTA. */}
+          <div
+            ref={photoRef}
+            className="relative mt-8 lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:mt-0 lg:-mt-[17vw]"
+          >
+            <HeroVideo
+              photos={HERO_SLIDES}
+              caption="En territorio · Tehuacán, Puebla"
+              videoSrc={{ mp4: '/assets/video/marco-reel.mp4', webm: '/assets/video/marco-reel.webm' }}
+              poster="/assets/portraits/marco-formal.jpg"
+              className="aspect-[4/5] w-full shadow-[0_30px_60px_-25px_rgba(0,0,0,0.5)]"
+            />
+            {/* marco accent fino (ref. Yeezy) */}
+            <span aria-hidden className="pointer-events-none absolute inset-3 z-20 border border-accent md:inset-4" />
+          </div>
+
+          {/* B — contador + cifras + prensa */}
+          <div className="lg:col-start-1 lg:row-start-2 lg:pl-[9vw]">
             <motion.div {...appear(0.65)} className="mt-9 border-t border-ink/15 pt-6">
               <div className="flex items-center gap-4">
                 <CommunityAvatars />
@@ -182,7 +207,6 @@ export function Hero() {
               </div>
             </motion.div>
 
-            {/* En la prensa: prueba social real (teaser de la sección de abajo) */}
             <motion.div {...appear(0.75)} className="mt-8 border-t border-ink/15 pt-6">
               <span className="eyebrow text-mute">En la prensa</span>
               <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5">
@@ -209,21 +233,6 @@ export function Hero() {
                 </span>
               </a>
             </motion.div>
-          </div>
-
-          {/* Media principal: VIDEO que se reproduce al cargar (montaje de fotos
-              reales; usa el MP4 real si se sube a /assets/video/marco-reel.mp4).
-              Pausa fuera de pantalla. Parallax sutil. */}
-          <div ref={photoRef} className="relative lg:-mt-[17vw]">
-            <HeroVideo
-              photos={HERO_SLIDES}
-              caption="En territorio · Tehuacán, Puebla"
-              videoSrc={{ mp4: '/assets/video/marco-reel.mp4', webm: '/assets/video/marco-reel.webm' }}
-              poster="/assets/portraits/marco-formal.jpg"
-              className="aspect-[4/5] w-full shadow-[0_30px_60px_-25px_rgba(0,0,0,0.5)]"
-            />
-            {/* marco accent fino (ref. Yeezy) */}
-            <span aria-hidden className="pointer-events-none absolute inset-3 z-20 border border-accent md:inset-4" />
           </div>
         </div>
 

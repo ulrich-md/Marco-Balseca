@@ -11,7 +11,7 @@ export function ReelsStrip() {
   const cuatro = reels.slice(0, 4)
 
   return (
-    <section className="bg-bone py-20 text-ink md:py-28">
+    <section className="bg-bone py-14 text-ink md:py-28">
       <div className="container-x">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
@@ -43,9 +43,15 @@ export function ReelsStrip() {
           </div>
         </div>
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Móvil: carrusel horizontal (swipe) para no apilar 4 embeds altos.
+            Desktop: rejilla de 4. */}
+        <div className="mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3 [-ms-overflow-style:none] [scrollbar-width:none] sm:grid sm:snap-none sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:pb-0 lg:grid-cols-4 [&::-webkit-scrollbar]:hidden">
           {cuatro.map((reel, i) => (
-            <Reveal key={reel.id} delay={(i % 4) * 0.06}>
+            <Reveal
+              key={reel.id}
+              delay={(i % 4) * 0.06}
+              className="w-[88vw] max-w-[340px] shrink-0 snap-start sm:w-auto sm:max-w-none"
+            >
               <InstagramEmbed url={reel.instagramUrl} titulo={reel.titulo} />
             </Reveal>
           ))}

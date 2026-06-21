@@ -12,7 +12,7 @@ import { SOCIAL } from '../../data/site'
  */
 export function SocialStrip() {
   return (
-    <section className="relative overflow-hidden bg-black py-20 text-white md:py-28">
+    <section className="relative overflow-hidden bg-black py-14 text-white md:py-28">
       {/* grano sutil (4KB) */}
       <div
         aria-hidden
