@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { SectionLabel } from '../../components/ui/SectionLabel'
 import { RevealText } from '../../components/ui/RevealText'
 import { Reveal } from '../../components/ui/Reveal'
@@ -69,7 +70,7 @@ function NewsCard({ nota, featured = false }: { nota: Nota; featured?: boolean }
       href={nota.url}
       target="_blank"
       rel="noreferrer"
-      className="group flex h-full cursor-pointer flex-col justify-between rounded-sm border border-ink/12 bg-white p-5 transition-colors duration-200 hover:border-accent"
+      className="group flex h-full cursor-pointer flex-col justify-between rounded-sm border border-ink/12 bg-white p-4 transition-colors duration-200 hover:border-accent sm:p-5"
     >
       <div>
         <div className="flex flex-wrap items-center gap-2">
@@ -78,15 +79,16 @@ function NewsCard({ nota, featured = false }: { nota: Nota; featured?: boolean }
           <span className="eyebrow text-mute">{nota.etiqueta}</span>
         </div>
         <h3
-          className={`font-condensed mt-3 font-semibold leading-tight text-ink ${
-            featured ? 'text-2xl' : 'text-lg'
+          className={`font-condensed mt-2 font-semibold leading-tight text-ink sm:mt-3 ${
+            featured ? 'text-xl sm:text-2xl' : 'text-lg'
           }`}
         >
           {nota.titulo}
         </h3>
-        <p className="mt-2 text-sm leading-relaxed text-ink/70">{nota.resumen}</p>
+        {/* El resumen se oculta en móvil para no cansar al lector */}
+        <p className="mt-2 hidden text-sm leading-relaxed text-ink/70 sm:block">{nota.resumen}</p>
       </div>
-      <span className="font-condensed mt-4 inline-flex items-center gap-1 text-sm font-semibold uppercase tracking-wide text-ink transition-colors group-hover:text-accent">
+      <span className="font-condensed mt-3 inline-flex items-center gap-1 text-sm font-semibold uppercase tracking-wide text-ink transition-colors group-hover:text-accent sm:mt-4">
         {isFb ? 'Ver en Facebook' : 'Leer nota'}
         <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-1">→</span>
       </span>
@@ -94,7 +96,10 @@ function NewsCard({ nota, featured = false }: { nota: Nota; featured?: boolean }
   )
 }
 
+const VISIBLE_MOVIL = 3 // cuántas notas se ven en móvil antes de "ver más"
+
 export function PrensaStrip() {
+  const [expanded, setExpanded] = useState(false)
   return (
     <section className="bg-bone py-20 text-ink md:py-28">
       <div className="container-x">
@@ -147,16 +152,29 @@ export function PrensaStrip() {
               En la prensa
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
-              {NOTAS.map((nota, i) => (
-                <Reveal
-                  key={nota.url}
-                  delay={(i % 2) * 0.05}
-                  className={i === 0 ? 'sm:col-span-2' : undefined}
-                >
-                  <NewsCard nota={nota} featured={i === 0} />
-                </Reveal>
-              ))}
+              {NOTAS.map((nota, i) => {
+                const cls = [
+                  i === 0 ? 'sm:col-span-2' : '',
+                  i >= VISIBLE_MOVIL && !expanded ? 'hidden sm:block' : '',
+                ]
+                  .filter(Boolean)
+                  .join(' ')
+                return (
+                  <Reveal key={nota.url} delay={(i % 2) * 0.05} className={cls || undefined}>
+                    <NewsCard nota={nota} featured={i === 0} />
+                  </Reveal>
+                )
+              })}
             </div>
+            {!expanded && NOTAS.length > VISIBLE_MOVIL && (
+              <button
+                type="button"
+                onClick={() => setExpanded(true)}
+                className="mt-4 w-full cursor-pointer rounded-sm border border-ink/15 py-3 text-sm font-semibold uppercase tracking-wide text-ink transition-colors hover:border-accent hover:text-accent sm:hidden"
+              >
+                Ver más notas ({NOTAS.length - VISIBLE_MOVIL})
+              </button>
+            )}
           </div>
         </div>
       </div>

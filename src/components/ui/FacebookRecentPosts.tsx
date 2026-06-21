@@ -25,7 +25,7 @@ export function FacebookRecentPosts() {
       <iframe
         title="Publicaciones recientes de Marco Balseca en Facebook"
         src={TIMELINE}
-        className="block h-[640px] w-full"
+        className="block h-[500px] w-full sm:h-[640px]"
         style={{ border: 'none' }}
         scrolling="no"
         frameBorder={0}
