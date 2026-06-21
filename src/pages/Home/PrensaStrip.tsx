@@ -17,59 +17,53 @@ type Nota = {
   url: string
 }
 
-// Notas reales y POSITIVAS (verificadas). Se excluye todo lo negativo/partidista.
+// Notas reales y POSITIVAS que mencionan a MARCO BALSECA por nombre (verificadas).
+// Se excluye todo lo negativo/partidista.
 const NOTAS: Nota[] = [
   {
     fuente: 'Municipios Puebla',
     etiqueta: 'Seguridad y paz',
-    titulo: '«Sí al desarme, sí a la paz»: canje voluntario de armas en Tehuacán',
+    titulo: '«Sí al desarme, sí a la paz»: Marco Balseca encabeza el canje de armas',
     resumen:
-      'Como delegado de la microrregión 25, Marco Balseca explica el módulo de canje voluntario y confidencial de armas: una jornada por la paz de las familias.',
+      'El delegado de la microrregión 25, Marco Balseca, explica el módulo de canje voluntario y confidencial de armas en Tehuacán: una jornada por la paz de las familias.',
     url: 'https://municipiospuebla.mx/nota/tehuacan/realizan-en-tehuacan-campana-de-canje-voluntario-de-armas',
   },
   {
-    fuente: 'Diario de Puebla',
-    etiqueta: 'Deporte y obra',
-    titulo: 'Inauguran canchas rehabilitadas en Tehuacán',
+    fuente: 'Sedeño Noticias',
+    etiqueta: 'Seguridad',
+    titulo: 'Entrega Marco Balseca una alarma vecinal más en una junta auxiliar',
     resumen:
-      'El programa de Obra Comunitaria rehabilita y dignifica espacios deportivos en las colonias de la microrregión: canchas que vuelven a la vida.',
-    url: 'https://www.diariodepuebla.com.mx/component/k2/item/40671-inauguran-canchas-rehabilitadas-en-tehuacan',
+      'Instalación del comité y entrega de una nueva alarma vecinal para reforzar la seguridad de las familias en la microrregión 25 de Tehuacán.',
+    url: 'https://www.facebook.com/balseca',
   },
   {
     fuente: 'Diario Primera Línea',
-    etiqueta: 'En territorio',
-    titulo: '#DelegadosEnTerritorio: entrevista con Marco Antonio Balseca Romero',
+    etiqueta: '#DelegadosEnMovimiento',
+    titulo: 'Marco Balseca, delegado de la microrregión 25, invita a la comunidad',
+    resumen:
+      'El delegado de Gobernación recorre el territorio e invita a vecinas y vecinos a sumarse a las jornadas y acciones de comunidad.',
+    url: 'https://www.facebook.com/DiarioPrimeraLineaTH/videos/2010567689555570/',
+  },
+  {
+    fuente: 'Diario Primera Línea',
+    etiqueta: '#DelegadosEnTerritorio',
+    titulo: 'Entrevista con Marco Antonio Balseca Romero',
     resumen:
       'El trabajo de calle del delegado en la microrregión 25: recorridos por las colonias, escucha vecinal y atención cercana, una a una.',
-    url: 'https://www.facebook.com/61572253138907/videos/entrevista-delegado/1287605396616409/',
+    url: 'https://www.facebook.com/61572253138907/videos/1287605396616409/',
   },
   {
-    fuente: 'Primera Línea',
-    etiqueta: 'Deporte',
-    titulo: '22 proyectos deportivos y más de 2.3 mdp para la región de Tehuacán',
+    fuente: 'Talavera Noticias',
+    etiqueta: 'Entrevista',
+    titulo: 'Marco Balseca en entrevista: el trabajo en la microrregión 25',
     resumen:
-      'Inversión en deporte para la región de Tehuacán: torneos, espacios y activación que unen a las colonias y a las juventudes.',
-    url: 'https://primeralinea.com.mx/web/noticia/54589',
-  },
-  {
-    fuente: 'Contraparte',
-    etiqueta: 'Jornada ciudadana',
-    titulo: 'Jornada «Por Amor a Puebla» acerca programas y servicios a la microrregión',
-    resumen:
-      'Obra Comunitaria, mejoramiento de vivienda, becas de conectividad y apoyos al campo llegan a las colonias y juntas auxiliares de la microrregión 25.',
-    url: 'https://contraparte.mx/lo-oficial/75520-jornada-por-amor-a-puebla-acerca-programas-y-servicios-de-beneficio-para-la-poblaci%C3%B3n.html',
-  },
-  {
-    fuente: 'Quince Minutos',
-    etiqueta: 'Campo',
-    titulo: 'Con cercanía y escucha, se detona el campo de la microrregión de Tehuacán',
-    resumen:
-      'Insumos estratégicos, maquinaria y seguridad para el campo poblano llegan a la microrregión de Tehuacán, con cercanía a las familias productoras.',
-    url: 'https://www.quinceminutos.mx/post/con-cercania-y-escucha-gobierno-estatal-detona-campo-de-microrregion-de-tehuacan',
+      'El delegado de Gobernación habla del trabajo territorial y de las acciones de comunidad que impulsa en Tehuacán.',
+    url: 'https://www.facebook.com/talavera.noticias.tehuacan/videos/26120198540995756/',
   },
 ]
 
-function NewsCard({ nota }: { nota: Nota }) {
+function NewsCard({ nota, featured = false }: { nota: Nota; featured?: boolean }) {
+  const isFb = nota.url.includes('facebook.com')
   return (
     <a
       href={nota.url}
@@ -83,13 +77,17 @@ function NewsCard({ nota }: { nota: Nota }) {
           <span className="h-1 w-1 rounded-full bg-ink/30" aria-hidden />
           <span className="eyebrow text-mute">{nota.etiqueta}</span>
         </div>
-        <h3 className="font-condensed mt-3 text-lg font-semibold leading-tight text-ink">
+        <h3
+          className={`font-condensed mt-3 font-semibold leading-tight text-ink ${
+            featured ? 'text-2xl' : 'text-lg'
+          }`}
+        >
           {nota.titulo}
         </h3>
         <p className="mt-2 text-sm leading-relaxed text-ink/70">{nota.resumen}</p>
       </div>
       <span className="font-condensed mt-4 inline-flex items-center gap-1 text-sm font-semibold uppercase tracking-wide text-ink transition-colors group-hover:text-accent">
-        Leer nota
+        {isFb ? 'Ver en Facebook' : 'Leer nota'}
         <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-1">→</span>
       </span>
     </a>
@@ -150,8 +148,12 @@ export function PrensaStrip() {
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
               {NOTAS.map((nota, i) => (
-                <Reveal key={nota.url} delay={(i % 2) * 0.05}>
-                  <NewsCard nota={nota} />
+                <Reveal
+                  key={nota.url}
+                  delay={(i % 2) * 0.05}
+                  className={i === 0 ? 'sm:col-span-2' : undefined}
+                >
+                  <NewsCard nota={nota} featured={i === 0} />
                 </Reveal>
               ))}
             </div>
