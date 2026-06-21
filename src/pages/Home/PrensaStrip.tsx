@@ -5,8 +5,8 @@ import { FacebookRecentPosts } from '../../components/ui/FacebookRecentPosts'
 import { SOCIAL } from '../../data/site'
 
 /* =========================================================================
-   "En las noticias": publicaciones recientes de Facebook (embebidas y
-   auto-actualizables) + notas de prensa reales y positivas. Sin scraping.
+   "En las noticias": muro de Facebook en vivo (sin API) + rejilla de notas de
+   prensa reales y positivas. Layout balanceado para que no se vea vacío.
    ========================================================================= */
 
 type Nota = {
@@ -22,33 +22,49 @@ const NOTAS: Nota[] = [
   {
     fuente: 'Municipios Puebla',
     etiqueta: 'Seguridad y paz',
-    titulo: '«Sí al desarme, sí a la paz»: Tehuacán abre el canje voluntario de armas',
+    titulo: '«Sí al desarme, sí a la paz»: canje voluntario de armas en Tehuacán',
     resumen:
-      'Como delegado de Gobernación de la microrregión 25, Marco Balseca explica el módulo de canje voluntario y confidencial de armas: una jornada por la paz de las familias.',
+      'Como delegado de la microrregión 25, Marco Balseca explica el módulo de canje voluntario y confidencial de armas: una jornada por la paz de las familias.',
     url: 'https://municipiospuebla.mx/nota/tehuacan/realizan-en-tehuacan-campana-de-canje-voluntario-de-armas',
+  },
+  {
+    fuente: 'Diario de Puebla',
+    etiqueta: 'Deporte y obra',
+    titulo: 'Inauguran canchas rehabilitadas en Tehuacán',
+    resumen:
+      'El programa de Obra Comunitaria rehabilita y dignifica espacios deportivos en las colonias de la microrregión: canchas que vuelven a la vida.',
+    url: 'https://www.diariodepuebla.com.mx/component/k2/item/40671-inauguran-canchas-rehabilitadas-en-tehuacan',
   },
   {
     fuente: 'Diario Primera Línea',
     etiqueta: 'En territorio',
     titulo: '#DelegadosEnTerritorio: entrevista con Marco Antonio Balseca Romero',
     resumen:
-      'El trabajo de calle del delegado en la microrregión 25 de Tehuacán: recorridos por las colonias, escucha vecinal y atención cercana, una a una.',
+      'El trabajo de calle del delegado en la microrregión 25: recorridos por las colonias, escucha vecinal y atención cercana, una a una.',
     url: 'https://www.facebook.com/61572253138907/videos/entrevista-delegado/1287605396616409/',
+  },
+  {
+    fuente: 'Primera Línea',
+    etiqueta: 'Deporte',
+    titulo: '22 proyectos deportivos y más de 2.3 mdp para la región de Tehuacán',
+    resumen:
+      'Inversión en deporte para la región de Tehuacán: torneos, espacios y activación que unen a las colonias y a las juventudes.',
+    url: 'https://primeralinea.com.mx/web/noticia/54589',
   },
   {
     fuente: 'Contraparte',
     etiqueta: 'Jornada ciudadana',
     titulo: 'Jornada «Por Amor a Puebla» acerca programas y servicios a la microrregión',
     resumen:
-      'Obra Comunitaria, mejoramiento de vivienda, becas de conectividad y apoyos al campo llegan a las colonias y juntas auxiliares de la microrregión 25 de Tehuacán.',
+      'Obra Comunitaria, mejoramiento de vivienda, becas de conectividad y apoyos al campo llegan a las colonias y juntas auxiliares de la microrregión 25.',
     url: 'https://contraparte.mx/lo-oficial/75520-jornada-por-amor-a-puebla-acerca-programas-y-servicios-de-beneficio-para-la-poblaci%C3%B3n.html',
   },
   {
     fuente: 'Quince Minutos',
-    etiqueta: 'Desarrollo del campo',
+    etiqueta: 'Campo',
     titulo: 'Con cercanía y escucha, se detona el campo de la microrregión de Tehuacán',
     resumen:
-      'Insumos estratégicos, maquinaria y seguridad para el campo poblano llegan a la microrregión de Tehuacán con un enfoque de cercanía y escucha a las familias productoras.',
+      'Insumos estratégicos, maquinaria y seguridad para el campo poblano llegan a la microrregión de Tehuacán, con cercanía a las familias productoras.',
     url: 'https://www.quinceminutos.mx/post/con-cercania-y-escucha-gobierno-estatal-detona-campo-de-microrregion-de-tehuacan',
   },
 ]
@@ -59,20 +75,20 @@ function NewsCard({ nota }: { nota: Nota }) {
       href={nota.url}
       target="_blank"
       rel="noreferrer"
-      className="group flex h-full cursor-pointer flex-col justify-between rounded-sm border border-ink/12 bg-white p-6 transition-colors duration-200 hover:border-accent"
+      className="group flex h-full cursor-pointer flex-col justify-between rounded-sm border border-ink/12 bg-white p-5 transition-colors duration-200 hover:border-accent"
     >
       <div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <span className="eyebrow text-accent">{nota.fuente}</span>
           <span className="h-1 w-1 rounded-full bg-ink/30" aria-hidden />
           <span className="eyebrow text-mute">{nota.etiqueta}</span>
         </div>
-        <h3 className="font-condensed mt-3 text-xl font-semibold leading-tight text-ink">
+        <h3 className="font-condensed mt-3 text-lg font-semibold leading-tight text-ink">
           {nota.titulo}
         </h3>
         <p className="mt-2 text-sm leading-relaxed text-ink/70">{nota.resumen}</p>
       </div>
-      <span className="font-condensed mt-5 inline-flex items-center gap-1 text-sm font-semibold uppercase tracking-wide text-ink transition-colors group-hover:text-accent">
+      <span className="font-condensed mt-4 inline-flex items-center gap-1 text-sm font-semibold uppercase tracking-wide text-ink transition-colors group-hover:text-accent">
         Leer nota
         <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-1">→</span>
       </span>
@@ -80,7 +96,6 @@ function NewsCard({ nota }: { nota: Nota }) {
   )
 }
 
-/** Sección "En las noticias": redes (Facebook en vivo) + prensa. */
 export function PrensaStrip() {
   return (
     <section className="bg-bone py-20 text-ink md:py-28">
@@ -95,8 +110,7 @@ export function PrensaStrip() {
             />
             <Reveal delay={0.1}>
               <p className="mt-4 max-w-xl text-ink/70">
-                Sus publicaciones más recientes de Facebook (se actualizan solas) y la prensa local.
-                Todo real y verificable.
+                Sus publicaciones de Facebook (en vivo) y la prensa local. Todo real y verificable.
               </p>
             </Reveal>
           </div>
@@ -121,18 +135,27 @@ export function PrensaStrip() {
           </div>
         </div>
 
-        {/* Publicaciones recientes de Facebook (embebidas, auto-actualizables) */}
-        <Reveal className="mt-12">
-          <FacebookRecentPosts />
-        </Reveal>
+        {/* Bento: muro de Facebook (1/3) + rejilla de prensa (2/3) */}
+        <div className="mt-12 grid gap-6 lg:grid-cols-3 lg:items-start">
+          <Reveal className="lg:col-span-1">
+            <p className="mb-3 font-condensed text-lg font-semibold uppercase tracking-wide text-ink">
+              Publicaciones recientes
+            </p>
+            <FacebookRecentPosts />
+          </Reveal>
 
-        {/* Notas de prensa (positivas) */}
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {NOTAS.map((nota, i) => (
-            <Reveal key={nota.url} delay={i * 0.05}>
-              <NewsCard nota={nota} />
-            </Reveal>
-          ))}
+          <div className="lg:col-span-2">
+            <p className="mb-3 font-condensed text-lg font-semibold uppercase tracking-wide text-ink">
+              En la prensa
+            </p>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {NOTAS.map((nota, i) => (
+                <Reveal key={nota.url} delay={(i % 2) * 0.05}>
+                  <NewsCard nota={nota} />
+                </Reveal>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
