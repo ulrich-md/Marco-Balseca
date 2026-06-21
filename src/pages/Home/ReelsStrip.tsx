@@ -4,11 +4,14 @@ import { RevealText } from '../../components/ui/RevealText'
 import { ButtonLink } from '../../components/ui/Button'
 import { ReelCard } from '../../components/ui/ReelCard'
 import { Lightbox } from '../../components/ui/Lightbox'
-import { REELS, type Reel } from '../../data/reels'
+import { type Reel } from '../../data/reels'
+import { useReels } from '../../lib/useContent'
 
-/** Franja de Reels en Inicio (scroll horizontal en móvil). Sección clara. */
+/** Franja de Reels en Inicio: solo 4; "ver más" lleva a /reels. */
 export function ReelsStrip() {
   const [active, setActive] = useState<Reel | null>(null)
+  const { reels } = useReels()
+  const cuatro = reels.slice(0, 4)
 
   return (
     <section className="bg-bone py-20 text-ink md:py-28">
@@ -44,7 +47,7 @@ export function ReelsStrip() {
         </div>
 
         <div className="mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 [scrollbar-width:none] md:grid md:grid-cols-4 md:overflow-visible">
-          {REELS.map((reel, i) => (
+          {cuatro.map((reel, i) => (
             <div key={reel.id} className="w-[68%] shrink-0 snap-start sm:w-[42%] md:w-auto">
               <ReelCard reel={reel} index={i} onOpen={setActive} />
             </div>

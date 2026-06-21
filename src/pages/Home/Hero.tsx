@@ -16,6 +16,14 @@ const INDEX = [
   { n: '05', label: 'Agenda', to: '/agenda' },
 ]
 
+// Avatares de la comunidad (imágenes de internet, stock de rostros diversos).
+const AVATARS = [
+  'https://randomuser.me/api/portraits/men/32.jpg',
+  'https://randomuser.me/api/portraits/women/44.jpg',
+  'https://randomuser.me/api/portraits/men/52.jpg',
+  'https://randomuser.me/api/portraits/women/68.jpg',
+]
+
 // Fotos REALES para el "video" principal del hero (montaje; usa el MP4 real
 // si se sube a /assets/video/marco-reel.mp4).
 const HERO_SLIDES: VideoPhoto[] = [
@@ -81,7 +89,7 @@ export function Hero() {
         ))}
       </nav>
 
-      <div className="container-x relative z-10 pt-24 lg:pt-20">
+      <div className="container-x relative z-10 pt-20 lg:pt-16">
         {/* Meta superior (mono) */}
         <motion.div {...appear(0)} className="flex items-center justify-between border-b border-ink/15 pb-4">
           <span className="eyebrow text-accent">Marco Balseca</span>
@@ -140,10 +148,17 @@ export function Hero() {
             <motion.div {...appear(0.65)} className="mt-9 border-t border-ink/15 pt-6">
               <div className="flex items-center gap-4">
                 <div className="flex -space-x-3" aria-hidden>
-                  {[0, 1, 2, 3].map((i) => (
-                    <span
+                  {AVATARS.map((src, i) => (
+                    <img
                       key={i}
-                      className="h-10 w-10 rounded-full border-2 border-white bg-gradient-to-b from-[#d9d9d9] to-[#b8b8b8]"
+                      src={src}
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none'
+                      }}
+                      className="h-10 w-10 rounded-full border-2 border-white bg-mist object-cover"
                     />
                   ))}
                   <span className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-accent text-xs font-bold text-white">
@@ -201,7 +216,7 @@ export function Hero() {
           {/* Media principal: VIDEO que se reproduce al cargar (montaje de fotos
               reales; usa el MP4 real si se sube a /assets/video/marco-reel.mp4).
               Pausa fuera de pantalla. Parallax sutil. */}
-          <div ref={photoRef} className="relative lg:-mt-[11vw]">
+          <div ref={photoRef} className="relative lg:-mt-[17vw]">
             <HeroVideo
               photos={HERO_SLIDES}
               caption="En territorio · Tehuacán, Puebla"

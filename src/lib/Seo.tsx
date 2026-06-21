@@ -7,6 +7,8 @@ type SeoProps = {
   /** ruta relativa, ej. '/conoceme' */
   path?: string
   image?: string
+  /** marca la página como no indexable (ej. panel /admin) */
+  noindex?: boolean
 }
 
 function setMeta(attr: 'name' | 'property', key: string, content: string) {
@@ -33,7 +35,7 @@ function setCanonical(href: string) {
  * SEO por página: title, description, canonical y Open Graph.
  * Ligero y sin dependencias (no react-helmet).
  */
-export function Seo({ title, description, path = '/', image = '/og-image.svg' }: SeoProps) {
+export function Seo({ title, description, path = '/', image = '/og-image.svg', noindex = false }: SeoProps) {
   const fullTitle =
     title === SITE.name ? `${SITE.name} — ${SITE.ciudad}, ${SITE.estado}` : `${title} — ${SITE.name}`
   const desc = description ?? SITE.descripcion
@@ -51,7 +53,8 @@ export function Seo({ title, description, path = '/', image = '/og-image.svg' }:
     setMeta('name', 'twitter:title', fullTitle)
     setMeta('name', 'twitter:description', desc)
     setCanonical(url)
-  }, [fullTitle, desc, url, image])
+    setMeta('name', 'robots', noindex ? 'noindex, nofollow' : 'index, follow')
+  }, [fullTitle, desc, url, image, noindex])
 
   return null
 }

@@ -1,4 +1,4 @@
-import { lazy } from 'react'
+import { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Layout } from './components/layout/Layout'
 import { SmoothScroll, ScrollToTop } from './lib/SmoothScroll'
@@ -13,6 +13,8 @@ const Reels = lazy(() => import('./pages/Reels'))
 const Agenda = lazy(() => import('./pages/Agenda'))
 const Contacto = lazy(() => import('./pages/Contacto'))
 const NotFound = lazy(() => import('./pages/NotFound'))
+// Panel oculto (no en el menú): Marco edita Agenda y Reels.
+const Admin = lazy(() => import('./pages/Admin'))
 
 export function App() {
   return (
@@ -20,6 +22,15 @@ export function App() {
       <SmoothScroll>
         <ScrollToTop />
         <Routes>
+          {/* Panel oculto, fuera del layout público (sin header/footer) */}
+          <Route
+            path="admin"
+            element={
+              <Suspense fallback={<div className="min-h-screen bg-bone" />}>
+                <Admin />
+              </Suspense>
+            }
+          />
           <Route element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="conoceme" element={<Conoceme />} />

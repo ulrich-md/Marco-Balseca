@@ -6,11 +6,13 @@ import { Reveal } from '../components/ui/Reveal'
 import { ReelCard } from '../components/ui/ReelCard'
 import { Lightbox } from '../components/ui/Lightbox'
 import { ButtonAnchor } from '../components/ui/Button'
-import { REELS, type Reel } from '../data/reels'
+import { type Reel } from '../data/reels'
+import { useReels } from '../lib/useContent'
 import { SOCIAL } from '../data/site'
 
 export default function Reels() {
   const [active, setActive] = useState<Reel | null>(null)
+  const { reels } = useReels()
 
   return (
     <>
@@ -36,7 +38,7 @@ export default function Reels() {
       <section className="bg-white py-20 text-ink md:py-28">
         <div className="container-x">
           <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
-            {REELS.map((reel, i) => (
+            {reels.map((reel, i) => (
               <Reveal key={reel.id} delay={(i % 4) * 0.06}>
                 <ReelCard reel={reel} index={i} onOpen={setActive} />
               </Reveal>

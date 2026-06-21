@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react'
 import { Seo } from '../lib/Seo'
 import { PageHero } from '../components/layout/PageHero'
 import { CtaBand } from '../components/layout/CtaBand'
 import { Reveal } from '../components/ui/Reveal'
 import { PinIcon } from '../components/ui/Icons'
 import { ButtonAnchor } from '../components/ui/Button'
-import { AGENDA, AGENDA_SHEET_CSV_URL, parseAgendaCSV, type Evento } from '../data/agenda'
+import { useEventos } from '../lib/useContent'
 
 function parseDate(iso: string) {
   const d = new Date(`${iso}T00:00:00`)
@@ -17,28 +16,9 @@ function parseDate(iso: string) {
   }
 }
 
-const sortByDate = (list: Evento[]) => [...list].sort((a, b) => a.fechaISO.localeCompare(b.fechaISO))
-
 export default function Agenda() {
-  // Eventos locales por defecto; si hay Hoja de Google configurada, se reemplazan.
-  const [eventos, setEventos] = useState<Evento[]>(() => sortByDate(AGENDA))
-
-  useEffect(() => {
-    if (!AGENDA_SHEET_CSV_URL) return
-    let cancel = false
-    fetch(AGENDA_SHEET_CSV_URL)
-      .then((r) => (r.ok ? r.text() : Promise.reject(new Error(String(r.status)))))
-      .then((text) => {
-        const remote = parseAgendaCSV(text)
-        if (!cancel && remote.length > 0) setEventos(sortByDate(remote))
-      })
-      .catch(() => {
-        /* sin red o sin permisos: se conserva la lista local */
-      })
-    return () => {
-      cancel = true
-    }
-  }, [])
+  // Eventos desde Supabase (editables en /admin) con respaldo local.
+  const { eventos } = useEventos()
 
   return (
     <>
