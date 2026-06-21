@@ -11,9 +11,8 @@ type Props = { accion: Accion; index: number }
 export function ActionCard({ accion, index }: Props) {
   return (
     <Link
-      to={`/acciones#${accion.slug}`}
-      id={accion.slug}
-      className="group relative flex scroll-mt-28 flex-col overflow-hidden rounded-sm border border-ink/10 bg-white transition-all duration-500 ease-[var(--ease-out-expo)] hover:-translate-y-1.5 hover:border-ink/20 hover:shadow-[0_24px_50px_-24px_rgba(0,0,0,0.3)]"
+      to={`/acciones/${accion.slug}`}
+      className="group relative flex flex-col overflow-hidden rounded-sm border border-ink/10 bg-white transition-all duration-500 ease-[var(--ease-out-expo)] hover:-translate-y-1.5 hover:border-ink/20 hover:shadow-[0_24px_50px_-24px_rgba(0,0,0,0.3)]"
     >
       {/* Imagen: foto real (data/acciones.ts -> imagen) o bloque gris B&N */}
       <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-b from-[#ededed] to-[#d4d4d4]">

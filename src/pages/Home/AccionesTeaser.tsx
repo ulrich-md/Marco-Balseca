@@ -3,11 +3,12 @@ import { RevealText } from '../../components/ui/RevealText'
 import { Reveal } from '../../components/ui/Reveal'
 import { ButtonLink } from '../../components/ui/Button'
 import { ActionCard } from '../../components/ui/ActionCard'
-import { ACCIONES } from '../../data/acciones'
+import { useAcciones } from '../../lib/useContent'
 
 /** Grid de Acciones/Propuestas (teaser de 3 en Inicio). */
 export function AccionesTeaser() {
-  const items = ACCIONES.slice(0, 3)
+  const { acciones } = useAcciones()
+  const items = acciones.slice(0, 3)
 
   return (
     <section className="bg-white py-20 text-ink md:py-28">
@@ -35,7 +36,7 @@ export function AccionesTeaser() {
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((a, i) => (
-            <Reveal key={a.slug} delay={i * 0.08}>
+            <Reveal key={a.id} delay={i * 0.08}>
               <ActionCard accion={a} index={i} />
             </Reveal>
           ))}

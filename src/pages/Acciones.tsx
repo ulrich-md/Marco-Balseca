@@ -4,9 +4,10 @@ import { CtaBand } from '../components/layout/CtaBand'
 import { Reveal } from '../components/ui/Reveal'
 import { Marquee } from '../components/ui/Marquee'
 import { ActionCard } from '../components/ui/ActionCard'
-import { ACCIONES } from '../data/acciones'
+import { useAcciones } from '../lib/useContent'
 
 export default function Acciones() {
+  const { acciones } = useAcciones()
   return (
     <>
       <Seo
@@ -25,8 +26,8 @@ export default function Acciones() {
       <section className="bg-white py-20 text-ink md:py-28">
         <div className="container-x">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {ACCIONES.map((a, i) => (
-              <Reveal key={a.slug} delay={(i % 3) * 0.06}>
+            {acciones.map((a, i) => (
+              <Reveal key={a.id} delay={(i % 3) * 0.06}>
                 <ActionCard accion={a} index={i} />
               </Reveal>
             ))}

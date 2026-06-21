@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { supabaseEnabled, sbSelect } from './supabase'
 import { AGENDA, type Evento } from '../data/agenda'
 import { REELS, type Reel } from '../data/reels'
+import { ACCIONES, type Accion } from '../data/acciones'
 
 /* Hooks de contenido: leen de Supabase si está configurado; si no (o si falla),
    usan los datos locales. Así el sitio nunca se rompe. El panel /admin escribe
@@ -85,4 +86,46 @@ export function useReels() {
 
   useEffect(() => reload(), [reload])
   return { reels, loading, reload }
+}
+
+type AccionRow = {
+  id: string
+  slug: string | null
+  categoria: string | null
+  titulo: string
+  resumen: string | null
+  detalle: string | null
+  imagen: string | null
+  orden?: number | null
+}
+
+function mapAccion(r: AccionRow): Accion {
+  return {
+    id: r.id,
+    slug: r.slug || r.id,
+    categoria: r.categoria ?? 'Propuesta',
+    titulo: r.titulo,
+    resumen: r.resumen ?? '',
+    detalle: r.detalle ?? undefined,
+    imagen: r.imagen ?? undefined,
+  }
+}
+
+export function useAcciones() {
+  const [acciones, setAcciones] = useState<Accion[]>(() => ACCIONES)
+  const [loading, setLoading] = useState(supabaseEnabled)
+
+  const reload = useCallback(() => {
+    if (!supabaseEnabled) return
+    setLoading(true)
+    sbSelect<AccionRow>('acciones', 'select=*&order=orden.asc,created_at.desc')
+      .then((rows) => {
+        if (rows.length > 0) setAcciones(rows.map(mapAccion))
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false))
+  }, [])
+
+  useEffect(() => reload(), [reload])
+  return { acciones, loading, reload }
 }
