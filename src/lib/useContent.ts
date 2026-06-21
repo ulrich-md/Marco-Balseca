@@ -40,7 +40,10 @@ export function useEventos() {
     if (!supabaseEnabled) return
     setLoading(true)
     sbSelect<EventoRow>('eventos', 'select=*&order=fecha.asc')
-      .then((rows) => setEventos(sortByDate(rows.map(mapEvento))))
+      .then((rows) => {
+        // Si la tabla está vacía, conserva la lista local (no dejar la agenda en blanco).
+        if (rows.length > 0) setEventos(sortByDate(rows.map(mapEvento)))
+      })
       .catch(() => {})
       .finally(() => setLoading(false))
   }, [])

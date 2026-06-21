@@ -1,14 +1,18 @@
 /* =========================================================================
    Cliente mínimo de Supabase vía su API REST (PostgREST) con fetch — SIN SDK.
-   Se activa solo si defines las variables de entorno (en Vercel y/o .env):
-     VITE_SUPABASE_URL=https://xxxx.supabase.co
-     VITE_SUPABASE_ANON_KEY=eyJ...
-   Si no están, supabaseEnabled = false y el sitio usa los datos locales.
+   Las credenciales se inyectan en build desde CUALQUIERA de estos nombres
+   (ver vite.config.ts): VITE_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_URL /
+   SUPABASE_URL (y sus equivalentes ANON_KEY). Así funciona tanto si las pones
+   manualmente como si vienen de la integración de Supabase en Vercel.
+   Si no hay credenciales, supabaseEnabled = false y el sitio usa datos locales.
    ========================================================================= */
 
+declare const __SB_URL__: string
+declare const __SB_KEY__: string
+
 const env = import.meta.env as Record<string, string | undefined>
-const SB_URL = env.VITE_SUPABASE_URL
-const SB_KEY = env.VITE_SUPABASE_ANON_KEY
+const SB_URL = __SB_URL__ || env.VITE_SUPABASE_URL || ''
+const SB_KEY = __SB_KEY__ || env.VITE_SUPABASE_ANON_KEY || ''
 
 export const supabaseEnabled = Boolean(SB_URL && SB_KEY)
 
