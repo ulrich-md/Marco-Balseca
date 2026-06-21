@@ -57,14 +57,22 @@ Debe decir **Success. No rows returned**. Listo: ya existen las tablas.
 
 ---
 
-## Paso 3 — Copiar tus 2 llaves
+## Paso 3 — Copiar la URL y la llave
 
-1. En el menú izquierdo abre **Project Settings** (el engranaje) → **API**.
-2. Verás dos datos que vas a copiar en el siguiente paso:
-   - **Project URL** → algo como `https://abcdefgh.supabase.co`
-   - **Project API keys → `anon` `public`** → un texto largo que empieza con `eyJ...`
+En el nuevo panel de Supabase la URL y la llave están en lugares distintos:
 
-> ⚠️ Usa solo la llave **anon / public**. **Nunca** compartas la `service_role`.
+**A) La URL del proyecto (`Project URL`)**
+- Pulsa el botón verde **`Connect`** (arriba) → pestaña **App Frameworks** → copia
+  el **Project URL** (algo como `https://abcdefgh.supabase.co`).
+- (Alternativa: menú **Settings → Data API** → arriba aparece **Project URL**.)
+
+**B) La llave pública (`anon`)**
+- Menú **Settings → API Keys** → pestaña **"Legacy anon, service_role API keys"**.
+- Copia la fila **`anon` `public`** (un texto largo que empieza con `eyJ...`).
+
+> ⚠️ Usa solo la llave **anon / public** (`eyJ...`). **Nunca** uses ni compartas la
+> `service_role` (es secreta). La nueva `sb_publishable_...` también funciona, pero
+> para ir seguros usa la `eyJ...`.
 
 ---
 
@@ -74,10 +82,10 @@ Debe decir **Success. No rows returned**. Listo: ya existen las tablas.
 2. **Settings** → **Environment Variables**.
 3. Agrega estas **dos** (botón **Add**), una por una:
 
-   | Name (Key)                 | Value                                  |
-   | -------------------------- | -------------------------------------- |
-   | `VITE_SUPABASE_URL`        | *(pega tu Project URL)*                |
-   | `VITE_SUPABASE_ANON_KEY`   | *(pega tu llave anon public `eyJ...`)* |
+   | Name (Key)                 | Value                                              |
+   | -------------------------- | -------------------------------------------------- |
+   | `VITE_SUPABASE_URL`        | *(el Project URL: `https://xxxx.supabase.co`)*     |
+   | `VITE_SUPABASE_ANON_KEY`   | *(la llave `anon public`, empieza con `eyJ...`)*   |
 
    Deja marcados los entornos (Production, Preview, Development) y **Save**.
 4. Ve a la pestaña **Deployments** → en el último, menú **⋯** → **Redeploy**
