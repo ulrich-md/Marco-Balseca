@@ -191,14 +191,14 @@ export function Hero() {
                 <LiveCounter />
               </div>
 
-              <div className="mt-6 flex flex-wrap gap-x-9 gap-y-3">
-                <div className="flex items-baseline gap-2">
+              <div className="mt-6 flex flex-wrap gap-x-8 gap-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-baseline sm:gap-2">
                   <span className="font-display text-2xl leading-none text-ink">
                     +{COLONIAS_RECORRIDAS}
                   </span>
                   <span className="text-sm text-ink/60">colonias recorridas</span>
                 </div>
-                <div className="flex items-baseline gap-2">
+                <div className="flex flex-col sm:flex-row sm:items-baseline sm:gap-2">
                   <span className="font-display text-2xl leading-none text-ink">
                     {JUNTAS_AUXILIARES}
                   </span>

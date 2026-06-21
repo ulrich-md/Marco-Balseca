@@ -130,10 +130,10 @@
   .eyebrow {
     font-family: var(--font-mono);
     text-transform: uppercase;
-    letter-spacing: 0.2em;
-    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    font-size: 0.74rem;
     font-weight: 500;
-    line-height: 1;
+    line-height: 1.1;
   }
 
   /* Lema en outline: relleno transparente + trazo en el color actual.
