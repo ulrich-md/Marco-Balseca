@@ -1,10 +1,11 @@
+import { useEffect, useState } from 'react'
 import { Seo } from '../lib/Seo'
 import { PageHero } from '../components/layout/PageHero'
 import { CtaBand } from '../components/layout/CtaBand'
 import { Reveal } from '../components/ui/Reveal'
 import { PinIcon } from '../components/ui/Icons'
 import { ButtonAnchor } from '../components/ui/Button'
-import { AGENDA } from '../data/agenda'
+import { AGENDA, AGENDA_SHEET_CSV_URL, parseAgendaCSV, type Evento } from '../data/agenda'
 
 function parseDate(iso: string) {
   const d = new Date(`${iso}T00:00:00`)
@@ -16,8 +17,28 @@ function parseDate(iso: string) {
   }
 }
 
+const sortByDate = (list: Evento[]) => [...list].sort((a, b) => a.fechaISO.localeCompare(b.fechaISO))
+
 export default function Agenda() {
-  const eventos = [...AGENDA].sort((a, b) => a.fechaISO.localeCompare(b.fechaISO))
+  // Eventos locales por defecto; si hay Hoja de Google configurada, se reemplazan.
+  const [eventos, setEventos] = useState<Evento[]>(() => sortByDate(AGENDA))
+
+  useEffect(() => {
+    if (!AGENDA_SHEET_CSV_URL) return
+    let cancel = false
+    fetch(AGENDA_SHEET_CSV_URL)
+      .then((r) => (r.ok ? r.text() : Promise.reject(new Error(String(r.status)))))
+      .then((text) => {
+        const remote = parseAgendaCSV(text)
+        if (!cancel && remote.length > 0) setEventos(sortByDate(remote))
+      })
+      .catch(() => {
+        /* sin red o sin permisos: se conserva la lista local */
+      })
+    return () => {
+      cancel = true
+    }
+  }, [])
 
   return (
     <>
@@ -39,6 +60,7 @@ export default function Agenda() {
           <ul className="divide-y divide-ink/10 border-y border-ink/10">
             {eventos.map((ev, i) => {
               const d = parseDate(ev.fechaISO)
+              const confirmado = ev.estado === 'confirmado'
               return (
                 <Reveal as="li" key={ev.id} delay={i * 0.05}>
                   <div className="group grid items-center gap-6 py-8 md:grid-cols-[auto_1fr_auto] md:gap-10">
@@ -56,8 +78,14 @@ export default function Agenda() {
 
                     {/* Detalle */}
                     <div>
-                      <div className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-mute/30 bg-ink/5 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-mute">
-                        Tentativa
+                      <div
+                        className={`mb-2 inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest ${
+                          confirmado
+                            ? 'border-accent/40 bg-accent/10 text-accent'
+                            : 'border-mute/30 bg-ink/5 text-mute'
+                        }`}
+                      >
+                        {confirmado ? 'Confirmado' : 'Tentativa'}
                       </div>
                       <h2 className="font-condensed text-2xl font-semibold leading-tight text-ink transition-colors group-hover:text-accent md:text-3xl">
                         {ev.titulo}

@@ -1,15 +1,20 @@
+import { useState } from 'react'
 import { ResponsiveImg } from './ResponsiveImg'
 import { FacebookIcon } from './Icons'
 
 /* =========================================================================
-   Réplica ESTÁTICA del widget de perfil de Facebook (el look que te gustó),
-   construida con nuestro markup —SIN iframe ni plugin— para NO disparar el
-   anti-phishing de Malwarebytes. Datos y publicación reales (de @balseca).
-   Toda la tarjeta enlaza a la página real de Facebook.
+   Perfil de Facebook con EMBED REAL bajo demanda (facade / click-to-load).
+   - Por defecto se ve una tarjeta estática (rápida y segura).
+   - Al pulsar "Ver en vivo" se carga el plugin OFICIAL de Facebook (iframe).
+   Esto evita que el anti-phishing (Malwarebytes) bloquee a quien solo navega;
+   el embed real se carga solo si la persona lo pide. Datos reales de @balseca.
    ========================================================================= */
 
 const FB_URL = 'https://www.facebook.com/balseca'
 const FB_BLUE = '#1877F2'
+const PAGE_PLUGIN = `https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(
+  FB_URL,
+)}&tabs=timeline&width=400&height=560&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true`
 
 const VerifiedCheck = () => (
   <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden>
@@ -27,15 +32,40 @@ const PublicTag = () => (
   </svg>
 )
 
-/** Tarjeta tipo "perfil de Facebook" (segura, sin iframe). */
 export function FacebookProfileCard({ className = '' }: { className?: string }) {
+  const [live, setLive] = useState(false)
+
+  if (live) {
+    return (
+      <div className={`overflow-hidden rounded-md border border-ink/12 bg-white ${className}`}>
+        <div className="flex items-center justify-between border-b border-ink/10 px-4 py-3">
+          <span className="eyebrow text-accent">Facebook · @balseca</span>
+          <a
+            href={FB_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="eyebrow text-mute transition-colors hover:text-accent"
+          >
+            Ver ↗
+          </a>
+        </div>
+        <iframe
+          title="Página de Facebook de Marco Balseca"
+          src={PAGE_PLUGIN}
+          className="h-[560px] w-full"
+          style={{ border: 'none', overflow: 'hidden' }}
+          scrolling="no"
+          frameBorder={0}
+          loading="lazy"
+          allow="encrypted-media; picture-in-picture; web-share"
+        />
+      </div>
+    )
+  }
+
   return (
-    <a
-      href={FB_URL}
-      target="_blank"
-      rel="noreferrer"
-      aria-label="Perfil de Facebook de Marco Balseca (abre en Facebook)"
-      className={`group block cursor-pointer overflow-hidden rounded-md border border-ink/12 bg-white shadow-[0_18px_40px_-28px_rgba(0,0,0,0.45)] transition-colors duration-200 hover:border-accent ${className}`}
+    <div
+      className={`overflow-hidden rounded-md border border-ink/12 bg-white shadow-[0_18px_40px_-28px_rgba(0,0,0,0.45)] ${className}`}
     >
       {/* Portada */}
       <div className="relative h-24">
@@ -85,18 +115,38 @@ export function FacebookProfileCard({ className = '' }: { className?: string }) 
           </p>
         </div>
 
-        <span
-          className="mt-3 flex w-full items-center justify-center gap-2 rounded-md py-2 text-sm font-semibold text-white transition-transform duration-200 group-hover:-translate-y-0.5"
-          style={{ backgroundColor: FB_BLUE }}
-        >
-          <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>
-            <path d="M12 5a1 1 0 0 1 1 1v5h5a1 1 0 1 1 0 2h-5v5a1 1 0 1 1-2 0v-5H6a1 1 0 1 1 0-2h5V6a1 1 0 0 1 1-1Z" />
-          </svg>
-          Seguir
-        </span>
+        <div className="mt-3 grid grid-cols-2 gap-2">
+          <a
+            href={FB_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center justify-center gap-1.5 rounded-md py-2 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5"
+            style={{ backgroundColor: FB_BLUE }}
+          >
+            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>
+              <path d="M12 5a1 1 0 0 1 1 1v5h5a1 1 0 1 1 0 2h-5v5a1 1 0 1 1-2 0v-5H6a1 1 0 1 1 0-2h5V6a1 1 0 0 1 1-1Z" />
+            </svg>
+            Seguir
+          </a>
+          <button
+            type="button"
+            onClick={() => setLive(true)}
+            className="flex cursor-pointer items-center justify-center gap-1.5 rounded-md border border-ink/20 py-2 text-sm font-semibold text-ink transition-colors duration-200 hover:border-accent hover:text-accent"
+          >
+            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>
+              <path d="M8 5v14l11-7z" />
+            </svg>
+            Ver en vivo
+          </button>
+        </div>
 
         {/* Publicación reciente (real) */}
-        <div className="mt-4 border-t border-ink/10 pt-3">
+        <a
+          href={FB_URL}
+          target="_blank"
+          rel="noreferrer"
+          className="group mt-4 block border-t border-ink/10 pt-3"
+        >
           <div className="flex items-center gap-2">
             <img
               src="/assets/portraits/marco-formal.webp"
@@ -112,7 +162,9 @@ export function FacebookProfileCard({ className = '' }: { className?: string }) 
               className="h-8 w-8 rounded-full bg-mist object-cover"
             />
             <div className="leading-tight">
-              <p className="text-sm font-semibold text-ink">Marco Balseca</p>
+              <p className="text-sm font-semibold text-ink transition-colors group-hover:text-accent">
+                Marco Balseca
+              </p>
               <p className="text-xs text-mute">13 h · Público</p>
             </div>
           </div>
@@ -126,8 +178,8 @@ export function FacebookProfileCard({ className = '' }: { className?: string }) 
               Entrega Marco Balseca una alarma vecinal más en la junta auxiliar de San…
             </p>
           </div>
-        </div>
+        </a>
       </div>
-    </a>
+    </div>
   )
 }

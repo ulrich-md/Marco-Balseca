@@ -81,7 +81,7 @@ export function Hero() {
         ))}
       </nav>
 
-      <div className="container-x relative z-10 pt-28 lg:pt-32">
+      <div className="container-x relative z-10 pt-24 lg:pt-20">
         {/* Meta superior (mono) */}
         <motion.div {...appear(0)} className="flex items-center justify-between border-b border-ink/15 pb-4">
           <span className="eyebrow text-accent">Marco Balseca</span>
@@ -91,7 +91,7 @@ export function Hero() {
         </motion.div>
 
         {/* Titular gigante — el NOMBRE es el héroe */}
-        <div className="relative mt-8 lg:mt-10">
+        <div className="relative mt-5 lg:mt-4">
           {/* Acento rojo vertical (ref. ESPN) */}
           <span
             aria-hidden
@@ -120,7 +120,7 @@ export function Hero() {
         </div>
 
         {/* Fila inferior: copy/CTA/comunidad (izq) + carrusel (der) */}
-        <div className="mt-8 grid items-start gap-10 lg:mt-6 lg:grid-cols-[1fr_0.78fr] lg:gap-12">
+        <div className="mt-6 grid items-start gap-10 lg:mt-0 lg:grid-cols-[1fr_0.78fr] lg:gap-12">
           <div className="lg:pl-[9vw] lg:pt-4">
             <motion.p {...appear(0.45)} className="max-w-xl text-lg text-ink/75 md:text-xl">
               Soy abogado y emprendedor de Tehuacán, hoy delegado de Gobernación de la microrregión
@@ -201,7 +201,7 @@ export function Hero() {
           {/* Media principal: VIDEO que se reproduce al cargar (montaje de fotos
               reales; usa el MP4 real si se sube a /assets/video/marco-reel.mp4).
               Pausa fuera de pantalla. Parallax sutil. */}
-          <div ref={photoRef} className="relative lg:-mt-[7vw]">
+          <div ref={photoRef} className="relative lg:-mt-[11vw]">
             <HeroVideo
               photos={HERO_SLIDES}
               caption="En territorio · Tehuacán, Puebla"
