@@ -1,51 +1,13 @@
 import { SectionLabel } from '../../components/ui/SectionLabel'
 import { RevealText } from '../../components/ui/RevealText'
 import { Reveal } from '../../components/ui/Reveal'
-import { ResponsiveImg } from '../../components/ui/ResponsiveImg'
-import { FacebookProfileCard } from '../../components/ui/FacebookProfileCard'
-import { FacebookIcon, InstagramIcon } from '../../components/ui/Icons'
+import { FacebookRecentPosts } from '../../components/ui/FacebookRecentPosts'
 import { SOCIAL } from '../../data/site'
 
 /* =========================================================================
-   Prensa y redes — cobertura REAL y positiva sobre Marco Balseca.
-   IMPORTANTE: NO usamos iframes de plugins de Facebook/Instagram. Los
-   escáneres anti-phishing (Malwarebytes Browser Guard, etc.) marcan como
-   "phishing" cualquier frame de login/plugin de una marca incrustado en otro
-   dominio (patrón de login falso). Por eso usamos TARJETAS-ENLACE branded:
-   mismo contenido real, interacción al abrir la red, y CERO falsos positivos.
+   "En las noticias": publicaciones recientes de Facebook (embebidas y
+   auto-actualizables) + notas de prensa reales y positivas. Sin scraping.
    ========================================================================= */
-
-type Red = {
-  brand: 'facebook' | 'instagram'
-  kind: 'page' | 'video' | 'reel'
-  marca: string
-  titulo: string
-  resumen: string
-  url: string
-  /** Miniatura real (foto propia) que representa el contenido. */
-  thumb: string
-}
-
-const REDES: Red[] = [
-  {
-    brand: 'instagram',
-    kind: 'reel',
-    marca: 'Instagram · @marcobalseca1',
-    titulo: 'Atención a vecinos — Col. San Francisco 1ª sección',
-    resumen: 'Reel destacado: escucha vecinal y atención cercana, casa por casa.',
-    url: 'https://www.instagram.com/marcobalseca1/reel/DZp5ue_xllO/',
-    thumb: '/assets/comunidad/comunidad-visita.jpg',
-  },
-  {
-    brand: 'facebook',
-    kind: 'video',
-    marca: 'Facebook · Video',
-    titulo: '#DelegadosEnMovimiento — Marco Balseca, microrregión 25',
-    resumen: 'Diario Primera Línea: el delegado invita y explica el trabajo en territorio.',
-    url: 'https://www.facebook.com/DiarioPrimeraLineaTH/videos/2010567689555570/',
-    thumb: '/assets/portraits/marco-corazon-fondo.jpg',
-  },
-]
 
 type Nota = {
   fuente: string
@@ -62,7 +24,7 @@ const NOTAS: Nota[] = [
     etiqueta: 'Seguridad y paz',
     titulo: '«Sí al desarme, sí a la paz»: Tehuacán abre el canje voluntario de armas',
     resumen:
-      'Como delegado de Gobernación de la microrregión 25, Marco Balseca explica el módulo de canje voluntario y confidencial de armas en el Palacio Municipal: una jornada por la paz de las familias.',
+      'Como delegado de Gobernación de la microrregión 25, Marco Balseca explica el módulo de canje voluntario y confidencial de armas: una jornada por la paz de las familias.',
     url: 'https://municipiospuebla.mx/nota/tehuacan/realizan-en-tehuacan-campana-de-canje-voluntario-de-armas',
   },
   {
@@ -91,55 +53,6 @@ const NOTAS: Nota[] = [
   },
 ]
 
-const PlayBadge = () => (
-  <span className="absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-accent">
-    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden>
-      <path d="M8 5v14l11-7z" />
-    </svg>
-  </span>
-)
-
-/** Tarjeta-enlace de red social (sin iframe): marca + CTA hacia la red real. */
-function SocialCard({ red }: { red: Red }) {
-  const Brand = red.brand === 'facebook' ? FacebookIcon : InstagramIcon
-  const cta = red.brand === 'facebook' ? 'Ver en Facebook' : 'Ver en Instagram'
-  return (
-    <a
-      href={red.url}
-      target="_blank"
-      rel="noreferrer"
-      className="group flex cursor-pointer flex-col overflow-hidden rounded-sm border border-ink/12 bg-white transition-colors duration-200 hover:border-accent"
-    >
-      <div className="relative aspect-[16/10] overflow-hidden bg-black">
-        <ResponsiveImg
-          src={red.thumb}
-          alt=""
-          decorative
-          sizes="(min-width: 768px) 30vw, 92vw"
-          imgClassName="absolute inset-0 h-full w-full object-cover opacity-95 transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-105"
-        />
-        <span aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-black/20" />
-        {red.kind !== 'page' && <PlayBadge />}
-        <span className="absolute left-3 top-3 inline-flex items-center gap-1.5">
-          <Brand className="h-4 w-4 text-white" />
-          <span className="eyebrow text-white/90">{red.marca}</span>
-        </span>
-        <span aria-hidden className="pointer-events-none absolute inset-2.5 border border-white/0 transition-colors duration-300 group-hover:border-accent" />
-      </div>
-      <div className="flex flex-1 flex-col justify-between p-5">
-        <div>
-          <h3 className="font-condensed text-lg font-semibold leading-tight text-ink">{red.titulo}</h3>
-          <p className="mt-2 text-sm leading-relaxed text-ink/70">{red.resumen}</p>
-        </div>
-        <span className="font-condensed mt-4 inline-flex items-center gap-1 text-sm font-semibold uppercase tracking-wide text-ink transition-colors group-hover:text-accent">
-          {cta}
-          <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-1">↗</span>
-        </span>
-      </div>
-    </a>
-  )
-}
-
 function NewsCard({ nota }: { nota: Nota }) {
   return (
     <a
@@ -167,7 +80,7 @@ function NewsCard({ nota }: { nota: Nota }) {
   )
 }
 
-/** Sección "En las noticias": prensa + redes reales y positivas (sin iframes). */
+/** Sección "En las noticias": redes (Facebook en vivo) + prensa. */
 export function PrensaStrip() {
   return (
     <section className="bg-bone py-20 text-ink md:py-28">
@@ -182,8 +95,8 @@ export function PrensaStrip() {
             />
             <Reveal delay={0.1}>
               <p className="mt-4 max-w-xl text-ink/70">
-                Prensa local y mis redes, en un solo lugar. Toca cualquiera para verlo, comentar e
-                interactuar —todo es real y verificable.
+                Sus publicaciones más recientes de Facebook (se actualizan solas) y la prensa local.
+                Todo real y verificable.
               </p>
             </Reveal>
           </div>
@@ -208,20 +121,13 @@ export function PrensaStrip() {
           </div>
         </div>
 
-        {/* Redes (sin iframe): widget de perfil de Facebook + tarjetas-enlace */}
-        <div className="mt-12 grid items-start gap-5 md:grid-cols-3">
-          <Reveal>
-            <FacebookProfileCard />
-          </Reveal>
-          {REDES.map((red, i) => (
-            <Reveal key={red.url} delay={(i + 1) * 0.06}>
-              <SocialCard red={red} />
-            </Reveal>
-          ))}
-        </div>
+        {/* Publicaciones recientes de Facebook (embebidas, auto-actualizables) */}
+        <Reveal className="mt-12">
+          <FacebookRecentPosts />
+        </Reveal>
 
         {/* Notas de prensa (positivas) */}
-        <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {NOTAS.map((nota, i) => (
             <Reveal key={nota.url} delay={i * 0.05}>
               <NewsCard nota={nota} />
