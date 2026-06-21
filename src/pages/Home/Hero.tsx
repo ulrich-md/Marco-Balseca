@@ -6,8 +6,15 @@ import { ScrollIndicator } from '../../components/ui/ScrollIndicator'
 import { HeroVideo, type VideoPhoto } from '../../components/ui/HeroVideo'
 import { LiveCounter } from '../../components/ui/LiveCounter'
 import { CommunityAvatars } from '../../components/ui/CommunityAvatars'
+import { InstagramIcon, FacebookIcon, XIcon } from '../../components/ui/Icons'
 import { useParallax } from '../../lib/useParallax'
-import { SITE, JUNTAS_AUXILIARES, COLONIAS_RECORRIDAS } from '../../data/site'
+import { SITE, SOCIAL, JUNTAS_AUXILIARES, COLONIAS_RECORRIDAS } from '../../data/site'
+
+const HERO_SOCIAL = [
+  { Icon: InstagramIcon, ...SOCIAL.instagram },
+  { Icon: FacebookIcon, ...SOCIAL.facebook },
+  { Icon: XIcon, ...SOCIAL.x },
+]
 
 const INDEX = [
   { n: '01', label: 'Conóceme', to: '/conoceme' },
@@ -135,6 +142,21 @@ export function Hero() {
               <ButtonLink to="/conoceme" tone="ink" variant="outline">
                 Conoce a Marco
               </ButtonLink>
+              <span aria-hidden className="hidden h-6 w-px bg-ink/15 sm:block" />
+              <div className="flex items-center gap-2">
+                {HERO_SOCIAL.map(({ Icon, label, url }) => (
+                  <a
+                    key={label}
+                    href={url}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={label}
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 text-ink/70 transition-colors hover:border-accent hover:text-accent"
+                  >
+                    <Icon className="h-5 w-5" />
+                  </a>
+                ))}
+              </div>
             </motion.div>
 
             {/* Comunidad: avatares + contador EN VIVO + cifras territoriales */}

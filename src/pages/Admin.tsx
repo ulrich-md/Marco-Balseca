@@ -48,6 +48,22 @@ alter table acciones enable row level security;
 create policy "acciones read"  on acciones for select using (true);
 create policy "acciones write" on acciones for all using (true) with check (true);`
 
+// Contraseña del panel. Guardamos el HASH (SHA-256), no el texto plano, porque
+// el repositorio es público. Se puede sobreescribir con VITE_ADMIN_PASSWORD.
+const PASS_HASH = '45a15e06902d04911d5ef80c122574cb07b59f9a67610fcae15266e919cbaeb8'
+const ENV_PASS = (import.meta.env as Record<string, string | undefined>).VITE_ADMIN_PASSWORD
+
+async function sha256Hex(s: string): Promise<string> {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s))
+  return Array.from(new Uint8Array(buf))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('')
+}
+async function checkPassword(entered: string): Promise<boolean> {
+  if (ENV_PASS) return entered === ENV_PASS
+  return (await sha256Hex(entered)) === PASS_HASH
+}
+
 type EventoRow = {
   id: string
   fecha: string
@@ -130,6 +146,20 @@ export default function Admin() {
   const [ac, setAc] = useState<typeof EMPTY_AC & { id?: string }>({ ...EMPTY_AC })
   const [msg, setMsg] = useState('')
   const [busy, setBusy] = useState(false)
+
+  // Acceso por contraseña (puerta simple del panel)
+  const [authed, setAuthed] = useState(() => localStorage.getItem('mb_admin') === 'ok')
+  const [pw, setPw] = useState('')
+  const [pwErr, setPwErr] = useState(false)
+  const submitPw = async (e: FormEvent) => {
+    e.preventDefault()
+    if (await checkPassword(pw)) {
+      localStorage.setItem('mb_admin', 'ok')
+      setAuthed(true)
+    } else {
+      setPwErr(true)
+    }
+  }
 
   const load = () => {
     if (!supabaseEnabled) return
@@ -228,10 +258,56 @@ export default function Admin() {
     </button>
   )
 
+  if (!authed) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-bone px-4 text-ink">
+        <Seo title="Panel de edición" path="/admin" description="Panel privado." noindex />
+        <form
+          onSubmit={submitPw}
+          className="w-full max-w-sm rounded-2xl border border-ink/12 bg-white p-8 text-center shadow-[0_18px_40px_-28px_rgba(0,0,0,0.45)]"
+        >
+          <h1 className="font-display text-3xl text-ink">Panel de Marco</h1>
+          <p className="mt-2 text-sm text-mute">Ingresa la contraseña para editar el sitio.</p>
+          <input
+            type="password"
+            autoFocus
+            className={`${input} mt-6 text-center`}
+            placeholder="Contraseña"
+            value={pw}
+            onChange={(e) => {
+              setPw(e.target.value)
+              setPwErr(false)
+            }}
+          />
+          {pwErr && (
+            <p role="alert" className="mt-2 text-sm font-medium text-accent">
+              Contraseña incorrecta.
+            </p>
+          )}
+          <button type="submit" className={`${btn} mt-4 w-full`}>
+            Entrar
+          </button>
+        </form>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-bone px-4 py-10 text-ink md:px-8">
       <Seo title="Panel de edición" path="/admin" description="Panel privado de edición." noindex />
       <div className="mx-auto max-w-3xl">
+        <div className="mb-2 flex justify-end">
+          <button
+            type="button"
+            onClick={() => {
+              localStorage.removeItem('mb_admin')
+              setAuthed(false)
+            }}
+            className="eyebrow text-mute transition-colors hover:text-accent"
+          >
+            Salir
+          </button>
+        </div>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <h1 className="font-display text-4xl leading-none text-ink">Panel de Marco</h1>
