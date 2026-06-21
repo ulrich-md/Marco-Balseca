@@ -4,9 +4,12 @@ import tailwindcss from '@tailwindcss/vite'
 
 // Acepta las credenciales de Supabase vengan con el nombre que vengan:
 // VITE_* (manual), SUPABASE_* o NEXT_PUBLIC_SUPABASE_* (integración de Vercel).
+// Usamos globalThis.process para no depender de @types/node en el type-check.
+const penv: Record<string, string | undefined> =
+  (globalThis as { process?: { env?: Record<string, string | undefined> } }).process?.env ?? {}
 const pick = (...names: string[]) => {
   for (const n of names) {
-    const v = process.env[n]
+    const v = penv[n]
     if (v && v.trim()) return v.trim()
   }
   return ''
