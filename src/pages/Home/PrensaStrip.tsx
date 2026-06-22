@@ -141,16 +141,24 @@ export function PrensaStrip() {
         {/* Bento: muro de Facebook (1/3) + rejilla de prensa (2/3) */}
         <div className="mt-12 grid gap-6 lg:grid-cols-3 lg:items-start">
           <Reveal className="lg:col-span-1">
-            <p className="mb-3 font-condensed text-lg font-semibold uppercase tracking-wide text-ink">
-              Publicaciones recientes
-            </p>
+            <div className="mb-3">
+              <p className="font-condensed text-lg font-semibold uppercase tracking-wide text-ink">
+                Publicaciones recientes
+              </p>
+              <p className="mt-1 text-sm text-ink/60">Su muro de Facebook, actualizado en vivo.</p>
+            </div>
             <FacebookRecentPosts />
           </Reveal>
 
           <div className="lg:col-span-2">
-            <p className="mb-3 font-condensed text-lg font-semibold uppercase tracking-wide text-ink">
-              En la prensa
-            </p>
+            <div className="mb-3">
+              <p className="font-condensed text-lg font-semibold uppercase tracking-wide text-ink">
+                En la prensa
+              </p>
+              <p className="mt-1 text-sm text-ink/60">
+                Notas de medios locales que mencionan a Marco por su nombre.
+              </p>
+            </div>
             <div className="grid gap-4 sm:grid-cols-2">
               {NOTAS.map((nota, i) => {
                 const cls = [
