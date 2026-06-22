@@ -3,8 +3,9 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 
 /* =========================================================================
    Pila de avatares de la comunidad con FOTOS REALES de la gente en los
-   eventos de Marco. Cambian con un GIRO 3D horizontal (tipo moneda) sobre el
-   eje vertical: el avatar voltea y revela la nueva foto. Seamless y lento.
+   eventos de Marco. Funciona como una CINTA HORIZONTAL: cada cierto tiempo
+   una foto nueva entra por detrás (a la derecha), empuja toda la fila hacia
+   adelante y la de adelante (izquierda) sale y desaparece. Seamless.
    Respeta prefers-reduced-motion.
    ========================================================================= */
 
@@ -19,69 +20,79 @@ const POOL = [
   '/assets/acciones/accion-deporte-copa.webp',
 ]
 
+const SIZE = 40 // px (h-10 w-10)
+const STEP = 26 // avance horizontal por avatar (se solapan)
+
+type Item = { id: number; poolIdx: number }
 type Props = { count?: number; intervalMs?: number }
 
-export function CommunityAvatars({ count = 4, intervalMs = 3400 }: Props) {
+export function CommunityAvatars({ count = 4, intervalMs = 2600 }: Props) {
   const reduce = useReducedMotion()
-  const [slots, setSlots] = useState<number[]>(() =>
-    Array.from({ length: count }, (_, i) => i % POOL.length),
+  const nextPool = useRef(count)
+  const nextId = useRef(count)
+  const [items, setItems] = useState<Item[]>(() =>
+    Array.from({ length: count }, (_, i) => ({ id: i, poolIdx: i % POOL.length })),
   )
-  const next = useRef(count)
 
   useEffect(() => {
     if (reduce) return
-    let slot = 0
     const id = window.setInterval(() => {
-      setSlots((prev) => {
-        const copy = [...prev]
-        let cand = next.current % POOL.length
+      setItems((prev) => {
+        // Elige una foto que NO esté visible ahora mismo.
+        const visible = prev.map((it) => it.poolIdx)
+        let cand = nextPool.current % POOL.length
         let guard = 0
-        while (copy.includes(cand) && guard < POOL.length) {
-          next.current++
-          cand = next.current % POOL.length
+        while (visible.includes(cand) && guard < POOL.length) {
+          nextPool.current++
+          cand = nextPool.current % POOL.length
           guard++
         }
-        copy[slot] = cand
-        next.current++
-        return copy
+        nextPool.current++
+        const entra: Item = { id: nextId.current++, poolIdx: cand }
+        // Suelta la de adelante (sale) y mete la nueva al final (atrás).
+        return [...prev.slice(1), entra]
       })
-      slot = (slot + 1) % count
     }, intervalMs)
     return () => window.clearInterval(id)
-  }, [reduce, intervalMs, count])
+  }, [reduce, intervalMs])
+
+  // Ancho total: fila de avatares + la insignia "+" solapada al final.
+  const total = count * STEP + SIZE
 
   return (
-    <div className="flex -space-x-3" aria-hidden>
-      {slots.map((poolIdx, i) => (
-        <span
-          key={i}
-          className="relative h-10 w-10 rounded-full border-2 border-white bg-mist"
-          style={{ zIndex: count - i }}
-        >
-          <span className="relative block h-full w-full overflow-hidden rounded-full [perspective:520px]">
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={POOL[poolIdx]}
-                src={POOL[poolIdx]}
-                alt=""
-                loading="lazy"
-                decoding="async"
-                onError={(e) => {
-                  e.currentTarget.style.opacity = '0'
-                }}
-                className="absolute inset-0 h-full w-full object-cover [backface-visibility:hidden] will-change-transform"
-                initial={reduce ? false : { rotateY: 90, opacity: 0.25 }}
-                animate={{ rotateY: 0, opacity: 1 }}
-                exit={reduce ? undefined : { rotateY: -90, opacity: 0.25 }}
-                transition={{ duration: 0.5, ease: 'easeInOut' }}
-              />
-            </AnimatePresence>
-          </span>
-        </span>
-      ))}
-      <span className="relative z-0 flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-accent text-xs font-bold text-white">
+    <div className="relative" style={{ width: total, height: SIZE }} aria-hidden>
+      {/* Insignia "+" al fondo de la fila (detrás de todo) */}
+      <span
+        className="absolute top-0 flex items-center justify-center rounded-full border-2 border-white bg-accent text-xs font-bold text-white"
+        style={{ left: count * STEP, width: SIZE, height: SIZE, zIndex: 0 }}
+      >
         +
       </span>
+
+      <AnimatePresence initial={false}>
+        {items.map((it, i) => (
+          <motion.span
+            key={it.id}
+            className="absolute top-0 left-0 overflow-hidden rounded-full border-2 border-white bg-mist will-change-transform"
+            style={{ width: SIZE, height: SIZE, zIndex: count - i }}
+            initial={reduce ? false : { x: count * STEP + STEP, scale: 0.55, opacity: 0 }}
+            animate={{ x: i * STEP, scale: 1, opacity: 1 }}
+            exit={reduce ? undefined : { x: -STEP * 1.6, scale: 0.55, opacity: 0 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <img
+              src={POOL[it.poolIdx]}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              onError={(e) => {
+                e.currentTarget.style.opacity = '0'
+              }}
+              className="h-full w-full object-cover"
+            />
+          </motion.span>
+        ))}
+      </AnimatePresence>
     </div>
   )
 }
