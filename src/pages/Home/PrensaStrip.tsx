@@ -145,7 +145,7 @@ export function PrensaStrip() {
               <p className="font-condensed text-lg font-semibold uppercase tracking-wide text-ink">
                 Publicaciones recientes
               </p>
-              <p className="mt-1 text-sm text-ink/60">Su muro de Facebook, actualizado en vivo.</p>
+              <p className="mt-1 text-sm text-ink/60">Su día a día con la gente, directo desde Facebook.</p>
             </div>
             <FacebookRecentPosts />
           </Reveal>
