@@ -156,7 +156,7 @@ export function PrensaStrip() {
                 En la prensa
               </p>
               <p className="mt-1 text-sm text-ink/60">
-                Notas de medios locales que mencionan a Marco por su nombre.
+                Su trabajo en la calle, contado por la prensa de Tehuacán.
               </p>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
