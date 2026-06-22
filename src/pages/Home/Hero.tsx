@@ -195,7 +195,7 @@ export function Hero() {
           {/* Media principal: VIDEO. En móvil va tras el contador. */}
           <div
             ref={photoRef}
-            className="relative mt-8 lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:mt-0 lg:-mt-[17vw]"
+            className="relative mt-8 lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:-mt-[20vw]"
           >
             <HeroVideo
               photos={HERO_SLIDES}
