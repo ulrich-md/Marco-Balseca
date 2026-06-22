@@ -113,7 +113,7 @@ export function PrensaStrip() {
             />
             <Reveal delay={0.1}>
               <p className="mt-4 max-w-xl text-ink/70">
-                Sus publicaciones de Facebook (en vivo) y la prensa local. Todo real y verificable.
+                Sus publicaciones de Facebook (en vivo) y lo que cuenta la prensa de Tehuacán.
               </p>
             </Reveal>
           </div>
