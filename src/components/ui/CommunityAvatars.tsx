@@ -19,11 +19,9 @@ const POOL = [
   '/assets/acciones/accion-deporte-copa.webp',
 ]
 
-const EXPO = [0.16, 1, 0.3, 1] as const
-
 type Props = { count?: number; intervalMs?: number }
 
-export function CommunityAvatars({ count = 4, intervalMs = 2000 }: Props) {
+export function CommunityAvatars({ count = 4, intervalMs = 3400 }: Props) {
   const reduce = useReducedMotion()
   const [slots, setSlots] = useState<number[]>(() =>
     Array.from({ length: count }, (_, i) => i % POOL.length),
@@ -65,7 +63,7 @@ export function CommunityAvatars({ count = 4, intervalMs = 2000 }: Props) {
           style={{ zIndex: pulse === i ? 5 : count - i }}
         >
           <span className="relative block h-full w-full overflow-hidden rounded-full">
-            <AnimatePresence mode="popLayout">
+            <AnimatePresence>
               <motion.img
                 key={POOL[poolIdx]}
                 src={POOL[poolIdx]}
@@ -75,11 +73,11 @@ export function CommunityAvatars({ count = 4, intervalMs = 2000 }: Props) {
                 onError={(e) => {
                   e.currentTarget.style.opacity = '0'
                 }}
-                className="absolute inset-0 h-full w-full object-cover"
-                initial={reduce ? false : { opacity: 0, scale: 1.35, filter: 'blur(7px)' }}
-                animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-                exit={reduce ? undefined : { opacity: 0, scale: 0.82, filter: 'blur(9px)' }}
-                transition={{ duration: 0.6, ease: EXPO }}
+                className="absolute inset-0 h-full w-full object-cover will-change-transform"
+                initial={reduce ? false : { opacity: 0, scale: 1.1 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={reduce ? undefined : { opacity: 0, scale: 1.04 }}
+                transition={{ duration: 1.1, ease: 'easeInOut' }}
               />
             </AnimatePresence>
           </span>
@@ -88,10 +86,10 @@ export function CommunityAvatars({ count = 4, intervalMs = 2000 }: Props) {
           {!reduce && pulse === i && (
             <motion.span
               key={tick}
-              className="pointer-events-none absolute -inset-1 rounded-full ring-2 ring-accent"
-              initial={{ opacity: 0.85, scale: 0.85 }}
-              animate={{ opacity: 0, scale: 1.45 }}
-              transition={{ duration: 0.75, ease: 'easeOut' }}
+              className="pointer-events-none absolute -inset-0.5 rounded-full ring-2 ring-accent/80"
+              initial={{ opacity: 0.6, scale: 0.92 }}
+              animate={{ opacity: 0, scale: 1.5 }}
+              transition={{ duration: 1.1, ease: 'easeOut' }}
             />
           )}
         </span>
