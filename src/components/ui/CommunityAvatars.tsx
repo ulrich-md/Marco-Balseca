@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 
 /* =========================================================================
-   Pila de avatares de la comunidad. Usa FOTOS REALES de la gente en los
-   eventos de Marco (personas de Tehuacán, situaciones normales — nada de
-   estudio) y va rotando una imagen cada cierto tiempo. Sin problemas de
-   licencias ni consentimiento (son fotos propias de sus jornadas).
+   Pila de avatares de la comunidad con FOTOS REALES de la gente en los
+   eventos de Marco. Rotan con una transición premium (zoom + desenfoque que
+   se desvanece) y un destello de anillo accent al cambiar. Respeta
+   prefers-reduced-motion (sin animación ni rotación).
    ========================================================================= */
 
 const POOL = [
@@ -19,13 +19,17 @@ const POOL = [
   '/assets/acciones/accion-deporte-copa.webp',
 ]
 
+const EXPO = [0.16, 1, 0.3, 1] as const
+
 type Props = { count?: number; intervalMs?: number }
 
-export function CommunityAvatars({ count = 4, intervalMs = 2600 }: Props) {
+export function CommunityAvatars({ count = 4, intervalMs = 2000 }: Props) {
   const reduce = useReducedMotion()
   const [slots, setSlots] = useState<number[]>(() =>
     Array.from({ length: count }, (_, i) => i % POOL.length),
   )
+  const [pulse, setPulse] = useState(-1)
+  const [tick, setTick] = useState(0)
   const next = useRef(count)
 
   useEffect(() => {
@@ -34,50 +38,65 @@ export function CommunityAvatars({ count = 4, intervalMs = 2600 }: Props) {
     const id = window.setInterval(() => {
       setSlots((prev) => {
         const copy = [...prev]
-        // evita repetir una imagen ya visible
-        let candidate = next.current % POOL.length
+        let cand = next.current % POOL.length
         let guard = 0
-        while (copy.includes(candidate) && guard < POOL.length) {
+        while (copy.includes(cand) && guard < POOL.length) {
           next.current++
-          candidate = next.current % POOL.length
+          cand = next.current % POOL.length
           guard++
         }
-        copy[slot] = candidate
+        copy[slot] = cand
         next.current++
-        slot = (slot + 1) % copy.length
         return copy
       })
+      setPulse(slot)
+      setTick((t) => t + 1)
+      slot = (slot + 1) % count
     }, intervalMs)
     return () => window.clearInterval(id)
-  }, [reduce, intervalMs])
+  }, [reduce, intervalMs, count])
 
   return (
     <div className="flex -space-x-3" aria-hidden>
       {slots.map((poolIdx, i) => (
         <span
           key={i}
-          className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-white bg-mist"
+          className="relative h-10 w-10 rounded-full border-2 border-white bg-mist"
+          style={{ zIndex: pulse === i ? 5 : count - i }}
         >
-          <AnimatePresence>
-            <motion.img
-              key={POOL[poolIdx]}
-              src={POOL[poolIdx]}
-              alt=""
-              loading="lazy"
-              decoding="async"
-              onError={(e) => {
-                e.currentTarget.style.opacity = '0'
-              }}
-              className="absolute inset-0 h-full w-full object-cover"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.6 }}
+          <span className="relative block h-full w-full overflow-hidden rounded-full">
+            <AnimatePresence mode="popLayout">
+              <motion.img
+                key={POOL[poolIdx]}
+                src={POOL[poolIdx]}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                onError={(e) => {
+                  e.currentTarget.style.opacity = '0'
+                }}
+                className="absolute inset-0 h-full w-full object-cover"
+                initial={reduce ? false : { opacity: 0, scale: 1.35, filter: 'blur(7px)' }}
+                animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                exit={reduce ? undefined : { opacity: 0, scale: 0.82, filter: 'blur(9px)' }}
+                transition={{ duration: 0.6, ease: EXPO }}
+              />
+            </AnimatePresence>
+          </span>
+
+          {/* Destello de anillo accent en el avatar que acaba de cambiar */}
+          {!reduce && pulse === i && (
+            <motion.span
+              key={tick}
+              className="pointer-events-none absolute -inset-1 rounded-full ring-2 ring-accent"
+              initial={{ opacity: 0.85, scale: 0.85 }}
+              animate={{ opacity: 0, scale: 1.45 }}
+              transition={{ duration: 0.75, ease: 'easeOut' }}
             />
-          </AnimatePresence>
+          )}
         </span>
       ))}
-      <span className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-accent text-xs font-bold text-white">
+      <span className="relative z-0 flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-accent text-xs font-bold text-white">
         +
       </span>
     </div>
