@@ -3,9 +3,9 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 
 /* =========================================================================
    Pila de avatares de la comunidad con FOTOS REALES de la gente en los
-   eventos de Marco. Rotan con una transición premium (zoom + desenfoque que
-   se desvanece) y un destello de anillo accent al cambiar. Respeta
-   prefers-reduced-motion (sin animación ni rotación).
+   eventos de Marco. Cambian con un GIRO 3D horizontal (tipo moneda) sobre el
+   eje vertical: el avatar voltea y revela la nueva foto. Seamless y lento.
+   Respeta prefers-reduced-motion.
    ========================================================================= */
 
 const POOL = [
@@ -26,8 +26,6 @@ export function CommunityAvatars({ count = 4, intervalMs = 3400 }: Props) {
   const [slots, setSlots] = useState<number[]>(() =>
     Array.from({ length: count }, (_, i) => i % POOL.length),
   )
-  const [pulse, setPulse] = useState(-1)
-  const [tick, setTick] = useState(0)
   const next = useRef(count)
 
   useEffect(() => {
@@ -47,8 +45,6 @@ export function CommunityAvatars({ count = 4, intervalMs = 3400 }: Props) {
         next.current++
         return copy
       })
-      setPulse(slot)
-      setTick((t) => t + 1)
       slot = (slot + 1) % count
     }, intervalMs)
     return () => window.clearInterval(id)
@@ -60,10 +56,10 @@ export function CommunityAvatars({ count = 4, intervalMs = 3400 }: Props) {
         <span
           key={i}
           className="relative h-10 w-10 rounded-full border-2 border-white bg-mist"
-          style={{ zIndex: pulse === i ? 5 : count - i }}
+          style={{ zIndex: count - i }}
         >
-          <span className="relative block h-full w-full overflow-hidden rounded-full">
-            <AnimatePresence>
+          <span className="relative block h-full w-full overflow-hidden rounded-full [perspective:520px]">
+            <AnimatePresence mode="wait">
               <motion.img
                 key={POOL[poolIdx]}
                 src={POOL[poolIdx]}
@@ -73,25 +69,14 @@ export function CommunityAvatars({ count = 4, intervalMs = 3400 }: Props) {
                 onError={(e) => {
                   e.currentTarget.style.opacity = '0'
                 }}
-                className="absolute inset-0 h-full w-full object-cover will-change-transform"
-                initial={reduce ? false : { opacity: 0, scale: 1.1 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={reduce ? undefined : { opacity: 0, scale: 1.04 }}
-                transition={{ duration: 1.1, ease: 'easeInOut' }}
+                className="absolute inset-0 h-full w-full object-cover [backface-visibility:hidden] will-change-transform"
+                initial={reduce ? false : { rotateY: 90, opacity: 0.25 }}
+                animate={{ rotateY: 0, opacity: 1 }}
+                exit={reduce ? undefined : { rotateY: -90, opacity: 0.25 }}
+                transition={{ duration: 0.5, ease: 'easeInOut' }}
               />
             </AnimatePresence>
           </span>
-
-          {/* Destello de anillo accent en el avatar que acaba de cambiar */}
-          {!reduce && pulse === i && (
-            <motion.span
-              key={tick}
-              className="pointer-events-none absolute -inset-0.5 rounded-full ring-2 ring-accent/80"
-              initial={{ opacity: 0.6, scale: 0.92 }}
-              animate={{ opacity: 0, scale: 1.5 }}
-              transition={{ duration: 1.1, ease: 'easeOut' }}
-            />
-          )}
         </span>
       ))}
       <span className="relative z-0 flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-accent text-xs font-bold text-white">
