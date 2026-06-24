@@ -6,6 +6,7 @@ import { ScrollIndicator } from '../../components/ui/ScrollIndicator'
 import { HeroVideo, type VideoPhoto } from '../../components/ui/HeroVideo'
 import { LiveCounter } from '../../components/ui/LiveCounter'
 import { CommunityAvatars } from '../../components/ui/CommunityAvatars'
+import { Atmosphere } from '../../components/ui/Atmosphere'
 import { InstagramIcon, FacebookIcon, XIcon } from '../../components/ui/Icons'
 import { useParallax } from '../../lib/useParallax'
 import { SITE, SOCIAL, JUNTAS_AUXILIARES, COLONIAS_RECORRIDAS } from '../../data/site'
@@ -50,6 +51,9 @@ export function Hero() {
 
   return (
     <section className="relative overflow-hidden bg-white text-ink">
+      {/* Capa profunda: glow de tinta roja detrás del video (parallax lento) */}
+      <Atmosphere variant="ink" inkCx={74} inkCy={24} />
+
       {/* Textura editorial ESTÁTICA (sin animación, sin crema): malla de puntos
           concentrada en el área inferior-izquierda + retícula fina. Da interés
           al fondo sin competir con el nombre ni meter color. */}

@@ -3,6 +3,7 @@ import { SectionLabel } from '../../components/ui/SectionLabel'
 import { RevealText } from '../../components/ui/RevealText'
 import { Reveal } from '../../components/ui/Reveal'
 import { FacebookRecentPosts } from '../../components/ui/FacebookRecentPosts'
+import { Atmosphere } from '../../components/ui/Atmosphere'
 import { SOCIAL } from '../../data/site'
 
 /* =========================================================================
@@ -101,8 +102,9 @@ const VISIBLE_MOVIL = 3 // cuántas notas se ven en móvil antes de "ver más"
 export function PrensaStrip() {
   const [expanded, setExpanded] = useState(false)
   return (
-    <section className="bg-bone py-14 text-ink md:py-28">
-      <div className="container-x">
+    <section className="relative overflow-hidden bg-bone py-14 text-ink md:py-28">
+      <Atmosphere variant="grain" />
+      <div className="container-x relative z-10">
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <SectionLabel tone="accent">En las noticias</SectionLabel>

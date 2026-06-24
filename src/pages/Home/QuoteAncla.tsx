@@ -1,12 +1,14 @@
 import { RevealText } from '../../components/ui/RevealText'
 import { Reveal } from '../../components/ui/Reveal'
 import { SectionLabel } from '../../components/ui/SectionLabel'
+import { Atmosphere } from '../../components/ui/Atmosphere'
 
-/** Cita ancla editorial (placeholder de cita real). */
+/** Cita ancla editorial sobre las curvas de nivel del valle de Tehuacán. */
 export function QuoteAncla() {
   return (
-    <section className="bg-bone py-16 text-ink md:py-32">
-      <div className="container-x">
+    <section className="relative overflow-hidden bg-bone py-16 text-ink md:py-32">
+      <Atmosphere variant="topo" />
+      <div className="container-x relative z-10">
         <div className="flex justify-center">
           <SectionLabel tone="accent">En sus palabras</SectionLabel>
         </div>
