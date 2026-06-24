@@ -51,8 +51,9 @@ export function Hero() {
 
   return (
     <section className="relative overflow-hidden bg-white text-ink">
-      {/* Capa profunda: glow de tinta roja detrás del video (parallax lento) */}
-      <Atmosphere variant="ink" inkCx={74} inkCy={24} />
+      {/* Capa profunda: bleed de tinta roja a la izquierda, detrás del nombre
+          (zona blanca, bien visible). Parallax lento. */}
+      <Atmosphere variant="ink" inkCx={26} inkCy={34} opacity={0.28} />
 
       {/* Textura editorial ESTÁTICA (sin animación, sin crema): malla de puntos
           concentrada en el área inferior-izquierda + retícula fina. Da interés

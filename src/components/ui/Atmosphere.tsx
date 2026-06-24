@@ -90,9 +90,9 @@ function Grain() {
 type Variant = 'ink' | 'topo' | 'grain'
 
 const DEFAULTS: Record<Variant, { distance: number; opacity: number }> = {
-  ink: { distance: 90, opacity: 0.16 },
-  topo: { distance: 70, opacity: 0.6 },
-  grain: { distance: 40, opacity: 0.5 },
+  ink: { distance: 90, opacity: 0.22 },
+  topo: { distance: 70, opacity: 0.85 },
+  grain: { distance: 40, opacity: 0.7 },
 }
 
 export function Atmosphere({
