@@ -29,15 +29,25 @@ create table if not exists acciones (
   slug text, categoria text, titulo text not null, resumen text, detalle text,
   imagen text, orden int default 0, created_at timestamptz default now());
 
+-- Buzón de contacto. PRIVADO: el público solo puede INSERTAR (enviar), nunca
+-- leer. Los mensajes se ven en Supabase -> Table Editor -> mensajes.
+create table if not exists mensajes (
+  id uuid primary key default gen_random_uuid(),
+  nombre text not null, correo text, telefono text, lugar text,
+  motivo text, mensaje text not null, leido boolean default false,
+  created_at timestamptz default now());
+
 alter table eventos  enable row level security;
 alter table reels    enable row level security;
 alter table acciones enable row level security;
+alter table mensajes enable row level security;
 create policy "eventos read"   on eventos  for select using (true);
 create policy "eventos write"  on eventos  for all using (true) with check (true);
 create policy "reels read"     on reels    for select using (true);
 create policy "reels write"    on reels    for all using (true) with check (true);
 create policy "acciones read"  on acciones for select using (true);
-create policy "acciones write" on acciones for all using (true) with check (true);`
+create policy "acciones write" on acciones for all using (true) with check (true);
+create policy "mensajes insert" on mensajes for insert with check (true);`
 
 // SQL solo para la tabla nueva (si Supabase ya estaba configurado antes).
 const SQL_ACCIONES = `create table if not exists acciones (
