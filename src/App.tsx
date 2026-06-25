@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Layout } from './components/layout/Layout'
 import { SmoothScroll, ScrollToTop } from './lib/SmoothScroll'
+import { IntroPaint } from './components/ui/IntroPaint'
 
 // Home eager (landing); el resto se carga por ruta (code-splitting) para
 // aligerar el bundle inicial.
@@ -20,6 +21,7 @@ const Admin = lazy(() => import('./pages/Admin'))
 export function App() {
   return (
     <BrowserRouter>
+      <IntroPaint />
       <SmoothScroll>
         <ScrollToTop />
         <Routes>
