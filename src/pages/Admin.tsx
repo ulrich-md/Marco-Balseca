@@ -6,10 +6,11 @@ import {
   sbInsert,
   sbUpdate,
   sbDelete,
-  sbSignIn,
+  sbSignInWithGoogle,
+  sbConsumeOAuthRedirect,
+  sbIsAdmin,
   sbSignOut,
   sbEnsureSession,
-  sbHasSession,
   sbAuthEmail,
 } from '../lib/supabase'
 import { igEmbedSrc } from '../lib/instagram'
@@ -53,19 +54,31 @@ alter table reels    enable row level security;
 alter table acciones enable row level security;
 alter table mensajes enable row level security;
 
+-- Quién puede administrar el sitio (cuentas de Google que TÚ autorizas)
+create table if not exists admins (email text primary key);
+insert into admins (email) values ('solutions.umd@gmail.com') on conflict do nothing;
+alter table admins enable row level security;
+
+-- Función segura: ¿el usuario de la sesión está autorizado?
+create or replace function public.is_admin() returns boolean
+language sql security definer stable set search_path = public as $$
+  select exists (select 1 from admins where email = auth.jwt() ->> 'email');
+$$;
+grant execute on function public.is_admin() to anon, authenticated;
+
 -- Lectura pública del contenido del sitio
 create policy "eventos read"  on eventos  for select using (true);
 create policy "reels read"    on reels    for select using (true);
 create policy "acciones read" on acciones for select using (true);
 
--- Escritura SOLO con sesión iniciada (Supabase Auth)
-create policy "eventos write"  on eventos  for all to authenticated using (true) with check (true);
-create policy "reels write"    on reels    for all to authenticated using (true) with check (true);
-create policy "acciones write" on acciones for all to authenticated using (true) with check (true);
+-- Escritura SOLO para cuentas autorizadas
+create policy "eventos write"  on eventos  for all to authenticated using (is_admin()) with check (is_admin());
+create policy "reels write"    on reels    for all to authenticated using (is_admin()) with check (is_admin());
+create policy "acciones write" on acciones for all to authenticated using (is_admin()) with check (is_admin());
 
--- Mensajes: cualquiera envía; solo el admin (con sesión) lee y gestiona
+-- Mensajes: cualquiera ENVÍA; solo cuentas autorizadas leen y gestionan
 create policy "mensajes insert" on mensajes for insert with check (true);
-create policy "mensajes manage" on mensajes for all to authenticated using (true) with check (true);`
+create policy "mensajes manage" on mensajes for all to authenticated using (is_admin()) with check (is_admin());`
 
 // SQL solo para la tabla nueva (si Supabase ya estaba configurado antes).
 const SQL_ACCIONES = `create table if not exists acciones (
@@ -78,7 +91,19 @@ create policy "acciones write" on acciones for all using (true) with check (true
 
 // SQL de migración para un proyecto que YA tenía Supabase (endurece el acceso
 // y crea el buzón privado de mensajes). Se muestra en la pantalla de acceso.
-const SQL_SECURE = `-- Tabla privada de mensajes (si falta)
+const SQL_SECURE = `-- 1) Cuentas de Google autorizadas (TÚ decides quién entra)
+create table if not exists admins (email text primary key);
+insert into admins (email) values ('solutions.umd@gmail.com') on conflict do nothing;
+alter table admins enable row level security;
+
+-- 2) Función segura que valida al usuario de la sesión
+create or replace function public.is_admin() returns boolean
+language sql security definer stable set search_path = public as $$
+  select exists (select 1 from admins where email = auth.jwt() ->> 'email');
+$$;
+grant execute on function public.is_admin() to anon, authenticated;
+
+-- 3) Buzón privado de mensajes (si falta)
 create table if not exists mensajes (
   id uuid primary key default gen_random_uuid(),
   nombre text not null, correo text, telefono text, lugar text,
@@ -86,19 +111,19 @@ create table if not exists mensajes (
   created_at timestamptz default now());
 alter table mensajes enable row level security;
 
--- Cerrar la escritura pública: editar ahora requiere sesión
+-- 4) Editar el contenido: solo cuentas autorizadas
 drop policy if exists "eventos write"  on eventos;
 drop policy if exists "reels write"    on reels;
 drop policy if exists "acciones write" on acciones;
-create policy "eventos write"  on eventos  for all to authenticated using (true) with check (true);
-create policy "reels write"    on reels    for all to authenticated using (true) with check (true);
-create policy "acciones write" on acciones for all to authenticated using (true) with check (true);
+create policy "eventos write"  on eventos  for all to authenticated using (is_admin()) with check (is_admin());
+create policy "reels write"    on reels    for all to authenticated using (is_admin()) with check (is_admin());
+create policy "acciones write" on acciones for all to authenticated using (is_admin()) with check (is_admin());
 
--- Mensajes: cualquiera envía; solo el admin (con sesión) lee y gestiona
+-- 5) Mensajes: cualquiera ENVÍA; solo cuentas autorizadas leen y gestionan
 drop policy if exists "mensajes insert" on mensajes;
 drop policy if exists "mensajes manage" on mensajes;
 create policy "mensajes insert" on mensajes for insert with check (true);
-create policy "mensajes manage" on mensajes for all to authenticated using (true) with check (true);`
+create policy "mensajes manage" on mensajes for all to authenticated using (is_admin()) with check (is_admin());`
 
 type EventoRow = {
   id: string
@@ -177,6 +202,14 @@ const InboxIcon = () => (
     <path d="M4 13h4l2 3h4l2-3h4M4 13l2.5-7h11L20 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-5z" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
+const GoogleGlyph = () => (
+  <svg viewBox="0 0 48 48" className="h-5 w-5" aria-hidden>
+    <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.4 29.3 35 24 35c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.3 5.1 29.4 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21c0-1.4-.1-2.5-.4-3.5z" />
+    <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 16 19 13 24 13c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.3 5.1 29.4 3 24 3 16 3 9.1 7.6 6.3 14.7z" />
+    <path fill="#4CAF50" d="M24 45c5.2 0 10-2 13.6-5.2l-6.3-5.3C29.2 35.9 26.7 37 24 37c-5.3 0-9.7-3.5-11.3-8.3l-6.5 5C9 41.3 16 45 24 45z" />
+    <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.1-4 5.5l6.3 5.3C41.6 36 45 30.6 45 24c0-1.4-.1-2.5-.4-3.5z" />
+  </svg>
+)
 
 function fmtFecha(iso: string) {
   try {
@@ -213,13 +246,11 @@ export default function Admin() {
   const [msg, setMsg] = useState('')
   const [busy, setBusy] = useState(false)
 
-  // Acceso con Supabase Auth (correo + contraseña validados por el servidor)
-  const [authed, setAuthed] = useState(sbHasSession())
+  // Acceso con Google (autorizado por la lista de admins en Supabase)
+  const [authed, setAuthed] = useState(false)
   const [checking, setChecking] = useState(true)
-  const [email, setEmail] = useState('')
-  const [pw, setPw] = useState('')
-  const [pwErr, setPwErr] = useState('')
-  const [loggingIn, setLoggingIn] = useState(false)
+  const [denied, setDenied] = useState<string | null>(null)
+  const [signinErr, setSigninErr] = useState('')
 
   const load = () => {
     if (!supabaseEnabled) return
@@ -232,11 +263,24 @@ export default function Admin() {
   useEffect(() => {
     let alive = true
     ;(async () => {
+      const back = sbConsumeOAuthRedirect()
+      if (back.error) setSigninErr(back.error)
       const ok = await sbEnsureSession()
       if (!alive) return
-      setAuthed(ok)
+      if (!ok) {
+        setChecking(false)
+        return
+      }
+      const admin = await sbIsAdmin()
+      if (!alive) return
+      if (admin) {
+        setAuthed(true)
+        load()
+      } else {
+        setDenied(sbAuthEmail() || 'tu cuenta')
+        await sbSignOut()
+      }
       setChecking(false)
-      if (ok) load()
     })()
     return () => {
       alive = false
@@ -244,25 +288,10 @@ export default function Admin() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const submitPw = async (e: FormEvent) => {
-    e.preventDefault()
-    setLoggingIn(true)
-    setPwErr('')
-    try {
-      await sbSignIn(email.trim(), pw)
-      setAuthed(true)
-      setPw('')
-      load()
-    } catch (err) {
-      setPwErr((err as Error).message || 'No se pudo entrar.')
-    } finally {
-      setLoggingIn(false)
-    }
-  }
-
   const logout = async () => {
     await sbSignOut()
     setAuthed(false)
+    setDenied(null)
   }
 
   const flash = (t: string) => {
@@ -400,59 +429,56 @@ export default function Admin() {
       <div className="flex min-h-screen items-center justify-center bg-bone px-4 py-10 text-ink">
         <Seo title="Panel de edición" path="/admin" description="Panel privado." noindex />
         <div className="w-full max-w-sm">
-          <form
-            onSubmit={submitPw}
-            className="rounded-2xl border border-ink/12 bg-white p-8 shadow-[0_18px_40px_-28px_rgba(0,0,0,0.45)]"
-          >
+          <div className="rounded-2xl border border-ink/12 bg-white p-8 text-center shadow-[0_18px_40px_-28px_rgba(0,0,0,0.45)]">
             <h1 className="font-display text-3xl text-ink">Panel de Marco</h1>
-            <p className="mt-2 text-sm text-mute">Inicia sesión para editar el sitio.</p>
-            <label className={`${label} mt-6`}>Correo</label>
-            <input
-              type="email"
-              autoComplete="username"
-              autoFocus
-              className={input}
-              placeholder="tucorreo@ejemplo.com"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value)
-                setPwErr('')
-              }}
-            />
-            <label className={`${label} mt-4`}>Contraseña</label>
-            <input
-              type="password"
-              autoComplete="current-password"
-              className={input}
-              placeholder="Tu contraseña"
-              value={pw}
-              onChange={(e) => {
-                setPw(e.target.value)
-                setPwErr('')
-              }}
-            />
-            {pwErr && (
-              <p role="alert" className="mt-3 text-sm font-medium text-accent">
-                {pwErr}
+            <p className="mt-2 text-sm text-mute">
+              Acceso restringido. Entra con una cuenta de Google autorizada.
+            </p>
+
+            {denied && (
+              <p
+                role="alert"
+                className="mt-5 rounded-lg border border-accent/25 bg-accent/5 px-4 py-3 text-sm text-accent"
+              >
+                La cuenta <strong>{denied}</strong> no está autorizada. Pide acceso al administrador.
               </p>
             )}
-            <button type="submit" className={`${btn} mt-5 w-full`} disabled={loggingIn}>
-              {loggingIn ? 'Entrando…' : 'Entrar'}
+            {signinErr && !denied && (
+              <p
+                role="alert"
+                className="mt-5 rounded-lg border border-accent/25 bg-accent/5 px-4 py-3 text-sm text-accent"
+              >
+                {signinErr}
+              </p>
+            )}
+
+            <button
+              type="button"
+              onClick={() => sbSignInWithGoogle()}
+              className="mt-6 flex w-full items-center justify-center gap-3 rounded-lg border border-ink/20 bg-white px-5 py-3 text-sm font-semibold text-ink transition-colors hover:border-accent hover:bg-ink/[0.03]"
+            >
+              <GoogleGlyph />
+              {denied ? 'Probar con otra cuenta' : 'Entrar con Google'}
             </button>
-          </form>
+          </div>
 
           <details className="mt-4 rounded-xl border border-ink/12 bg-white/70 p-4 text-sm text-ink/80">
             <summary className="cursor-pointer font-semibold text-ink">
-              ¿Primera vez con el acceso seguro?
+              Configurar el acceso (una sola vez)
             </summary>
             <ol className="mt-3 list-decimal space-y-2 pl-5">
               <li>
-                En Supabase → <strong>Authentication → Users → Add user</strong>: crea tu usuario con
-                correo y contraseña (activa “Auto Confirm User”).
+                Activa Google en Supabase → <strong>Authentication → Providers → Google</strong> (pega
+                el Client ID y Secret creados en Google Cloud).
               </li>
               <li>
-                En Supabase → <strong>SQL Editor</strong>, corre este SQL una sola vez para proteger el
-                contenido y crear el buzón de mensajes:
+                En Supabase → <strong>Authentication → URL Configuration</strong>, agrega la URL del
+                sitio en <strong>Redirect URLs</strong> (p. ej.{' '}
+                <code className="rounded bg-ink/5 px-1">https://tu-dominio/admin</code>).
+              </li>
+              <li>
+                En Supabase → <strong>SQL Editor</strong>, corre este SQL una vez (crea la lista de
+                cuentas autorizadas y el buzón de mensajes):
               </li>
             </ol>
             <pre className="mt-3 max-h-64 overflow-auto rounded-lg bg-ink p-3 text-[11px] leading-relaxed text-bone">
