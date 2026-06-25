@@ -1,6 +1,17 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
 import { Seo } from '../lib/Seo'
-import { supabaseEnabled, sbSelect, sbInsert, sbUpdate, sbDelete } from '../lib/supabase'
+import {
+  supabaseEnabled,
+  sbSelect,
+  sbInsert,
+  sbUpdate,
+  sbDelete,
+  sbSignIn,
+  sbSignOut,
+  sbEnsureSession,
+  sbHasSession,
+  sbAuthEmail,
+} from '../lib/supabase'
 import { igEmbedSrc } from '../lib/instagram'
 import { slugify } from '../data/acciones'
 
@@ -29,8 +40,8 @@ create table if not exists acciones (
   slug text, categoria text, titulo text not null, resumen text, detalle text,
   imagen text, orden int default 0, created_at timestamptz default now());
 
--- Buzón de contacto. PRIVADO: el público solo puede INSERTAR (enviar), nunca
--- leer. Los mensajes se ven en Supabase -> Table Editor -> mensajes.
+-- Buzón de contacto. PRIVADO: el público solo puede ENVIAR (insert); leer y
+-- gestionar requiere sesión de admin. Se ve en /admin -> Mensajes.
 create table if not exists mensajes (
   id uuid primary key default gen_random_uuid(),
   nombre text not null, correo text, telefono text, lugar text,
@@ -41,13 +52,20 @@ alter table eventos  enable row level security;
 alter table reels    enable row level security;
 alter table acciones enable row level security;
 alter table mensajes enable row level security;
-create policy "eventos read"   on eventos  for select using (true);
-create policy "eventos write"  on eventos  for all using (true) with check (true);
-create policy "reels read"     on reels    for select using (true);
-create policy "reels write"    on reels    for all using (true) with check (true);
-create policy "acciones read"  on acciones for select using (true);
-create policy "acciones write" on acciones for all using (true) with check (true);
-create policy "mensajes insert" on mensajes for insert with check (true);`
+
+-- Lectura pública del contenido del sitio
+create policy "eventos read"  on eventos  for select using (true);
+create policy "reels read"    on reels    for select using (true);
+create policy "acciones read" on acciones for select using (true);
+
+-- Escritura SOLO con sesión iniciada (Supabase Auth)
+create policy "eventos write"  on eventos  for all to authenticated using (true) with check (true);
+create policy "reels write"    on reels    for all to authenticated using (true) with check (true);
+create policy "acciones write" on acciones for all to authenticated using (true) with check (true);
+
+-- Mensajes: cualquiera envía; solo el admin (con sesión) lee y gestiona
+create policy "mensajes insert" on mensajes for insert with check (true);
+create policy "mensajes manage" on mensajes for all to authenticated using (true) with check (true);`
 
 // SQL solo para la tabla nueva (si Supabase ya estaba configurado antes).
 const SQL_ACCIONES = `create table if not exists acciones (
@@ -58,21 +76,29 @@ alter table acciones enable row level security;
 create policy "acciones read"  on acciones for select using (true);
 create policy "acciones write" on acciones for all using (true) with check (true);`
 
-// Contraseña del panel. Guardamos el HASH (SHA-256), no el texto plano, porque
-// el repositorio es público. Se puede sobreescribir con VITE_ADMIN_PASSWORD.
-const PASS_HASH = '45a15e06902d04911d5ef80c122574cb07b59f9a67610fcae15266e919cbaeb8'
-const ENV_PASS = (import.meta.env as Record<string, string | undefined>).VITE_ADMIN_PASSWORD
+// SQL de migración para un proyecto que YA tenía Supabase (endurece el acceso
+// y crea el buzón privado de mensajes). Se muestra en la pantalla de acceso.
+const SQL_SECURE = `-- Tabla privada de mensajes (si falta)
+create table if not exists mensajes (
+  id uuid primary key default gen_random_uuid(),
+  nombre text not null, correo text, telefono text, lugar text,
+  motivo text, mensaje text not null, leido boolean default false,
+  created_at timestamptz default now());
+alter table mensajes enable row level security;
 
-async function sha256Hex(s: string): Promise<string> {
-  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s))
-  return Array.from(new Uint8Array(buf))
-    .map((b) => b.toString(16).padStart(2, '0'))
-    .join('')
-}
-async function checkPassword(entered: string): Promise<boolean> {
-  if (ENV_PASS) return entered === ENV_PASS
-  return (await sha256Hex(entered)) === PASS_HASH
-}
+-- Cerrar la escritura pública: editar ahora requiere sesión
+drop policy if exists "eventos write"  on eventos;
+drop policy if exists "reels write"    on reels;
+drop policy if exists "acciones write" on acciones;
+create policy "eventos write"  on eventos  for all to authenticated using (true) with check (true);
+create policy "reels write"    on reels    for all to authenticated using (true) with check (true);
+create policy "acciones write" on acciones for all to authenticated using (true) with check (true);
+
+-- Mensajes: cualquiera envía; solo el admin (con sesión) lee y gestiona
+drop policy if exists "mensajes insert" on mensajes;
+drop policy if exists "mensajes manage" on mensajes;
+create policy "mensajes insert" on mensajes for insert with check (true);
+create policy "mensajes manage" on mensajes for all to authenticated using (true) with check (true);`
 
 type EventoRow = {
   id: string
@@ -94,6 +120,17 @@ type AccionRow = {
   detalle: string | null
   imagen: string | null
   orden: number | null
+}
+type MensajeRow = {
+  id: string
+  nombre: string
+  correo: string | null
+  telefono: string | null
+  lugar: string | null
+  motivo: string | null
+  mensaje: string
+  leido: boolean | null
+  created_at: string
 }
 
 const CATEGORIAS = ['Deporte', 'Educación', 'Comunidad', 'Economía local', 'Seguridad', 'Propuesta']
@@ -135,6 +172,11 @@ const FlagIcon = () => (
     <path d="M5 21V4m0 0c3-1.5 5 1.5 8 0s4-1.5 6 0v9c-2-1.5-3 .5-6 0s-5-1.5-8 0" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
+const InboxIcon = () => (
+  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+    <path d="M4 13h4l2 3h4l2-3h4M4 13l2.5-7h11L20 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-5z" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
 
 function fmtFecha(iso: string) {
   try {
@@ -146,38 +188,82 @@ function fmtFecha(iso: string) {
   }
 }
 
+function fmtFechaHora(iso: string) {
+  try {
+    return new Intl.DateTimeFormat('es-MX', {
+      day: '2-digit',
+      month: 'short',
+      hour: '2-digit',
+      minute: '2-digit',
+    }).format(new Date(iso))
+  } catch {
+    return iso
+  }
+}
+
 export default function Admin() {
-  const [tab, setTab] = useState<'agenda' | 'reels' | 'acciones'>('agenda')
+  const [tab, setTab] = useState<'agenda' | 'reels' | 'acciones' | 'mensajes'>('agenda')
   const [eventos, setEventos] = useState<EventoRow[]>([])
   const [reels, setReels] = useState<ReelRow[]>([])
   const [acciones, setAcciones] = useState<AccionRow[]>([])
+  const [mensajes, setMensajes] = useState<MensajeRow[]>([])
   const [ev, setEv] = useState<Omit<EventoRow, 'id'> & { id?: string }>({ ...EMPTY_EV })
   const [reel, setReel] = useState({ titulo: '', instagram_url: '' })
   const [ac, setAc] = useState<typeof EMPTY_AC & { id?: string }>({ ...EMPTY_AC })
   const [msg, setMsg] = useState('')
   const [busy, setBusy] = useState(false)
 
-  // Acceso por contraseña (puerta simple del panel)
-  const [authed, setAuthed] = useState(() => localStorage.getItem('mb_admin') === 'ok')
+  // Acceso con Supabase Auth (correo + contraseña validados por el servidor)
+  const [authed, setAuthed] = useState(sbHasSession())
+  const [checking, setChecking] = useState(true)
+  const [email, setEmail] = useState('')
   const [pw, setPw] = useState('')
-  const [pwErr, setPwErr] = useState(false)
-  const submitPw = async (e: FormEvent) => {
-    e.preventDefault()
-    if (await checkPassword(pw)) {
-      localStorage.setItem('mb_admin', 'ok')
-      setAuthed(true)
-    } else {
-      setPwErr(true)
-    }
-  }
+  const [pwErr, setPwErr] = useState('')
+  const [loggingIn, setLoggingIn] = useState(false)
 
   const load = () => {
     if (!supabaseEnabled) return
     sbSelect<EventoRow>('eventos', 'select=*&order=fecha.asc').then(setEventos).catch(() => {})
     sbSelect<ReelRow>('reels', 'select=*&order=orden.asc,created_at.desc').then(setReels).catch(() => {})
     sbSelect<AccionRow>('acciones', 'select=*&order=orden.asc,created_at.desc').then(setAcciones).catch(() => {})
+    sbSelect<MensajeRow>('mensajes', 'select=*&order=created_at.desc').then(setMensajes).catch(() => {})
   }
-  useEffect(load, [])
+
+  useEffect(() => {
+    let alive = true
+    ;(async () => {
+      const ok = await sbEnsureSession()
+      if (!alive) return
+      setAuthed(ok)
+      setChecking(false)
+      if (ok) load()
+    })()
+    return () => {
+      alive = false
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const submitPw = async (e: FormEvent) => {
+    e.preventDefault()
+    setLoggingIn(true)
+    setPwErr('')
+    try {
+      await sbSignIn(email.trim(), pw)
+      setAuthed(true)
+      setPw('')
+      load()
+    } catch (err) {
+      setPwErr((err as Error).message || 'No se pudo entrar.')
+    } finally {
+      setLoggingIn(false)
+    }
+  }
+
+  const logout = async () => {
+    await sbSignOut()
+    setAuthed(false)
+  }
 
   const flash = (t: string) => {
     setMsg(t)
@@ -244,7 +330,7 @@ export default function Admin() {
     }
   }
 
-  const del = async (table: 'eventos' | 'reels' | 'acciones', id: string, what: string) => {
+  const del = async (table: 'eventos' | 'reels' | 'acciones' | 'mensajes', id: string, what: string) => {
     if (!window.confirm(`¿Eliminar ${what}? No se puede deshacer.`)) return
     try {
       await sbDelete(table, id)
@@ -254,6 +340,18 @@ export default function Admin() {
       flash('Error: ' + (err as Error).message)
     }
   }
+
+  const marcarLeido = async (id: string, leido: boolean) => {
+    setMensajes((prev) => prev.map((m) => (m.id === id ? { ...m, leido } : m))) // optimista
+    try {
+      await sbUpdate('mensajes', id, { leido })
+    } catch (err) {
+      flash('Error: ' + (err as Error).message)
+      load()
+    }
+  }
+
+  const noLeidos = mensajes.filter((m) => !m.leido).length
 
   const tabBtn = (id: typeof tab, icon: ReactNode, txt: string, count: number) => (
     <button
@@ -268,36 +366,100 @@ export default function Admin() {
     </button>
   )
 
+  if (!supabaseEnabled) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-bone px-4 py-10 text-ink">
+        <Seo title="Panel de edición" path="/admin" description="Panel privado." noindex />
+        <div className="w-full max-w-xl rounded-2xl border border-accent/30 bg-white p-7">
+          <h1 className="font-display text-3xl text-ink">Panel de Marco</h1>
+          <h2 className="font-condensed mt-4 text-xl font-semibold text-accent">Falta conectar Supabase</h2>
+          <p className="mt-2 text-sm text-ink/80">
+            Ejecuta este SQL en el SQL Editor de Supabase y agrega{' '}
+            <code className="rounded bg-ink/5 px-1">VITE_SUPABASE_URL</code> y{' '}
+            <code className="rounded bg-ink/5 px-1">VITE_SUPABASE_ANON_KEY</code> en Vercel.
+          </p>
+          <pre className="mt-4 max-h-72 overflow-auto rounded-lg bg-ink p-4 text-xs leading-relaxed text-bone">
+            {SQL}
+          </pre>
+        </div>
+      </div>
+    )
+  }
+
+  if (checking) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-bone text-mute">
+        <Seo title="Panel de edición" path="/admin" description="Panel privado." noindex />
+        <p className="text-sm">Verificando acceso…</p>
+      </div>
+    )
+  }
+
   if (!authed) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-bone px-4 text-ink">
+      <div className="flex min-h-screen items-center justify-center bg-bone px-4 py-10 text-ink">
         <Seo title="Panel de edición" path="/admin" description="Panel privado." noindex />
-        <form
-          onSubmit={submitPw}
-          className="w-full max-w-sm rounded-2xl border border-ink/12 bg-white p-8 text-center shadow-[0_18px_40px_-28px_rgba(0,0,0,0.45)]"
-        >
-          <h1 className="font-display text-3xl text-ink">Panel de Marco</h1>
-          <p className="mt-2 text-sm text-mute">Ingresa la contraseña para editar el sitio.</p>
-          <input
-            type="password"
-            autoFocus
-            className={`${input} mt-6 text-center`}
-            placeholder="Contraseña"
-            value={pw}
-            onChange={(e) => {
-              setPw(e.target.value)
-              setPwErr(false)
-            }}
-          />
-          {pwErr && (
-            <p role="alert" className="mt-2 text-sm font-medium text-accent">
-              Contraseña incorrecta.
-            </p>
-          )}
-          <button type="submit" className={`${btn} mt-4 w-full`}>
-            Entrar
-          </button>
-        </form>
+        <div className="w-full max-w-sm">
+          <form
+            onSubmit={submitPw}
+            className="rounded-2xl border border-ink/12 bg-white p-8 shadow-[0_18px_40px_-28px_rgba(0,0,0,0.45)]"
+          >
+            <h1 className="font-display text-3xl text-ink">Panel de Marco</h1>
+            <p className="mt-2 text-sm text-mute">Inicia sesión para editar el sitio.</p>
+            <label className={`${label} mt-6`}>Correo</label>
+            <input
+              type="email"
+              autoComplete="username"
+              autoFocus
+              className={input}
+              placeholder="tucorreo@ejemplo.com"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value)
+                setPwErr('')
+              }}
+            />
+            <label className={`${label} mt-4`}>Contraseña</label>
+            <input
+              type="password"
+              autoComplete="current-password"
+              className={input}
+              placeholder="Tu contraseña"
+              value={pw}
+              onChange={(e) => {
+                setPw(e.target.value)
+                setPwErr('')
+              }}
+            />
+            {pwErr && (
+              <p role="alert" className="mt-3 text-sm font-medium text-accent">
+                {pwErr}
+              </p>
+            )}
+            <button type="submit" className={`${btn} mt-5 w-full`} disabled={loggingIn}>
+              {loggingIn ? 'Entrando…' : 'Entrar'}
+            </button>
+          </form>
+
+          <details className="mt-4 rounded-xl border border-ink/12 bg-white/70 p-4 text-sm text-ink/80">
+            <summary className="cursor-pointer font-semibold text-ink">
+              ¿Primera vez con el acceso seguro?
+            </summary>
+            <ol className="mt-3 list-decimal space-y-2 pl-5">
+              <li>
+                En Supabase → <strong>Authentication → Users → Add user</strong>: crea tu usuario con
+                correo y contraseña (activa “Auto Confirm User”).
+              </li>
+              <li>
+                En Supabase → <strong>SQL Editor</strong>, corre este SQL una sola vez para proteger el
+                contenido y crear el buzón de mensajes:
+              </li>
+            </ol>
+            <pre className="mt-3 max-h-64 overflow-auto rounded-lg bg-ink p-3 text-[11px] leading-relaxed text-bone">
+              {SQL_SECURE}
+            </pre>
+          </details>
+        </div>
       </div>
     )
   }
@@ -306,13 +468,11 @@ export default function Admin() {
     <div className="min-h-screen bg-bone px-4 py-10 text-ink md:px-8">
       <Seo title="Panel de edición" path="/admin" description="Panel privado de edición." noindex />
       <div className="mx-auto max-w-3xl">
-        <div className="mb-2 flex justify-end">
+        <div className="mb-2 flex items-center justify-end gap-3">
+          {sbAuthEmail() && <span className="text-xs text-mute">{sbAuthEmail()}</span>}
           <button
             type="button"
-            onClick={() => {
-              localStorage.removeItem('mb_admin')
-              setAuthed(false)
-            }}
+            onClick={logout}
             className="eyebrow text-mute transition-colors hover:text-accent"
           >
             Salir
@@ -344,10 +504,11 @@ export default function Admin() {
           </div>
         ) : (
           <>
-            <div className="mt-8 grid grid-cols-3 gap-2 rounded-xl border border-ink/12 bg-white p-1.5">
+            <div className="mt-8 grid grid-cols-2 gap-2 rounded-xl border border-ink/12 bg-white p-1.5 sm:grid-cols-4">
               {tabBtn('agenda', <CalIcon />, 'Agenda', eventos.length)}
               {tabBtn('reels', <PlayIcon />, 'Reels', reels.length)}
               {tabBtn('acciones', <FlagIcon />, 'Acciones', acciones.length)}
+              {tabBtn('mensajes', <InboxIcon />, 'Mensajes', mensajes.length)}
             </div>
 
             {msg && (
@@ -690,6 +851,78 @@ export default function Admin() {
                     )}
                   </ul>
                 </div>
+              </div>
+            )}
+
+            {/* ============ MENSAJES ============ */}
+            {tab === 'mensajes' && (
+              <div className="mt-6 space-y-4">
+                <div className="rounded-xl border border-ink/12 bg-white">
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-ink/10 px-6 py-4">
+                    <p className="font-condensed text-lg font-semibold uppercase tracking-wide text-ink">
+                      Mensajes recibidos ({mensajes.length})
+                    </p>
+                    {noLeidos > 0 && (
+                      <span className="rounded-full bg-accent/10 px-2.5 py-1 text-xs font-semibold text-accent">
+                        {noLeidos} sin leer
+                      </span>
+                    )}
+                  </div>
+                  <ul className="divide-y divide-ink/10">
+                    {mensajes.map((m) => (
+                      <li key={m.id} className={`px-6 py-5 ${m.leido ? '' : 'bg-accent/[0.04]'}`}>
+                        <div className="min-w-0">
+                          <p className="flex flex-wrap items-center gap-2 text-sm font-semibold text-ink">
+                            {!m.leido && (
+                              <span className="h-2 w-2 shrink-0 rounded-full bg-accent" aria-label="nuevo" />
+                            )}
+                            {m.nombre}
+                            {m.motivo && (
+                              <span className="rounded-full bg-ink/5 px-2 py-0.5 text-xs font-medium text-mute">
+                                {m.motivo}
+                              </span>
+                            )}
+                          </p>
+                          <p className="mt-0.5 text-xs text-mute">
+                            {fmtFechaHora(m.created_at)}
+                            {m.lugar ? ` · ${m.lugar}` : ''}
+                          </p>
+                        </div>
+                        <p className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-ink/90">{m.mensaje}</p>
+                        <div className="mt-4 flex flex-wrap items-center gap-2">
+                          {m.correo && (
+                            <a
+                              className={btnGhost}
+                              href={`mailto:${m.correo}?subject=${encodeURIComponent('Re: tu mensaje a Marco Balseca')}`}
+                            >
+                              Responder por correo
+                            </a>
+                          )}
+                          {m.telefono && (
+                            <a className={btnGhost} href={`tel:${m.telefono.replace(/\s/g, '')}`}>
+                              {m.telefono}
+                            </a>
+                          )}
+                          <button className={btnGhost} onClick={() => marcarLeido(m.id, !m.leido)}>
+                            {m.leido ? 'Marcar como no leído' : 'Marcar como leído'}
+                          </button>
+                          <button className={btnDanger} onClick={() => del('mensajes', m.id, 'este mensaje')}>
+                            Eliminar
+                          </button>
+                        </div>
+                      </li>
+                    ))}
+                    {mensajes.length === 0 && (
+                      <li className="px-6 py-8 text-center text-sm text-mute">
+                        Aún no hay mensajes. Cuando alguien escriba desde la página de{' '}
+                        <strong>Contacto</strong>, aparecerá aquí.
+                      </li>
+                    )}
+                  </ul>
+                </div>
+                <p className="px-1 text-xs text-mute">
+                  Los mensajes son privados: solo se ven aquí, con tu sesión iniciada.
+                </p>
               </div>
             )}
           </>
