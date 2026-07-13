@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion, useReducedMotion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { RevealText } from '../../components/ui/RevealText'
 import { ButtonLink } from '../../components/ui/Button'
 import { ScrollIndicator } from '../../components/ui/ScrollIndicator'
@@ -39,6 +39,24 @@ export function Hero() {
   const photoRef = useParallax<HTMLDivElement>(36)
   const year = new Date().getFullYear()
 
+  // Micro-interacción: la foto se inclina en 3D siguiendo el mouse (solo
+  // transform + springs = fluido; se desactiva con reduced-motion).
+  const px = useMotionValue(0)
+  const py = useMotionValue(0)
+  const spring = { stiffness: 140, damping: 18, mass: 0.4 }
+  const rotY = useSpring(useTransform(px, [-0.5, 0.5], [-7, 7]), spring)
+  const rotX = useSpring(useTransform(py, [-0.5, 0.5], [5, -5]), spring)
+  const onMove = (e: React.MouseEvent<HTMLElement>) => {
+    if (reduce) return
+    const r = e.currentTarget.getBoundingClientRect()
+    px.set((e.clientX - r.left) / r.width - 0.5)
+    py.set((e.clientY - r.top) / r.height - 0.5)
+  }
+  const onLeave = () => {
+    px.set(0)
+    py.set(0)
+  }
+
   const appear = (delay: number) =>
     reduce
       ? {}
@@ -49,7 +67,7 @@ export function Hero() {
         }
 
   return (
-    <section className="relative overflow-hidden bg-white text-ink">
+    <section onMouseMove={onMove} onMouseLeave={onLeave} className="relative overflow-hidden bg-white text-ink">
       {/* Textura editorial ESTÁTICA (sin animación, sin crema): malla de puntos
           concentrada en el área inferior-izquierda + retícula fina. Da interés
           al fondo sin competir con el nombre ni meter color. */}
@@ -83,8 +101,11 @@ export function Hero() {
       >
         {INDEX.map((it) => (
           <Link key={it.to} to={it.to} className="group flex items-center gap-2">
+            <span aria-hidden className="h-px w-0 bg-accent transition-all duration-300 group-hover:w-5" />
             <span className="eyebrow text-mute transition-colors group-hover:text-accent">{it.n}</span>
-            <span className="eyebrow text-ink transition-colors group-hover:text-accent">{it.label}</span>
+            <span className="eyebrow text-ink transition-all duration-300 group-hover:-translate-x-0.5 group-hover:text-accent">
+              {it.label}
+            </span>
           </Link>
         ))}
       </nav>
@@ -157,7 +178,7 @@ export function Hero() {
                       target="_blank"
                       rel="noreferrer"
                       aria-label={label}
-                      className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 text-ink/70 transition-colors hover:border-accent hover:text-accent"
+                      className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 text-ink/70 transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:border-accent hover:text-accent"
                     >
                       <Icon className="h-5 w-5" />
                     </a>
@@ -197,17 +218,22 @@ export function Hero() {
             ref={photoRef}
             className="relative mt-8 lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:-mt-[20vw]"
           >
-            {/* Montaje de fotos reales (no hay MP4 todavía). Para activar un
-                video real, vuelve a pasar videoSrc={{ mp4, webm }} con el archivo
-                subido a /assets/video/. Sin videoSrc evitamos una request 404. */}
-            <HeroVideo
-              photos={HERO_SLIDES}
-              caption="En territorio · Tehuacán, Puebla"
-              poster="/assets/portraits/marco-formal.jpg"
-              className="aspect-[4/5] w-full shadow-[0_30px_60px_-25px_rgba(0,0,0,0.5)]"
-            />
-            {/* marco accent fino (ref. Yeezy) */}
-            <span aria-hidden className="pointer-events-none absolute inset-3 z-20 border border-accent md:inset-4" />
+            <motion.div
+              className="relative"
+              style={{ rotateX: reduce ? 0 : rotX, rotateY: reduce ? 0 : rotY, transformPerspective: 1000 }}
+            >
+              {/* Montaje de fotos reales (no hay MP4 todavía). Para activar un
+                  video real, vuelve a pasar videoSrc={{ mp4, webm }} con el archivo
+                  subido a /assets/video/. Sin videoSrc evitamos una request 404. */}
+              <HeroVideo
+                photos={HERO_SLIDES}
+                caption="En territorio · Tehuacán, Puebla"
+                poster="/assets/portraits/marco-formal.jpg"
+                className="aspect-[4/5] w-full shadow-[0_30px_60px_-25px_rgba(0,0,0,0.5)]"
+              />
+              {/* marco accent fino (ref. Yeezy) */}
+              <span aria-hidden className="pointer-events-none absolute inset-3 z-20 border border-accent md:inset-4" />
+            </motion.div>
           </div>
 
           {/* B2 — prensa (en móvil va tras el video) */}

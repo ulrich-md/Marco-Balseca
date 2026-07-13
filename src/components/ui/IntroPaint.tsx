@@ -10,7 +10,6 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
    - Ligera: SVG + framer-motion (ya en el stack). Sin WebGL.
    ========================================================================= */
 
-const SEEN_KEY = 'mb_intro_seen'
 const EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1]
 const ACCENT = '#e1251b'
 
@@ -23,23 +22,14 @@ export function IntroPaint() {
   const [show, setShow] = useState(() => {
     if (typeof window === 'undefined') return false
     if (window.location.pathname.startsWith('/admin')) return false // no en el panel
-    try {
-      return sessionStorage.getItem(SEEN_KEY) !== '1'
-    } catch {
-      return false
-    }
+    return true // se muestra en cada carga/refresh (no en navegación interna SPA)
   })
   const [leaving, setLeaving] = useState(false)
   const [ready, setReady] = useState(false)
 
-  // Marca como vista y bloquea el scroll mientras dura.
+  // Bloquea el scroll mientras dura la intro.
   useEffect(() => {
     if (!show) return
-    try {
-      sessionStorage.setItem(SEEN_KEY, '1')
-    } catch {
-      /* almacenamiento no disponible */
-    }
     const html = document.documentElement
     const prev = html.style.overflow
     html.style.overflow = 'hidden'

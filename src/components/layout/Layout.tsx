@@ -3,6 +3,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useLocation, useOutlet } from 'react-router-dom'
 import { Header } from './Header'
 import { Footer } from './Footer'
+import { CornerGlyphs } from '../ui/CornerGlyphs'
 import { pageTransition } from '../../lib/motion'
 
 /** Estructura compartida: header fijo, transición de página y footer. */
@@ -13,6 +14,7 @@ export function Layout() {
 
   return (
     <div className="flex min-h-screen flex-col">
+      <CornerGlyphs />
       <Header />
       <AnimatePresence mode="wait" initial={false}>
         <motion.main
