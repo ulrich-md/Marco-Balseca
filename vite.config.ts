@@ -29,4 +29,17 @@ export default defineConfig({
     __SB_URL__: JSON.stringify(SB_URL),
     __SB_KEY__: JSON.stringify(SB_KEY),
   },
+  build: {
+    // Separa los vendors pesados en chunks cacheables: el navegador los
+    // descarga en paralelo y los reutiliza entre páginas/visitas.
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom', 'react-router-dom'],
+          motion: ['framer-motion'],
+          scroll: ['gsap', 'lenis'],
+        },
+      },
+    },
+  },
 })

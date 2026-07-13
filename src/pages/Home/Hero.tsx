@@ -197,10 +197,12 @@ export function Hero() {
             ref={photoRef}
             className="relative mt-8 lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:-mt-[20vw]"
           >
+            {/* Montaje de fotos reales (no hay MP4 todavía). Para activar un
+                video real, vuelve a pasar videoSrc={{ mp4, webm }} con el archivo
+                subido a /assets/video/. Sin videoSrc evitamos una request 404. */}
             <HeroVideo
               photos={HERO_SLIDES}
               caption="En territorio · Tehuacán, Puebla"
-              videoSrc={{ mp4: '/assets/video/marco-reel.mp4', webm: '/assets/video/marco-reel.webm' }}
               poster="/assets/portraits/marco-formal.jpg"
               className="aspect-[4/5] w-full shadow-[0_30px_60px_-25px_rgba(0,0,0,0.5)]"
             />

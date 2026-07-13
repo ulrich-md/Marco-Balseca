@@ -15,24 +15,43 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (prefersReducedMotion()) return
 
-    const lenis = new Lenis({
-      duration: 1.05, // suave pero ágil, sin sensación de "freno"
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 1.4,
-    })
-    lenisInstance = lenis
+    let lenis: Lenis | null = null
+    let onTick: ((time: number) => void) | null = null
 
-    // Lenis maneja el rAF a través del ticker de GSAP (una sola fuente de verdad)
-    lenis.on('scroll', ScrollTrigger.update)
-    const onTick = (time: number) => lenis.raf(time * 1000)
-    gsap.ticker.add(onTick)
-    gsap.ticker.lagSmoothing(0)
+    const start = () => {
+      lenis = new Lenis({
+        duration: 1.05, // suave pero ágil, sin sensación de "freno"
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        touchMultiplier: 1.4,
+      })
+      lenisInstance = lenis
+
+      // Lenis maneja el rAF a través del ticker de GSAP (una sola fuente de verdad)
+      lenis.on('scroll', ScrollTrigger.update)
+      onTick = (time: number) => lenis!.raf(time * 1000)
+      gsap.ticker.add(onTick)
+      gsap.ticker.lagSmoothing(0)
+    }
+
+    // Difiere el arranque hasta que el hilo principal esté libre (después de la
+    // intro), para que esa animación no compita con el rAF de Lenis. Tope: 2.2 s.
+    const ric = (window as Window & {
+      requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number
+      cancelIdleCallback?: (id: number) => void
+    }).requestIdleCallback
+    let idleId = 0
+    let toId = 0
+    if (ric) idleId = ric(start, { timeout: 2200 })
+    else toId = window.setTimeout(start, 1200)
 
     return () => {
-      gsap.ticker.remove(onTick)
-      lenis.destroy()
+      const w = window as Window & { cancelIdleCallback?: (id: number) => void }
+      if (idleId) w.cancelIdleCallback?.(idleId)
+      if (toId) window.clearTimeout(toId)
+      if (onTick) gsap.ticker.remove(onTick)
+      lenis?.destroy()
       lenisInstance = null
     }
   }, [])
