@@ -10,9 +10,9 @@ import { RollingNumber } from './RollingNumber'
    suba mientras se mira. Afina BASE/STEP_MS o conéctalo a datos reales
    (Instagram/Meta) cuando los tengas.
    ========================================================================= */
-const LAUNCH = Date.UTC(2026, 5, 20) // 20 jun 2026 (arranca ~15,000)
+const LAUNCH = Date.UTC(2026, 6, 20) // 20 jul 2026 → hoy arranca en ~15,000
 const BASE = 15000 // punto de partida creíble (~15 mil)
-const SEED_STEP_MS = 60000 // crecimiento persistente lento (+1/min) → creíble día a día
+const SEED_STEP_MS = 120000 // crecimiento persistente suave (+1 cada ~2 min → ~720/día) para que suba sin dispararse
 
 /** Valor "actual" anclado al tiempo (consistente entre recargas). */
 function seedNow() {
