@@ -8,7 +8,7 @@ import { LiveCounter } from '../../components/ui/LiveCounter'
 import { CommunityAvatars } from '../../components/ui/CommunityAvatars'
 import { InstagramIcon, FacebookIcon, XIcon } from '../../components/ui/Icons'
 import { useParallax } from '../../lib/useParallax'
-import { SITE, SOCIAL, JUNTAS_AUXILIARES, COLONIAS_RECORRIDAS } from '../../data/site'
+import { SOCIAL, JUNTAS_AUXILIARES, COLONIAS_RECORRIDAS } from '../../data/site'
 
 const HERO_SOCIAL = [
   { Icon: InstagramIcon, ...SOCIAL.instagram },
@@ -19,9 +19,9 @@ const HERO_SOCIAL = [
 const INDEX = [
   { n: '01', label: 'Conóceme', to: '/conoceme' },
   { n: '02', label: 'Trayectoria', to: '/trayectoria' },
-  { n: '03', label: 'Acciones', to: '/acciones' },
-  { n: '04', label: 'Reels', to: '/reels' },
-  { n: '05', label: 'Agenda', to: '/agenda' },
+  { n: '03', label: 'Reels', to: '/reels' },
+  { n: '04', label: 'Agenda', to: '/agenda' },
+  { n: '05', label: 'Contacto', to: '/contacto' },
 ]
 
 // Fotos REALES para el "video" principal del hero (montaje; usa el MP4 real
@@ -114,8 +114,8 @@ export function Hero() {
         {/* Meta superior (mono) */}
         <motion.div {...appear(0)} className="flex items-center justify-between border-b border-ink/15 pb-4">
           <span className="eyebrow text-accent">Marco Balseca</span>
-          <span className="eyebrow text-mute">
-            {SITE.ciudad}, {SITE.estado} · {year}
+          <span className="eyebrow text-right text-mute">
+            Delegado de Gobernación del Estado de Puebla · {year}
           </span>
         </motion.div>
 
@@ -124,10 +124,10 @@ export function Hero() {
           {/* Acento rojo vertical (ref. ESPN) */}
           <span
             aria-hidden
-            className="font-display pointer-events-none absolute -left-1 top-1 z-0 hidden select-none text-[7vw] leading-none text-accent lg:block"
+            className="font-display pointer-events-none absolute -left-1 top-1 z-0 hidden select-none text-[4.6vw] leading-none text-accent lg:block"
             style={{ writingMode: 'vertical-rl' }}
           >
-            TEHUACÁN
+            MICRORREGIÓN 25
           </span>
           <h1 className="relative z-20 lg:pl-[9vw]">
             <RevealText
@@ -155,8 +155,9 @@ export function Hero() {
           {/* A — copy + CTA + redes */}
           <div className="lg:col-start-1 lg:row-start-1 lg:pl-[9vw] lg:pt-4">
             <motion.p {...appear(0.45)} className="max-w-xl text-lg text-ink/75 md:text-xl">
-              Soy abogado y emprendedor de Tehuacán, hoy delegado de Gobernación de la microrregión
-              25. {SITE.tagline} Acciones de comunidad, todos los días.
+              Soy Marco Balseca: abogado y maestro en Administración, con 30 años en la vida
+              pública. Hoy, delegado de Gobernación del Estado de Puebla en la microrregión 25. Mi
+              trabajo es en territorio, todos los días.
             </motion.p>
 
             <motion.div {...appear(0.55)} className="mt-7">
@@ -213,26 +214,34 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Media principal: VIDEO. En móvil va tras el contador. */}
+          {/* Media principal: VIDEO en pantalla de teléfono. En móvil va tras el contador. */}
           <div
             ref={photoRef}
-            className="relative mt-8 lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:-mt-[20vw]"
+            className="relative mt-8 lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:-mt-[13vw]"
           >
             <motion.div
-              className="relative"
+              className="relative mx-auto w-full max-w-[280px] lg:max-w-[330px]"
               style={{ rotateX: reduce ? 0 : rotX, rotateY: reduce ? 0 : rotY, transformPerspective: 1000 }}
             >
-              {/* Montaje de fotos reales (no hay MP4 todavía). Para activar un
-                  video real, vuelve a pasar videoSrc={{ mp4, webm }} con el archivo
-                  subido a /assets/video/. Sin videoSrc evitamos una request 404. */}
-              <HeroVideo
-                photos={HERO_SLIDES}
-                caption="En territorio · Tehuacán, Puebla"
-                poster="/assets/portraits/marco-formal.jpg"
-                className="aspect-[4/5] w-full shadow-[0_30px_60px_-25px_rgba(0,0,0,0.5)]"
-              />
-              {/* marco accent fino (ref. Yeezy) */}
-              <span aria-hidden className="pointer-events-none absolute inset-3 z-20 border border-accent md:inset-4" />
+              {/* Carcasa del teléfono (bezel + botones + dynamic island) */}
+              <div className="relative rounded-[2.7rem] bg-black p-2.5 shadow-[0_35px_70px_-25px_rgba(0,0,0,0.55)] ring-1 ring-black/20">
+                <span aria-hidden className="absolute -left-[3px] top-24 h-9 w-[3px] rounded-l-sm bg-black" />
+                <span aria-hidden className="absolute -left-[3px] top-36 h-14 w-[3px] rounded-l-sm bg-black" />
+                <span aria-hidden className="absolute -right-[3px] top-28 h-16 w-[3px] rounded-r-sm bg-black" />
+                <div className="relative overflow-hidden rounded-[2.1rem]">
+                  {/* Montaje de fotos reales (no hay MP4 todavía). Para activar un
+                      video real, vuelve a pasar videoSrc={{ mp4, webm }} con el
+                      archivo subido a /assets/video/. */}
+                  <HeroVideo
+                    photos={HERO_SLIDES}
+                    caption="En territorio · Tehuacán, Puebla"
+                    poster="/assets/portraits/marco-formal.jpg"
+                    className="aspect-[9/19] w-full"
+                  />
+                  {/* dynamic island */}
+                  <span aria-hidden className="absolute left-1/2 top-2.5 z-30 h-[22px] w-24 -translate-x-1/2 rounded-full bg-black" />
+                </div>
+              </div>
             </motion.div>
           </div>
 

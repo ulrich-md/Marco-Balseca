@@ -109,7 +109,7 @@ export function HeroVideo({ photos, caption, videoSrc, poster, className = '', i
       <div aria-hidden className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/75 to-transparent" />
       <span aria-hidden className="pointer-events-none absolute inset-2.5 border border-white/10" />
 
-      <div className="absolute left-3 top-3 flex items-center gap-2">
+      <div className="absolute left-3 top-9 flex items-center gap-2">
         <span aria-hidden className="relative flex h-2 w-2">
           <span className="animate-live-pulse absolute inline-flex h-full w-full rounded-full bg-accent" />
           <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />

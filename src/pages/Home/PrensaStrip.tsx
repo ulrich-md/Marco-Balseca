@@ -51,7 +51,7 @@ const NOTAS: Nota[] = [
     etiqueta: '#DelegadosEnTerritorio',
     titulo: 'Entrevista con Marco Antonio Balseca Romero',
     resumen:
-      'El trabajo de calle del delegado en la microrregión 25: recorridos por las colonias, escucha vecinal y atención cercana, una a una.',
+      'El trabajo en territorio del delegado en la microrregión 25: recorridos por las colonias, escucha vecinal y atención cercana, una a una.',
     url: 'https://www.facebook.com/61572253138907/videos/1287605396616409/',
   },
   {
@@ -158,7 +158,7 @@ export function PrensaStrip() {
                 En la prensa
               </p>
               <p className="mt-1 text-sm text-ink/60">
-                Su trabajo en la calle, contado por la prensa de Tehuacán.
+                Su trabajo en territorio, contado por la prensa de Tehuacán.
               </p>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">

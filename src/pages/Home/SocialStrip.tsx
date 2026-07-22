@@ -29,7 +29,7 @@ export function SocialStrip() {
           />
           <Reveal delay={0.1}>
             <p className="mt-5 max-w-md text-lg text-white/65">
-              Así vivo el día a día: en la calle, con la gente, colonia por colonia. Sígueme en
+              Así vivo el día a día: en territorio, con la gente, colonia por colonia. Sígueme en
               Instagram y caminemos juntos.
             </p>
           </Reveal>

@@ -5,7 +5,7 @@ import { Hero } from './Hero'
 import { PrensaStrip } from './PrensaStrip'
 import { StatsBand } from './StatsBand'
 import { TrayectoriaTeaser } from './TrayectoriaTeaser'
-import { AccionesTeaser } from './AccionesTeaser'
+import { Testimonios } from './Testimonios'
 import { ReelsStrip } from './ReelsStrip'
 import { ComunidadStrip } from './ComunidadStrip'
 import { SocialStrip } from './SocialStrip'
@@ -24,7 +24,7 @@ export default function Home() {
       <Marquee tone="dark" />
       <StatsBand />
       <TrayectoriaTeaser />
-      <AccionesTeaser />
+      <Testimonios />
       <ReelsStrip />
       <ComunidadStrip />
       <SocialStrip />

@@ -15,14 +15,14 @@ export default function Reels() {
       <Seo
         title="Reels"
         path="/reels"
-        description="Reels de Marco Balseca: momentos en la calle, con la comunidad. Contenido oficial de @marcobalseca1."
+        description="Reels de Marco Balseca: momentos en territorio, con la comunidad. Contenido oficial de @marcobalseca1."
       />
 
       <PageHero
         index="05"
         label="Reels"
-        title="En la calle"
-        intro="Aquí me ves en la calle, con la gente: atención a vecinos, jornadas, deporte y la fiesta del Mundial en Tehuacán. Reels oficiales de @marcobalseca1, directo desde Instagram."
+        title="En territorio"
+        intro="Aquí me ves en territorio, con la gente: atención a vecinos, jornadas, deporte y la fiesta del Mundial en Tehuacán. Reels oficiales de @marcobalseca1, directo desde Instagram."
       >
         <div className="mt-8">
           <ButtonAnchor href={SOCIAL.instagram.url} tone="accent" variant="outline" arrow>

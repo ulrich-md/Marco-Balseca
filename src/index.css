@@ -7,10 +7,10 @@
    (estado activo, marco, reglas, etiquetas, CTA). Sin crema ni café.
    ========================================================================= */
 @theme {
-  /* ---- Acento único (rojo editorial, ref. ESPN/Yeezy) ---- */
-  --color-accent: #e1251b; /* rojo de acento (único color del sistema) */
-  --color-accent-deep: #b81c12; /* hover/pressed */
-  --color-accent-soft: #f23b2e; /* acento más vivo */
+  /* ---- Acento único (GUINDA — paleta institucional 4T) ---- */
+  --color-accent: #9f2241; /* guinda de acento (único color del sistema) */
+  --color-accent-deep: #7e1b34; /* hover/pressed */
+  --color-accent-soft: #b93a5c; /* acento más vivo */
 
   /* ---- Base neutra B&N ---- */
   --color-black: #0b0b0b; /* negro real: campos oscuros, footer, CTA, menú */
@@ -21,10 +21,11 @@
   --color-mute: #5e5e5e; /* gris secundario (AA sobre blanco) */
   --color-line: #1616161f; /* líneas finas */
 
-  /* ---- Tipografía ---- */
-  --font-display: 'Anton', 'Oswald', 'Arial Narrow', system-ui, sans-serif;
-  --font-condensed: 'Oswald', 'Arial Narrow', system-ui, sans-serif;
-  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* ---- Tipografía (marca Marco: League Spartan títulos / Poppins cuerpo,
+     sustituto libre de Garet) ---- */
+  --font-display: 'League Spartan', 'Arial Narrow', system-ui, sans-serif;
+  --font-condensed: 'League Spartan', 'Arial Narrow', system-ui, sans-serif;
+  --font-sans: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
 
   /* ---- Easing ---- */
@@ -115,12 +116,14 @@
    Utilidades de marca
    ========================================================================= */
 @layer utilities {
-  /* Display gigante de cartel */
+  /* Display gigante de cartel. League Spartan necesita peso 800 explícito
+     (Anton era "bold" de fábrica) y un tracking un poco más apretado. */
   .font-display {
     font-family: var(--font-display);
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: -0.01em;
-    line-height: 0.86;
+    letter-spacing: -0.02em;
+    line-height: 0.9;
   }
   .font-condensed {
     font-family: var(--font-condensed);

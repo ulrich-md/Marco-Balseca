@@ -31,8 +31,8 @@ export default function Agenda() {
       <PageHero
         index="06"
         label="Agenda y eventos"
-        title={'Nos vemos\nen la calle'}
-        intro="Aquí te comparto mis próximos recorridos, encuentros y jornadas por las colonias de Tehuacán. Las fechas marcadas como tentativas las confirmo en cuanto cierro sede y hora: nos vemos en la calle."
+        title={'Nos vemos\nen territorio'}
+        intro="Aquí te comparto mis próximos recorridos, encuentros y jornadas por las colonias de Tehuacán. Las fechas marcadas como tentativas las confirmo en cuanto cierro sede y hora: nos vemos en territorio."
       />
 
       <section className="bg-bone py-16 text-ink md:py-24">

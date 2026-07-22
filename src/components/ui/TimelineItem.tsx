@@ -28,7 +28,7 @@ export function TimelineItem({ hito, index, orientation }: Props) {
       />
       <div className="rounded-2xl border border-ink/10 bg-white p-7 md:p-8">
         <div className="flex items-baseline justify-between gap-4">
-          <span className="font-display text-4xl leading-none text-ink md:text-5xl">
+          <span className="font-display text-4xl leading-none text-accent md:text-5xl">
             {hito.anio}
           </span>
           <span className="font-display text-3xl leading-none text-ink/12">

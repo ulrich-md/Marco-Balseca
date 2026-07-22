@@ -23,7 +23,6 @@ export const NAV = [
   { label: 'Inicio', to: '/' },
   { label: 'Conóceme', to: '/conoceme' },
   { label: 'Trayectoria', to: '/trayectoria' },
-  { label: 'Acciones', to: '/acciones' },
   { label: 'Reels', to: '/reels' },
   { label: 'Agenda', to: '/agenda' },
   { label: 'Contacto', to: '/contacto' },
@@ -51,11 +50,11 @@ export const SOCIAL = {
 
 /** Cifras clave (count-up). Las verificables van exactas; la de colonias es
  *  un estimado honesto en formato "+ de" (Tehuacán tiene 200+ colonias).
- *  · +15 años: desde 2010, cuando di mi primer paso en la vida pública.
+ *  · 30 años: desde el Frente Juvenil (a los 15 años) hasta hoy.
  *  · +100 colonias recorridas, casa por casa.
  *  · 12: juntas auxiliares en que se divide el municipio de Tehuacán. */
 export const STATS = [
-  { value: 15, suffix: '+', label: 'Años en la vida pública de Tehuacán', placeholder: '' },
+  { value: 30, suffix: '', label: 'Años en la vida pública', placeholder: '' },
   { value: 100, suffix: '+', label: 'Colonias recorridas, casa por casa', placeholder: '' },
   { value: 12, suffix: '', label: 'Juntas auxiliares que forman mi Tehuacán', placeholder: '' },
 ] as const
@@ -104,6 +103,6 @@ export const PILARES = [
     num: '04',
     titulo: 'Cercanía',
     texto:
-      'Hago las cosas de tú a tú, sin distancia. La política de verdad se hace en la calle, con nombre y apellido. Si tienes algo que decirme, aquí estoy: contigo.',
+      'Hago las cosas de tú a tú, sin distancia. La política de verdad se hace en territorio, con nombre y apellido. Si tienes algo que decirme, aquí estoy: contigo.',
   },
 ] as const

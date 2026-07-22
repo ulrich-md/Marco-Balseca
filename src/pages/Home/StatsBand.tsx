@@ -17,7 +17,7 @@ export function StatsBand() {
               Soy Marco Balseca: abogado, con maestría en administración (MBA), y emprendedor con
               raíces hondas en Tehuacán. Vengo de una familia que ayudó a construir el Tehuacán del
               agua mineral y del servicio público. Hoy soy delegado de Gobernación de la microrregión
-              25, y mi trabajo es de calle: recorro las colonias, escucho a vecinas y vecinos e
+              25, y mi trabajo es en territorio: recorro las colonias, escucho a vecinas y vecinos e
               impulso acciones de comunidad. Mi manera de hacer las cosas es sencilla: escuchar
               primero, resolver después.
             </p>

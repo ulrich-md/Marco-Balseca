@@ -11,7 +11,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
    ========================================================================= */
 
 const EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1]
-const ACCENT = '#e1251b'
+const ACCENT = '#9f2241'
 
 // Pincelada-subrayado (trazo horizontal con vida). El filtro de turbulencia
 // le da el borde rugoso de brocha seca.
@@ -38,7 +38,7 @@ export function IntroPaint() {
     }
   }, [show])
 
-  // Espera (con tope) a que Anton esté lista, para que el wordmark salga nítido
+  // Espera (con tope) a que League Spartan esté lista, para que el wordmark salga nítido
   // y sin "salto" de fuente. La intro tapa la página justo mientras carga.
   useEffect(() => {
     if (!show) return
@@ -51,7 +51,7 @@ export function IntroPaint() {
     }
     try {
       const fonts = (document as Document & { fonts?: { load: (f: string) => Promise<unknown> } }).fonts
-      fonts?.load('1em "Anton"').then(go, go)
+      fonts?.load('800 1em "League Spartan"').then(go, go)
     } catch {
       go()
     }

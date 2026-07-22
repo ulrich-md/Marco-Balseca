@@ -9,8 +9,6 @@ import { IntroPaint } from './components/ui/IntroPaint'
 import Home from './pages/Home'
 const Conoceme = lazy(() => import('./pages/Conoceme'))
 const Trayectoria = lazy(() => import('./pages/Trayectoria'))
-const Acciones = lazy(() => import('./pages/Acciones'))
-const AccionDetalle = lazy(() => import('./pages/AccionDetalle'))
 const Reels = lazy(() => import('./pages/Reels'))
 const Agenda = lazy(() => import('./pages/Agenda'))
 const Contacto = lazy(() => import('./pages/Contacto'))
@@ -38,8 +36,6 @@ export function App() {
             <Route index element={<Home />} />
             <Route path="conoceme" element={<Conoceme />} />
             <Route path="trayectoria" element={<Trayectoria />} />
-            <Route path="acciones" element={<Acciones />} />
-            <Route path="acciones/:slug" element={<AccionDetalle />} />
             <Route path="reels" element={<Reels />} />
             <Route path="agenda" element={<Agenda />} />
             <Route path="contacto" element={<Contacto />} />

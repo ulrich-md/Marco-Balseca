@@ -1,7 +1,9 @@
 /* Hitos de trayectoria — reales y verificables, en primera persona.
    Anclas: 1943 (agua mineral Balseca), 1981–1984 (mi padre, presidente
-   municipal de Tehuacán), 2010 (mi primer paso en la vida pública),
-   2024 (delegado de Gobernación, microrregión 25) y el presente. */
+   municipal de Tehuacán), el Frente Juvenil a los 15 años (primer paso
+   público, 30 años en la vida pública), la etapa nacional (2012–2018:
+   campaña de Manuel Velasco, asesores del Gobernador, INAES) y hoy:
+   delegado de Gobernación del Estado de Puebla, microrregión 25. */
 
 export type Hito = {
   anio: string
@@ -26,17 +28,45 @@ export const TRAYECTORIA: Hito[] = [
     lugar: 'Tehuacán, Puebla',
   },
   {
-    anio: '2010',
-    titulo: 'Mi primer paso en la vida pública',
+    anio: 'A los 15',
+    titulo: 'Mi primer paso público',
     texto:
-      'Ya formado como abogado —con maestría en administración— y como emprendedor, di mi primer paso en la vida pública compitiendo por la presidencia municipal. Aprendí lo más importante: servir es, antes que nada, escuchar.',
+      'A los 15 años fui líder del Frente Juvenil Revolucionario en el estado de Puebla. Ahí empezó todo: aprender a organizar, a caminar el territorio y a escuchar. Son ya 30 años en la vida pública y no he dejado de hacerlo.',
+    lugar: 'Puebla',
+  },
+  {
+    anio: '2010',
+    titulo: 'La lección de escuchar',
+    texto:
+      'Ya formado como abogado —y maestro en administración— y como emprendedor, competí por la presidencia municipal de Tehuacán. Aprendí lo más importante: servir es, antes que nada, escuchar.',
     lugar: 'Tehuacán, Puebla',
+  },
+  {
+    anio: '2012',
+    titulo: 'Primera encomienda',
+    texto:
+      'Fui coordinador de campaña de Manuel Velasco Coello. Una escuela intensa de organización, territorio y resultados que me abrió la etapa nacional de mi carrera.',
+    lugar: 'Chiapas',
+  },
+  {
+    anio: '2013',
+    titulo: 'Del gabinete al territorio',
+    texto:
+      'Coordinador de asesores del Gobernador y, ese mismo año, nombrado delegado del INAES en Chiapas: economía social para que el apoyo llegara a quien trabaja, no a quien tramita.',
+    lugar: 'Chiapas',
+  },
+  {
+    anio: '2017',
+    titulo: 'Director Nacional de Planeación del INAES',
+    texto:
+      'De 2017 a 2018 dirigí la planeación nacional del INAES: planear a escala de país me confirmó que las soluciones de verdad se diseñan desde el territorio, no desde el escritorio.',
+    lugar: 'Ciudad de México',
   },
   {
     anio: '2024',
     titulo: 'Delegado de Gobernación · microrregión 25',
     texto:
-      'Hoy soy delegado de Gobernación de la microrregión 25 de Tehuacán. Mi trabajo es de calle: recorro las colonias, escucho a vecinas y vecinos y acerco soluciones, una a una, donde de verdad se necesitan.',
+      'Hoy soy delegado de Gobernación del Estado de Puebla en la microrregión 25. Mi trabajo es en territorio: recorro las colonias, escucho a vecinas y vecinos y acerco soluciones, una a una, donde de verdad se necesitan.',
     lugar: 'Tehuacán, Puebla',
   },
   {
