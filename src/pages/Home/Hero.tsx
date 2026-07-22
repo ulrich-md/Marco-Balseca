@@ -113,29 +113,19 @@ export function Hero() {
       <div className="container-x relative z-10 pt-20 lg:pt-16">
         {/* Meta superior (mono) */}
         <motion.div {...appear(0)} className="flex items-center justify-between border-b border-ink/15 pb-4">
-          <span className="eyebrow text-accent">Marco Balseca</span>
-          <span className="eyebrow text-right text-mute">
-            Delegado de Gobernación del Estado de Puebla · {year}
-          </span>
+          <span className="eyebrow text-accent">Tehuacán · Puebla</span>
+          <span className="eyebrow text-right text-mute">{year}</span>
         </motion.div>
 
-        {/* Titular gigante — el NOMBRE es el héroe */}
-        <div className="relative mt-5 lg:mt-4">
-          {/* Acento rojo vertical (ref. ESPN) */}
-          <span
-            aria-hidden
-            className="font-display pointer-events-none absolute -left-1 top-1 z-0 hidden select-none text-[4.6vw] leading-none text-accent lg:block"
-            style={{ writingMode: 'vertical-rl' }}
-          >
-            MICRORREGIÓN 25
-          </span>
-          <h1 className="relative z-20 lg:pl-[9vw]">
+        {/* Titular gigante — el NOMBRE es el héroe, con el cargo completo al lado */}
+        <div className="relative mt-6 lg:mt-5">
+          <h1 className="relative z-20">
             <RevealText
               as="span"
               text="Marco"
               onMount
               stagger={0.05}
-              className="font-display block text-[20vw] leading-[0.82] text-ink sm:text-[18vw] lg:text-[12vw]"
+              className="font-display block text-[19vw] leading-[0.82] text-ink sm:text-[16vw] lg:text-[10.5vw]"
             />
             <RevealText
               as="span"
@@ -143,9 +133,19 @@ export function Hero() {
               onMount
               delay={0.12}
               stagger={0.04}
-              className="font-display block text-[20vw] leading-[0.82] text-ink sm:text-[18vw] lg:text-[12vw]"
+              className="font-display block text-[19vw] leading-[0.82] text-ink sm:text-[16vw] lg:text-[10.5vw]"
             />
           </h1>
+          {/* Cargo completo, pegado al nombre */}
+          <motion.p
+            {...appear(0.35)}
+            className="mt-4 flex max-w-xl items-start gap-3 lg:mt-5"
+          >
+            <span aria-hidden className="mt-[0.55em] h-[3px] w-10 shrink-0 bg-accent" />
+            <span className="font-condensed text-base font-semibold uppercase leading-snug tracking-[0.08em] text-accent md:text-lg">
+              Delegado de Gobernación del Estado de Puebla · Microrregión 25
+            </span>
+          </motion.p>
         </div>
 
         {/* Fila inferior. En MÓVIL el orden DOM es copy/CTA → contador → video →
@@ -153,11 +153,11 @@ export function Hero() {
             en la columna izquierda y el video (span 3 filas) a la derecha. */}
         <div className="mt-6 grid items-start lg:mt-0 lg:grid-cols-[1fr_0.78fr] lg:gap-x-12">
           {/* A — copy + CTA + redes */}
-          <div className="lg:col-start-1 lg:row-start-1 lg:pl-[9vw] lg:pt-4">
+          <div className="lg:col-start-1 lg:row-start-1 lg:pt-4">
             <motion.p {...appear(0.45)} className="max-w-xl text-lg text-ink/75 md:text-xl">
-              Soy Marco Balseca: abogado y maestro en Administración, con 30 años en la vida
-              pública. Hoy, delegado de Gobernación del Estado de Puebla en la microrregión 25. Mi
-              trabajo es en territorio, todos los días.
+              Soy abogado y maestro en Administración. Empecé en esto a los 15 años y llevo 30 en
+              la vida pública, siempre con la misma idea: la política se hace en territorio, cara a
+              cara, todos los días.
             </motion.p>
 
             <motion.div {...appear(0.55)} className="mt-7">
@@ -190,7 +190,7 @@ export function Hero() {
           </div>
 
           {/* B1 — contador + cifras (en móvil va ANTES del video) */}
-          <div className="lg:col-start-1 lg:row-start-2 lg:pl-[9vw]">
+          <div className="lg:col-start-1 lg:row-start-2">
             <motion.div {...appear(0.6)} className="mt-9 border-t border-ink/15 pt-6">
               <div className="flex items-center gap-4">
                 <CommunityAvatars />
@@ -217,7 +217,7 @@ export function Hero() {
           {/* Media principal: VIDEO en pantalla de teléfono. En móvil va tras el contador. */}
           <div
             ref={photoRef}
-            className="relative mt-8 lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:-mt-[13vw]"
+            className="relative mt-8 lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:-mt-[22vw]"
           >
             <motion.div
               className="relative mx-auto w-full max-w-[280px] lg:max-w-[330px]"
@@ -246,7 +246,7 @@ export function Hero() {
           </div>
 
           {/* B2 — prensa (en móvil va tras el video) */}
-          <div className="lg:col-start-1 lg:row-start-3 lg:pl-[9vw]">
+          <div className="lg:col-start-1 lg:row-start-3">
             <motion.div {...appear(0.75)} className="mt-8 border-t border-ink/15 pt-6">
               <span className="eyebrow text-mute">En la prensa</span>
               <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5">

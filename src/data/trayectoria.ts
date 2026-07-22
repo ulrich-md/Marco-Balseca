@@ -29,44 +29,44 @@ export const TRAYECTORIA: Hito[] = [
   },
   {
     anio: 'A los 15',
-    titulo: 'Mi primer paso público',
+    titulo: 'El chamaco del Frente Juvenil',
     texto:
-      'A los 15 años fui líder del Frente Juvenil Revolucionario en el estado de Puebla. Ahí empezó todo: aprender a organizar, a caminar el territorio y a escuchar. Son ya 30 años en la vida pública y no he dejado de hacerlo.',
+      'Tenía 15 años cuando me tocó encabezar el Frente Juvenil Revolucionario en Puebla. Era un chamaco pegando carteles y organizando asambleas, pero ahí se me metió algo que nunca se me quitó: la política se hace caminando y escuchando. De eso ya pasaron 30 años y sigo en las mismas.',
     lugar: 'Puebla',
   },
   {
     anio: '2010',
-    titulo: 'La lección de escuchar',
+    titulo: 'La campaña que me enseñó a escuchar',
     texto:
-      'Ya formado como abogado —y maestro en administración— y como emprendedor, competí por la presidencia municipal de Tehuacán. Aprendí lo más importante: servir es, antes que nada, escuchar.',
+      'Ya era abogado, maestro en Administración, tenía mi negocio… y me animé a competir por la presidencia municipal de mi ciudad. De esa campaña me llevé lo más valioso que tengo hasta hoy: la costumbre de tocar la puerta, sentarme y escuchar de frente, sin prisa.',
     lugar: 'Tehuacán, Puebla',
   },
   {
     anio: '2012',
-    titulo: 'Primera encomienda',
+    titulo: 'La llamada que lo cambió todo',
     texto:
-      'Fui coordinador de campaña de Manuel Velasco Coello. Una escuela intensa de organización, territorio y resultados que me abrió la etapa nacional de mi carrera.',
+      'Manuel Velasco me confió la coordinación de su campaña. Fueron meses de dormir poco y recorrer Chiapas entero, y una lección que no se me olvida: las campañas no las ganan los carteles, las gana la gente que cree en algo.',
     lugar: 'Chiapas',
   },
   {
     anio: '2013',
-    titulo: 'Del gabinete al territorio',
+    titulo: 'Aprender a que el apoyo sí llegue',
     texto:
-      'Coordinador de asesores del Gobernador y, ese mismo año, nombrado delegado del INAES en Chiapas: economía social para que el apoyo llegara a quien trabaja, no a quien tramita.',
+      'El Gobernador me pidió coordinar a su equipo de asesores y ese mismo año tomé la delegación del INAES en Chiapas. Conocí de cerca la economía social: cooperativas, artesanas, productores. Gente que no pide limosna — pide una oportunidad. Mi trabajo era que el apoyo le llegara a quien trabaja, no a quien tramita.',
     lugar: 'Chiapas',
   },
   {
     anio: '2017',
-    titulo: 'Director Nacional de Planeación del INAES',
+    titulo: 'Ver el país completo',
     texto:
-      'De 2017 a 2018 dirigí la planeación nacional del INAES: planear a escala de país me confirmó que las soluciones de verdad se diseñan desde el territorio, no desde el escritorio.',
+      'Me tocó dirigir la planeación nacional del INAES. Vi México entero desde los números y las oficinas… y solo me confirmó lo que ya sabía desde Tehuacán: los buenos planes nacen en el territorio, no en el escritorio.',
     lugar: 'Ciudad de México',
   },
   {
     anio: '2024',
-    titulo: 'Delegado de Gobernación · microrregión 25',
+    titulo: 'De vuelta en casa',
     texto:
-      'Hoy soy delegado de Gobernación del Estado de Puebla en la microrregión 25. Mi trabajo es en territorio: recorro las colonias, escucho a vecinas y vecinos y acerco soluciones, una a una, donde de verdad se necesitan.',
+      'Volví a casa con la encomienda de Gobernación del Estado de Puebla en la microrregión 25. Mi oficina está en territorio: en el mercado, en la junta auxiliar, en la puerta de tu casa. Ahí es donde se resuelven las cosas, una por una.',
     lugar: 'Tehuacán, Puebla',
   },
   {

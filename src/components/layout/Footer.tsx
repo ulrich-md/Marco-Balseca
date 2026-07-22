@@ -90,9 +90,9 @@ export function Footer() {
         <div>
           <Wordmark tone="bone" />
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/65">
-            Soy abogado y maestro en Administración, con 30 años en la vida pública. Hoy, delegado
-            de Gobernación del Estado de Puebla en la microrregión 25. Mi trabajo es en territorio:
-            cerca de la gente, por nuestra tierra.
+            Nací en Tehuacán y empecé en la vida pública a los 15 años: de eso ya son 30, y no he
+            parado. Hoy sirvo como delegado de Gobernación del Estado de Puebla en la microrregión
+            25, y mi oficina sigue siendo la misma de siempre: el territorio, la puerta de tu casa.
           </p>
           <div className="mt-6 flex items-center gap-3">
             <a href={SOCIAL.instagram.url} target="_blank" rel="noreferrer" aria-label="Instagram @marcobalseca1" className={socialCls}>
