@@ -37,7 +37,6 @@ const HERO_SLIDES: VideoPhoto[] = [
 export function Hero() {
   const reduce = useReducedMotion()
   const photoRef = useParallax<HTMLDivElement>(36)
-  const year = new Date().getFullYear()
 
   // Micro-interacción: la foto se inclina en 3D siguiendo el mouse (solo
   // transform + springs = fluido; se desactiva con reduced-motion).
