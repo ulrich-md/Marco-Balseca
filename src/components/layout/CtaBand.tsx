@@ -3,27 +3,18 @@ import { ButtonLink, ButtonAnchor } from '../ui/Button'
 import { SectionLabel } from '../ui/SectionLabel'
 import { Reveal } from '../ui/Reveal'
 import { PortraitPlaceholder } from '../ui/PortraitPlaceholder'
+import { OrganicShapes } from '../ui/OrganicShapes'
 import { SOCIAL } from '../../data/site'
 
 /**
- * Llamado a la acción compartido (cierre de páginas): negro + acento rojo,
- * con el retrato "súmate" y texturas muy sutiles.
- * Texturas (decisión de diseñador): solo aquí y al 5–7% en grayscale para
- * que NO compitan con el texto; el peso queda limitado a una sola carga.
+ * Llamado a la acción compartido (cierre de páginas): guinda oscuro
+ * institucional con las formas orgánicas del equipo del Gobierno del Estado
+ * (mismo lenguaje que el footer), retrato "súmate" y grano sutil.
  */
 export function CtaBand() {
   return (
-    <section className="relative overflow-hidden bg-black py-20 text-white md:py-36">
-      {/* Textura patrón (cultural) muy sutil — pattern-nahuatl al 7% */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.07] mix-blend-luminosity"
-        style={{
-          backgroundImage: 'url(/assets/backgrounds/pattern-nahuatl.webp)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      />
+    <section className="relative overflow-hidden bg-accent-deep py-20 text-white md:py-36">
+      <OrganicShapes opacity={0.75} />
       {/* Grano de película muy sutil (4KB) al 5% */}
       <div
         aria-hidden
@@ -38,7 +29,7 @@ export function CtaBand() {
           </div>
           <h2 className="font-display mt-6 text-[18vw] leading-[0.84] md:text-[10vw] lg:text-[8vw]">
             <RevealText as="span" text="Vamos" className="block" />
-            <RevealText as="span" text="juntos" className="block text-accent" delay={0.12} />
+            <RevealText as="span" text="juntos" className="block text-sand" delay={0.12} />
           </h2>
           <Reveal delay={0.1}>
             <p className="mx-auto mt-6 max-w-xl text-lg text-white/65 lg:mx-0">
