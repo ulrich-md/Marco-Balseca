@@ -110,22 +110,17 @@ export function Hero() {
         ))}
       </nav>
 
-      <div className="container-x relative z-10 pt-20 lg:pt-16">
-        {/* Meta superior (mono) */}
-        <motion.div {...appear(0)} className="flex items-center justify-between border-b border-ink/15 pb-4">
-          <span className="eyebrow text-accent">Tehuacán · Puebla</span>
-          <span className="eyebrow text-right text-mute">{year}</span>
-        </motion.div>
-
-        {/* Titular gigante — el NOMBRE es el héroe, con el cargo completo al lado */}
-        <div className="relative mt-6 lg:mt-5">
-          <h1 className="relative z-20">
+      <div className="container-x relative z-10 pt-28 lg:pt-32">
+        {/* Titular gigante — MARCO en guinda, BALSECA en tinta; el nombre pasa
+            POR DETRÁS del teléfono (capas = profundidad, ref. póster editorial) */}
+        <div className="relative">
+          <h1 className="relative z-10">
             <RevealText
               as="span"
               text="Marco"
               onMount
               stagger={0.05}
-              className="font-display block text-[19vw] leading-[0.82] text-ink sm:text-[16vw] lg:text-[10.5vw]"
+              className="font-display block text-[19vw] leading-[0.8] text-accent sm:text-[16vw] lg:text-[12.5vw]"
             />
             <RevealText
               as="span"
@@ -133,13 +128,13 @@ export function Hero() {
               onMount
               delay={0.12}
               stagger={0.04}
-              className="font-display block text-[19vw] leading-[0.82] text-ink sm:text-[16vw] lg:text-[10.5vw]"
+              className="font-display block text-[19vw] leading-[0.8] text-ink sm:text-[16vw] lg:text-[12.5vw]"
             />
           </h1>
           {/* Cargo completo, pegado al nombre */}
           <motion.p
             {...appear(0.35)}
-            className="mt-4 flex max-w-xl items-start gap-3 lg:mt-5"
+            className="relative z-10 mt-5 flex max-w-xl items-start gap-3 lg:mt-6"
           >
             <span aria-hidden className="mt-[0.55em] h-[3px] w-10 shrink-0 bg-accent" />
             <span className="font-condensed text-base font-semibold uppercase leading-snug tracking-[0.08em] text-accent md:text-lg">
@@ -214,13 +209,24 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Media principal: VIDEO en pantalla de teléfono. En móvil va tras el contador. */}
+          {/* Media principal: VIDEO en pantalla de teléfono. En móvil va tras el
+              contador; en desktop sube y se TRASLAPA con el nombre (z-20 sobre
+              el h1), con rotación sutil y halo guinda detrás = capas y energía. */}
           <div
             ref={photoRef}
-            className="relative mt-8 lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:-mt-[22vw]"
+            className="relative z-20 mt-8 lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:-mt-[25vw]"
           >
+            {/* Halo orgánico guinda (color + profundidad detrás del teléfono) */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[130%] w-[150%] -translate-x-1/2 -translate-y-1/2"
+              style={{
+                background:
+                  'radial-gradient(48% 42% at 50% 46%, rgba(155,34,71,0.20), rgba(155,34,71,0.07) 60%, transparent 75%)',
+              }}
+            />
             <motion.div
-              className="relative mx-auto w-full max-w-[280px] lg:max-w-[330px]"
+              className="relative mx-auto w-full max-w-[280px] rotate-2 lg:max-w-[330px] lg:rotate-3"
               style={{ rotateX: reduce ? 0 : rotX, rotateY: reduce ? 0 : rotY, transformPerspective: 1000 }}
             >
               {/* Carcasa del teléfono (bezel + botones + dynamic island) */}
@@ -241,6 +247,37 @@ export function Hero() {
                   {/* dynamic island */}
                   <span aria-hidden className="absolute left-1/2 top-2.5 z-30 h-[22px] w-24 -translate-x-1/2 rounded-full bg-black" />
                 </div>
+              </div>
+
+              {/* Badge circular giratorio (detalle vivo; pausa con reduced-motion).
+                  El anillo de texto gira; la flecha del centro queda fija. */}
+              <div className="absolute -bottom-8 -left-10 h-28 w-28 drop-shadow-[0_10px_25px_rgba(0,0,0,0.18)] lg:-left-14">
+                <svg
+                  viewBox="0 0 100 100"
+                  className="h-full w-full animate-[spin_18s_linear_infinite] motion-reduce:animate-none"
+                  aria-hidden
+                >
+                  <defs>
+                    <path id="mb-circ" d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" />
+                  </defs>
+                  <circle cx="50" cy="50" r="49" className="fill-white" />
+                  <circle cx="50" cy="50" r="49" fill="none" stroke="rgba(22,22,22,0.12)" />
+                  <text className="fill-accent font-condensed" style={{ fontSize: '10.5px', letterSpacing: '0.16em', fontWeight: 600 }}>
+                    <textPath href="#mb-circ" textLength="230">
+                      CERCA DE LA GENTE · POR NUESTRA TIERRA ·
+                    </textPath>
+                  </text>
+                </svg>
+                <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full" aria-hidden>
+                  <path
+                    d="M43 50 L57 50 M51 44 L57 50 L51 56"
+                    stroke="var(--color-accent)"
+                    strokeWidth="2.4"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </div>
             </motion.div>
           </div>
