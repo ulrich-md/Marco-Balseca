@@ -5,14 +5,14 @@ import { useParallax } from '../../lib/useParallax'
    ATMÓSFERA — capas de fondo vectoriales (SVG/CSS) con parallax sutil para
    dar PROFUNDIDAD y que cada sección se sienta distinta. Sin imágenes: pesa
    ~1KB, nítido a cualquier resolución, color/opacidad bajo control total.
-   Tres variantes en la paleta de marca (B&N + guinda #9f2241):
+   Tres variantes en la paleta de marca (B&N + guinda #9b2247):
      · ink   → mancha de tinta roja difusa (glow editorial)
      · topo  → curvas de nivel finas (mapa del valle, ref. microrregión 25)
      · grain → trama de medios tonos / grano risográfico (newsprint)
    El parallax se desactiva solo con prefers-reduced-motion (vía useParallax).
    ========================================================================= */
 
-const ACCENT = '#9f2241'
+const ACCENT = '#9b2247'
 const INK = '#161616'
 
 let _uid = 0

@@ -5,16 +5,16 @@
   <circle cx="940" cy="320" r="78" fill="#CFCFCF"/>
   <path d="M820 580 C 820 470, 880 430, 940 430 C 1000 430, 1060 470, 1060 580 Z" fill="#CFCFCF"/>
   <!-- marco rojo fino (ref. Yeezy) -->
-  <rect x="748" y="138" width="384" height="454" fill="none" stroke="#9F2241" stroke-width="2"/>
+  <rect x="748" y="138" width="384" height="454" fill="none" stroke="#9B2247" stroke-width="2"/>
   <!-- etiqueta mono -->
   <text x="80" y="120" font-family="'JetBrains Mono', monospace" font-size="22"
-        letter-spacing="6" fill="#9F2241">MARCO BALSECA — TEHUACÁN, PUEBLA</text>
+        letter-spacing="6" fill="#9B2247">MARCO BALSECA — TEHUACÁN, PUEBLA</text>
   <!-- nombre gigante negro -->
   <text x="72" y="330" font-family="'League Spartan', sans-serif" font-size="180"
         fill="#0B0B0B" letter-spacing="-2">MARCO</text>
   <text x="72" y="500" font-family="'League Spartan', sans-serif" font-size="180"
         fill="#0B0B0B" letter-spacing="-2">BALSECA</text>
-  <rect x="80" y="540" width="120" height="6" fill="#9F2241"/>
+  <rect x="80" y="540" width="120" height="6" fill="#9B2247"/>
   <text x="220" y="552" font-family="Inter, sans-serif" font-size="26"
         font-weight="600" fill="#161616">Cerca de la gente. Por nuestra tierra.</text>
 </svg>

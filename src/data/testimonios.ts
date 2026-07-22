@@ -8,6 +8,8 @@ export type Testimonio = {
   lugar: string
   texto: string
   rol?: string
+  /** URL de foto (opcional); sin foto se muestran las iniciales */
+  foto?: string
 }
 
 export const TESTIMONIOS: Testimonio[] = [

@@ -13,7 +13,7 @@ import { SOCIAL } from '../../data/site'
  */
 export function CtaBand() {
   return (
-    <section className="relative overflow-hidden bg-black py-14 text-white md:py-28">
+    <section className="relative overflow-hidden bg-black py-20 text-white md:py-36">
       {/* Textura patrón (cultural) muy sutil — pattern-nahuatl al 7% */}
       <div
         aria-hidden

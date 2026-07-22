@@ -13,7 +13,7 @@ import { COMUNIDAD, MICRORREGION, JUNTAS_AUXILIARES } from '../../data/site'
  */
 export function ComunidadStrip() {
   return (
-    <section className="bg-white py-14 text-ink md:py-28">
+    <section className="bg-white py-20 text-ink md:py-36">
       <div className="container-x">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>

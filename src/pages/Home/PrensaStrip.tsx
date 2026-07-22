@@ -102,7 +102,7 @@ const VISIBLE_MOVIL = 3 // cuántas notas se ven en móvil antes de "ver más"
 export function PrensaStrip() {
   const [expanded, setExpanded] = useState(false)
   return (
-    <section className="relative overflow-hidden bg-bone py-14 text-ink md:py-28">
+    <section className="relative overflow-hidden bg-bone py-20 text-ink md:py-36">
       <Atmosphere variant="grain" />
       <div className="container-x relative z-10">
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">

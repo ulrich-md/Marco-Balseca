@@ -31,7 +31,7 @@ export default function Reels() {
         </div>
       </PageHero>
 
-      <section className="bg-white py-20 text-ink md:py-28">
+      <section className="bg-white py-20 text-ink md:py-36">
         <div className="container-x">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {reels.map((reel, i) => (

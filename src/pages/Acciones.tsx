@@ -23,7 +23,7 @@ export default function Acciones() {
         intro="Estos son los ejes que trabajo cada semana en Tehuacán: deporte que une, educación para las juventudes, obra cercana, economía local y seguridad con prevención. Cosas concretas, hechas de tú a tú."
       />
 
-      <section className="bg-white py-20 text-ink md:py-28">
+      <section className="bg-white py-20 text-ink md:py-36">
         <div className="container-x">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {acciones.map((a, i) => (

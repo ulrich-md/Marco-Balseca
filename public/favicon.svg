@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
   <rect width="64" height="64" rx="12" fill="#0B0B0B"/>
-  <rect x="10" y="44" width="44" height="5" fill="#9F2241"/>
+  <rect x="10" y="44" width="44" height="5" fill="#9B2247"/>
   <text x="32" y="40" font-family="Oswald, Arial Narrow, sans-serif" font-size="32"
         font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing="-1">MB</text>
 </svg>

@@ -88,7 +88,7 @@ export default function Trayectoria() {
       )}
 
       {/* === Móvil / reduced-motion: vertical === */}
-      <section className={`bg-bone py-16 ${reduce ? '' : 'lg:hidden'}`}>
+      <section className={`bg-bone py-20 ${reduce ? '' : 'lg:hidden'}`}>
         <div className="container-x">
           <SectionLabel tone="accent">Línea de tiempo</SectionLabel>
           <div className="relative mt-10 space-y-8 pl-8">

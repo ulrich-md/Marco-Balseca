@@ -25,7 +25,7 @@ export default function Conoceme() {
       />
 
       {/* Bio editorial */}
-      <section className="bg-bone py-20 text-ink md:py-28">
+      <section className="bg-bone py-20 text-ink md:py-36">
         <div className="container-x grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
           <Reveal>
             {/* Retrato principal. REEMPLAZAR -> si falta, queda el bloque gris (sin imagen rota). */}
@@ -81,7 +81,7 @@ export default function Conoceme() {
       <Marquee tone="dark" />
 
       {/* Valores / pilares */}
-      <section className="bg-white py-20 text-ink md:py-28">
+      <section className="bg-white py-20 text-ink md:py-36">
         <div className="container-x">
           <SectionLabel tone="accent">Valores que lo mueven</SectionLabel>
           <RevealText
@@ -109,7 +109,7 @@ export default function Conoceme() {
       </section>
 
       {/* Frase ancla (clara) con retrato de apoyo */}
-      <section className="relative overflow-hidden bg-bone py-20 text-ink md:py-28">
+      <section className="relative overflow-hidden bg-bone py-20 text-ink md:py-36">
         <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-accent/20" />
         <div className="container-x relative grid items-center gap-12 lg:grid-cols-2">
           <Reveal>

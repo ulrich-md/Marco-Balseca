@@ -17,7 +17,7 @@ type Props = {
  */
 export function PageHero({ index, label, title, intro, children }: Props) {
   return (
-    <section className="relative overflow-hidden bg-white pt-32 pb-12 text-ink md:pt-44 md:pb-16">
+    <section className="relative overflow-hidden bg-white pt-32 pb-16 text-ink md:pt-44 md:pb-24">
       <div className="container-x relative">
         <SectionLabel num={index} tone="accent">
           {label}

@@ -200,7 +200,7 @@ export default function Contacto() {
         </div>
       </PageHero>
 
-      <section className="bg-bone py-16 text-ink md:py-24">
+      <section className="bg-bone py-20 text-ink md:py-32">
         <div className="container-x grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           {/* ===================== FORMULARIO ===================== */}
           <div>

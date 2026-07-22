@@ -7,10 +7,12 @@
    (estado activo, marco, reglas, etiquetas, CTA). Sin crema ni café.
    ========================================================================= */
 @theme {
-  /* ---- Acento único (GUINDA — paleta institucional 4T) ---- */
-  --color-accent: #9f2241; /* guinda de acento (único color del sistema) */
-  --color-accent-deep: #7e1b34; /* hover/pressed */
-  --color-accent-soft: #b93a5c; /* acento más vivo */
+  /* ---- Acento (GUINDA oficial — Guía de Identidad Gráfica Gob. 2024-2030) ---- */
+  --color-accent: #9b2247; /* guinda institucional (Pantone 7420 C) */
+  --color-accent-deep: #611232; /* guinda oscuro (Pantone 7421 C) — hover/fondos */
+  --color-accent-soft: #b84368; /* tinte vivo para hover sobre oscuro */
+  --color-gold: #a57f2c; /* dorado institucional (Pantone 1255 C) */
+  --color-sand: #e6d194; /* arena/dorado claro (Pantone 7402 C) */
 
   /* ---- Base neutra B&N ---- */
   --color-black: #0b0b0b; /* negro real: campos oscuros, footer, CTA, menú */

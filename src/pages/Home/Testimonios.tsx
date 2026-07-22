@@ -2,11 +2,11 @@ import { SectionLabel } from '../../components/ui/SectionLabel'
 import { RevealText } from '../../components/ui/RevealText'
 import { Reveal } from '../../components/ui/Reveal'
 import { ButtonLink } from '../../components/ui/Button'
-import { TESTIMONIOS } from '../../data/testimonios'
+import { useTestimonios } from '../../lib/useContent'
 
 /* "Recogiendo los sentimientos de Tehuacán" — voces reales del territorio.
-   Reemplaza a la sección de Acciones en el Inicio. Tarjetas editoriales con
-   comilla gigante en guinda; los textos son placeholder (ver data). */
+   Editable desde /admin (pestaña Testimonios, con foto opcional); con
+   respaldo local si Supabase no está. */
 
 function QuoteMark() {
   return (
@@ -16,9 +16,38 @@ function QuoteMark() {
   )
 }
 
-export function Testimonios() {
+function Avatar({ nombre, foto }: { nombre: string; foto?: string }) {
+  if (foto) {
+    return (
+      <img
+        src={foto}
+        alt={`Foto de ${nombre}`}
+        loading="lazy"
+        decoding="async"
+        className="h-12 w-12 shrink-0 rounded-full border border-ink/10 object-cover"
+        onError={(e) => {
+          e.currentTarget.style.display = 'none'
+        }}
+      />
+    )
+  }
+  const iniciales = nombre
+    .split(/\s+/)
+    .map((w) => w[0])
+    .slice(0, 2)
+    .join('')
+    .toUpperCase()
   return (
-    <section className="bg-white py-14 text-ink md:py-28">
+    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent/10 font-condensed text-sm font-bold text-accent">
+      {iniciales}
+    </span>
+  )
+}
+
+export function Testimonios() {
+  const { testimonios } = useTestimonios()
+  return (
+    <section className="bg-white py-20 text-ink md:py-36">
       <div className="container-x">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
@@ -42,22 +71,25 @@ export function Testimonios() {
           </div>
         </div>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {TESTIMONIOS.map((t, i) => (
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {testimonios.map((t, i) => (
             <Reveal key={t.id} delay={i * 0.08}>
               <figure className="flex h-full flex-col border border-ink/10 bg-bone p-6 transition-colors duration-300 hover:border-accent/40 md:p-7">
                 <QuoteMark />
                 <blockquote className="mt-4 flex-1 leading-relaxed text-ink/85">
                   {t.texto}
                 </blockquote>
-                <figcaption className="mt-6 border-t border-ink/10 pt-4">
-                  <p className="font-condensed text-lg font-semibold uppercase tracking-wide text-ink">
-                    {t.nombre}
-                  </p>
-                  <p className="mt-0.5 text-sm text-mute">
-                    {t.rol ? `${t.rol} · ` : ''}
-                    {t.lugar}
-                  </p>
+                <figcaption className="mt-6 flex items-center gap-3 border-t border-ink/10 pt-4">
+                  <Avatar nombre={t.nombre} foto={t.foto} />
+                  <span>
+                    <span className="font-condensed block text-lg font-semibold uppercase leading-tight tracking-wide text-ink">
+                      {t.nombre}
+                    </span>
+                    <span className="mt-0.5 block text-sm text-mute">
+                      {t.rol ? `${t.rol} · ` : ''}
+                      {t.lugar}
+                    </span>
+                  </span>
                 </figcaption>
               </figure>
             </Reveal>

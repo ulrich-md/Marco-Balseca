@@ -35,7 +35,7 @@ export default function Agenda() {
         intro="Aquí te comparto mis próximos recorridos, encuentros y jornadas por las colonias de Tehuacán. Las fechas marcadas como tentativas las confirmo en cuanto cierro sede y hora: nos vemos en territorio."
       />
 
-      <section className="bg-bone py-16 text-ink md:py-24">
+      <section className="bg-bone py-20 text-ink md:py-32">
         <div className="container-x">
           <ul className="divide-y divide-ink/10 border-y border-ink/10">
             {eventos.map((ev, i) => {

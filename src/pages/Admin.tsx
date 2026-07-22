@@ -29,6 +29,11 @@ create table if not exists acciones (
   slug text, categoria text, titulo text not null, resumen text, detalle text,
   imagen text, orden int default 0, created_at timestamptz default now());
 
+create table if not exists testimonios (
+  id uuid primary key default gen_random_uuid(),
+  nombre text not null, rol text, lugar text, texto text not null,
+  foto text, orden int default 0, created_at timestamptz default now());
+
 -- Buzón de contacto. PRIVADO: el público solo puede INSERTAR (enviar), nunca
 -- leer. Los mensajes se ven en Supabase -> Table Editor -> mensajes.
 create table if not exists mensajes (
@@ -37,17 +42,29 @@ create table if not exists mensajes (
   motivo text, mensaje text not null, leido boolean default false,
   created_at timestamptz default now());
 
-alter table eventos  enable row level security;
-alter table reels    enable row level security;
-alter table acciones enable row level security;
-alter table mensajes enable row level security;
+alter table eventos     enable row level security;
+alter table reels       enable row level security;
+alter table acciones    enable row level security;
+alter table testimonios enable row level security;
+alter table mensajes    enable row level security;
 create policy "eventos read"   on eventos  for select using (true);
 create policy "eventos write"  on eventos  for all using (true) with check (true);
 create policy "reels read"     on reels    for select using (true);
 create policy "reels write"    on reels    for all using (true) with check (true);
 create policy "acciones read"  on acciones for select using (true);
 create policy "acciones write" on acciones for all using (true) with check (true);
+create policy "testimonios read"  on testimonios for select using (true);
+create policy "testimonios write" on testimonios for all using (true) with check (true);
 create policy "mensajes insert" on mensajes for insert with check (true);`
+
+// SQL solo para la tabla de testimonios (si Supabase ya estaba configurado).
+const SQL_TESTIMONIOS = `create table if not exists testimonios (
+  id uuid primary key default gen_random_uuid(),
+  nombre text not null, rol text, lugar text, texto text not null,
+  foto text, orden int default 0, created_at timestamptz default now());
+alter table testimonios enable row level security;
+create policy "testimonios read"  on testimonios for select using (true);
+create policy "testimonios write" on testimonios for all using (true) with check (true);`
 
 // SQL solo para la tabla nueva (si Supabase ya estaba configurado antes).
 const SQL_ACCIONES = `create table if not exists acciones (
@@ -95,6 +112,15 @@ type AccionRow = {
   imagen: string | null
   orden: number | null
 }
+type TestimonioRow = {
+  id: string
+  nombre: string
+  rol: string | null
+  lugar: string | null
+  texto: string
+  foto: string | null
+  orden: number | null
+}
 
 const CATEGORIAS = ['Deporte', 'Educación', 'Comunidad', 'Economía local', 'Seguridad', 'Propuesta']
 
@@ -118,6 +144,7 @@ const EMPTY_EV: Omit<EventoRow, 'id'> = {
   cta_url: '',
 }
 const EMPTY_AC = { categoria: 'Comunidad', titulo: '', resumen: '', detalle: '', imagen: '' }
+const EMPTY_TS = { nombre: '', rol: '', lugar: '', texto: '', foto: '' }
 
 const CalIcon = () => (
   <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
@@ -135,6 +162,11 @@ const FlagIcon = () => (
     <path d="M5 21V4m0 0c3-1.5 5 1.5 8 0s4-1.5 6 0v9c-2-1.5-3 .5-6 0s-5-1.5-8 0" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
+const QuoteIcon = () => (
+  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden>
+    <path d="M4 13c0-3.9 2.4-6.8 6-7.8l.7 1.7C8.5 7.8 7.2 9.3 7 11h3v7H4v-5zm10 0c0-3.9 2.4-6.8 6-7.8l.7 1.7c-2.2.9-3.5 2.4-3.7 4.1h3v7h-6v-5z" />
+  </svg>
+)
 
 function fmtFecha(iso: string) {
   try {
@@ -147,13 +179,15 @@ function fmtFecha(iso: string) {
 }
 
 export default function Admin() {
-  const [tab, setTab] = useState<'agenda' | 'reels' | 'acciones'>('agenda')
+  const [tab, setTab] = useState<'agenda' | 'reels' | 'acciones' | 'testimonios'>('agenda')
   const [eventos, setEventos] = useState<EventoRow[]>([])
   const [reels, setReels] = useState<ReelRow[]>([])
   const [acciones, setAcciones] = useState<AccionRow[]>([])
+  const [testimonios, setTestimonios] = useState<TestimonioRow[]>([])
   const [ev, setEv] = useState<Omit<EventoRow, 'id'> & { id?: string }>({ ...EMPTY_EV })
   const [reel, setReel] = useState({ titulo: '', instagram_url: '' })
   const [ac, setAc] = useState<typeof EMPTY_AC & { id?: string }>({ ...EMPTY_AC })
+  const [ts, setTs] = useState<typeof EMPTY_TS & { id?: string }>({ ...EMPTY_TS })
   const [msg, setMsg] = useState('')
   const [busy, setBusy] = useState(false)
 
@@ -176,6 +210,7 @@ export default function Admin() {
     sbSelect<EventoRow>('eventos', 'select=*&order=fecha.asc').then(setEventos).catch(() => {})
     sbSelect<ReelRow>('reels', 'select=*&order=orden.asc,created_at.desc').then(setReels).catch(() => {})
     sbSelect<AccionRow>('acciones', 'select=*&order=orden.asc,created_at.desc').then(setAcciones).catch(() => {})
+    sbSelect<TestimonioRow>('testimonios', 'select=*&order=orden.asc,created_at.desc').then(setTestimonios).catch(() => {})
   }
   useEffect(load, [])
 
@@ -244,7 +279,35 @@ export default function Admin() {
     }
   }
 
-  const del = async (table: 'eventos' | 'reels' | 'acciones', id: string, what: string) => {
+  const saveTestimonio = async (e: FormEvent) => {
+    e.preventDefault()
+    setBusy(true)
+    try {
+      const { id, ...rest } = ts
+      const payload = {
+        nombre: rest.nombre,
+        rol: rest.rol || null,
+        lugar: rest.lugar || null,
+        texto: rest.texto,
+        foto: rest.foto || null,
+      }
+      if (id) await sbUpdate('testimonios', id, payload)
+      else
+        await sbInsert('testimonios', {
+          ...payload,
+          orden: (testimonios[testimonios.length - 1]?.orden ?? testimonios.length) + 1,
+        })
+      setTs({ ...EMPTY_TS })
+      flash(id ? 'Cambios guardados ✓' : 'Testimonio agregado ✓')
+      load()
+    } catch (err) {
+      flash('Error: ' + (err as Error).message)
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  const del = async (table: 'eventos' | 'reels' | 'acciones' | 'testimonios', id: string, what: string) => {
     if (!window.confirm(`¿Eliminar ${what}? No se puede deshacer.`)) return
     try {
       await sbDelete(table, id)
@@ -344,10 +407,11 @@ export default function Admin() {
           </div>
         ) : (
           <>
-            <div className="mt-8 grid grid-cols-3 gap-2 rounded-xl border border-ink/12 bg-white p-1.5">
+            <div className="mt-8 grid grid-cols-2 gap-2 rounded-xl border border-ink/12 bg-white p-1.5 sm:grid-cols-4">
               {tabBtn('agenda', <CalIcon />, 'Agenda', eventos.length)}
               {tabBtn('reels', <PlayIcon />, 'Reels', reels.length)}
               {tabBtn('acciones', <FlagIcon />, 'Acciones', acciones.length)}
+              {tabBtn('testimonios', <QuoteIcon />, 'Testimonios', testimonios.length)}
             </div>
 
             {msg && (
@@ -685,6 +749,155 @@ export default function Admin() {
                         </p>
                         <pre className="mt-2 overflow-x-auto rounded-lg bg-ink p-3 text-[11px] leading-relaxed text-bone">
                           {SQL_ACCIONES}
+                        </pre>
+                      </li>
+                    )}
+                  </ul>
+                </div>
+              </div>
+            )}
+
+            {/* ============ TESTIMONIOS ============ */}
+            {tab === 'testimonios' && (
+              <div className="mt-6 space-y-6">
+                <div className="rounded-xl border border-ink/12 bg-white p-6">
+                  <h2 className="font-condensed text-xl font-semibold uppercase tracking-wide text-ink">
+                    {ts.id ? 'Editar testimonio' : 'Agregar un testimonio'}
+                  </h2>
+                  <p className="mt-1 text-sm text-mute">
+                    Aparece en el Inicio, en <strong>"Recogiendo los sentimientos de Tehuacán"</strong>.
+                    Usa citas reales y con permiso de la persona.
+                  </p>
+                  <form onSubmit={saveTestimonio} className="mt-5 grid gap-4 sm:grid-cols-2">
+                    <div>
+                      <label className={label}>Nombre</label>
+                      <input
+                        required
+                        className={input}
+                        placeholder="Ej. Doña Rosa"
+                        value={ts.nombre}
+                        onChange={(e) => setTs({ ...ts, nombre: e.target.value })}
+                      />
+                    </div>
+                    <div>
+                      <label className={label}>Ocupación / rol (opcional)</label>
+                      <input
+                        className={input}
+                        placeholder="Ej. Comerciante"
+                        value={ts.rol}
+                        onChange={(e) => setTs({ ...ts, rol: e.target.value })}
+                      />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className={label}>Colonia / lugar</label>
+                      <input
+                        className={input}
+                        placeholder="Ej. Mercado La Purísima"
+                        value={ts.lugar}
+                        onChange={(e) => setTs({ ...ts, lugar: e.target.value })}
+                      />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className={label}>Testimonio (sus palabras)</label>
+                      <textarea
+                        required
+                        className={input}
+                        rows={3}
+                        placeholder="Lo que la persona dijo, textual y breve."
+                        value={ts.texto}
+                        onChange={(e) => setTs({ ...ts, texto: e.target.value })}
+                      />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className={label}>Foto (opcional)</label>
+                      <input
+                        className={input}
+                        placeholder="Enlace a una foto (https://...)"
+                        value={ts.foto}
+                        onChange={(e) => setTs({ ...ts, foto: e.target.value })}
+                      />
+                      <p className="mt-1.5 text-xs text-mute">
+                        Pega el enlace de una imagen (por ejemplo, subida a Supabase Storage o a
+                        cualquier servicio). Sin foto se muestran las iniciales.
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-3 sm:col-span-2">
+                      <button type="submit" className={btn} disabled={busy}>
+                        {ts.id ? 'Guardar cambios' : 'Agregar testimonio'}
+                      </button>
+                      {ts.id && (
+                        <button type="button" className={btnGhost} onClick={() => setTs({ ...EMPTY_TS })}>
+                          Cancelar
+                        </button>
+                      )}
+                    </div>
+                  </form>
+                </div>
+
+                <div className="rounded-xl border border-ink/12 bg-white">
+                  <p className="border-b border-ink/10 px-6 py-4 font-condensed text-lg font-semibold uppercase tracking-wide text-ink">
+                    Testimonios publicados ({testimonios.length})
+                  </p>
+                  <ul className="divide-y divide-ink/10">
+                    {testimonios.map((t) => (
+                      <li key={t.id} className="flex flex-wrap items-center justify-between gap-3 px-6 py-4">
+                        <div className="flex min-w-0 items-center gap-3">
+                          {t.foto ? (
+                            <img
+                              src={t.foto}
+                              alt=""
+                              className="h-10 w-10 shrink-0 rounded-full object-cover"
+                              onError={(e) => {
+                                e.currentTarget.style.display = 'none'
+                              }}
+                            />
+                          ) : (
+                            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent/10 text-xs font-bold text-accent">
+                              {t.nombre.slice(0, 2).toUpperCase()}
+                            </span>
+                          )}
+                          <div className="min-w-0">
+                            <p className="truncate text-sm font-semibold text-ink">{t.nombre}</p>
+                            <p className="truncate text-xs text-mute">
+                              {t.rol ? `${t.rol} · ` : ''}
+                              {t.lugar}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex shrink-0 gap-2">
+                          <button
+                            className={btnGhost}
+                            onClick={() => {
+                              setTs({
+                                id: t.id,
+                                nombre: t.nombre,
+                                rol: t.rol ?? '',
+                                lugar: t.lugar ?? '',
+                                texto: t.texto,
+                                foto: t.foto ?? '',
+                              })
+                              toTop()
+                            }}
+                          >
+                            Editar
+                          </button>
+                          <button className={btnDanger} onClick={() => del('testimonios', t.id, 'este testimonio')}>
+                            Eliminar
+                          </button>
+                        </div>
+                      </li>
+                    ))}
+                    {testimonios.length === 0 && (
+                      <li className="px-6 py-6 text-sm text-mute">
+                        <p className="text-center">
+                          Aún no hay testimonios en la base de datos (el sitio muestra los de
+                          ejemplo).
+                        </p>
+                        <p className="mt-3 text-xs">
+                          Si es la primera vez, crea la tabla: pega este SQL en Supabase → SQL Editor:
+                        </p>
+                        <pre className="mt-2 overflow-x-auto rounded-lg bg-ink p-3 text-[11px] leading-relaxed text-bone">
+                          {SQL_TESTIMONIOS}
                         </pre>
                       </li>
                     )}

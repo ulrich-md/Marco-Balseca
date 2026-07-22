@@ -3,6 +3,7 @@ import { supabaseEnabled, sbSelect } from './supabase'
 import { AGENDA, type Evento } from '../data/agenda'
 import { REELS, type Reel } from '../data/reels'
 import { ACCIONES, type Accion } from '../data/acciones'
+import { TESTIMONIOS, type Testimonio } from '../data/testimonios'
 
 /* Hooks de contenido: leen de Supabase si está configurado; si no (o si falla),
    usan los datos locales. Así el sitio nunca se rompe. El panel /admin escribe
@@ -109,6 +110,46 @@ function mapAccion(r: AccionRow): Accion {
     detalle: r.detalle ?? undefined,
     imagen: r.imagen ?? undefined,
   }
+}
+
+type TestimonioRow = {
+  id: string
+  nombre: string
+  rol: string | null
+  lugar: string | null
+  texto: string
+  foto: string | null
+  orden?: number | null
+}
+
+function mapTestimonio(r: TestimonioRow): Testimonio {
+  return {
+    id: r.id,
+    nombre: r.nombre,
+    rol: r.rol ?? undefined,
+    lugar: r.lugar ?? 'Tehuacán, Puebla',
+    texto: r.texto,
+    foto: r.foto ?? undefined,
+  }
+}
+
+export function useTestimonios() {
+  const [testimonios, setTestimonios] = useState<Testimonio[]>(() => TESTIMONIOS)
+  const [loading, setLoading] = useState(supabaseEnabled)
+
+  const reload = useCallback(() => {
+    if (!supabaseEnabled) return
+    setLoading(true)
+    sbSelect<TestimonioRow>('testimonios', 'select=*&order=orden.asc,created_at.desc')
+      .then((rows) => {
+        if (rows.length > 0) setTestimonios(rows.map(mapTestimonio))
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false))
+  }, [])
+
+  useEffect(() => reload(), [reload])
+  return { testimonios, loading, reload }
 }
 
 export function useAcciones() {

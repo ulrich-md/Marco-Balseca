@@ -12,6 +12,7 @@ const Trayectoria = lazy(() => import('./pages/Trayectoria'))
 const Reels = lazy(() => import('./pages/Reels'))
 const Agenda = lazy(() => import('./pages/Agenda'))
 const Contacto = lazy(() => import('./pages/Contacto'))
+const AvisoPrivacidad = lazy(() => import('./pages/AvisoPrivacidad'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 // Panel oculto (no en el menú): Marco edita Agenda y Reels.
 const Admin = lazy(() => import('./pages/Admin'))
@@ -39,6 +40,7 @@ export function App() {
             <Route path="reels" element={<Reels />} />
             <Route path="agenda" element={<Agenda />} />
             <Route path="contacto" element={<Contacto />} />
+            <Route path="aviso-de-privacidad" element={<AvisoPrivacidad />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
