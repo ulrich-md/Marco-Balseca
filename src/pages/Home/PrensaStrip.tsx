@@ -1,192 +1,106 @@
-import { useState } from 'react'
 import { SectionLabel } from '../../components/ui/SectionLabel'
 import { RevealText } from '../../components/ui/RevealText'
 import { Reveal } from '../../components/ui/Reveal'
-import { FacebookRecentPosts } from '../../components/ui/FacebookRecentPosts'
-import { Atmosphere } from '../../components/ui/Atmosphere'
+import { OrganicShapes } from '../../components/ui/OrganicShapes'
+import { ButtonAnchor } from '../../components/ui/Button'
+import { useNoticias } from '../../lib/useContent'
 import { SOCIAL } from '../../data/site'
 
 /* =========================================================================
-   "En las noticias": muro de Facebook en vivo (sin API) + rejilla de notas de
-   prensa reales y positivas. Layout balanceado para que no se vea vacío.
+   "Últimas Noticias" — estilo del sitio del Gobierno del Estado (crema +
+   tarjetas blancas con foto, fecha y botón guinda), con nuestra tipografía.
+   Editable desde /admin (pestaña Noticias); respaldo local si no hay BD.
    ========================================================================= */
 
-type Nota = {
-  fuente: string
-  etiqueta: string
-  titulo: string
-  resumen: string
-  url: string
+function fmtFecha(iso?: string) {
+  if (!iso) return null
+  try {
+    return new Intl.DateTimeFormat('es-MX', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    }).format(new Date(`${iso.slice(0, 10)}T00:00:00`))
+  } catch {
+    return iso
+  }
 }
-
-// Notas reales y POSITIVAS que mencionan a MARCO BALSECA por nombre (verificadas).
-// Se excluye todo lo negativo/partidista.
-const NOTAS: Nota[] = [
-  {
-    fuente: 'Municipios Puebla',
-    etiqueta: 'Seguridad y paz',
-    titulo: '«Sí al desarme, sí a la paz»: Marco Balseca encabeza el canje de armas',
-    resumen:
-      'El delegado de la microrregión 25, Marco Balseca, explica el módulo de canje voluntario y confidencial de armas en Tehuacán: una jornada por la paz de las familias.',
-    url: 'https://municipiospuebla.mx/nota/tehuacan/realizan-en-tehuacan-campana-de-canje-voluntario-de-armas',
-  },
-  {
-    fuente: 'Sedeño Noticias',
-    etiqueta: 'Seguridad',
-    titulo: 'Entrega Marco Balseca una alarma vecinal más en una junta auxiliar',
-    resumen:
-      'Instalación del comité y entrega de una nueva alarma vecinal para reforzar la seguridad de las familias en la microrregión 25 de Tehuacán.',
-    url: 'https://www.facebook.com/balseca',
-  },
-  {
-    fuente: 'Diario Primera Línea',
-    etiqueta: '#DelegadosEnMovimiento',
-    titulo: 'Marco Balseca, delegado de la microrregión 25, invita a la comunidad',
-    resumen:
-      'El delegado de Gobernación recorre el territorio e invita a vecinas y vecinos a sumarse a las jornadas y acciones de comunidad.',
-    url: 'https://www.facebook.com/DiarioPrimeraLineaTH/videos/2010567689555570/',
-  },
-  {
-    fuente: 'Diario Primera Línea',
-    etiqueta: '#DelegadosEnTerritorio',
-    titulo: 'Entrevista con Marco Antonio Balseca Romero',
-    resumen:
-      'El trabajo en territorio del delegado en la microrregión 25: recorridos por las colonias, escucha vecinal y atención cercana, una a una.',
-    url: 'https://www.facebook.com/61572253138907/videos/1287605396616409/',
-  },
-  {
-    fuente: 'Talavera Noticias',
-    etiqueta: 'Entrevista',
-    titulo: 'Marco Balseca en entrevista: el trabajo en la microrregión 25',
-    resumen:
-      'El delegado de Gobernación habla del trabajo territorial y de las acciones de comunidad que impulsa en Tehuacán.',
-    url: 'https://www.facebook.com/talavera.noticias.tehuacan/videos/26120198540995756/',
-  },
-]
-
-function NewsCard({ nota, featured = false }: { nota: Nota; featured?: boolean }) {
-  const isFb = nota.url.includes('facebook.com')
-  return (
-    <a
-      href={nota.url}
-      target="_blank"
-      rel="noreferrer"
-      className="group flex h-full cursor-pointer flex-col justify-between rounded-sm border border-ink/12 bg-white p-4 transition-colors duration-200 hover:border-accent sm:p-5"
-    >
-      <div>
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="eyebrow text-accent">{nota.fuente}</span>
-          <span className="h-1 w-1 rounded-full bg-ink/30" aria-hidden />
-          <span className="eyebrow text-mute">{nota.etiqueta}</span>
-        </div>
-        <h3
-          className={`font-condensed mt-2 font-semibold leading-tight text-ink sm:mt-3 ${
-            featured ? 'text-xl sm:text-2xl' : 'text-lg'
-          }`}
-        >
-          {nota.titulo}
-        </h3>
-        {/* El resumen se oculta en móvil para no cansar al lector */}
-        <p className="mt-2 hidden text-sm leading-relaxed text-ink/70 sm:block">{nota.resumen}</p>
-      </div>
-      <span className="font-condensed mt-3 inline-flex items-center gap-1 text-sm font-semibold uppercase tracking-wide text-ink transition-colors group-hover:text-accent sm:mt-4">
-        {isFb ? 'Ver en Facebook' : 'Leer nota'}
-        <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-1">→</span>
-      </span>
-    </a>
-  )
-}
-
-const VISIBLE_MOVIL = 3 // cuántas notas se ven en móvil antes de "ver más"
 
 export function PrensaStrip() {
-  const [expanded, setExpanded] = useState(false)
+  const { noticias } = useNoticias()
+  const items = noticias.slice(0, 3)
+
   return (
-    <section className="relative overflow-hidden bg-bone py-20 text-ink md:py-36">
-      <Atmosphere variant="grain" />
+    <section className="relative overflow-hidden bg-cream py-20 text-ink md:py-36">
+      <OrganicShapes tone="light" opacity={0.55} />
       <div className="container-x relative z-10">
-        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-2xl">
-            <SectionLabel tone="accent">En las noticias</SectionLabel>
-            <RevealText
-              as="h2"
-              text="Lo que se dice de Marco"
-              className="font-display mt-5 text-[12vw] leading-[0.9] text-ink sm:text-5xl lg:text-6xl"
-            />
-            <Reveal delay={0.1}>
-              <p className="mt-4 max-w-xl text-ink/70">
-                Sus publicaciones de Facebook (en vivo) y lo que cuenta la prensa de Tehuacán.
-              </p>
-            </Reveal>
-          </div>
-          <div className="flex items-center gap-3">
-            <a
-              href={SOCIAL.facebook.url}
-              target="_blank"
-              rel="noreferrer"
-              className="font-condensed text-sm font-semibold uppercase tracking-wide text-ink transition-colors hover:text-accent"
-            >
-              Facebook ↗
-            </a>
-            <span className="h-4 w-px bg-ink/20" aria-hidden />
-            <a
-              href={SOCIAL.instagram.url}
-              target="_blank"
-              rel="noreferrer"
-              className="font-condensed text-sm font-semibold uppercase tracking-wide text-ink transition-colors hover:text-accent"
-            >
-              Instagram ↗
-            </a>
-          </div>
-        </div>
-
-        {/* Bento: muro de Facebook (1/3) + rejilla de prensa (2/3) */}
-        <div className="mt-12 grid gap-6 lg:grid-cols-3 lg:items-start">
-          <Reveal className="lg:col-span-1">
-            <div className="mb-3">
-              <p className="font-condensed text-lg font-semibold uppercase tracking-wide text-ink">
-                Publicaciones recientes
-              </p>
-              <p className="mt-1 text-sm text-ink/60">Su día a día con la gente, directo desde Facebook.</p>
-            </div>
-            <FacebookRecentPosts />
+        {/* Encabezado centrado (ref. Armenta) con nuestra tipografía */}
+        <div className="flex flex-col items-center text-center">
+          <SectionLabel tone="accent">En las noticias</SectionLabel>
+          <RevealText
+            as="h2"
+            text="Últimas Noticias"
+            className="font-display mt-5 text-[12vw] leading-[0.9] text-accent sm:text-5xl lg:text-6xl"
+          />
+          <Reveal delay={0.1}>
+            <p className="mt-4 max-w-xl text-ink/70">
+              El trabajo en territorio de Marco, contado por la prensa y sus redes.
+            </p>
           </Reveal>
-
-          <div className="lg:col-span-2">
-            <div className="mb-3">
-              <p className="font-condensed text-lg font-semibold uppercase tracking-wide text-ink">
-                En la prensa
-              </p>
-              <p className="mt-1 text-sm text-ink/60">
-                Su trabajo en territorio, contado por la prensa de Tehuacán.
-              </p>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {NOTAS.map((nota, i) => {
-                const cls = [
-                  i === 0 ? 'sm:col-span-2' : '',
-                  i >= VISIBLE_MOVIL && !expanded ? 'hidden sm:block' : '',
-                ]
-                  .filter(Boolean)
-                  .join(' ')
-                return (
-                  <Reveal key={nota.url} delay={(i % 2) * 0.05} className={cls || undefined}>
-                    <NewsCard nota={nota} featured={i === 0} />
-                  </Reveal>
-                )
-              })}
-            </div>
-            {!expanded && NOTAS.length > VISIBLE_MOVIL && (
-              <button
-                type="button"
-                onClick={() => setExpanded(true)}
-                className="mt-4 w-full cursor-pointer rounded-sm border border-ink/15 py-3 text-sm font-semibold uppercase tracking-wide text-ink transition-colors hover:border-accent hover:text-accent sm:hidden"
-              >
-                Ver más notas ({NOTAS.length - VISIBLE_MOVIL})
-              </button>
-            )}
-          </div>
         </div>
+
+        {/* Tarjetas de nota */}
+        <div className="mx-auto mt-14 grid max-w-5xl gap-7 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map((n, i) => {
+            const fecha = fmtFecha(n.fecha)
+            return (
+              <Reveal key={n.id} delay={i * 0.08} className={i === 2 ? 'sm:col-span-2 lg:col-span-1' : ''}>
+                <article className="group flex h-full flex-col overflow-hidden rounded-md bg-white shadow-[0_18px_45px_-30px_rgba(22,22,22,0.35)] transition-transform duration-300 hover:-translate-y-1">
+                  <a href={n.url} target="_blank" rel="noreferrer" className="block overflow-hidden" tabIndex={-1} aria-hidden>
+                    {n.imagen ? (
+                      <img
+                        src={n.imagen}
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none'
+                        }}
+                      />
+                    ) : (
+                      <div className="aspect-[16/10] w-full bg-accent/10" />
+                    )}
+                  </a>
+                  <div className="flex flex-1 flex-col items-center px-6 pb-7 pt-6 text-center">
+                    <h3 className="font-condensed text-xl font-semibold leading-snug text-accent-deep">
+                      {n.titulo}
+                    </h3>
+                    {fecha && <p className="mt-3 text-sm text-mute">Publicado: {fecha}</p>}
+                    <div className="mt-auto pt-6">
+                      <a
+                        href={n.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="font-condensed inline-block rounded-md bg-accent px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-accent-deep"
+                      >
+                        Continúa leyendo
+                      </a>
+                    </div>
+                  </div>
+                </article>
+              </Reveal>
+            )
+          })}
+        </div>
+
+        {/* CTA grande (pill) — como la referencia */}
+        <Reveal delay={0.15}>
+          <div className="mt-14 flex justify-center">
+            <ButtonAnchor href={SOCIAL.facebook.url} tone="accent" variant="solid" arrow>
+              Más actividades de Marco Balseca
+            </ButtonAnchor>
+          </div>
+        </Reveal>
       </div>
     </section>
   )

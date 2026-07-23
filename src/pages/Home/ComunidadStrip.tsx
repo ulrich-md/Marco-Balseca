@@ -1,85 +1,95 @@
-import { SectionLabel } from '../../components/ui/SectionLabel'
-import { RevealText } from '../../components/ui/RevealText'
 import { Reveal } from '../../components/ui/Reveal'
+import { RevealText } from '../../components/ui/RevealText'
 import { ButtonLink } from '../../components/ui/Button'
-import { ResponsiveImg } from '../../components/ui/ResponsiveImg'
-import { COMUNIDAD, MICRORREGION, JUNTAS_AUXILIARES } from '../../data/site'
+import { OrganicShapes } from '../../components/ui/OrganicShapes'
 
-/**
- * Galería de comunidad (patrón Community Landing): momentos reales con la
- * gente + contador + onboarding. Aporta cercanía y confianza.
- * Fotos en MASONRY (CSS columns): se muestran TAL CUAL, sin recortar.
- * B&N por coherencia editorial, con color al hover (interacción).
- */
+/* =========================================================================
+   "EN TERRITORIO" — collage estilo sitio del Gobierno del Estado
+   ('EN MERCADOS Y TIANGUIS'): fondo guinda texturizado, fotos reales
+   traslapadas e inclinadas y titular blanco gigante cruzando encima.
+   ========================================================================= */
+
+const FOTOS = [
+  {
+    src: '/assets/comunidad/comunidad-mercado.webp',
+    alt: 'Marco en el mercado de Tehuacán',
+    cls: 'left-[2%] top-[10%] w-[34%] -rotate-3 md:w-[30%]',
+  },
+  {
+    src: '/assets/comunidad/comunidad-familia.webp',
+    alt: 'Marco con las familias de Tehuacán',
+    cls: 'left-1/2 top-0 w-[52%] -translate-x-1/2 rotate-1 md:w-[44%]',
+  },
+  {
+    src: '/assets/comunidad/comunidad-cancha.webp',
+    alt: 'Marco en la cancha del barrio',
+    cls: 'bottom-[6%] right-[2%] w-[30%] rotate-2 md:w-[24%]',
+  },
+]
+
 export function ComunidadStrip() {
   return (
-    <section className="bg-white py-20 text-ink md:py-36">
-      <div className="container-x">
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div>
-            <SectionLabel num="05" tone="accent">
-              Comunidad
-            </SectionLabel>
-            <RevealText
-              as="h2"
-              text={'Caminamos\njuntos'}
-              className="font-display mt-5 text-[13vw] leading-[0.86] text-ink sm:text-6xl lg:text-7xl"
-            />
-          </div>
-          <div className="hidden md:block">
-            <ButtonLink to="/contacto" tone="accent" variant="solid">
-              Súmate
-            </ButtonLink>
-          </div>
-        </div>
+    <section className="relative overflow-hidden bg-accent py-20 text-white md:py-32">
+      {/* Textura: foto en multiplicar + blobs + grano (mosaico guinda) */}
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <img
+          src="/assets/comunidad/comunidad-visita.webp"
+          alt=""
+          className="h-full w-full scale-110 object-cover opacity-30 blur-[3px] grayscale"
+          loading="lazy"
+          decoding="async"
+          onError={(e) => {
+            e.currentTarget.style.display = 'none'
+          }}
+        />
+        <div className="absolute inset-0 bg-accent/80 mix-blend-multiply" />
+        <OrganicShapes opacity={0.5} />
+        <div
+          className="absolute inset-0 opacity-[0.06]"
+          style={{ backgroundImage: 'url(/assets/backgrounds/grain.png)', backgroundSize: '420px' }}
+        />
+      </div>
 
-        {/* Contador — territorio real de Tehuacán (microrregión 25) */}
+      <div className="container-x relative z-10">
+        {/* Eyebrow centrado (ref. Armenta) */}
         <Reveal>
-          <div className="mt-10 flex flex-wrap items-baseline gap-x-5 gap-y-1 border-y border-ink/15 py-7">
-            <span className="font-display text-6xl leading-none text-accent md:text-7xl">
-              Microrregión {MICRORREGION}
-            </span>
-            <span className="text-lg text-ink/70">
-              y las {JUNTAS_AUXILIARES} juntas auxiliares de Tehuacán: las recorro casa por casa,
-              escuchando antes de decidir.
-            </span>
-          </div>
+          <p className="font-condensed text-center text-base font-bold uppercase tracking-[0.14em] text-white md:text-xl">
+            Honestidad, trabajo y amor a Tehuacán
+          </p>
         </Reveal>
 
-        {/* Momentos reales (masonry, sin recortar) */}
-        <div className="mt-10 gap-4 [column-fill:balance] sm:columns-2 lg:columns-4">
-          {COMUNIDAD.map((p, i) => (
-            <Reveal key={i} delay={(i % 4) * 0.05} className="mb-4 break-inside-avoid">
-              <figure className="group relative overflow-hidden bg-mist">
-                {/* Foto tal cual. REEMPLAZAR -> si falta, queda el bloque gris (sin imagen rota). */}
-                {p.foto && (
-                  <ResponsiveImg
-                    src={p.foto}
-                    alt={`${p.rol} — ${p.colonia}`}
-                    width={p.w}
-                    height={p.h}
-                    sizes="(min-width: 1024px) 24vw, 48vw"
-                    imgClassName="block h-auto w-full transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.03]"
-                  />
-                )}
-                <span
-                  aria-hidden
-                  className="absolute bottom-0 left-0 z-10 h-1 w-0 bg-accent transition-all duration-500 ease-[var(--ease-out-expo)] group-hover:w-full"
-                />
-                <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent p-4 pt-10">
-                  <p className="font-condensed text-lg font-semibold leading-tight text-white">{p.rol}</p>
-                  <p className="eyebrow mt-1 text-white/70">{p.colonia}</p>
-                </figcaption>
-              </figure>
-            </Reveal>
+        {/* Collage con titular gigante cruzando */}
+        <div className="relative mx-auto mt-10 aspect-[16/10] max-w-5xl md:mt-14 md:aspect-[16/8]">
+          {FOTOS.map((f) => (
+            <img
+              key={f.src}
+              src={f.src}
+              alt={f.alt}
+              loading="lazy"
+              decoding="async"
+              className={`absolute rounded-sm shadow-[0_25px_60px_-20px_rgba(0,0,0,0.55)] ${f.cls}`}
+              onError={(e) => {
+                e.currentTarget.style.display = 'none'
+              }}
+            />
           ))}
+          <div className="absolute inset-0 z-20 flex items-center justify-center">
+            <RevealText
+              as="h2"
+              text="En territorio"
+              className="font-display text-center text-[13vw] leading-none text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.45)] md:text-[8.5vw]"
+            />
+          </div>
         </div>
 
-        <div className="mt-8 md:hidden">
-          <ButtonLink to="/contacto" tone="accent" variant="solid" full>
-            Súmate al movimiento
-          </ButtonLink>
-        </div>
+        {/* CTA */}
+        <Reveal delay={0.1}>
+          <div className="mt-12 flex justify-center md:mt-16">
+            <ButtonLink to="/reels" tone="bone" variant="solid">
+              Mira los recorridos
+            </ButtonLink>
+          </div>
+        </Reveal>
       </div>
     </section>
   )

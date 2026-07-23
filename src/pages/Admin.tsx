@@ -34,6 +34,11 @@ create table if not exists testimonios (
   nombre text not null, rol text, lugar text, texto text not null,
   foto text, orden int default 0, created_at timestamptz default now());
 
+create table if not exists noticias (
+  id uuid primary key default gen_random_uuid(),
+  titulo text not null, fecha date, imagen text, url text,
+  orden int default 0, created_at timestamptz default now());
+
 -- Buzón de contacto. PRIVADO: el público solo puede INSERTAR (enviar), nunca
 -- leer. Los mensajes se ven en Supabase -> Table Editor -> mensajes.
 create table if not exists mensajes (
@@ -46,7 +51,10 @@ alter table eventos     enable row level security;
 alter table reels       enable row level security;
 alter table acciones    enable row level security;
 alter table testimonios enable row level security;
+alter table noticias    enable row level security;
 alter table mensajes    enable row level security;
+create policy "noticias read"  on noticias for select using (true);
+create policy "noticias write" on noticias for all using (true) with check (true);
 create policy "eventos read"   on eventos  for select using (true);
 create policy "eventos write"  on eventos  for all using (true) with check (true);
 create policy "reels read"     on reels    for select using (true);
@@ -56,6 +64,15 @@ create policy "acciones write" on acciones for all using (true) with check (true
 create policy "testimonios read"  on testimonios for select using (true);
 create policy "testimonios write" on testimonios for all using (true) with check (true);
 create policy "mensajes insert" on mensajes for insert with check (true);`
+
+// SQL solo para la tabla de noticias (si Supabase ya estaba configurado).
+const SQL_NOTICIAS = `create table if not exists noticias (
+  id uuid primary key default gen_random_uuid(),
+  titulo text not null, fecha date, imagen text, url text,
+  orden int default 0, created_at timestamptz default now());
+alter table noticias enable row level security;
+create policy "noticias read"  on noticias for select using (true);
+create policy "noticias write" on noticias for all using (true) with check (true);`
 
 // SQL solo para la tabla de testimonios (si Supabase ya estaba configurado).
 const SQL_TESTIMONIOS = `create table if not exists testimonios (
@@ -121,6 +138,14 @@ type TestimonioRow = {
   foto: string | null
   orden: number | null
 }
+type NoticiaRow = {
+  id: string
+  titulo: string
+  fecha: string | null
+  imagen: string | null
+  url: string | null
+  orden: number | null
+}
 
 const CATEGORIAS = ['Deporte', 'Educación', 'Comunidad', 'Economía local', 'Seguridad', 'Propuesta']
 
@@ -145,6 +170,7 @@ const EMPTY_EV: Omit<EventoRow, 'id'> = {
 }
 const EMPTY_AC = { categoria: 'Comunidad', titulo: '', resumen: '', detalle: '', imagen: '' }
 const EMPTY_TS = { nombre: '', rol: '', lugar: '', texto: '', foto: '' }
+const EMPTY_NT = { titulo: '', fecha: '', imagen: '', url: '' }
 
 const CalIcon = () => (
   <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
@@ -167,6 +193,11 @@ const QuoteIcon = () => (
     <path d="M4 13c0-3.9 2.4-6.8 6-7.8l.7 1.7C8.5 7.8 7.2 9.3 7 11h3v7H4v-5zm10 0c0-3.9 2.4-6.8 6-7.8l.7 1.7c-2.2.9-3.5 2.4-3.7 4.1h3v7h-6v-5z" />
   </svg>
 )
+const NewsIcon = () => (
+  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+    <path d="M4 5h13v14H6a2 2 0 0 1-2-2V5zm13 4h3v8a2 2 0 0 1-2 2h-1M7 9h7M7 13h7M7 17h4" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
 
 function fmtFecha(iso: string) {
   try {
@@ -179,15 +210,17 @@ function fmtFecha(iso: string) {
 }
 
 export default function Admin() {
-  const [tab, setTab] = useState<'agenda' | 'reels' | 'acciones' | 'testimonios'>('agenda')
+  const [tab, setTab] = useState<'agenda' | 'reels' | 'acciones' | 'testimonios' | 'noticias'>('agenda')
   const [eventos, setEventos] = useState<EventoRow[]>([])
   const [reels, setReels] = useState<ReelRow[]>([])
   const [acciones, setAcciones] = useState<AccionRow[]>([])
   const [testimonios, setTestimonios] = useState<TestimonioRow[]>([])
+  const [noticias, setNoticias] = useState<NoticiaRow[]>([])
   const [ev, setEv] = useState<Omit<EventoRow, 'id'> & { id?: string }>({ ...EMPTY_EV })
   const [reel, setReel] = useState({ titulo: '', instagram_url: '' })
   const [ac, setAc] = useState<typeof EMPTY_AC & { id?: string }>({ ...EMPTY_AC })
   const [ts, setTs] = useState<typeof EMPTY_TS & { id?: string }>({ ...EMPTY_TS })
+  const [nt, setNt] = useState<typeof EMPTY_NT & { id?: string }>({ ...EMPTY_NT })
   const [msg, setMsg] = useState('')
   const [busy, setBusy] = useState(false)
 
@@ -211,6 +244,7 @@ export default function Admin() {
     sbSelect<ReelRow>('reels', 'select=*&order=orden.asc,created_at.desc').then(setReels).catch(() => {})
     sbSelect<AccionRow>('acciones', 'select=*&order=orden.asc,created_at.desc').then(setAcciones).catch(() => {})
     sbSelect<TestimonioRow>('testimonios', 'select=*&order=orden.asc,created_at.desc').then(setTestimonios).catch(() => {})
+    sbSelect<NoticiaRow>('noticias', 'select=*&order=fecha.desc.nullslast,created_at.desc').then(setNoticias).catch(() => {})
   }
   useEffect(load, [])
 
@@ -307,7 +341,34 @@ export default function Admin() {
     }
   }
 
-  const del = async (table: 'eventos' | 'reels' | 'acciones' | 'testimonios', id: string, what: string) => {
+  const saveNoticia = async (e: FormEvent) => {
+    e.preventDefault()
+    setBusy(true)
+    try {
+      const { id, ...rest } = nt
+      const payload = {
+        titulo: rest.titulo,
+        fecha: rest.fecha || null,
+        imagen: rest.imagen || null,
+        url: rest.url || null,
+      }
+      if (id) await sbUpdate('noticias', id, payload)
+      else
+        await sbInsert('noticias', {
+          ...payload,
+          orden: (noticias[noticias.length - 1]?.orden ?? noticias.length) + 1,
+        })
+      setNt({ ...EMPTY_NT })
+      flash(id ? 'Cambios guardados ✓' : 'Noticia agregada ✓')
+      load()
+    } catch (err) {
+      flash('Error: ' + (err as Error).message)
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  const del = async (table: 'eventos' | 'reels' | 'acciones' | 'testimonios' | 'noticias', id: string, what: string) => {
     if (!window.confirm(`¿Eliminar ${what}? No se puede deshacer.`)) return
     try {
       await sbDelete(table, id)
@@ -407,9 +468,10 @@ export default function Admin() {
           </div>
         ) : (
           <>
-            <div className="mt-8 grid grid-cols-2 gap-2 rounded-xl border border-ink/12 bg-white p-1.5 sm:grid-cols-4">
+            <div className="mt-8 grid grid-cols-2 gap-2 rounded-xl border border-ink/12 bg-white p-1.5 sm:grid-cols-5">
               {tabBtn('agenda', <CalIcon />, 'Agenda', eventos.length)}
               {tabBtn('reels', <PlayIcon />, 'Reels', reels.length)}
+              {tabBtn('noticias', <NewsIcon />, 'Noticias', noticias.length)}
               {tabBtn('acciones', <FlagIcon />, 'Acciones', acciones.length)}
               {tabBtn('testimonios', <QuoteIcon />, 'Testimonios', testimonios.length)}
             </div>
@@ -749,6 +811,119 @@ export default function Admin() {
                         </p>
                         <pre className="mt-2 overflow-x-auto rounded-lg bg-ink p-3 text-[11px] leading-relaxed text-bone">
                           {SQL_ACCIONES}
+                        </pre>
+                      </li>
+                    )}
+                  </ul>
+                </div>
+              </div>
+            )}
+
+            {/* ============ NOTICIAS ============ */}
+            {tab === 'noticias' && (
+              <div className="mt-6 space-y-6">
+                <div className="rounded-xl border border-ink/12 bg-white p-6">
+                  <h2 className="font-condensed text-xl font-semibold uppercase tracking-wide text-ink">
+                    {nt.id ? 'Editar noticia' : 'Agregar una noticia'}
+                  </h2>
+                  <p className="mt-1 text-sm text-mute">
+                    Aparece en el Inicio, en <strong>"Últimas Noticias"</strong> (se muestran las 3
+                    más recientes).
+                  </p>
+                  <form onSubmit={saveNoticia} className="mt-5 grid gap-4 sm:grid-cols-2">
+                    <div className="sm:col-span-2">
+                      <label className={label}>Título de la nota</label>
+                      <input
+                        required
+                        className={input}
+                        placeholder="Ej. Marco Balseca encabeza el canje de armas en Tehuacán"
+                        value={nt.titulo}
+                        onChange={(e) => setNt({ ...nt, titulo: e.target.value })}
+                      />
+                    </div>
+                    <div>
+                      <label className={label}>Fecha de publicación</label>
+                      <input
+                        type="date"
+                        className={input}
+                        value={nt.fecha?.slice(0, 10) ?? ''}
+                        onChange={(e) => setNt({ ...nt, fecha: e.target.value })}
+                      />
+                    </div>
+                    <div>
+                      <label className={label}>Enlace a la nota</label>
+                      <input
+                        className={input}
+                        placeholder="https://..."
+                        value={nt.url}
+                        onChange={(e) => setNt({ ...nt, url: e.target.value })}
+                      />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className={label}>Imagen (opcional)</label>
+                      <input
+                        className={input}
+                        placeholder="Enlace a una foto de la nota (https://...)"
+                        value={nt.imagen}
+                        onChange={(e) => setNt({ ...nt, imagen: e.target.value })}
+                      />
+                    </div>
+                    <div className="flex items-center gap-3 sm:col-span-2">
+                      <button type="submit" className={btn} disabled={busy}>
+                        {nt.id ? 'Guardar cambios' : 'Agregar noticia'}
+                      </button>
+                      {nt.id && (
+                        <button type="button" className={btnGhost} onClick={() => setNt({ ...EMPTY_NT })}>
+                          Cancelar
+                        </button>
+                      )}
+                    </div>
+                  </form>
+                </div>
+
+                <div className="rounded-xl border border-ink/12 bg-white">
+                  <p className="border-b border-ink/10 px-6 py-4 font-condensed text-lg font-semibold uppercase tracking-wide text-ink">
+                    Noticias publicadas ({noticias.length})
+                  </p>
+                  <ul className="divide-y divide-ink/10">
+                    {noticias.map((n) => (
+                      <li key={n.id} className="flex flex-wrap items-center justify-between gap-3 px-6 py-4">
+                        <div className="min-w-0">
+                          <p className="truncate text-sm font-semibold text-ink">{n.titulo}</p>
+                          <p className="text-xs text-mute">{n.fecha ? fmtFecha(n.fecha) : 'Sin fecha'}</p>
+                        </div>
+                        <div className="flex shrink-0 gap-2">
+                          <button
+                            className={btnGhost}
+                            onClick={() => {
+                              setNt({
+                                id: n.id,
+                                titulo: n.titulo,
+                                fecha: n.fecha?.slice(0, 10) ?? '',
+                                imagen: n.imagen ?? '',
+                                url: n.url ?? '',
+                              })
+                              toTop()
+                            }}
+                          >
+                            Editar
+                          </button>
+                          <button className={btnDanger} onClick={() => del('noticias', n.id, 'esta noticia')}>
+                            Eliminar
+                          </button>
+                        </div>
+                      </li>
+                    ))}
+                    {noticias.length === 0 && (
+                      <li className="px-6 py-6 text-sm text-mute">
+                        <p className="text-center">
+                          Aún no hay noticias en la base de datos (el sitio muestra las de ejemplo).
+                        </p>
+                        <p className="mt-3 text-xs">
+                          Si es la primera vez, crea la tabla: pega este SQL en Supabase → SQL Editor:
+                        </p>
+                        <pre className="mt-2 overflow-x-auto rounded-lg bg-ink p-3 text-[11px] leading-relaxed text-bone">
+                          {SQL_NOTICIAS}
                         </pre>
                       </li>
                     )}

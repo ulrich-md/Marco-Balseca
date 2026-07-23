@@ -7,6 +7,7 @@ import { HeroVideo, type VideoPhoto } from '../../components/ui/HeroVideo'
 import { LiveCounter } from '../../components/ui/LiveCounter'
 import { CommunityAvatars } from '../../components/ui/CommunityAvatars'
 import { InstagramIcon, FacebookIcon, XIcon } from '../../components/ui/Icons'
+import { OrganicShapes } from '../../components/ui/OrganicShapes'
 import { useParallax } from '../../lib/useParallax'
 import { SOCIAL, JUNTAS_AUXILIARES, COLONIAS_RECORRIDAS } from '../../data/site'
 
@@ -66,11 +67,11 @@ export function Hero() {
         }
 
   return (
-    <section onMouseMove={onMove} onMouseLeave={onLeave} className="relative overflow-hidden bg-white text-ink">
-      {/* Textura editorial ESTÁTICA (sin animación, sin crema): malla de puntos
-          concentrada en el área inferior-izquierda + retícula fina. Da interés
-          al fondo sin competir con el nombre ni meter color. */}
+    <section onMouseMove={onMove} onMouseLeave={onLeave} className="relative overflow-hidden bg-cream text-ink">
+      {/* Fondo institucional: crema con blobs orgánicos suaves (lenguaje del
+          equipo de gobierno) + malla de puntos editorial abajo-izquierda. */}
       <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
+        <OrganicShapes tone="light" opacity={0.5} />
         <div
           className="absolute inset-0"
           style={{

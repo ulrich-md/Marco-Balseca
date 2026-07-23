@@ -13,6 +13,8 @@
   --color-accent-soft: #b84368; /* tinte vivo para hover sobre oscuro */
   --color-gold: #a57f2c; /* dorado institucional (Pantone 1255 C) */
   --color-sand: #e6d194; /* arena/dorado claro (Pantone 7402 C) */
+  --color-cream: #f8f1e4; /* crema institucional (fondos claros, ref. sitio Gob.) */
+  --color-cream-deep: #eee0c6; /* crema profundo (blobs sobre crema) */
 
   /* ---- Base neutra B&N ---- */
   --color-black: #0b0b0b; /* negro real: campos oscuros, footer, CTA, menú */

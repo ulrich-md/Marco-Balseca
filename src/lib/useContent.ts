@@ -4,6 +4,7 @@ import { AGENDA, type Evento } from '../data/agenda'
 import { REELS, type Reel } from '../data/reels'
 import { ACCIONES, type Accion } from '../data/acciones'
 import { TESTIMONIOS, type Testimonio } from '../data/testimonios'
+import { NOTICIAS, type Noticia } from '../data/noticias'
 
 /* Hooks de contenido: leen de Supabase si está configurado; si no (o si falla),
    usan los datos locales. Así el sitio nunca se rompe. El panel /admin escribe
@@ -110,6 +111,44 @@ function mapAccion(r: AccionRow): Accion {
     detalle: r.detalle ?? undefined,
     imagen: r.imagen ?? undefined,
   }
+}
+
+type NoticiaRow = {
+  id: string
+  titulo: string
+  fecha: string | null
+  imagen: string | null
+  url: string | null
+  orden?: number | null
+}
+
+function mapNoticia(r: NoticiaRow): Noticia {
+  return {
+    id: r.id,
+    titulo: r.titulo,
+    fecha: r.fecha ?? undefined,
+    imagen: r.imagen ?? undefined,
+    url: r.url ?? '#',
+  }
+}
+
+export function useNoticias() {
+  const [noticias, setNoticias] = useState<Noticia[]>(() => NOTICIAS)
+  const [loading, setLoading] = useState(supabaseEnabled)
+
+  const reload = useCallback(() => {
+    if (!supabaseEnabled) return
+    setLoading(true)
+    sbSelect<NoticiaRow>('noticias', 'select=*&order=fecha.desc.nullslast,created_at.desc')
+      .then((rows) => {
+        if (rows.length > 0) setNoticias(rows.map(mapNoticia))
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false))
+  }, [])
+
+  useEffect(() => reload(), [reload])
+  return { noticias, loading, reload }
 }
 
 type TestimonioRow = {
