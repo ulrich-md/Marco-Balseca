@@ -10,6 +10,7 @@ import Home from './pages/Home'
 const Conoceme = lazy(() => import('./pages/Conoceme'))
 const Trayectoria = lazy(() => import('./pages/Trayectoria'))
 const Reels = lazy(() => import('./pages/Reels'))
+const Testimonios = lazy(() => import('./pages/Testimonios'))
 const Agenda = lazy(() => import('./pages/Agenda'))
 const Contacto = lazy(() => import('./pages/Contacto'))
 const AvisoPrivacidad = lazy(() => import('./pages/AvisoPrivacidad'))
@@ -38,6 +39,7 @@ export function App() {
             <Route path="conoceme" element={<Conoceme />} />
             <Route path="trayectoria" element={<Trayectoria />} />
             <Route path="reels" element={<Reels />} />
+            <Route path="testimonios" element={<Testimonios />} />
             <Route path="agenda" element={<Agenda />} />
             <Route path="contacto" element={<Contacto />} />
             <Route path="aviso-de-privacidad" element={<AvisoPrivacidad />} />

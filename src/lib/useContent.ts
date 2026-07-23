@@ -116,6 +116,7 @@ function mapAccion(r: AccionRow): Accion {
 type NoticiaRow = {
   id: string
   titulo: string
+  fuente: string | null
   fecha: string | null
   imagen: string | null
   url: string | null
@@ -126,6 +127,7 @@ function mapNoticia(r: NoticiaRow): Noticia {
   return {
     id: r.id,
     titulo: r.titulo,
+    fuente: r.fuente ?? undefined,
     fecha: r.fecha ?? undefined,
     imagen: r.imagen ?? undefined,
     url: r.url ?? '#',

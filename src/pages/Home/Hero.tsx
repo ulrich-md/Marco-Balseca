@@ -7,7 +7,7 @@ import { HeroVideo, type VideoPhoto } from '../../components/ui/HeroVideo'
 import { LiveCounter } from '../../components/ui/LiveCounter'
 import { CommunityAvatars } from '../../components/ui/CommunityAvatars'
 import { InstagramIcon, FacebookIcon, XIcon } from '../../components/ui/Icons'
-import { OrganicShapes } from '../../components/ui/OrganicShapes'
+import { PrehispanicField } from '../../components/ui/PrehispanicField'
 import { useParallax } from '../../lib/useParallax'
 import { SOCIAL, JUNTAS_AUXILIARES, COLONIAS_RECORRIDAS } from '../../data/site'
 
@@ -20,9 +20,10 @@ const HERO_SOCIAL = [
 const INDEX = [
   { n: '01', label: 'Conóceme', to: '/conoceme' },
   { n: '02', label: 'Trayectoria', to: '/trayectoria' },
-  { n: '03', label: 'Reels', to: '/reels' },
-  { n: '04', label: 'Agenda', to: '/agenda' },
-  { n: '05', label: 'Contacto', to: '/contacto' },
+  { n: '03', label: 'Testimonios', to: '/testimonios' },
+  { n: '04', label: 'Reels', to: '/reels' },
+  { n: '05', label: 'Agenda', to: '/agenda' },
+  { n: '06', label: 'Contacto', to: '/contacto' },
 ]
 
 // Fotos REALES para el "video" principal del hero (montaje; usa el MP4 real
@@ -67,31 +68,11 @@ export function Hero() {
         }
 
   return (
-    <section onMouseMove={onMove} onMouseLeave={onLeave} className="relative overflow-hidden bg-cream text-ink">
-      {/* Fondo institucional: crema con blobs orgánicos suaves (lenguaje del
-          equipo de gobierno) + malla de puntos editorial abajo-izquierda. */}
+    <section onMouseMove={onMove} onMouseLeave={onLeave} className="relative overflow-hidden bg-white text-ink">
+      {/* Fondo BLANCO editorial con símbolos prehispánicos emergiendo del
+          margen izquierdo y difuminándose hacia la derecha (guinda muy sutil). */}
       <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
-        <OrganicShapes tone="light" opacity={0.5} />
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: 'radial-gradient(rgba(22,22,22,0.13) 1.2px, transparent 1.3px)',
-            backgroundSize: '24px 24px',
-            WebkitMaskImage: 'radial-gradient(58% 58% at 16% 82%, #000 0%, transparent 72%)',
-            maskImage: 'radial-gradient(58% 58% at 16% 82%, #000 0%, transparent 72%)',
-          }}
-        />
-        {/* Acento: bloque rojo fino tipo "+", sutil, abajo-izquierda */}
-        <div
-          className="absolute bottom-[16%] left-[2%] h-24 w-24 opacity-[0.6]"
-          style={{
-            backgroundImage:
-              'linear-gradient(var(--color-accent) 2px, transparent 2px), linear-gradient(90deg, var(--color-accent) 2px, transparent 2px)',
-            backgroundSize: '24px 24px',
-            WebkitMaskImage: 'linear-gradient(135deg, #000, transparent 75%)',
-            maskImage: 'linear-gradient(135deg, #000, transparent 75%)',
-          }}
-        />
+        <PrehispanicField opacity={0.42} />
       </div>
 
       {/* Índice vertical derecho (ref. ESPN) */}
@@ -214,7 +195,7 @@ export function Hero() {
               el h1), con rotación sutil y halo guinda detrás = capas y energía. */}
           <div
             ref={photoRef}
-            className="relative z-20 mt-8 lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:-mt-[25vw]"
+            className="relative z-20 mt-8 lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:-mt-[30vw]"
           >
             {/* Halo orgánico guinda (color + profundidad detrás del teléfono) */}
             <div
@@ -226,7 +207,7 @@ export function Hero() {
               }}
             />
             <motion.div
-              className="relative mx-auto w-full max-w-[280px] rotate-2 lg:max-w-[330px] lg:rotate-3"
+              className="relative mx-auto w-full max-w-[300px] rotate-2 lg:max-w-[390px] lg:rotate-3"
               style={{ rotateX: reduce ? 0 : rotX, rotateY: reduce ? 0 : rotY, transformPerspective: 1000 }}
             >
               {/* Carcasa del teléfono (bezel + botones + dynamic island) */}

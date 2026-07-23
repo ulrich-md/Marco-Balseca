@@ -23,6 +23,7 @@ export const NAV = [
   { label: 'Inicio', to: '/' },
   { label: 'Conóceme', to: '/conoceme' },
   { label: 'Trayectoria', to: '/trayectoria' },
+  { label: 'Testimonios', to: '/testimonios' },
   { label: 'Reels', to: '/reels' },
   { label: 'Agenda', to: '/agenda' },
   { label: 'Contacto', to: '/contacto' },

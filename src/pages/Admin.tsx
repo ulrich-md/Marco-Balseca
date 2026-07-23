@@ -36,7 +36,7 @@ create table if not exists testimonios (
 
 create table if not exists noticias (
   id uuid primary key default gen_random_uuid(),
-  titulo text not null, fecha date, imagen text, url text,
+  titulo text not null, fuente text, fecha date, imagen text, url text,
   orden int default 0, created_at timestamptz default now());
 
 -- Buzón de contacto. PRIVADO: el público solo puede INSERTAR (enviar), nunca
@@ -68,7 +68,7 @@ create policy "mensajes insert" on mensajes for insert with check (true);`
 // SQL solo para la tabla de noticias (si Supabase ya estaba configurado).
 const SQL_NOTICIAS = `create table if not exists noticias (
   id uuid primary key default gen_random_uuid(),
-  titulo text not null, fecha date, imagen text, url text,
+  titulo text not null, fuente text, fecha date, imagen text, url text,
   orden int default 0, created_at timestamptz default now());
 alter table noticias enable row level security;
 create policy "noticias read"  on noticias for select using (true);
@@ -141,6 +141,7 @@ type TestimonioRow = {
 type NoticiaRow = {
   id: string
   titulo: string
+  fuente: string | null
   fecha: string | null
   imagen: string | null
   url: string | null
@@ -170,7 +171,7 @@ const EMPTY_EV: Omit<EventoRow, 'id'> = {
 }
 const EMPTY_AC = { categoria: 'Comunidad', titulo: '', resumen: '', detalle: '', imagen: '' }
 const EMPTY_TS = { nombre: '', rol: '', lugar: '', texto: '', foto: '' }
-const EMPTY_NT = { titulo: '', fecha: '', imagen: '', url: '' }
+const EMPTY_NT = { titulo: '', fuente: '', fecha: '', imagen: '', url: '' }
 
 const CalIcon = () => (
   <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
@@ -348,6 +349,7 @@ export default function Admin() {
       const { id, ...rest } = nt
       const payload = {
         titulo: rest.titulo,
+        fuente: rest.fuente || null,
         fecha: rest.fecha || null,
         imagen: rest.imagen || null,
         url: rest.url || null,
@@ -842,6 +844,15 @@ export default function Admin() {
                       />
                     </div>
                     <div>
+                      <label className={label}>Fuente / medio</label>
+                      <input
+                        className={input}
+                        placeholder="Ej. Municipios Puebla"
+                        value={nt.fuente}
+                        onChange={(e) => setNt({ ...nt, fuente: e.target.value })}
+                      />
+                    </div>
+                    <div>
                       <label className={label}>Fecha de publicación</label>
                       <input
                         type="date"
@@ -899,6 +910,7 @@ export default function Admin() {
                               setNt({
                                 id: n.id,
                                 titulo: n.titulo,
+                                fuente: n.fuente ?? '',
                                 fecha: n.fecha?.slice(0, 10) ?? '',
                                 imagen: n.imagen ?? '',
                                 url: n.url ?? '',

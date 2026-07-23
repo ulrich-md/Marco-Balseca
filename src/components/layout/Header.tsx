@@ -40,7 +40,7 @@ export function Header() {
         <div className="container-x flex items-center justify-between gap-6">
           <Wordmark tone="ink" />
 
-          <nav className="hidden items-center gap-7 lg:flex" aria-label="Principal">
+          <nav className="hidden items-center gap-x-5 lg:flex xl:gap-x-7" aria-label="Principal">
             {NAV.map((item) => (
               <NavLink
                 key={item.to}
