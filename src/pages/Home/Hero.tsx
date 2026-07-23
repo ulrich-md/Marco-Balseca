@@ -69,10 +69,15 @@ export function Hero() {
 
   return (
     <section onMouseMove={onMove} onMouseLeave={onLeave} className="relative overflow-hidden bg-white text-ink">
-      {/* Fondo BLANCO editorial con símbolos prehispánicos emergiendo del
-          margen izquierdo y difuminándose hacia la derecha (guinda muy sutil). */}
+      {/* Fondo BLANCO editorial. Glow guinda muy sutil en la esquina superior
+          izquierda (calidez, no ruido) + símbolos prehispánicos confinados a la
+          zona del nombre, difuminándose antes del cuerpo y del teléfono. */}
       <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
-        <PrehispanicField opacity={0.42} />
+        <div
+          className="absolute inset-0"
+          style={{ background: 'radial-gradient(58% 55% at 6% -2%, rgba(155,34,71,0.06), transparent 58%)' }}
+        />
+        <PrehispanicField opacity={0.26} />
       </div>
 
       {/* Índice vertical derecho (ref. ESPN) */}
@@ -195,7 +200,7 @@ export function Hero() {
               el h1), con rotación sutil y halo guinda detrás = capas y energía. */}
           <div
             ref={photoRef}
-            className="relative z-20 mt-8 lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:-mt-[30vw]"
+            className="relative z-20 mt-8 lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:mt-[max(-24vw,-320px)]"
           >
             {/* Halo orgánico guinda (color + profundidad detrás del teléfono) */}
             <div
