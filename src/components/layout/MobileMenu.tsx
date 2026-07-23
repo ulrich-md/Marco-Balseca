@@ -21,13 +21,13 @@ export function MobileMenu({ open, onClose }: Props) {
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-[90] flex flex-col bg-black text-white lg:hidden"
+          className="fixed inset-0 z-[90] flex flex-col overflow-y-auto bg-black text-white lg:hidden"
           initial={{ opacity: 0, y: -16 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -16 }}
           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
         >
-          <nav className="relative flex flex-1 flex-col justify-center gap-1 px-6 pt-24">
+          <nav className="relative flex flex-col gap-0.5 px-6 pb-8 pt-20">
             {NAV.map((item, i) => {
               const active = pathname === item.to
               return (
@@ -40,7 +40,7 @@ export function MobileMenu({ open, onClose }: Props) {
                   <Link
                     to={item.to}
                     onClick={onClose}
-                    className="font-display flex items-baseline gap-4 py-2 text-5xl sm:text-6xl"
+                    className="font-display flex items-baseline gap-4 py-1.5 text-4xl sm:text-5xl"
                   >
                     <span className="eyebrow w-8 shrink-0 text-accent-soft">
                       {String(i + 1).padStart(2, '0')}
@@ -52,7 +52,7 @@ export function MobileMenu({ open, onClose }: Props) {
             })}
           </nav>
 
-          <div className="relative flex flex-col gap-5 border-t border-white/15 px-6 py-7">
+          <div className="relative mt-auto flex shrink-0 flex-col gap-5 border-t border-white/15 px-6 py-7">
             <ButtonLink to="/contacto" tone="bone" variant="solid" full onClick={onClose}>
               Súmate
             </ButtonLink>

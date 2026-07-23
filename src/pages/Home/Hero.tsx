@@ -202,13 +202,15 @@ export function Hero() {
             ref={photoRef}
             className="relative z-20 mt-8 lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:mt-[max(-24vw,-320px)]"
           >
-            {/* Halo orgánico guinda (color + profundidad detrás del teléfono) */}
+            {/* Halo de gradiente guinda + dorado detrás del teléfono: aporta
+                color, calidez y profundidad, y equilibra el peso del nombre a
+                la izquierda (va sobre zona sin texto → suma sin quitar jerarquía). */}
             <div
               aria-hidden
-              className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[130%] w-[150%] -translate-x-1/2 -translate-y-1/2"
+              className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[135%] w-[155%] -translate-x-1/2 -translate-y-1/2 blur-[2px]"
               style={{
                 background:
-                  'radial-gradient(48% 42% at 50% 46%, rgba(155,34,71,0.20), rgba(155,34,71,0.07) 60%, transparent 75%)',
+                  'radial-gradient(52% 46% at 50% 47%, rgba(155,34,71,0.26), rgba(155,34,71,0.09) 54%, transparent 74%), radial-gradient(40% 34% at 72% 15%, rgba(165,127,44,0.16), transparent 62%)',
               }}
             />
             <motion.div

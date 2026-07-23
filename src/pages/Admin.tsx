@@ -70,6 +70,8 @@ const SQL_NOTICIAS = `create table if not exists noticias (
   id uuid primary key default gen_random_uuid(),
   titulo text not null, fuente text, fecha date, imagen text, url text,
   orden int default 0, created_at timestamptz default now());
+-- si la tabla ya existía sin 'fuente', esto la agrega (no rompe nada):
+alter table noticias add column if not exists fuente text;
 alter table noticias enable row level security;
 create policy "noticias read"  on noticias for select using (true);
 create policy "noticias write" on noticias for all using (true) with check (true);`

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { SectionLabel } from '../../components/ui/SectionLabel'
 import { RevealText } from '../../components/ui/RevealText'
 import { Reveal } from '../../components/ui/Reveal'
@@ -11,10 +11,10 @@ import { SOCIAL } from '../../data/site'
 import type { Noticia } from '../../data/noticias'
 
 /* =========================================================================
-   "Últimas Noticias" — crema institucional. Lista de notas a la izquierda
-   (con fuente, título, fecha y "Continúa leyendo") y el MURO DE FACEBOOK en
-   vivo AL LADO (columna derecha, sticky). Las 5 notas se revelan con un
-   botón. Editable desde /admin. Microinteracciones sutiles.
+   "Últimas Noticias" — crema institucional. Tarjetas GRANDES con panel de
+   gradiente guinda (fuente + greca + brillo al hover) cuando no hay foto real,
+   o la foto real si se agrega desde /admin. Muro de Facebook en vivo AL LADO
+   (columna derecha, sticky). Las 5 notas se revelan con un botón.
    ========================================================================= */
 
 const EXPO = [0.16, 1, 0.3, 1]
@@ -30,48 +30,73 @@ function fmtFecha(iso?: string) {
   }
 }
 
+/* Panel de gradiente guinda cuando la nota no trae foto real (con greca de
+   marca de agua + brillo que barre al hover). */
+function CoverPanel({ fuente }: { fuente?: string }) {
+  return (
+    <div className="relative flex min-h-[168px] items-end overflow-hidden bg-gradient-to-br from-accent to-accent-deep p-5">
+      <svg viewBox="0 0 100 100" aria-hidden className="absolute -right-3 -top-3 h-24 w-24 opacity-20" fill="none">
+        <path
+          d="M12 88 L12 38 L50 38 L50 66 L30 66 L30 52 L40 52 L40 58"
+          stroke="var(--color-sand)"
+          strokeWidth={6}
+          strokeLinecap="square"
+        />
+      </svg>
+      {/* brillo diagonal que barre al hover */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-full motion-reduce:transition-none"
+      />
+      <span className="relative">
+        <span className="eyebrow text-white/70">En la prensa</span>
+        <span className="font-condensed mt-1 block text-lg font-bold uppercase leading-tight tracking-wide text-white">
+          {fuente ?? 'Marco Balseca'}
+        </span>
+      </span>
+    </div>
+  )
+}
+
 function NewsCard({ n }: { n: Noticia }) {
   const fecha = fmtFecha(n.fecha)
   return (
-    <article className="group relative flex items-start gap-4 overflow-hidden rounded-md border border-ink/8 bg-white p-5 pl-6 shadow-[0_16px_40px_-32px_rgba(22,22,22,0.5)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_45px_-28px_rgba(155,34,71,0.45)]">
-      {/* pleca guinda que se "llena" al hover */}
-      <span aria-hidden className="absolute left-0 top-0 h-full w-1.5 bg-accent/20">
-        <span className="block h-full origin-top scale-y-0 bg-accent transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-y-100" />
-      </span>
-
-      {n.imagen && (
-        <div className="hidden shrink-0 overflow-hidden rounded sm:block">
+    <article className="group grid overflow-hidden rounded-lg bg-white shadow-[0_18px_45px_-30px_rgba(22,22,22,0.4)] ring-1 ring-ink/5 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_55px_-24px_rgba(155,34,71,0.5)] sm:grid-cols-[minmax(0,42%)_1fr]">
+      {n.imagen ? (
+        <div className="overflow-hidden">
           <img
             src={n.imagen}
             alt=""
             loading="lazy"
             decoding="async"
-            className="h-20 w-28 object-cover transition-transform duration-500 group-hover:scale-105"
+            className="h-44 w-full object-cover transition-transform duration-500 group-hover:scale-105 sm:h-full"
             onError={(e) => {
               e.currentTarget.style.display = 'none'
             }}
           />
         </div>
+      ) : (
+        <CoverPanel fuente={n.fuente} />
       )}
 
-      <div className="min-w-0">
-        <div className="flex flex-wrap items-center gap-2">
-          {n.fuente && <span className="eyebrow text-accent">{n.fuente}</span>}
-          {fecha && (
-            <>
+      <div className="flex flex-col justify-center p-6 sm:p-7">
+        {(n.fuente || fecha) && (
+          <div className="flex flex-wrap items-center gap-2">
+            {n.imagen && n.fuente && <span className="eyebrow text-accent">{n.fuente}</span>}
+            {n.imagen && n.fuente && fecha && (
               <span aria-hidden className="h-1 w-1 rounded-full bg-ink/25" />
-              <span className="eyebrow text-mute">{fecha}</span>
-            </>
-          )}
-        </div>
-        <h3 className="font-condensed mt-2 text-lg font-semibold leading-snug text-accent-deep transition-colors duration-200 group-hover:text-accent">
+            )}
+            {fecha && <span className="eyebrow text-mute">{fecha}</span>}
+          </div>
+        )}
+        <h3 className="font-condensed mt-2 text-xl font-semibold leading-snug text-accent-deep transition-colors duration-200 group-hover:text-accent sm:text-2xl">
           {n.titulo}
         </h3>
         <a
           href={n.url}
           target="_blank"
           rel="noreferrer"
-          className="font-condensed mt-3 inline-flex items-center gap-1.5 text-sm font-bold uppercase tracking-wide text-accent"
+          className="font-condensed mt-4 inline-flex items-center gap-1.5 text-sm font-bold uppercase tracking-wide text-accent"
         >
           Continúa leyendo
           <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">→</span>
@@ -82,6 +107,7 @@ function NewsCard({ n }: { n: Noticia }) {
 }
 
 export function PrensaStrip() {
+  const reduce = useReducedMotion()
   const { noticias } = useNoticias()
   const [showAll, setShowAll] = useState(false)
   const primeras = noticias.slice(0, 3)
@@ -97,7 +123,7 @@ export function PrensaStrip() {
           <RevealText
             as="h2"
             text="Últimas Noticias"
-            className="font-display mt-5 text-[12vw] leading-[0.9] text-accent sm:text-5xl lg:text-6xl"
+            className="font-display mt-5 text-[13vw] leading-[0.9] text-accent sm:text-6xl lg:text-7xl"
           />
           <Reveal delay={0.1}>
             <p className="mt-4 max-w-xl text-ink/70">
@@ -107,10 +133,10 @@ export function PrensaStrip() {
         </div>
 
         {/* Notas (izq) + muro de Facebook AL LADO (der) */}
-        <div className="mt-14 grid items-start gap-10 lg:grid-cols-[1.5fr_1fr] lg:gap-12">
+        <div className="mt-14 grid items-start gap-10 lg:grid-cols-[1.55fr_1fr] lg:gap-12">
           {/* Columna de notas */}
           <div>
-            <div className="grid gap-4">
+            <div className="grid gap-6">
               {primeras.map((n, i) => (
                 <Reveal key={n.id} delay={i * 0.06}>
                   <NewsCard n={n} />
@@ -121,10 +147,10 @@ export function PrensaStrip() {
                   resto.map((n, i) => (
                     <motion.div
                       key={n.id}
-                      initial={{ opacity: 0, y: 18 }}
+                      initial={reduce ? false : { opacity: 0, y: 18 }}
                       animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      transition={{ duration: 0.4, delay: i * 0.07, ease: EXPO }}
+                      exit={reduce ? { opacity: 0 } : { opacity: 0, y: 10 }}
+                      transition={{ duration: reduce ? 0.2 : 0.42, delay: reduce ? 0 : i * 0.08, ease: EXPO }}
                     >
                       <NewsCard n={n} />
                     </motion.div>
