@@ -1,16 +1,15 @@
 import { Seo } from '../lib/Seo'
-import { PageHero } from '../components/layout/PageHero'
 import { CtaBand } from '../components/layout/CtaBand'
 import { OrganicShapes } from '../components/ui/OrganicShapes'
+import { SectionLabel } from '../components/ui/SectionLabel'
 import { StaggerTestimonials } from '../components/ui/StaggerTestimonials'
 import { ButtonLink } from '../components/ui/Button'
 import { useTestimonios } from '../lib/useContent'
 
 /* =========================================================================
-   TESTIMONIOS — "Recogiendo los sentimientos de Tehuacán".
-   Carrusel escalonado interactivo (asset adaptado a la identidad guinda)
-   sobre crema institucional. Editable desde /admin (pestaña Testimonios);
-   respaldo local si Supabase no está.
+   TESTIMONIOS — solo el carrusel escalonado interactivo (asset adaptado a la
+   identidad guinda), sobre crema institucional con comilla gigante y formas
+   orgánicas de fondo. Editable desde /admin.
    ========================================================================= */
 
 export default function Testimonios() {
@@ -24,26 +23,30 @@ export default function Testimonios() {
         description="Lo que vecinas y vecinos de Tehuacán dicen de Marco Balseca. Voces reales del territorio."
       />
 
-      <PageHero
-        index="04"
-        label="Recogiendo los sentimientos de Tehuacán"
-        title={'Lo que me\ndice la gente'}
-        intro="Camino el territorio para escuchar. Estas son las voces de vecinas y vecinos —con sus palabras— que le dan sentido a todo lo que hago."
-      />
+      <section className="relative min-h-screen overflow-hidden bg-cream pt-32 pb-16 text-ink md:pt-40">
+        <OrganicShapes tone="light" opacity={0.55} />
+        {/* Comilla gigante decorativa detrás del carrusel */}
+        <span
+          aria-hidden
+          className="font-display pointer-events-none absolute left-1/2 top-10 -translate-x-1/2 select-none text-[42vw] leading-[0.7] text-accent/[0.06] md:top-16 md:text-[26vw]"
+        >
+          “
+        </span>
 
-      <section className="relative overflow-hidden bg-cream py-10 text-ink md:py-16">
-        <OrganicShapes tone="light" opacity={0.5} />
-        <div className="relative z-10">
+        <div className="container-x relative z-10 flex flex-col items-center text-center">
+          <SectionLabel tone="accent">Voces de Tehuacán · En vivo</SectionLabel>
+        </div>
+
+        <div className="relative z-10 mt-8">
           {testimonios.length > 0 ? (
             <StaggerTestimonials items={testimonios} />
           ) : (
-            <p className="py-16 text-center text-mute">
-              Pronto compartiremos más voces del territorio.
-            </p>
+            <p className="py-16 text-center text-mute">Pronto compartiremos más voces del territorio.</p>
           )}
         </div>
 
-        <div className="relative z-10 mt-6 flex justify-center pb-6">
+        <div className="relative z-10 mt-4 flex flex-col items-center gap-6">
+          <p className="eyebrow text-mute/70">Arrastra · toca los lados · usa ← →</p>
           <ButtonLink to="/contacto" tone="accent" variant="outline">
             Cuéntame el tuyo
           </ButtonLink>
