@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { SectionLabel } from '../../components/ui/SectionLabel'
 import { RevealText } from '../../components/ui/RevealText'
 import { Reveal } from '../../components/ui/Reveal'
-import { OrganicShapes } from '../../components/ui/OrganicShapes'
+import { CoyoteTexture } from '../../components/ui/CoyoteTexture'
 import { ButtonAnchor } from '../../components/ui/Button'
 import { FacebookRecentPosts } from '../../components/ui/FacebookRecentPosts'
 import { useNoticias } from '../../lib/useContent'
@@ -115,7 +115,7 @@ export function PrensaStrip() {
 
   return (
     <section className="relative overflow-hidden bg-cream py-20 text-ink md:py-32">
-      <OrganicShapes tone="light" opacity={0.55} />
+      <CoyoteTexture color="#9b2247" opacity={0.06} />
       <div className="container-x relative z-10">
         {/* Encabezado centrado */}
         <div className="flex flex-col items-center text-center">

@@ -3,7 +3,7 @@ import { ButtonLink, ButtonAnchor } from '../ui/Button'
 import { SectionLabel } from '../ui/SectionLabel'
 import { Reveal } from '../ui/Reveal'
 import { PortraitPlaceholder } from '../ui/PortraitPlaceholder'
-import { OrganicShapes } from '../ui/OrganicShapes'
+import { CoyoteTexture } from '../ui/CoyoteTexture'
 import { SOCIAL } from '../../data/site'
 
 /**
@@ -14,7 +14,7 @@ import { SOCIAL } from '../../data/site'
 export function CtaBand() {
   return (
     <section className="relative overflow-hidden bg-accent-deep py-20 text-white md:py-36">
-      <OrganicShapes opacity={0.75} />
+      <CoyoteTexture color="#ffffff" opacity={0.08} />
       {/* Grano de película muy sutil (4KB) al 5% */}
       <div
         aria-hidden

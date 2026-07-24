@@ -1,7 +1,7 @@
 import { Reveal } from '../../components/ui/Reveal'
 import { RevealText } from '../../components/ui/RevealText'
 import { ButtonLink } from '../../components/ui/Button'
-import { OrganicShapes } from '../../components/ui/OrganicShapes'
+import { CoyoteTexture } from '../../components/ui/CoyoteTexture'
 
 /* =========================================================================
    "EN TERRITORIO" — collage estilo sitio del Gobierno del Estado
@@ -30,22 +30,11 @@ const FOTOS = [
 export function ComunidadStrip() {
   return (
     <section className="relative overflow-hidden bg-accent py-20 text-white md:py-32">
-      {/* Textura: foto en multiplicar + blobs + grano (mosaico guinda) */}
+      {/* Textura de coyote sobre guinda sólido + grano sutil */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
-        <img
-          src="/assets/comunidad/comunidad-visita.webp"
-          alt=""
-          className="h-full w-full scale-110 object-cover opacity-30 blur-[3px] grayscale"
-          loading="lazy"
-          decoding="async"
-          onError={(e) => {
-            e.currentTarget.style.display = 'none'
-          }}
-        />
-        <div className="absolute inset-0 bg-accent/80 mix-blend-multiply" />
-        <OrganicShapes opacity={0.5} />
+        <CoyoteTexture color="#ffffff" opacity={0.08} />
         <div
-          className="absolute inset-0 opacity-[0.06]"
+          className="absolute inset-0 opacity-[0.05]"
           style={{ backgroundImage: 'url(/assets/backgrounds/grain.png)', backgroundSize: '420px' }}
         />
       </div>

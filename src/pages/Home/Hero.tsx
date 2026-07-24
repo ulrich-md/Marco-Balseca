@@ -8,7 +8,7 @@ import { LiveCounter } from '../../components/ui/LiveCounter'
 import { CommunityAvatars } from '../../components/ui/CommunityAvatars'
 import { InstagramIcon, FacebookIcon, XIcon } from '../../components/ui/Icons'
 import { PrehispanicField } from '../../components/ui/PrehispanicField'
-import { OrganicShapes } from '../../components/ui/OrganicShapes'
+import { CoyoteTexture } from '../../components/ui/CoyoteTexture'
 import { useParallax } from '../../lib/useParallax'
 import { SOCIAL, JUNTAS_AUXILIARES, COLONIAS_RECORRIDAS } from '../../data/site'
 
@@ -81,33 +81,15 @@ export function Hero() {
         <PrehispanicField opacity={0.26} />
       </div>
 
-      {/* Panel guinda texturizado a la MITAD DERECHA (detrás del teléfono) — el
-          mismo fondo de "EN TERRITORIO". Solo desktop; borde izquierdo
-          difuminado para fundirse con el blanco donde va el nombre. */}
+      {/* Panel guinda con textura de COYOTE a la MITAD DERECHA (detrás del
+          teléfono), con BORDE CURVO. Solo desktop; el lado izquierdo queda en
+          blanco para el nombre y el texto. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[48%] overflow-hidden lg:block"
-        style={{
-          WebkitMaskImage: 'linear-gradient(to right, transparent, #000 26%)',
-          maskImage: 'linear-gradient(to right, transparent, #000 26%)',
-        }}
+        className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-1/2 overflow-hidden bg-accent lg:block"
+        style={{ clipPath: 'ellipse(150% 130% at 122% 50%)' }}
       >
-        <img
-          src="/assets/comunidad/comunidad-visita.webp"
-          alt=""
-          className="h-full w-full scale-110 object-cover opacity-30 blur-[3px] grayscale"
-          loading="lazy"
-          decoding="async"
-          onError={(e) => {
-            e.currentTarget.style.display = 'none'
-          }}
-        />
-        <div className="absolute inset-0 bg-accent/85 mix-blend-multiply" />
-        <OrganicShapes opacity={0.5} />
-        <div
-          className="absolute inset-0 opacity-[0.06]"
-          style={{ backgroundImage: 'url(/assets/backgrounds/grain.png)', backgroundSize: '420px' }}
-        />
+        <CoyoteTexture color="#ffffff" opacity={0.09} />
       </div>
 
       {/* Índice vertical derecho (ref. ESPN) */}
