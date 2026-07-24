@@ -8,7 +8,7 @@ import { LiveCounter } from '../../components/ui/LiveCounter'
 import { CommunityAvatars } from '../../components/ui/CommunityAvatars'
 import { InstagramIcon, FacebookIcon, XIcon } from '../../components/ui/Icons'
 import { PrehispanicField } from '../../components/ui/PrehispanicField'
-import { CoyoteTexture } from '../../components/ui/CoyoteTexture'
+import { OrganicShapes } from '../../components/ui/OrganicShapes'
 import { useParallax } from '../../lib/useParallax'
 import { SOCIAL, JUNTAS_AUXILIARES, COLONIAS_RECORRIDAS } from '../../data/site'
 
@@ -76,20 +76,25 @@ export function Hero() {
       <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
         <div
           className="absolute inset-0"
-          style={{ background: 'radial-gradient(58% 55% at 6% -2%, rgba(155,34,71,0.06), transparent 58%)' }}
+          style={{ background: 'radial-gradient(58% 55% at 6% -2%, rgba(113,25,36,0.06), transparent 58%)' }}
         />
         <PrehispanicField opacity={0.26} />
       </div>
 
-      {/* Panel guinda con textura de COYOTE a la MITAD DERECHA (detrás del
-          teléfono), con BORDE CURVO. Solo desktop; el lado izquierdo queda en
+      {/* Panel guinda con FORMAS ORGÁNICAS a la MITAD DERECHA (detrás del
+          teléfono), con BORDE CURVO — mismo lenguaje que la sección "Honestidad,
+          trabajo y amor a Tehuacán". Solo desktop; el lado izquierdo queda en
           blanco para el nombre y el texto. */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-1/2 overflow-hidden bg-accent lg:block"
         style={{ clipPath: 'ellipse(150% 130% at 122% 50%)' }}
       >
-        <CoyoteTexture color="#ffffff" opacity={0.09} />
+        <OrganicShapes opacity={0.55} />
+        <div
+          className="absolute inset-0 opacity-[0.06]"
+          style={{ backgroundImage: 'url(/assets/backgrounds/grain.png)', backgroundSize: '420px' }}
+        />
       </div>
 
       {/* Índice vertical derecho (ref. ESPN) */}
@@ -222,7 +227,7 @@ export function Hero() {
               className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[135%] w-[155%] -translate-x-1/2 -translate-y-1/2 blur-[2px]"
               style={{
                 background:
-                  'radial-gradient(52% 46% at 50% 47%, rgba(155,34,71,0.26), rgba(155,34,71,0.09) 54%, transparent 74%), radial-gradient(40% 34% at 72% 15%, rgba(165,127,44,0.16), transparent 62%)',
+                  'radial-gradient(52% 46% at 50% 47%, rgba(113,25,36,0.26), rgba(113,25,36,0.09) 54%, transparent 74%), radial-gradient(40% 34% at 72% 15%, rgba(165,127,44,0.16), transparent 62%)',
               }}
             />
             <motion.div

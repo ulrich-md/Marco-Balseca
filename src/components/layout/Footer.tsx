@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { SITE } from '../../data/site'
-import { CoyoteTexture } from '../ui/CoyoteTexture'
+import { OrganicShapes } from '../ui/OrganicShapes'
 import { scrollToTop } from '../../lib/SmoothScroll'
 
 /* =========================================================================
@@ -19,7 +19,7 @@ export function Footer() {
 
   return (
     <footer className="relative overflow-hidden bg-accent-deep text-white">
-      <CoyoteTexture color="#ffffff" opacity={0.08} />
+      <OrganicShapes opacity={0.85} />
 
       <div className="container-x relative flex flex-col items-center py-16 text-center md:py-24">
         {/* Lockup institucional (Gobierno del Estado de Puebla) */}

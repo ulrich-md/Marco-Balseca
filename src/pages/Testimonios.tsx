@@ -1,6 +1,6 @@
 import { Seo } from '../lib/Seo'
 import { CtaBand } from '../components/layout/CtaBand'
-import { CoyoteTexture } from '../components/ui/CoyoteTexture'
+import { OrganicShapes } from '../components/ui/OrganicShapes'
 import { SectionLabel } from '../components/ui/SectionLabel'
 import { StaggerTestimonials } from '../components/ui/StaggerTestimonials'
 import { ButtonLink } from '../components/ui/Button'
@@ -24,7 +24,7 @@ export default function Testimonios() {
       />
 
       <section className="relative min-h-screen overflow-hidden bg-cream pt-32 pb-16 text-ink md:pt-40">
-        <CoyoteTexture color="#9b2247" opacity={0.06} />
+        <OrganicShapes tone="light" opacity={0.55} />
         {/* Comilla gigante decorativa detrás del carrusel */}
         <span
           aria-hidden

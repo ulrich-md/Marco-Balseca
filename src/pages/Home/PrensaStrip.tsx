@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { SectionLabel } from '../../components/ui/SectionLabel'
 import { RevealText } from '../../components/ui/RevealText'
 import { Reveal } from '../../components/ui/Reveal'
-import { CoyoteTexture } from '../../components/ui/CoyoteTexture'
+import { OrganicShapes } from '../../components/ui/OrganicShapes'
 import { ButtonAnchor } from '../../components/ui/Button'
 import { FacebookRecentPosts } from '../../components/ui/FacebookRecentPosts'
 import { useNoticias } from '../../lib/useContent'
@@ -61,7 +61,7 @@ function CoverPanel({ fuente }: { fuente?: string }) {
 function NewsCard({ n }: { n: Noticia }) {
   const fecha = fmtFecha(n.fecha)
   return (
-    <article className="group grid overflow-hidden rounded-lg bg-white shadow-[0_18px_45px_-30px_rgba(22,22,22,0.4)] ring-1 ring-ink/5 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_55px_-24px_rgba(155,34,71,0.5)] sm:grid-cols-[minmax(0,42%)_1fr]">
+    <article className="group grid overflow-hidden rounded-lg bg-white shadow-[0_18px_45px_-30px_rgba(22,22,22,0.4)] ring-1 ring-ink/5 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_55px_-24px_rgba(113,25,36,0.5)] sm:grid-cols-[minmax(0,42%)_1fr]">
       {n.imagen ? (
         <div className="overflow-hidden">
           <img
@@ -115,7 +115,7 @@ export function PrensaStrip() {
 
   return (
     <section className="relative overflow-hidden bg-cream py-20 text-ink md:py-32">
-      <CoyoteTexture color="#9b2247" opacity={0.06} />
+      <OrganicShapes tone="light" opacity={0.55} />
       <div className="container-x relative z-10">
         {/* Encabezado centrado */}
         <div className="flex flex-col items-center text-center">

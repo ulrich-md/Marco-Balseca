@@ -8,9 +8,9 @@
    ========================================================================= */
 @theme {
   /* ---- Acento (GUINDA oficial — Guía de Identidad Gráfica Gob. 2024-2030) ---- */
-  --color-accent: #9b2247; /* guinda institucional (Pantone 7420 C) */
-  --color-accent-deep: #611232; /* guinda oscuro (Pantone 7421 C) — hover/fondos */
-  --color-accent-soft: #b84368; /* tinte vivo para hover sobre oscuro */
+  --color-accent: #711924; /* guinda institucional (paleta del sitio) */
+  --color-accent-deep: #5e1922; /* guinda oscuro — fondos/hover */
+  --color-accent-soft: #94303c; /* tinte vivo para hover sobre oscuro */
   --color-gold: #a57f2c; /* dorado institucional (Pantone 1255 C) */
   --color-sand: #e6d194; /* arena/dorado claro (Pantone 7402 C) */
   --color-cream: #f8f1e4; /* crema institucional (fondos claros, ref. sitio Gob.) */
