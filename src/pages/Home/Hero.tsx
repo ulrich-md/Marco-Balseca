@@ -187,15 +187,11 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* B1 — contador + cifras (en móvil va ANTES del video) */}
+          {/* B1 — cifras (en móvil va ANTES del video). El contador social se
+              movió ARRIBA del teléfono. */}
           <div className="lg:col-start-1 lg:row-start-2">
             <motion.div {...appear(0.6)} className="mt-9 border-t border-ink/15 pt-6">
-              <div className="flex items-center gap-4">
-                <CommunityAvatars />
-                <LiveCounter />
-              </div>
-
-              <div className="mt-6 flex flex-wrap gap-x-8 gap-y-4">
+              <div className="flex flex-wrap gap-x-8 gap-y-4">
                 <div className="flex flex-col sm:flex-row sm:items-baseline sm:gap-2">
                   <span className="font-display text-2xl leading-none text-ink">
                     +{COLONIAS_RECORRIDAS}
@@ -219,6 +215,17 @@ export function Hero() {
             ref={photoRef}
             className="relative z-20 mt-8 lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:mt-[max(-24vw,-320px)]"
           >
+            {/* Contador social ARRIBA del teléfono (sobre el panel guinda en
+                desktop, sobre blanco en móvil): tarjeta clara flotante que
+                mantiene contraste en ambos fondos. */}
+            <motion.div
+              {...appear(0.5)}
+              className="relative z-30 mx-auto mb-5 flex w-fit items-center gap-3 rounded-2xl bg-white/95 px-3.5 py-2.5 shadow-[0_20px_45px_-24px_rgba(22,22,22,0.6)] ring-1 ring-ink/10 backdrop-blur-sm"
+            >
+              <CommunityAvatars count={3} />
+              <LiveCounter tone="ink" size="sm" />
+            </motion.div>
+
             {/* Halo de gradiente guinda + dorado detrás del teléfono: aporta
                 color, calidez y profundidad, y equilibra el peso del nombre a
                 la izquierda (va sobre zona sin texto → suma sin quitar jerarquía). */}

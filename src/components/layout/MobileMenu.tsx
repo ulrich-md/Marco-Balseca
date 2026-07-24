@@ -12,21 +12,40 @@ export function MobileMenu({ open, onClose }: Props) {
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    window.addEventListener('keydown', onKey)
     return () => {
       document.body.style.overflow = ''
+      window.removeEventListener('keydown', onKey)
     }
-  }, [open])
+  }, [open, onClose])
 
   return (
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-[90] flex flex-col overflow-y-auto bg-black text-white lg:hidden"
+          className="fixed inset-0 z-[90] flex flex-col overflow-y-auto bg-accent-deep text-white lg:hidden"
           initial={{ opacity: 0, y: -16 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -16 }}
           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
         >
+          {/* Cerrar (X): botón visible + accesible. Antes no había forma de
+              cerrar salvo navegar — bug de accesibilidad. */}
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Cerrar menú"
+            className="absolute right-5 top-5 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/25 text-white transition-colors hover:border-sand hover:text-sand"
+          >
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
+            </svg>
+          </button>
+
           <nav className="relative flex flex-col gap-0.5 px-6 pb-8 pt-20">
             {NAV.map((item, i) => {
               const active = pathname === item.to
@@ -42,10 +61,10 @@ export function MobileMenu({ open, onClose }: Props) {
                     onClick={onClose}
                     className="font-display flex items-baseline gap-4 py-1.5 text-4xl sm:text-5xl"
                   >
-                    <span className="eyebrow w-8 shrink-0 text-accent-soft">
+                    <span className="eyebrow w-8 shrink-0 text-gold">
                       {String(i + 1).padStart(2, '0')}
                     </span>
-                    <span className={active ? 'text-accent-soft' : 'text-white'}>{item.label}</span>
+                    <span className={active ? 'text-sand' : 'text-white'}>{item.label}</span>
                   </Link>
                 </motion.div>
               )

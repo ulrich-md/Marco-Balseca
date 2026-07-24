@@ -15,7 +15,7 @@ export function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
+    const onScroll = () => setScrolled(window.scrollY > 64)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -31,24 +31,33 @@ export function Header() {
       </a>
 
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-[var(--ease-out-expo)] ${
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ease-[var(--ease-out-expo)] ${
           scrolled
             ? 'border-b border-ink/10 bg-white/85 py-3 shadow-[0_10px_30px_-18px_rgba(30,23,20,0.35)] backdrop-blur-md'
-            : 'bg-transparent py-5'
+            : 'bg-gradient-to-b from-white/90 via-white/70 to-transparent py-5 backdrop-blur-[2px]'
         }`}
       >
-        <div className="container-x flex items-center justify-between gap-6">
-          <Wordmark tone="ink" />
+        {/* Hilo dorado institucional en el borde inferior (aparece al hacer
+            scroll): acento de marca sin recurrir a cristal/vidrio. */}
+        <span
+          aria-hidden
+          className={`pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent transition-opacity duration-300 ${
+            scrolled ? 'opacity-100' : 'opacity-0'
+          }`}
+        />
 
-          <nav className="hidden items-center gap-x-5 lg:flex xl:gap-x-7" aria-label="Principal">
+        <div className="container-x flex items-center justify-between gap-6">
+          <Wordmark split className="transition-opacity hover:opacity-80" />
+
+          <nav className="hidden items-center gap-x-6 lg:flex xl:gap-x-8" aria-label="Principal">
             {NAV.map((item) => (
               <NavLink
                 key={item.to}
                 to={item.to}
                 end={item.to === '/'}
                 className={({ isActive }) =>
-                  `group relative font-mono text-[0.72rem] uppercase tracking-[0.18em] transition-colors ${
-                    isActive ? 'text-accent' : 'text-ink/65 hover:text-accent'
+                  `font-condensed group relative text-[0.92rem] font-semibold uppercase tracking-[0.1em] transition-colors ${
+                    isActive ? 'text-accent' : 'text-ink/70 hover:text-accent'
                   }`
                 }
               >
@@ -56,7 +65,7 @@ export function Header() {
                   <>
                     {item.label}
                     <span
-                      className={`absolute -bottom-1.5 left-0 h-px bg-accent transition-all duration-300 ease-[var(--ease-out-expo)] ${
+                      className={`absolute -bottom-1 left-0 h-[2px] bg-gradient-to-r from-accent to-gold transition-all duration-300 ease-[var(--ease-out-expo)] ${
                         isActive ? 'w-full' : 'w-0 group-hover:w-full'
                       }`}
                     />
@@ -68,7 +77,13 @@ export function Header() {
 
           <div className="flex items-center gap-3">
             <div className="hidden lg:block">
-              <ButtonLink to="/contacto" tone="accent" variant="solid" arrow={false} className="px-6 py-2.5">
+              <ButtonLink
+                to="/contacto"
+                tone="accent"
+                variant="solid"
+                arrow={false}
+                className="px-6 py-2.5 ring-gold/60 transition-all hover:ring-2 active:scale-[0.97]"
+              >
                 Súmate
               </ButtonLink>
             </div>

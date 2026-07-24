@@ -19,9 +19,13 @@ function seedNow() {
   return BASE + Math.max(0, Math.floor((Date.now() - LAUNCH) / SEED_STEP_MS))
 }
 
-type Props = { label?: string; tone?: 'ink' | 'bone' }
+type Props = { label?: string; tone?: 'ink' | 'bone'; size?: 'lg' | 'sm' }
 
-export function LiveCounter({ label = 'personas ya conocen a Marco', tone = 'ink' }: Props) {
+export function LiveCounter({
+  label = 'personas ya conocen a Marco',
+  tone = 'ink',
+  size = 'lg',
+}: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '0px 0px -10% 0px' })
   const reduce = useReducedMotion()
@@ -46,20 +50,23 @@ export function LiveCounter({ label = 'personas ya conocen a Marco', tone = 'ink
 
   const numCls = tone === 'bone' ? 'text-white' : 'text-ink'
   const labelCls = tone === 'bone' ? 'text-white/60' : 'text-ink/65'
+  const sm = size === 'sm'
+  const numSize = sm ? 'text-2xl md:text-[1.75rem]' : 'text-4xl md:text-5xl'
+  const labelSize = sm ? 'text-[0.72rem] leading-tight' : 'text-sm leading-snug'
 
   return (
     <div ref={ref}>
-      <div className="flex items-center gap-2">
-        <span aria-hidden className="relative flex h-2.5 w-2.5">
+      <div className="flex items-center gap-1.5">
+        <span aria-hidden className="relative flex h-2 w-2">
           <span className="animate-live-pulse absolute inline-flex h-full w-full rounded-full bg-accent" />
-          <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-accent" />
+          <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
         </span>
         <span className="eyebrow text-accent">En vivo</span>
       </div>
-      <div className={`font-display mt-1 text-4xl leading-none md:text-5xl ${numCls}`}>
+      <div className={`font-display ${sm ? 'mt-0.5' : 'mt-1'} ${numSize} leading-none ${numCls}`}>
         <RollingNumber value={count} />
       </div>
-      <div className={`mt-1.5 text-sm leading-snug ${labelCls}`}>{label}</div>
+      <div className={`${sm ? 'mt-0.5 max-w-[15ch]' : 'mt-1.5'} ${labelSize} ${labelCls}`}>{label}</div>
     </div>
   )
 }
