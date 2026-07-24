@@ -30,21 +30,11 @@ const FOTOS = [
 export function ComunidadStrip() {
   return (
     <section className="relative overflow-hidden bg-accent py-20 text-white md:py-32">
-      {/* Fondo: foto real difuminada en B&N + capa guinda (multiply) + formas
-          orgánicas del equipo del Gobierno del Estado + grano sutil. */}
+      {/* Fondo guinda sólido + formas orgánicas del equipo del Gobierno del
+          Estado (tono sobre tono, ref. Armenta) + grano sutil. Sin fotos
+          detrás: limpio y cohesivo. */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-        <img
-          src="/assets/comunidad/comunidad-visita.webp"
-          alt=""
-          loading="lazy"
-          decoding="async"
-          className="h-full w-full scale-110 object-cover opacity-30 blur-[3px] grayscale"
-          onError={(e) => {
-            e.currentTarget.style.display = 'none'
-          }}
-        />
-        <div className="absolute inset-0 bg-accent/80 mix-blend-multiply" />
-        <OrganicShapes opacity={0.5} />
+        <OrganicShapes />
         <div
           className="absolute inset-0 opacity-[0.06]"
           style={{ backgroundImage: 'url(/assets/backgrounds/grain.png)', backgroundSize: '420px' }}

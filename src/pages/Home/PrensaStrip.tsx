@@ -115,7 +115,7 @@ export function PrensaStrip() {
 
   return (
     <section className="relative overflow-hidden bg-cream py-20 text-ink md:py-32">
-      <OrganicShapes tone="light" opacity={0.55} />
+      <OrganicShapes tone="light" />
       <div className="container-x relative z-10">
         {/* Encabezado centrado */}
         <div className="flex flex-col items-center text-center">

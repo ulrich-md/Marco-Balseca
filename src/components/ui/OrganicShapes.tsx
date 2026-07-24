@@ -1,7 +1,10 @@
 /* Formas orgánicas tono sobre tono — patrón institucional del Gobierno del
-   Estado de Puebla, como en alejandroarmenta.com.mx. Decorativo y ligero.
-   tone 'dark'  → blobs guinda sobre guinda oscuro (footer, CTA)
-   tone 'light' → blobs crema profundo sobre crema (noticias, hero) */
+   Estado de Puebla (ref. alejandroarmenta.com.mx). Curvas suaves distribuidas
+   por todo el lienzo, SIEMPRE en un tono ligeramente distinto al fondo para que
+   se perciban (nunca del mismo color, si no desaparecen). Decorativo y ligero.
+   tone 'dark'  → guinda claro sobre guinda (#711924 / #5e1922): footer, CTA,
+                  "En territorio", panel derecho del hero
+   tone 'light' → crema profundo sobre crema: noticias, testimonios */
 export function OrganicShapes({
   opacity = 1,
   tone = 'dark',
@@ -9,9 +12,17 @@ export function OrganicShapes({
   opacity?: number
   tone?: 'dark' | 'light'
 }) {
-  const c = tone === 'dark' ? '#711924' : '#eee0c6'
-  const strong = tone === 'dark' ? 0.32 : 0.55
-  const soft = tone === 'dark' ? 0.22 : 0.4
+  const isDark = tone === 'dark'
+  // Nota: en dark las formas son un guinda MÁS CLARO que el fondo (#711924/#5e1922)
+  // para que siempre se perciban; en light reusa el token institucional crema.
+  const fillC = isDark ? '#7f2230' : 'var(--color-cream-deep)'
+  const strokeC = isDark ? '#9a2c3a' : '#e6d8b8'
+  // Opacidades por forma, calibradas para verse sutiles pero presentes.
+  const fA = isDark ? 0.34 : 0.55
+  const fB = isDark ? 0.3 : 0.5
+  const sA = isDark ? 0.24 : 0.5
+  const sB = isDark ? 0.2 : 0.45
+  const sC = isDark ? 0.18 : 0.4
   return (
     <svg
       aria-hidden
@@ -22,26 +33,38 @@ export function OrganicShapes({
       style={{ opacity }}
     >
       <path
-        d="M-80 620 C 60 470, 260 480, 360 600 S 520 830, 340 890 C 180 940, -40 850, -80 720 Z"
-        fill={c}
-        opacity={strong}
+        d="M1000 -40 C 1240 -10, 1460 120, 1460 340 C 1460 520, 1240 560, 1080 440 C 940 336, 900 120, 1000 -40 Z"
+        fill={fillC}
+        opacity={fA}
       />
       <path
-        d="M1120 -60 C 1320 -20, 1480 120, 1440 300 C 1400 470, 1180 480, 1080 360 C 980 240, 960 60, 1120 -60 Z"
-        fill={c}
-        opacity={strong * 0.85}
+        d="M-100 480 C 120 340, 340 380, 440 540 C 540 700, 360 860, 160 840 C -40 820, -160 640, -100 480 Z"
+        fill={fillC}
+        opacity={fB}
       />
       <path
-        d="M540 260 C 700 180, 900 220, 940 360 C 980 500, 840 600, 680 570 C 520 540, 420 380, 540 260 Z"
-        stroke={c}
-        strokeWidth="40"
-        opacity={soft}
+        d="M980 560 C 1180 480, 1420 540, 1500 720 C 1560 860, 1360 980, 1140 940 C 960 906, 820 660, 980 560 Z"
+        fill={fillC}
+        opacity={fA}
       />
       <path
-        d="M180 40 C 300 -30, 470 10, 500 120 C 530 230, 420 310, 300 290 C 180 270, 90 130, 180 40 Z"
-        stroke={c}
-        strokeWidth="26"
-        opacity={soft * 0.9}
+        d="M480 240 C 660 160, 880 210, 920 370 C 960 520, 800 620, 620 588 C 460 558, 340 360, 480 240 Z"
+        stroke={strokeC}
+        strokeWidth="34"
+        opacity={sA}
+      />
+      <path
+        d="M120 120 C 260 40, 440 90, 470 210 C 500 330, 360 410, 240 380 C 140 355, 60 220, 120 120 Z"
+        stroke={strokeC}
+        strokeWidth="22"
+        opacity={sB}
+      />
+      <path
+        d="M560 700 C 700 640, 860 690, 880 800 C 900 900, 780 970, 660 940"
+        stroke={strokeC}
+        strokeWidth="18"
+        strokeLinecap="round"
+        opacity={sC}
       />
     </svg>
   )

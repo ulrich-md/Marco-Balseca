@@ -24,7 +24,7 @@ export default function Testimonios() {
       />
 
       <section className="relative min-h-screen overflow-hidden bg-cream pt-32 pb-16 text-ink md:pt-40">
-        <OrganicShapes tone="light" opacity={0.55} />
+        <OrganicShapes tone="light" />
         {/* Comilla gigante decorativa detrás del carrusel */}
         <span
           aria-hidden

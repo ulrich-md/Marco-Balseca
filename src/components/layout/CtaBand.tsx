@@ -14,7 +14,7 @@ import { SOCIAL } from '../../data/site'
 export function CtaBand() {
   return (
     <section className="relative overflow-hidden bg-accent-deep py-20 text-white md:py-36">
-      <OrganicShapes opacity={0.75} />
+      <OrganicShapes />
       {/* Grano de película muy sutil (4KB) al 5% */}
       <div
         aria-hidden

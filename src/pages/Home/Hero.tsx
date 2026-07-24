@@ -90,7 +90,7 @@ export function Hero() {
         className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-1/2 overflow-hidden bg-accent lg:block"
         style={{ clipPath: 'ellipse(150% 130% at 122% 50%)' }}
       >
-        <OrganicShapes opacity={0.55} />
+        <OrganicShapes opacity={0.8} />
         <div
           className="absolute inset-0 opacity-[0.06]"
           style={{ backgroundImage: 'url(/assets/backgrounds/grain.png)', backgroundSize: '420px' }}

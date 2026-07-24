@@ -19,7 +19,7 @@ export function Footer() {
 
   return (
     <footer className="relative overflow-hidden bg-accent-deep text-white">
-      <OrganicShapes opacity={0.85} />
+      <OrganicShapes />
 
       <div className="container-x relative flex flex-col items-center py-16 text-center md:py-24">
         {/* Lockup institucional (Gobierno del Estado de Puebla) */}
