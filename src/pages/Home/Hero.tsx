@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { motion, useReducedMotion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { RevealText } from '../../components/ui/RevealText'
 import { ButtonLink } from '../../components/ui/Button'
@@ -10,21 +9,12 @@ import { InstagramIcon, FacebookIcon, XIcon } from '../../components/ui/Icons'
 import { PrehispanicField } from '../../components/ui/PrehispanicField'
 import { OrganicShapes } from '../../components/ui/OrganicShapes'
 import { useParallax } from '../../lib/useParallax'
-import { SOCIAL, JUNTAS_AUXILIARES, COLONIAS_RECORRIDAS } from '../../data/site'
+import { SOCIAL } from '../../data/site'
 
 const HERO_SOCIAL = [
   { Icon: InstagramIcon, ...SOCIAL.instagram },
   { Icon: FacebookIcon, ...SOCIAL.facebook },
   { Icon: XIcon, ...SOCIAL.x },
-]
-
-const INDEX = [
-  { n: '01', label: 'Conóceme', to: '/conoceme' },
-  { n: '02', label: 'Trayectoria', to: '/trayectoria' },
-  { n: '03', label: 'Testimonios', to: '/testimonios' },
-  { n: '04', label: 'Reels', to: '/reels' },
-  { n: '05', label: 'Agenda', to: '/agenda' },
-  { n: '06', label: 'Contacto', to: '/contacto' },
 ]
 
 // Fotos REALES para el "video" principal del hero (montaje; usa el MP4 real
@@ -97,22 +87,6 @@ export function Hero() {
         />
       </div>
 
-      {/* Índice vertical derecho (ref. ESPN) */}
-      <nav
-        className="absolute right-5 top-1/2 z-30 hidden -translate-y-1/2 flex-col items-end gap-3 xl:flex"
-        aria-label="Secciones"
-      >
-        {INDEX.map((it) => (
-          <Link key={it.to} to={it.to} className="group flex items-center gap-2">
-            <span aria-hidden className="h-px w-0 bg-sand transition-all duration-300 group-hover:w-5" />
-            <span className="eyebrow text-white/55 transition-colors group-hover:text-sand">{it.n}</span>
-            <span className="eyebrow text-white/90 transition-all duration-300 group-hover:-translate-x-0.5 group-hover:text-sand">
-              {it.label}
-            </span>
-          </Link>
-        ))}
-      </nav>
-
       <div className="container-x relative z-10 pt-28 lg:pt-32">
         {/* Titular gigante — MARCO en guinda, BALSECA en tinta; el nombre pasa
             POR DETRÁS del teléfono (capas = profundidad, ref. póster editorial) */}
@@ -151,7 +125,7 @@ export function Hero() {
             en la columna izquierda y el video (span 3 filas) a la derecha. */}
         <div className="mt-6 grid items-start lg:mt-0 lg:grid-cols-[1fr_0.78fr] lg:gap-x-12">
           {/* A — copy + CTA + redes */}
-          <div className="lg:col-start-1 lg:row-start-1 lg:pt-4">
+          <div className="lg:pt-4">
             <motion.p {...appear(0.45)} className="max-w-xl text-lg text-ink/75 md:text-xl">
               Soy abogado y maestro en Administración. Empecé en esto a los 15 años y llevo 30 en
               la vida pública, siempre con la misma idea: la política se hace en territorio, cara a
@@ -159,11 +133,11 @@ export function Hero() {
             </motion.p>
 
             <motion.div {...appear(0.55)} className="mt-7">
-              <div className="flex flex-wrap items-center gap-3">
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
                 <ButtonLink to="/contacto" tone="accent" variant="solid">
                   Súmate
                 </ButtonLink>
-                <ButtonLink to="/conoceme" tone="ink" variant="outline">
+                <ButtonLink to="/conoceme" tone="ink" variant="ghost" className="px-2">
                   Conoce a Marco
                 </ButtonLink>
               </div>
@@ -187,34 +161,26 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* B1 — cifras (en móvil va ANTES del video). El contador social se
-              movió ARRIBA del teléfono. */}
-          <div className="lg:col-start-1 lg:row-start-2">
-            <motion.div {...appear(0.6)} className="mt-9 border-t border-ink/15 pt-6">
-              <div className="flex flex-wrap gap-x-8 gap-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-baseline sm:gap-2">
-                  <span className="font-display text-2xl leading-none text-ink">
-                    +{COLONIAS_RECORRIDAS}
-                  </span>
-                  <span className="text-sm text-ink/60">colonias recorridas</span>
-                </div>
-                <div className="flex flex-col sm:flex-row sm:items-baseline sm:gap-2">
-                  <span className="font-display text-2xl leading-none text-ink">
-                    {JUNTAS_AUXILIARES}
-                  </span>
-                  <span className="text-sm text-ink/60">juntas auxiliares de Tehuacán</span>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Media principal: VIDEO en pantalla de teléfono. En móvil va tras el
-              contador; en desktop sube y se TRASLAPA con el nombre (z-20 sobre
-              el h1), con rotación sutil y halo guinda detrás = capas y energía. */}
+          {/* Media principal: VIDEO en pantalla de teléfono. En desktop sube y
+              se TRASLAPA con el nombre (z-20 sobre el h1), con rotación sutil y
+              halo guinda detrás = capas y energía. */}
           <div
             ref={photoRef}
-            className="relative z-20 mt-8 lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:mt-[max(-24vw,-320px)]"
+            className="relative z-20 mt-8 lg:col-start-2 lg:mt-[max(-24vw,-320px)]"
           >
+            {/* Fondo guinda curvo SOLO en móvil (en desktop existe el panel de
+                la derecha): mantiene la marca presente en la pantalla chica. */}
+            <div
+              aria-hidden
+              className="absolute -inset-x-4 -top-4 bottom-[-1.5rem] -z-10 overflow-hidden rounded-[2.4rem] bg-accent lg:hidden"
+            >
+              <OrganicShapes opacity={0.7} />
+              <div
+                className="absolute inset-0 opacity-[0.06]"
+                style={{ backgroundImage: 'url(/assets/backgrounds/grain.png)', backgroundSize: '420px' }}
+              />
+            </div>
+
             {/* Contador social ARRIBA del teléfono (sobre el panel guinda en
                 desktop, sobre blanco en móvil): tarjeta clara flotante que
                 mantiene contraste en ambos fondos. */}
@@ -261,68 +227,9 @@ export function Hero() {
                 </div>
               </div>
 
-              {/* Badge circular giratorio (detalle vivo; pausa con reduced-motion).
-                  El anillo de texto gira; la flecha del centro queda fija. */}
-              <div className="absolute -bottom-8 -left-10 h-28 w-28 drop-shadow-[0_10px_25px_rgba(0,0,0,0.18)] lg:-left-14">
-                <svg
-                  viewBox="0 0 100 100"
-                  className="h-full w-full animate-[spin_18s_linear_infinite] motion-reduce:animate-none"
-                  aria-hidden
-                >
-                  <defs>
-                    <path id="mb-circ" d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" />
-                  </defs>
-                  <circle cx="50" cy="50" r="49" className="fill-white" />
-                  <circle cx="50" cy="50" r="49" fill="none" stroke="rgba(22,22,22,0.12)" />
-                  <text className="fill-accent font-condensed" style={{ fontSize: '10.5px', letterSpacing: '0.16em', fontWeight: 600 }}>
-                    <textPath href="#mb-circ" textLength="230">
-                      CERCA DE LA GENTE · POR NUESTRA TIERRA ·
-                    </textPath>
-                  </text>
-                </svg>
-                <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full" aria-hidden>
-                  <path
-                    d="M43 50 L57 50 M51 44 L57 50 L51 56"
-                    stroke="var(--color-accent)"
-                    strokeWidth="2.4"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
             </motion.div>
           </div>
 
-          {/* B2 — prensa (en móvil va tras el video) */}
-          <div className="lg:col-start-1 lg:row-start-3">
-            <motion.div {...appear(0.75)} className="mt-8 border-t border-ink/15 pt-6">
-              <span className="eyebrow text-mute">En la prensa</span>
-              <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5">
-                {['Municipios Puebla', 'Diario Primera Línea', 'Gobierno de Tehuacán'].map(
-                  (fuente, idx) => (
-                    <span key={fuente} className="flex items-center gap-3">
-                      {idx > 0 && <span aria-hidden className="h-1 w-1 rounded-full bg-ink/30" />}
-                      <span className="font-condensed text-sm font-semibold uppercase tracking-wide text-ink/70">
-                        {fuente}
-                      </span>
-                    </span>
-                  ),
-                )}
-              </div>
-              <a
-                href="https://municipiospuebla.mx/nota/tehuacan/realizan-en-tehuacan-campana-de-canje-voluntario-de-armas"
-                target="_blank"
-                rel="noreferrer"
-                className="group mt-3 inline-flex max-w-md items-start gap-2 text-ink transition-colors hover:text-accent"
-              >
-                <span aria-hidden className="mt-2 h-px w-6 shrink-0 bg-accent transition-all duration-300 group-hover:w-9" />
-                <span className="font-condensed text-base font-medium leading-snug">
-                  «Sí al desarme, sí a la paz»: encabezo el canje voluntario de armas en Tehuacán →
-                </span>
-              </a>
-            </motion.div>
-          </div>
         </div>
 
         <div className="flex justify-center py-10 lg:justify-start">

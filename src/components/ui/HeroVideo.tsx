@@ -96,6 +96,7 @@ export function HeroVideo({ photos, caption, videoSrc, poster, className = '', i
                   src={photo.src}
                   alt={photo.alt}
                   loading={i === 0 ? 'eager' : 'lazy'}
+                  fetchPriority={i === 0 ? 'high' : 'auto'}
                   decoding="async"
                   className="h-full w-full object-cover"
                 />
