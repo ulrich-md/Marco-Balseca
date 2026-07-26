@@ -7,11 +7,11 @@
    (estado activo, marco, reglas, etiquetas, CTA). Sin crema ni café.
    ========================================================================= */
 @theme {
-  /* ---- Paleta oficial GOBIERNO DE MÉXICO 2024-2030 (Guía de Identidad Gráfica).
-     Guinda #611232 (Pantone 7421 C) + Dorado #e6d194 (Pantone 7402 C) + negro. ---- */
-  --color-accent: #611232; /* GUINDA oficial Gob. de México (Pantone 7421 C) */
-  --color-accent-deep: #490d26; /* guinda oscuro — fondos/hover */
-  --color-accent-soft: #8a2a4d; /* guinda vivo — hover sobre oscuro */
+  /* ---- Guinda de marca (definido por el cliente) + DORADO institucional oficial
+     del Gobierno de México 2024-2030 (#e6d194, Pantone 7402 C). ---- */
+  --color-accent: #711924; /* guinda de marca (paleta del cliente) */
+  --color-accent-deep: #5e1922; /* guinda oscuro — fondos/hover */
+  --color-accent-soft: #94303c; /* guinda vivo — hover sobre oscuro */
   --color-gold: #a57f2c; /* dorado profundo (texto/reglas sobre claro) */
   --color-sand: #e6d194; /* DORADO oficial Gob. de México (Pantone 7402 C) */
   --color-cream: #f8f1e4; /* crema institucional (fondos claros cálidos) */

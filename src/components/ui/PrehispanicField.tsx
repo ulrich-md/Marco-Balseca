@@ -6,7 +6,7 @@
    Confinado a la zona del nombre → NO compite con el cuerpo ni el teléfono.
    ========================================================================= */
 
-const ACCENT = '#611232'
+const ACCENT = '#711924'
 
 // Densidad concentrada arriba-izq; se apaga antes del centro y del botón.
 const MASK = 'radial-gradient(115% 82% at -4% -12%, #000 0%, #000 20%, transparent 58%)'

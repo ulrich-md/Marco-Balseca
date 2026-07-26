@@ -67,7 +67,7 @@ export function Hero() {
       <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
         <div
           className="absolute inset-0"
-          style={{ background: 'radial-gradient(58% 55% at 6% -2%, rgba(97,18,50,0.06), transparent 58%)' }}
+          style={{ background: 'radial-gradient(58% 55% at 6% -2%, rgba(113,25,36,0.06), transparent 58%)' }}
         />
         <PrehispanicField opacity={0.26} />
       </div>
@@ -89,20 +89,49 @@ export function Hero() {
         {/* Base con degradado diagonal (profundidad, no color plano) */}
         <div className="absolute inset-0 bg-gradient-to-br from-accent via-accent to-accent-deep" />
 
-        {/* Calidez DORADA oficial (Gob. de México): brillo cálido difuso que
-            rompe el muro guinda monocromático; parallax sutil en scroll. */}
+        {/* Collage de fotos reales DIFUMINADAS (como el fondo de "En Territorio",
+            pero en collage): textura y profundidad detrás del teléfono; parallax
+            sutil en scroll. Todas a la derecha → el nombre queda limpio. */}
         <div ref={heroBgRef} className="absolute inset-[-16%]">
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                'radial-gradient(50% 44% at 74% 18%, rgba(230,209,148,0.34), transparent 62%), radial-gradient(46% 46% at 92% 84%, rgba(230,209,148,0.18), transparent 60%)',
-            }}
+          <img
+            src="/assets/comunidad/comunidad-familia.webp"
+            alt=""
+            loading="lazy"
+            decoding="async"
+            className="absolute right-[3%] top-[2%] aspect-[4/3] w-[55%] rotate-2 rounded-2xl object-cover opacity-45 blur-[7px] grayscale"
+          />
+          <img
+            src="/assets/comunidad/comunidad-mercado.webp"
+            alt=""
+            loading="lazy"
+            decoding="async"
+            className="absolute right-[36%] top-[33%] aspect-[4/3] w-[44%] -rotate-3 rounded-2xl object-cover opacity-40 blur-[7px] grayscale"
+          />
+          <img
+            src="/assets/comunidad/comunidad-cancha.webp"
+            alt=""
+            loading="lazy"
+            decoding="async"
+            className="absolute bottom-[1%] right-[10%] aspect-[16/10] w-[50%] rotate-2 rounded-2xl object-cover opacity-40 blur-[7px] grayscale"
           />
         </div>
 
+        {/* Capa guinda (multiply) que tiñe el collage + más guinda sólido a la
+            IZQUIERDA (nombre legible), revelando el collage a la DERECHA. */}
+        <div className="absolute inset-0 bg-accent/80 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent/65 to-accent/25" />
+
+        {/* Calidez DORADA institucional encima (brillo cálido) */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(50% 44% at 74% 18%, rgba(230,209,148,0.28), transparent 62%), radial-gradient(46% 46% at 92% 84%, rgba(230,209,148,0.15), transparent 60%)',
+          }}
+        />
+
         {/* Formas orgánicas DORADAS (tono sobre tono cálido) + grano */}
-        <OrganicShapes tone="gold" opacity={0.85} />
+        <OrganicShapes tone="gold" opacity={0.75} />
         <div
           className="absolute inset-0 opacity-[0.06]"
           style={{ backgroundImage: 'url(/assets/backgrounds/grain.png)', backgroundSize: '420px' }}
@@ -156,9 +185,10 @@ export function Hero() {
         <div className="mt-6 grid items-start lg:mt-0 lg:grid-cols-[1fr_0.78fr] lg:gap-x-12">
           {/* A — copy + CTA + redes */}
           <div className="lg:pt-4">
-            <motion.p {...appear(0.5)} className="max-w-lg text-base text-ink/70 md:text-lg">
-              Abogado y maestro en Administración. Empecé a los 15 años y llevo 30 en la vida
-              pública, cara a cara con la gente, todos los días.
+            <motion.p {...appear(0.5)} className="max-w-xl text-lg text-ink/75 md:text-xl">
+              Soy abogado y maestro en Administración. Empecé en esto a los 15 años y llevo 30 en
+              la vida pública, siempre con la misma idea: la política se hace en territorio, cara a
+              cara, todos los días.
             </motion.p>
 
             <motion.div {...appear(0.55)} className="mt-7">
@@ -219,7 +249,7 @@ export function Hero() {
               className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[135%] w-[155%] -translate-x-1/2 -translate-y-1/2 blur-[2px]"
               style={{
                 background:
-                  'radial-gradient(52% 46% at 50% 47%, rgba(97,18,50,0.26), rgba(97,18,50,0.09) 54%, transparent 74%), radial-gradient(40% 34% at 72% 15%, rgba(165,127,44,0.16), transparent 62%)',
+                  'radial-gradient(52% 46% at 50% 47%, rgba(113,25,36,0.26), rgba(113,25,36,0.09) 54%, transparent 74%), radial-gradient(40% 34% at 72% 15%, rgba(165,127,44,0.16), transparent 62%)',
               }}
             />
             {/* Prueba social INTEGRADA arriba del teléfono, directamente sobre

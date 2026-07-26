@@ -61,7 +61,7 @@ function CoverPanel({ fuente }: { fuente?: string }) {
 function NewsCard({ n }: { n: Noticia }) {
   const fecha = fmtFecha(n.fecha)
   return (
-    <article className="group grid overflow-hidden rounded-lg bg-white shadow-[0_18px_45px_-30px_rgba(22,22,22,0.4)] ring-1 ring-ink/5 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_55px_-24px_rgba(97,18,50,0.5)] sm:grid-cols-[minmax(0,42%)_1fr]">
+    <article className="group grid overflow-hidden rounded-lg bg-white shadow-[0_18px_45px_-30px_rgba(22,22,22,0.4)] ring-1 ring-ink/5 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_55px_-24px_rgba(113,25,36,0.5)] sm:grid-cols-[minmax(0,42%)_1fr]">
       {n.imagen ? (
         <div className="overflow-hidden">
           <img
