@@ -30,6 +30,7 @@ const HERO_SLIDES: VideoPhoto[] = [
 export function Hero() {
   const reduce = useReducedMotion()
   const photoRef = useParallax<HTMLDivElement>(36)
+  const heroBgRef = useParallax<HTMLDivElement>(70)
 
   // Micro-interacción: la foto se inclina en 3D siguiendo el mouse (solo
   // transform + springs = fluido; se desactiva con reduced-motion).
@@ -71,16 +72,42 @@ export function Hero() {
         <PrehispanicField opacity={0.26} />
       </div>
 
-      {/* Panel guinda con FORMAS ORGÁNICAS a la MITAD DERECHA (detrás del
-          teléfono), con BORDE CURVO — mismo lenguaje que la sección "Honestidad,
-          trabajo y amor a Tehuacán". Solo desktop; el lado izquierdo queda en
-          blanco para el nombre y el texto. */}
+      {/* Panel guinda a la DERECHA (detrás del teléfono). Capas para dar
+          PROFUNDIDAD (ya no se siente flat): degradado guinda + RETRATO de Marco
+          difuminado con parallax + formas orgánicas + grano. El borde izquierdo
+          se DIFUMINA hacia el blanco (máscara) para que la "división" ya no
+          corte el diseño. Solo desktop. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-1/2 overflow-hidden bg-accent lg:block"
-        style={{ clipPath: 'ellipse(150% 130% at 122% 50%)' }}
+        className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[56%] overflow-hidden lg:block"
+        style={{
+          // Curva suave (elipse) en el borde izquierdo → sin corte recto a la mitad.
+          WebkitMaskImage: 'radial-gradient(125% 135% at 132% 50%, #000 60%, transparent 80%)',
+          maskImage: 'radial-gradient(125% 135% at 132% 50%, #000 60%, transparent 80%)',
+        }}
       >
-        <OrganicShapes opacity={0.8} />
+        {/* Base con degradado diagonal (profundidad, no color plano) */}
+        <div className="absolute inset-0 bg-gradient-to-br from-accent via-accent to-accent-deep" />
+
+        {/* Retrato de Marco (SIN blur) + tinte guinda; con parallax en scroll.
+            El inset negativo deja aire para el desplazamiento. */}
+        <div ref={heroBgRef} className="absolute inset-[-14%]">
+          <img
+            src="/assets/portraits/marco-corazon-fondo.webp"
+            alt=""
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full scale-110 object-cover object-[52%_22%] opacity-40"
+          />
+          <div className="absolute inset-0 bg-accent/72 mix-blend-multiply" />
+          {/* Más guinda sólido a la IZQUIERDA (zona del nombre → letras legibles),
+              revela la foto hacia la DERECHA (detrás del teléfono). */}
+          <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent/75 to-accent/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-accent-deep/70 to-transparent" />
+        </div>
+
+        {/* Formas orgánicas + grano encima (textura sutil) */}
+        <OrganicShapes opacity={0.45} />
         <div
           className="absolute inset-0 opacity-[0.06]"
           style={{ backgroundImage: 'url(/assets/backgrounds/grain.png)', backgroundSize: '420px' }}
@@ -141,7 +168,8 @@ export function Hero() {
                   Conoce a Marco
                 </ButtonLink>
               </div>
-              <div className="mt-5 flex items-center gap-3">
+
+              <div className="mt-6 flex items-center gap-3">
                 <span className="eyebrow text-mute">Sígueme</span>
                 <div className="flex items-center gap-2">
                   {HERO_SOCIAL.map(({ Icon, label, url }) => (
@@ -166,7 +194,7 @@ export function Hero() {
               halo guinda detrás = capas y energía. */}
           <div
             ref={photoRef}
-            className="relative z-20 mt-8 lg:col-start-2 lg:mt-[max(-24vw,-320px)]"
+            className="relative z-20 mt-8 lg:col-start-2 lg:mt-[max(-27vw,-360px)]"
           >
             {/* Fondo guinda curvo SOLO en móvil (en desktop existe el panel de
                 la derecha): mantiene la marca presente en la pantalla chica. */}
@@ -181,17 +209,6 @@ export function Hero() {
               />
             </div>
 
-            {/* Contador social ARRIBA del teléfono (sobre el panel guinda en
-                desktop, sobre blanco en móvil): tarjeta clara flotante que
-                mantiene contraste en ambos fondos. */}
-            <motion.div
-              {...appear(0.5)}
-              className="relative z-30 mx-auto mb-5 flex w-fit items-center gap-3 rounded-2xl bg-white/95 px-3.5 py-2.5 shadow-[0_20px_45px_-24px_rgba(22,22,22,0.6)] ring-1 ring-ink/10 backdrop-blur-sm"
-            >
-              <CommunityAvatars count={3} />
-              <LiveCounter tone="ink" size="sm" />
-            </motion.div>
-
             {/* Halo de gradiente guinda + dorado detrás del teléfono: aporta
                 color, calidez y profundidad, y equilibra el peso del nombre a
                 la izquierda (va sobre zona sin texto → suma sin quitar jerarquía). */}
@@ -203,6 +220,18 @@ export function Hero() {
                   'radial-gradient(52% 46% at 50% 47%, rgba(113,25,36,0.26), rgba(113,25,36,0.09) 54%, transparent 74%), radial-gradient(40% 34% at 72% 15%, rgba(165,127,44,0.16), transparent 62%)',
               }}
             />
+            {/* Prueba social INTEGRADA arriba del teléfono, directamente sobre
+                el guinda (SIN tarjeta): avatares de la comunidad + contador en
+                blanco. En móvil va EN FLUJO (evita encimarse con lo de arriba);
+                en desktop se ancla sobre el panel guinda, arriba del teléfono. */}
+            <motion.div
+              {...appear(0.5)}
+              className="relative z-40 mb-5 flex items-center gap-2.5 lg:absolute lg:inset-x-0 lg:-top-[4.5rem] lg:mx-auto lg:mb-0 lg:w-[390px] lg:pl-1"
+            >
+              <CommunityAvatars count={3} />
+              <LiveCounter tone="bone" layout="inline" />
+            </motion.div>
+
             <motion.div
               className="relative mx-auto w-full max-w-[300px] rotate-2 lg:max-w-[390px] lg:rotate-3"
               style={{ rotateX: reduce ? 0 : rotX, rotateY: reduce ? 0 : rotY, transformPerspective: 1000 }}
