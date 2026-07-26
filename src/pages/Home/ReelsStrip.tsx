@@ -11,7 +11,7 @@ export function ReelsStrip() {
   const cuatro = reels.slice(0, 4)
 
   return (
-    <section className="bg-bone py-20 text-ink md:py-36">
+    <section className="bg-cream py-20 text-ink md:py-36">
       <div className="container-x">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>

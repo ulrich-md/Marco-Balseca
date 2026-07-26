@@ -6,7 +6,7 @@ import { STATS } from '../../data/site'
 /** Banda de credenciales/cifras clave con count-up (placeholders honestos). */
 export function StatsBand() {
   return (
-    <section className="bg-white py-20 text-ink md:py-20">
+    <section className="bg-cream py-20 text-ink md:py-20">
       <div className="container-x">
         <div className="grid gap-10 md:grid-cols-[0.9fr_1.4fr] md:items-end">
           <div>

@@ -6,7 +6,7 @@ import { Atmosphere } from '../../components/ui/Atmosphere'
 /** Cita ancla editorial sobre las curvas de nivel del valle de Tehuacán. */
 export function QuoteAncla() {
   return (
-    <section className="relative overflow-hidden bg-bone py-20 text-ink md:py-32">
+    <section className="relative overflow-hidden bg-cream py-20 text-ink md:py-32">
       <Atmosphere variant="topo" />
       <div className="container-x relative z-10">
         <div className="flex justify-center">
