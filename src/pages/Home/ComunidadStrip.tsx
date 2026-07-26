@@ -30,11 +30,21 @@ const FOTOS = [
 export function ComunidadStrip() {
   return (
     <section className="relative overflow-hidden bg-accent py-20 text-white md:py-32">
-      {/* Fondo guinda sólido + formas orgánicas del equipo del Gobierno del
-          Estado (tono sobre tono, ref. Armenta) + grano sutil. Sin fotos
-          detrás: limpio y cohesivo. */}
+      {/* Fondo: foto real difuminada en B&N (textura/profundidad) + capa guinda
+          (multiply) + formas orgánicas + grano. Riqueza detrás del collage. */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-        <OrganicShapes />
+        <img
+          src="/assets/comunidad/comunidad-visita.webp"
+          alt=""
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full scale-110 object-cover opacity-30 blur-[3px] grayscale"
+          onError={(e) => {
+            e.currentTarget.style.display = 'none'
+          }}
+        />
+        <div className="absolute inset-0 bg-accent/80 mix-blend-multiply" />
+        <OrganicShapes opacity={0.5} />
         <div
           className="absolute inset-0 opacity-[0.06]"
           style={{ backgroundImage: 'url(/assets/backgrounds/grain.png)', backgroundSize: '420px' }}
@@ -73,10 +83,16 @@ export function ComunidadStrip() {
           </div>
         </div>
 
-        {/* CTA */}
+        {/* CTA — grande y visible */}
         <Reveal delay={0.1}>
           <div className="mt-12 flex justify-center md:mt-16">
-            <ButtonLink to="/reels" tone="bone" variant="solid">
+            <ButtonLink
+              to="/reels"
+              tone="bone"
+              variant="solid"
+              arrow
+              className="px-10 py-5 text-base shadow-[0_20px_45px_-16px_rgba(0,0,0,0.55)] md:px-12 md:text-lg"
+            >
               Mira los recorridos
             </ButtonLink>
           </div>

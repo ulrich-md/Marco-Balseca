@@ -196,7 +196,7 @@ export function Hero() {
               halo guinda detrás = capas y energía. */}
           <div
             ref={photoRef}
-            className="relative z-20 mt-8 lg:col-start-2 lg:mt-[max(-22vw,-300px)]"
+            className="relative z-20 mt-8 lg:col-start-2 lg:mt-[max(-24vw,-330px)]"
           >
             {/* Fondo guinda curvo SOLO en móvil (en desktop existe el panel de
                 la derecha): mantiene la marca presente en la pantalla chica. */}
@@ -228,14 +228,14 @@ export function Hero() {
                 en desktop se ancla sobre el panel guinda, arriba del teléfono. */}
             <motion.div
               {...appear(0.5)}
-              className="relative z-40 mb-5 flex items-center gap-2.5 lg:absolute lg:inset-x-0 lg:-top-[4.25rem] lg:mx-auto lg:mb-0 lg:w-[340px] lg:pl-1"
+              className="relative z-40 mb-5 flex items-center gap-2.5 lg:absolute lg:inset-x-0 lg:-top-[4rem] lg:mx-auto lg:mb-0 lg:w-[320px] lg:pl-1"
             >
               <CommunityAvatars count={3} />
               <LiveCounter tone="bone" layout="inline" />
             </motion.div>
 
             <motion.div
-              className="relative mx-auto w-full max-w-[280px] rotate-2 lg:max-w-[340px] lg:rotate-3"
+              className="relative mx-auto w-full max-w-[270px] rotate-2 lg:max-w-[320px] lg:rotate-3"
               style={{ rotateX: reduce ? 0 : rotX, rotateY: reduce ? 0 : rotY, transformPerspective: 1000 }}
             >
               {/* Carcasa del teléfono (bezel + botones + dynamic island) */}
@@ -263,7 +263,7 @@ export function Hero() {
 
         </div>
 
-        <div className="flex justify-center py-10 lg:justify-start">
+        <div className="flex justify-center py-5 lg:justify-start lg:pt-2 lg:pb-6">
           <ScrollIndicator tone="accent" />
         </div>
       </div>
