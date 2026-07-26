@@ -98,40 +98,40 @@ export function Hero() {
             alt=""
             loading="lazy"
             decoding="async"
-            className="absolute right-[3%] top-[2%] aspect-[4/3] w-[55%] rotate-2 rounded-2xl object-cover opacity-45 blur-[7px] grayscale"
+            className="absolute right-[1%] top-0 aspect-[3/4] w-[44%] rotate-2 rounded-2xl object-cover opacity-[0.62] blur-[4px] grayscale"
           />
           <img
             src="/assets/comunidad/comunidad-mercado.webp"
             alt=""
             loading="lazy"
             decoding="async"
-            className="absolute right-[36%] top-[33%] aspect-[4/3] w-[44%] -rotate-3 rounded-2xl object-cover opacity-40 blur-[7px] grayscale"
+            className="absolute right-[38%] top-[24%] aspect-[3/4] w-[40%] -rotate-3 rounded-2xl object-cover opacity-[0.55] blur-[4px] grayscale"
           />
           <img
             src="/assets/comunidad/comunidad-cancha.webp"
             alt=""
             loading="lazy"
             decoding="async"
-            className="absolute bottom-[1%] right-[10%] aspect-[16/10] w-[50%] rotate-2 rounded-2xl object-cover opacity-40 blur-[7px] grayscale"
+            className="absolute bottom-[1%] right-[4%] aspect-[16/10] w-[54%] rotate-2 rounded-2xl object-cover opacity-[0.55] blur-[4px] grayscale"
           />
         </div>
 
-        {/* Capa guinda (multiply) que tiñe el collage + más guinda sólido a la
-            IZQUIERDA (nombre legible), revelando el collage a la DERECHA. */}
-        <div className="absolute inset-0 bg-accent/80 mix-blend-multiply" />
-        <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent/65 to-accent/25" />
+        {/* Capa guinda (multiply MÁS LIGERA → el collage SÍ se ve) + más guinda
+            sólido a la IZQUIERDA (nombre legible), revelando el collage a la DERECHA. */}
+        <div className="absolute inset-0 bg-accent/55 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent/55 to-accent/20" />
 
-        {/* Calidez DORADA institucional encima (brillo cálido) */}
+        {/* Calidez DORADA institucional (sutil, para no lavar el collage) */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(50% 44% at 74% 18%, rgba(230,209,148,0.28), transparent 62%), radial-gradient(46% 46% at 92% 84%, rgba(230,209,148,0.15), transparent 60%)',
+              'radial-gradient(50% 44% at 74% 16%, rgba(230,209,148,0.2), transparent 60%), radial-gradient(46% 46% at 92% 84%, rgba(230,209,148,0.12), transparent 60%)',
           }}
         />
 
         {/* Formas orgánicas DORADAS (tono sobre tono cálido) + grano */}
-        <OrganicShapes tone="gold" opacity={0.75} />
+        <OrganicShapes tone="gold" opacity={0.5} />
         <div
           className="absolute inset-0 opacity-[0.06]"
           style={{ backgroundImage: 'url(/assets/backgrounds/grain.png)', backgroundSize: '420px' }}
@@ -226,7 +226,7 @@ export function Hero() {
               halo guinda detrás = capas y energía. */}
           <div
             ref={photoRef}
-            className="relative z-20 mt-8 lg:col-start-2 lg:mt-[max(-24vw,-330px)]"
+            className="relative z-20 mt-8 lg:col-start-2 lg:mt-[max(-28vw,-395px)]"
           >
             {/* Fondo guinda curvo SOLO en móvil (en desktop existe el panel de
                 la derecha): mantiene la marca presente en la pantalla chica. */}
@@ -258,7 +258,7 @@ export function Hero() {
                 en desktop se ancla sobre el panel guinda, arriba del teléfono. */}
             <motion.div
               {...appear(0.5)}
-              className="relative z-40 mb-5 flex items-center gap-2.5 lg:absolute lg:inset-x-0 lg:-top-[4rem] lg:mx-auto lg:mb-0 lg:w-[320px] lg:pl-1"
+              className="relative z-40 mb-5 flex items-center gap-2.5 lg:absolute lg:inset-x-0 lg:-top-[4.5rem] lg:mx-auto lg:mb-0 lg:w-[320px] lg:pl-1"
             >
               <CommunityAvatars count={3} />
               <LiveCounter tone="bone" layout="inline" />
@@ -293,7 +293,7 @@ export function Hero() {
 
         </div>
 
-        <div className="flex justify-center py-5 lg:justify-start lg:pt-2 lg:pb-6">
+        <div className="flex justify-center py-5 lg:justify-start lg:pt-0 lg:pb-2">
           <ScrollIndicator tone="accent" />
         </div>
       </div>
