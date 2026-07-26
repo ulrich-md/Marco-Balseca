@@ -79,11 +79,11 @@ export function Hero() {
           corte el diseño. Solo desktop. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[56%] overflow-hidden lg:block"
+        className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[61%] overflow-hidden lg:block"
         style={{
           // Curva suave (elipse) en el borde izquierdo → sin corte recto a la mitad.
-          WebkitMaskImage: 'radial-gradient(125% 135% at 132% 50%, #000 60%, transparent 80%)',
-          maskImage: 'radial-gradient(125% 135% at 132% 50%, #000 60%, transparent 80%)',
+          WebkitMaskImage: 'radial-gradient(122% 135% at 128% 50%, #000 58%, transparent 82%)',
+          maskImage: 'radial-gradient(122% 135% at 128% 50%, #000 58%, transparent 82%)',
         }}
       >
         {/* Base con degradado diagonal (profundidad, no color plano) */}
@@ -98,21 +98,21 @@ export function Hero() {
             alt=""
             loading="lazy"
             decoding="async"
-            className="absolute right-[1%] top-0 aspect-[3/4] w-[44%] rotate-2 rounded-2xl object-cover opacity-[0.62] blur-[4px] grayscale"
+            className="absolute right-[8%] top-0 aspect-[3/4] w-[42%] rotate-2 rounded-2xl object-cover opacity-[0.62] blur-[4px] grayscale"
           />
           <img
             src="/assets/comunidad/comunidad-mercado.webp"
             alt=""
             loading="lazy"
             decoding="async"
-            className="absolute right-[38%] top-[24%] aspect-[3/4] w-[40%] -rotate-3 rounded-2xl object-cover opacity-[0.55] blur-[4px] grayscale"
+            className="absolute right-[46%] top-[26%] aspect-[3/4] w-[40%] -rotate-3 rounded-2xl object-cover opacity-[0.55] blur-[4px] grayscale"
           />
           <img
             src="/assets/comunidad/comunidad-cancha.webp"
             alt=""
             loading="lazy"
             decoding="async"
-            className="absolute bottom-[1%] right-[4%] aspect-[16/10] w-[54%] rotate-2 rounded-2xl object-cover opacity-[0.55] blur-[4px] grayscale"
+            className="absolute bottom-[1%] right-[12%] aspect-[16/10] w-[54%] rotate-2 rounded-2xl object-cover opacity-[0.55] blur-[4px] grayscale"
           />
         </div>
 
@@ -226,7 +226,7 @@ export function Hero() {
               halo guinda detrás = capas y energía. */}
           <div
             ref={photoRef}
-            className="relative z-20 mt-8 lg:col-start-2 lg:mt-[max(-28vw,-395px)]"
+            className="relative z-20 mt-8 lg:col-start-2 lg:mt-[max(-31vw,-440px)]"
           >
             {/* Fondo guinda curvo SOLO en móvil (en desktop existe el panel de
                 la derecha): mantiene la marca presente en la pantalla chica. */}
