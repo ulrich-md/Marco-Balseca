@@ -21,11 +21,11 @@ export function OrganicShapes({
   const fillC = isDark ? '#7d244c' : isGold ? 'var(--color-sand)' : 'var(--color-cream-deep)'
   const strokeC = isDark ? '#94315e' : isGold ? '#efe3bd' : '#e6d8b8'
   // Opacidades por forma, calibradas para verse sutiles pero presentes.
-  const fA = isGold ? 0.16 : isDark ? 0.34 : 0.55
-  const fB = isGold ? 0.13 : isDark ? 0.3 : 0.5
-  const sA = isGold ? 0.15 : isDark ? 0.24 : 0.5
-  const sB = isGold ? 0.12 : isDark ? 0.2 : 0.45
-  const sC = isGold ? 0.1 : isDark ? 0.18 : 0.4
+  const fA = isGold ? 0.22 : isDark ? 0.34 : 0.55
+  const fB = isGold ? 0.17 : isDark ? 0.3 : 0.5
+  const sA = isGold ? 0.2 : isDark ? 0.24 : 0.5
+  const sB = isGold ? 0.16 : isDark ? 0.2 : 0.45
+  const sC = isGold ? 0.13 : isDark ? 0.18 : 0.4
   return (
     <svg
       aria-hidden

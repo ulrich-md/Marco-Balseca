@@ -96,7 +96,7 @@ export function Hero() {
             className="absolute inset-0"
             style={{
               background:
-                'radial-gradient(46% 40% at 74% 20%, rgba(230,209,148,0.24), transparent 60%), radial-gradient(42% 42% at 92% 84%, rgba(230,209,148,0.12), transparent 58%)',
+                'radial-gradient(50% 44% at 74% 18%, rgba(230,209,148,0.34), transparent 62%), radial-gradient(46% 46% at 92% 84%, rgba(230,209,148,0.18), transparent 60%)',
             }}
           />
         </div>
