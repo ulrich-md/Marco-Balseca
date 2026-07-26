@@ -2,27 +2,30 @@
    Estado de Puebla (ref. alejandroarmenta.com.mx). Curvas suaves distribuidas
    por todo el lienzo, SIEMPRE en un tono ligeramente distinto al fondo para que
    se perciban (nunca del mismo color, si no desaparecen). Decorativo y ligero.
-   tone 'dark'  → guinda claro sobre guinda (#711924 / #5e1922): footer, CTA,
+   tone 'dark'  → guinda claro sobre guinda (#611232 / #490d26): footer, CTA,
                   "En territorio", panel derecho del hero
+   tone 'gold'  → DORADO oficial (#e6d194) sobre guinda: calidez en el hero
    tone 'light' → crema profundo sobre crema: noticias, testimonios */
 export function OrganicShapes({
   opacity = 1,
   tone = 'dark',
 }: {
   opacity?: number
-  tone?: 'dark' | 'light'
+  tone?: 'dark' | 'light' | 'gold'
 }) {
   const isDark = tone === 'dark'
-  // Nota: en dark las formas son un guinda MÁS CLARO que el fondo (#711924/#5e1922)
-  // para que siempre se perciban; en light reusa el token institucional crema.
-  const fillC = isDark ? '#7f2230' : 'var(--color-cream-deep)'
-  const strokeC = isDark ? '#9a2c3a' : '#e6d8b8'
+  const isGold = tone === 'gold'
+  // Nota: en dark las formas son un guinda MÁS CLARO que el fondo (#611232/#490d26)
+  // para que siempre se perciban; en gold son DORADO cálido sobre guinda; en
+  // light reusan el token institucional crema.
+  const fillC = isDark ? '#7d244c' : isGold ? 'var(--color-sand)' : 'var(--color-cream-deep)'
+  const strokeC = isDark ? '#94315e' : isGold ? '#efe3bd' : '#e6d8b8'
   // Opacidades por forma, calibradas para verse sutiles pero presentes.
-  const fA = isDark ? 0.34 : 0.55
-  const fB = isDark ? 0.3 : 0.5
-  const sA = isDark ? 0.24 : 0.5
-  const sB = isDark ? 0.2 : 0.45
-  const sC = isDark ? 0.18 : 0.4
+  const fA = isGold ? 0.16 : isDark ? 0.34 : 0.55
+  const fB = isGold ? 0.13 : isDark ? 0.3 : 0.5
+  const sA = isGold ? 0.15 : isDark ? 0.24 : 0.5
+  const sB = isGold ? 0.12 : isDark ? 0.2 : 0.45
+  const sC = isGold ? 0.1 : isDark ? 0.18 : 0.4
   return (
     <svg
       aria-hidden

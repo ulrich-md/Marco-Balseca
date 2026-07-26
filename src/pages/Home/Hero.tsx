@@ -67,7 +67,7 @@ export function Hero() {
       <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
         <div
           className="absolute inset-0"
-          style={{ background: 'radial-gradient(58% 55% at 6% -2%, rgba(113,25,36,0.06), transparent 58%)' }}
+          style={{ background: 'radial-gradient(58% 55% at 6% -2%, rgba(97,18,50,0.06), transparent 58%)' }}
         />
         <PrehispanicField opacity={0.26} />
       </div>
@@ -89,25 +89,20 @@ export function Hero() {
         {/* Base con degradado diagonal (profundidad, no color plano) */}
         <div className="absolute inset-0 bg-gradient-to-br from-accent via-accent to-accent-deep" />
 
-        {/* Retrato de Marco (SIN blur) + tinte guinda; con parallax en scroll.
-            El inset negativo deja aire para el desplazamiento. */}
-        <div ref={heroBgRef} className="absolute inset-[-14%]">
-          <img
-            src="/assets/portraits/marco-corazon-fondo.webp"
-            alt=""
-            loading="lazy"
-            decoding="async"
-            className="h-full w-full scale-110 object-cover object-[52%_22%] opacity-40"
+        {/* Calidez DORADA oficial (Gob. de México): brillo cálido difuso que
+            rompe el muro guinda monocromático; parallax sutil en scroll. */}
+        <div ref={heroBgRef} className="absolute inset-[-16%]">
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(46% 40% at 74% 20%, rgba(230,209,148,0.24), transparent 60%), radial-gradient(42% 42% at 92% 84%, rgba(230,209,148,0.12), transparent 58%)',
+            }}
           />
-          <div className="absolute inset-0 bg-accent/72 mix-blend-multiply" />
-          {/* Más guinda sólido a la IZQUIERDA (zona del nombre → letras legibles),
-              revela la foto hacia la DERECHA (detrás del teléfono). */}
-          <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent/75 to-accent/20" />
-          <div className="absolute inset-0 bg-gradient-to-t from-accent-deep/70 to-transparent" />
         </div>
 
-        {/* Formas orgánicas + grano encima (textura sutil) */}
-        <OrganicShapes opacity={0.45} />
+        {/* Formas orgánicas DORADAS (tono sobre tono cálido) + grano */}
+        <OrganicShapes tone="gold" opacity={0.85} />
         <div
           className="absolute inset-0 opacity-[0.06]"
           style={{ backgroundImage: 'url(/assets/backgrounds/grain.png)', backgroundSize: '420px' }}
@@ -145,6 +140,14 @@ export function Hero() {
               Delegado de Gobernación del Estado de Puebla · Microrregión 25
             </span>
           </motion.p>
+
+          {/* Titular / promesa — el mensaje, no solo el nombre */}
+          <motion.p
+            {...appear(0.44)}
+            className="font-condensed relative z-10 mt-5 max-w-xl text-[1.7rem] font-bold leading-[1.08] text-ink sm:text-[2rem] lg:text-[2.4rem]"
+          >
+            Cerca de la gente, <span className="text-accent">por nuestra tierra.</span>
+          </motion.p>
         </div>
 
         {/* Fila inferior. En MÓVIL el orden DOM es copy/CTA → contador → video →
@@ -153,10 +156,9 @@ export function Hero() {
         <div className="mt-6 grid items-start lg:mt-0 lg:grid-cols-[1fr_0.78fr] lg:gap-x-12">
           {/* A — copy + CTA + redes */}
           <div className="lg:pt-4">
-            <motion.p {...appear(0.45)} className="max-w-xl text-lg text-ink/75 md:text-xl">
-              Soy abogado y maestro en Administración. Empecé en esto a los 15 años y llevo 30 en
-              la vida pública, siempre con la misma idea: la política se hace en territorio, cara a
-              cara, todos los días.
+            <motion.p {...appear(0.5)} className="max-w-lg text-base text-ink/70 md:text-lg">
+              Abogado y maestro en Administración. Empecé a los 15 años y llevo 30 en la vida
+              pública, cara a cara con la gente, todos los días.
             </motion.p>
 
             <motion.div {...appear(0.55)} className="mt-7">
@@ -194,7 +196,7 @@ export function Hero() {
               halo guinda detrás = capas y energía. */}
           <div
             ref={photoRef}
-            className="relative z-20 mt-8 lg:col-start-2 lg:mt-[max(-27vw,-360px)]"
+            className="relative z-20 mt-8 lg:col-start-2 lg:mt-[max(-22vw,-300px)]"
           >
             {/* Fondo guinda curvo SOLO en móvil (en desktop existe el panel de
                 la derecha): mantiene la marca presente en la pantalla chica. */}
@@ -217,7 +219,7 @@ export function Hero() {
               className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[135%] w-[155%] -translate-x-1/2 -translate-y-1/2 blur-[2px]"
               style={{
                 background:
-                  'radial-gradient(52% 46% at 50% 47%, rgba(113,25,36,0.26), rgba(113,25,36,0.09) 54%, transparent 74%), radial-gradient(40% 34% at 72% 15%, rgba(165,127,44,0.16), transparent 62%)',
+                  'radial-gradient(52% 46% at 50% 47%, rgba(97,18,50,0.26), rgba(97,18,50,0.09) 54%, transparent 74%), radial-gradient(40% 34% at 72% 15%, rgba(165,127,44,0.16), transparent 62%)',
               }}
             />
             {/* Prueba social INTEGRADA arriba del teléfono, directamente sobre
@@ -226,14 +228,14 @@ export function Hero() {
                 en desktop se ancla sobre el panel guinda, arriba del teléfono. */}
             <motion.div
               {...appear(0.5)}
-              className="relative z-40 mb-5 flex items-center gap-2.5 lg:absolute lg:inset-x-0 lg:-top-[4.5rem] lg:mx-auto lg:mb-0 lg:w-[390px] lg:pl-1"
+              className="relative z-40 mb-5 flex items-center gap-2.5 lg:absolute lg:inset-x-0 lg:-top-[4.25rem] lg:mx-auto lg:mb-0 lg:w-[340px] lg:pl-1"
             >
               <CommunityAvatars count={3} />
               <LiveCounter tone="bone" layout="inline" />
             </motion.div>
 
             <motion.div
-              className="relative mx-auto w-full max-w-[300px] rotate-2 lg:max-w-[390px] lg:rotate-3"
+              className="relative mx-auto w-full max-w-[280px] rotate-2 lg:max-w-[340px] lg:rotate-3"
               style={{ rotateX: reduce ? 0 : rotX, rotateY: reduce ? 0 : rotY, transformPerspective: 1000 }}
             >
               {/* Carcasa del teléfono (bezel + botones + dynamic island) */}

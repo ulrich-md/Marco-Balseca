@@ -11,7 +11,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
    ========================================================================= */
 
 const EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1]
-const ACCENT = '#711924'
+const ACCENT = '#611232'
 
 // Pincelada-subrayado (trazo horizontal con vida). El filtro de turbulencia
 // le da el borde rugoso de brocha seca.
