@@ -118,20 +118,21 @@ export function Hero() {
 
         {/* Capa guinda (multiply MÁS LIGERA → el collage SÍ se ve) + más guinda
             sólido a la IZQUIERDA (nombre legible), revelando el collage a la DERECHA. */}
-        <div className="absolute inset-0 bg-accent/55 mix-blend-multiply" />
-        <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent/55 to-accent/20" />
+        <div className="absolute inset-0 bg-accent/62 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent/60 to-accent/25" />
 
-        {/* Calidez DORADA institucional (sutil, para no lavar el collage) */}
+        {/* Toque DORADO muy sutil (el fondo emula al de "En Territorio":
+            guinda + foto difuminada + formas guinda). */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(50% 44% at 74% 16%, rgba(230,209,148,0.2), transparent 60%), radial-gradient(46% 46% at 92% 84%, rgba(230,209,148,0.12), transparent 60%)',
+              'radial-gradient(50% 44% at 74% 16%, rgba(230,209,148,0.13), transparent 60%), radial-gradient(46% 46% at 92% 84%, rgba(230,209,148,0.08), transparent 60%)',
           }}
         />
 
-        {/* Formas orgánicas DORADAS (tono sobre tono cálido) + grano */}
-        <OrganicShapes tone="gold" opacity={0.5} />
+        {/* Formas orgánicas GUINDA (tono sobre tono, igual que "En Territorio") + grano */}
+        <OrganicShapes opacity={0.6} />
         <div
           className="absolute inset-0 opacity-[0.06]"
           style={{ backgroundImage: 'url(/assets/backgrounds/grain.png)', backgroundSize: '420px' }}

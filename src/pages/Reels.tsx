@@ -22,6 +22,7 @@ export default function Reels() {
         index="05"
         label="Reels"
         title="En territorio"
+        compact
         intro="Aquí me ves en territorio, con la gente: atención a vecinos, jornadas, deporte y la fiesta del Mundial en Tehuacán. Reels oficiales de @marcobalseca1, directo desde Instagram."
       >
         <div className="mt-8">

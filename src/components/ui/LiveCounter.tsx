@@ -90,9 +90,10 @@ export function LiveCounter({
       <div ref={ref} className="leading-tight">
         <span className="flex items-center gap-1.5">
           <Dot />
-          <span className={`font-display text-2xl leading-none ${numCls}`}>
-            <RollingNumber value={count} />
-          </span>
+          <span className={`eyebrow ${tone === 'bone' ? 'text-sand' : 'text-accent'}`}>En vivo</span>
+        </span>
+        <span className={`font-display mt-1 block text-2xl leading-none ${numCls}`}>
+          <RollingNumber value={count} />
         </span>
         <span className={`mt-0.5 block text-sm leading-tight ${tone === 'bone' ? 'text-white/70' : 'text-ink/70'}`}>
           {label}

@@ -181,6 +181,7 @@ export default function Contacto() {
         index="07"
         label="Contacto · Súmate"
         title={'Hablemos,\nde tú a tú'}
+        compact
         intro="Tu voz mueve a Tehuacán. Déjame un mensaje, hazte voluntario o invítame a tu colonia. Te leo y te respondo personalmente: aquí me tienes."
       >
         <div aria-hidden className="pointer-events-none absolute bottom-0 right-0 hidden h-[90%] w-[34%] lg:block">

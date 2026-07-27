@@ -85,7 +85,7 @@ export function ComunidadStrip() {
 
         {/* CTA — grande y visible */}
         <Reveal delay={0.1}>
-          <div className="mt-12 flex justify-center md:mt-16">
+          <div className="mt-16 flex justify-center md:mt-24">
             <ButtonLink
               to="/reels"
               tone="bone"
