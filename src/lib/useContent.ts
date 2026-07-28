@@ -59,15 +59,18 @@ type ReelRow = {
   id: string
   titulo: string
   instagram_url: string
+  plataforma?: string | null
   orden?: number | null
 }
 
 function mapReel(r: ReelRow): Reel {
+  const isTikTok = (r.plataforma ?? 'instagram') === 'tiktok'
   return {
     id: r.id,
     titulo: r.titulo,
-    kind: 'instagram',
-    instagramUrl: r.instagram_url,
+    kind: isTikTok ? 'tiktok' : 'instagram',
+    instagramUrl: isTikTok ? undefined : r.instagram_url,
+    tiktokUrl: isTikTok ? r.instagram_url : undefined,
   }
 }
 

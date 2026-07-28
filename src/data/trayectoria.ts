@@ -1,9 +1,8 @@
-/* Hitos de trayectoria — reales y verificables, en primera persona.
-   Anclas: 1943 (agua mineral Balseca), 1981–1984 (mi padre, presidente
-   municipal de Tehuacán), el Frente Juvenil a los 15 años (primer paso
-   público, 30 años en la vida pública), la etapa nacional (2012–2018:
-   campaña de Manuel Velasco, asesores del Gobernador, INAES) y hoy:
-   delegado de Gobernación del Estado de Puebla, microrregión 25. */
+/* Hitos de trayectoria — en primera persona, tono profesional y verificable.
+   Anclas: origen familiar (agua mineral de Tehuacán), el servicio público de
+   familia, los primeros pasos en la vida pública, la etapa en Chiapas
+   (campaña de Manuel Velasco e INAES / economía social) y hoy: delegado de
+   Gobernación del Estado de Puebla, microrregión 25, con sede en Tehuacán. */
 
 export type Hito = {
   anio: string
@@ -15,72 +14,65 @@ export type Hito = {
 export const TRAYECTORIA: Hito[] = [
   {
     anio: '1943',
-    titulo: 'Raíces que saben a Tehuacán',
+    titulo: 'Raíces en Tehuacán',
     texto:
-      'Vengo de la familia Balseca, una de las casas que hicieron del agua mineral el orgullo de Tehuacán, junto a nombres como Peñafiel y Garci-Crespo. Crecí entendiendo el valor del trabajo, del oficio y de la palabra dada.',
+      'La familia Balseca formó parte de la industria del agua mineral que dio identidad y orgullo a Tehuacán, junto a casas como Peñafiel y Garci-Crespo. De ese origen heredé el valor del trabajo, del oficio y de la palabra cumplida.',
     lugar: 'Tehuacán, Puebla',
   },
   {
     anio: '1981',
-    titulo: 'El servicio, herencia de mi casa',
+    titulo: 'El servicio público, de familia',
     texto:
-      'Mi padre, Marco Antonio Balseca Chávez, fue presidente municipal de Tehuacán (1981–1984); de su gestión es el mural emblemático de la ciudad. De él aprendí que servir a Tehuacán no es un cargo: es una forma de vivir.',
+      'Mi padre, Marco Antonio Balseca Chávez, fue presidente municipal de Tehuacán (1981–1984). Crecí viendo que servir a la ciudad se ejerce con cercanía y responsabilidad; esa vocación marcó mi camino.',
     lugar: 'Tehuacán, Puebla',
   },
   {
-    anio: 'A los 15',
-    titulo: 'El chamaco del Frente Juvenil',
+    anio: 'Inicios',
+    titulo: 'Primeros pasos en la vida pública',
     texto:
-      'Tenía 15 años cuando me tocó encabezar el Frente Juvenil Revolucionario en Puebla. Era un chamaco pegando carteles y organizando asambleas, pero ahí se me metió algo que nunca se me quitó: la política se hace caminando y escuchando. De eso ya pasaron 30 años y sigo en las mismas.',
+      'Comencé joven en la organización juvenil y comunitaria, al frente del Frente Juvenil Revolucionario en Puebla. Ahí aprendí lo esencial: la política se ejerce de cerca, escuchando a la gente y organizando causas comunes.',
     lugar: 'Puebla',
   },
   {
-    anio: '2010',
-    titulo: 'La campaña que me enseñó a escuchar',
+    anio: 'Formación',
+    titulo: 'Abogado, maestro y emprendedor',
     texto:
-      'Ya era abogado, maestro en Administración, tenía mi negocio… y me animé a competir por la presidencia municipal de mi ciudad. De esa campaña me llevé lo más valioso que tengo hasta hoy: la costumbre de tocar la puerta, sentarme y escuchar de frente, sin prisa.',
+      'Me formé como abogado y maestro en Administración, y desarrollé actividad empresarial en Tehuacán. Esa combinación —derecho, gestión y empresa— me dio un método claro para resolver: entender el problema a fondo y actuar con orden.',
     lugar: 'Tehuacán, Puebla',
   },
   {
-    anio: '2012',
-    titulo: 'La llamada que lo cambió todo',
+    anio: 'Chiapas',
+    titulo: 'Coordinación de campaña',
     texto:
-      'Manuel Velasco me confió la coordinación de su campaña. Fueron meses de dormir poco y recorrer Chiapas entero, y una lección que no se me olvida: las campañas no las ganan los carteles, las gana la gente que cree en algo.',
+      'Coordiné la campaña de Manuel Velasco en Chiapas. Fue una etapa de intenso trabajo territorial que reafirmó una convicción: los proyectos se sostienen con organización y con gente que cree en ellos.',
     lugar: 'Chiapas',
   },
   {
-    anio: '2013',
-    titulo: 'Aprender a que el apoyo sí llegue',
+    anio: 'INAES',
+    titulo: 'Economía social',
     texto:
-      'El Gobernador me pidió coordinar a su equipo de asesores y ese mismo año tomé la delegación del INAES en Chiapas. Conocí de cerca la economía social: cooperativas, artesanas, productores. Gente que no pide limosna — pide una oportunidad. Mi trabajo era que el apoyo le llegara a quien trabaja, no a quien tramita.',
+      'En Chiapas coordiné el equipo de asesores del Gobierno del estado y asumí responsabilidades en el INAES (Instituto Nacional de la Economía Social). Trabajé de cerca con cooperativas, artesanos y productores, impulsando que los apoyos llegaran a quienes generan trabajo.',
     lugar: 'Chiapas',
   },
   {
-    anio: '2017',
-    titulo: 'Ver el país completo',
+    anio: 'Nacional',
+    titulo: 'Planeación con visión de país',
     texto:
-      'Me tocó dirigir la planeación nacional del INAES. Vi México entero desde los números y las oficinas… y solo me confirmó lo que ya sabía desde Tehuacán: los buenos planes nacen en el territorio, no en el escritorio.',
+      'Participé en la planeación nacional del INAES, una responsabilidad que me dio una visión integral del país y confirmó una idea de fondo: las mejores políticas públicas nacen del territorio y del contacto directo con la gente.',
     lugar: 'Ciudad de México',
   },
   {
     anio: '2024',
-    titulo: 'De vuelta en casa',
+    titulo: 'Delegado de Gobernación en Tehuacán',
     texto:
-      'Volví a casa con la encomienda de Gobernación del Estado de Puebla en la microrregión 25. Mi oficina está en territorio: en el mercado, en la junta auxiliar, en la puerta de tu casa. Ahí es donde se resuelven las cosas, una por una.',
-    lugar: 'Tehuacán, Puebla',
-  },
-  {
-    anio: '2026',
-    titulo: 'La fiesta que nos une',
-    texto:
-      'Con el ánimo del Mundial 2026, impulso el deporte que une a las colonias y las jornadas que acercan servicios a las familias: torneos de barrio, encuentros con las juventudes y la fiesta del futbol en el Complejo Cultural El Carmen.',
+      'Regresé a casa como delegado de Gobernación del Estado de Puebla en la microrregión 25. Mi trabajo es territorial: en los mercados, en las juntas auxiliares y en las colonias, atendiendo y resolviendo de cerca las necesidades de las familias.',
     lugar: 'Tehuacán, Puebla',
   },
   {
     anio: 'Hoy',
-    titulo: 'Sigo caminando contigo',
+    titulo: 'Cerca de la gente',
     texto:
-      'Cerca de la gente, por nuestra tierra y nuestra gente, todos los días. Tehuacán es mi casa y mi causa, y mientras pueda caminarla seguiré haciéndolo a tu lado.',
+      'Cerca de la gente, por nuestra tierra. Tehuacán es mi casa y mi compromiso, y seguiré trabajando en territorio, todos los días, al lado de sus familias.',
     lugar: 'Tehuacán, Puebla',
   },
 ]

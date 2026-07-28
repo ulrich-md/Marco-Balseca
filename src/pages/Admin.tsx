@@ -2,6 +2,7 @@ import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
 import { Seo } from '../lib/Seo'
 import { supabaseEnabled, sbSelect, sbInsert, sbUpdate, sbDelete } from '../lib/supabase'
 import { igEmbedSrc } from '../lib/instagram'
+import { tiktokEmbedSrc } from '../lib/tiktok'
 import { slugify } from '../data/acciones'
 
 /* =========================================================================
@@ -46,6 +47,10 @@ create table if not exists mensajes (
   nombre text not null, correo text, telefono text, lugar text,
   motivo text, mensaje text not null, leido boolean default false,
   created_at timestamptz default now());
+
+-- Videos: 'plataforma' distingue Reel (Instagram) de TikTok (usa instagram_url
+-- como enlace del video para ambos).
+alter table reels add column if not exists plataforma text default 'instagram';
 
 alter table eventos     enable row level security;
 alter table reels       enable row level security;
@@ -120,7 +125,13 @@ type EventoRow = {
   cta_label: string | null
   cta_url: string | null
 }
-type ReelRow = { id: string; titulo: string; instagram_url: string; orden: number | null }
+type ReelRow = {
+  id: string
+  titulo: string
+  instagram_url: string
+  plataforma?: string | null
+  orden: number | null
+}
 type AccionRow = {
   id: string
   slug: string | null
@@ -220,7 +231,7 @@ export default function Admin() {
   const [testimonios, setTestimonios] = useState<TestimonioRow[]>([])
   const [noticias, setNoticias] = useState<NoticiaRow[]>([])
   const [ev, setEv] = useState<Omit<EventoRow, 'id'> & { id?: string }>({ ...EMPTY_EV })
-  const [reel, setReel] = useState({ titulo: '', instagram_url: '' })
+  const [reel, setReel] = useState({ titulo: '', instagram_url: '', plataforma: 'instagram' })
   const [ac, setAc] = useState<typeof EMPTY_AC & { id?: string }>({ ...EMPTY_AC })
   const [ts, setTs] = useState<typeof EMPTY_TS & { id?: string }>({ ...EMPTY_TS })
   const [nt, setNt] = useState<typeof EMPTY_NT & { id?: string }>({ ...EMPTY_NT })
@@ -276,16 +287,22 @@ export default function Admin() {
 
   const saveReel = async (e: FormEvent) => {
     e.preventDefault()
-    if (!igEmbedSrc(reel.instagram_url)) {
-      flash('Ese enlace no parece un reel de Instagram. Revisa que sea como instagram.com/reel/...')
+    const isTikTok = reel.plataforma === 'tiktok'
+    const valido = isTikTok ? !!tiktokEmbedSrc(reel.instagram_url) : !!igEmbedSrc(reel.instagram_url)
+    if (!valido) {
+      flash(
+        isTikTok
+          ? 'Ese enlace no parece un TikTok. Debe ser como tiktok.com/@usuario/video/...'
+          : 'Ese enlace no parece un reel de Instagram. Revisa que sea como instagram.com/reel/...',
+      )
       return
     }
     setBusy(true)
     try {
       const orden = (reels[reels.length - 1]?.orden ?? reels.length) + 1
       await sbInsert('reels', { ...reel, orden })
-      setReel({ titulo: '', instagram_url: '' })
-      flash('Reel agregado ✓')
+      setReel({ titulo: '', instagram_url: '', plataforma: 'instagram' })
+      flash(isTikTok ? 'TikTok agregado ✓' : 'Reel agregado ✓')
       load()
     } catch (err) {
       flash('Error: ' + (err as Error).message)
@@ -474,7 +491,7 @@ export default function Admin() {
           <>
             <div className="mt-8 grid grid-cols-2 gap-2 rounded-xl border border-ink/12 bg-white p-1.5 sm:grid-cols-5">
               {tabBtn('agenda', <CalIcon />, 'Agenda', eventos.length)}
-              {tabBtn('reels', <PlayIcon />, 'Reels', reels.length)}
+              {tabBtn('reels', <PlayIcon />, 'Videos', reels.length)}
               {tabBtn('noticias', <NewsIcon />, 'Noticias', noticias.length)}
               {tabBtn('acciones', <FlagIcon />, 'Acciones', acciones.length)}
               {tabBtn('testimonios', <QuoteIcon />, 'Testimonios', testimonios.length)}
@@ -623,18 +640,29 @@ export default function Admin() {
               <div className="mt-6 space-y-6">
                 <div className="rounded-xl border border-ink/12 bg-white p-6">
                   <h2 className="font-condensed text-xl font-semibold uppercase tracking-wide text-ink">
-                    Agregar un reel
+                    Agregar un video
                   </h2>
                   <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-mute">
-                    <li>En Instagram, abre el reel.</li>
+                    <li>Elige la plataforma (Instagram o TikTok).</li>
                     <li>
-                      Toca <strong>compartir</strong> (el avioncito) → <strong>Copiar enlace</strong>.
+                      Abre el video y toca <strong>compartir</strong> → <strong>Copiar enlace</strong>.
                     </li>
                     <li>Pega el enlace aquí y ponle un título.</li>
                   </ol>
                   <form onSubmit={saveReel} className="mt-5 grid gap-4">
                     <div>
-                      <label className={label}>Título del reel</label>
+                      <label className={label}>Plataforma</label>
+                      <select
+                        className={input}
+                        value={reel.plataforma}
+                        onChange={(e) => setReel({ ...reel, plataforma: e.target.value })}
+                      >
+                        <option value="instagram">Instagram (Reel)</option>
+                        <option value="tiktok">TikTok</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className={label}>Título del video</label>
                       <input
                         required
                         className={input}
@@ -644,18 +672,22 @@ export default function Admin() {
                       />
                     </div>
                     <div>
-                      <label className={label}>Enlace del reel</label>
+                      <label className={label}>Enlace del video</label>
                       <input
                         required
                         className={input}
-                        placeholder="https://www.instagram.com/reel/..."
+                        placeholder={
+                          reel.plataforma === 'tiktok'
+                            ? 'https://www.tiktok.com/@usuario/video/...'
+                            : 'https://www.instagram.com/reel/...'
+                        }
                         value={reel.instagram_url}
                         onChange={(e) => setReel({ ...reel, instagram_url: e.target.value })}
                       />
                     </div>
                     <div>
                       <button type="submit" className={btn} disabled={busy}>
-                        Agregar reel
+                        Agregar video
                       </button>
                     </div>
                   </form>
@@ -663,13 +695,18 @@ export default function Admin() {
 
                 <div className="rounded-xl border border-ink/12 bg-white">
                   <p className="border-b border-ink/10 px-6 py-4 font-condensed text-lg font-semibold uppercase tracking-wide text-ink">
-                    Reels publicados ({reels.length})
+                    Videos publicados ({reels.length})
                   </p>
                   <ul className="divide-y divide-ink/10">
                     {reels.map((r) => (
                       <li key={r.id} className="flex flex-wrap items-center justify-between gap-3 px-6 py-4">
                         <div className="min-w-0">
-                          <p className="truncate text-sm font-semibold text-ink">{r.titulo}</p>
+                          <p className="truncate text-sm font-semibold text-ink">
+                            <span className="mr-2 rounded bg-accent/10 px-1.5 py-0.5 text-[0.65rem] font-bold uppercase tracking-wide text-accent">
+                              {r.plataforma === 'tiktok' ? 'TikTok' : 'Reel'}
+                            </span>
+                            {r.titulo}
+                          </p>
                           <a
                             href={r.instagram_url}
                             target="_blank"

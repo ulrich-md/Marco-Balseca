@@ -259,7 +259,7 @@ export function Hero() {
                 en desktop se ancla sobre el panel guinda, arriba del teléfono. */}
             <motion.div
               {...appear(0.5)}
-              className="relative z-40 mb-5 flex items-center gap-2.5 lg:absolute lg:inset-x-0 lg:-top-[4.5rem] lg:mx-auto lg:mb-0 lg:w-[320px] lg:pl-1"
+              className="relative z-40 mb-5 flex items-center gap-2.5 lg:absolute lg:inset-x-0 lg:-top-[5.75rem] lg:mx-auto lg:mb-0 lg:w-[320px] lg:pl-1"
             >
               <CommunityAvatars count={3} />
               <LiveCounter tone="bone" layout="inline" />

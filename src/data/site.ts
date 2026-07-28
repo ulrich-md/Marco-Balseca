@@ -24,7 +24,7 @@ export const NAV = [
   { label: 'Conóceme', to: '/conoceme' },
   { label: 'Trayectoria', to: '/trayectoria' },
   { label: 'Testimonios', to: '/testimonios' },
-  { label: 'Reels', to: '/reels' },
+  { label: 'Videos', to: '/reels' },
   { label: 'Agenda', to: '/agenda' },
   { label: 'Contacto', to: '/contacto' },
 ] as const

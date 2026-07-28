@@ -2,7 +2,7 @@ import { SectionLabel } from '../../components/ui/SectionLabel'
 import { RevealText } from '../../components/ui/RevealText'
 import { ButtonLink } from '../../components/ui/Button'
 import { Reveal } from '../../components/ui/Reveal'
-import { InstagramEmbed } from '../../components/ui/InstagramEmbed'
+import { VideoEmbed } from '../../components/ui/VideoEmbed'
 import { useReels } from '../../lib/useContent'
 
 /** Franja de Reels en Inicio: 4 reels embebidos; "ver más" lleva a /reels. */
@@ -16,7 +16,7 @@ export function ReelsStrip() {
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
             <SectionLabel num="04" tone="accent">
-              Reels
+              Videos
             </SectionLabel>
             <RevealText
               as="h2"
@@ -38,7 +38,7 @@ export function ReelsStrip() {
           </div>
           <div className="hidden md:block">
             <ButtonLink to="/reels" tone="accent" variant="outline">
-              Ver todos los reels
+              Ver todos los videos
             </ButtonLink>
           </div>
         </div>
@@ -52,7 +52,7 @@ export function ReelsStrip() {
               delay={(i % 4) * 0.06}
               className="w-[88vw] max-w-[340px] shrink-0 snap-start sm:w-auto sm:max-w-none"
             >
-              <InstagramEmbed url={reel.instagramUrl} titulo={reel.titulo} />
+              <VideoEmbed video={reel} />
             </Reveal>
           ))}
         </div>

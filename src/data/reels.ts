@@ -1,16 +1,20 @@
-/* Reels reales de @marcobalseca1 (Instagram).
-   - kind: 'instagram' → usa instagramUrl (igEmbedUrl() convierte a /embed)
-   - kind: 'youtube'   → usa youtubeId (embed en el lightbox)
-   - kind: 'mp4'       → usa src (autoplay-on-hover + <video> en el modal)
+/* Videos de Marco Balseca (Instagram Reels + TikTok).
+   - kind: 'instagram' → Reel; usa instagramUrl (igEmbedSrc convierte a /embed)
+   - kind: 'tiktok'    → TikTok; usa tiktokUrl (tiktokEmbedSrc → /embed/v2/{id})
+   - kind: 'youtube'   → usa youtubeId
+   - kind: 'mp4'       → usa src
 */
+
+export type VideoKind = 'instagram' | 'tiktok' | 'youtube' | 'mp4'
 
 export type Reel = {
   id: string
   titulo: string
   src?: string
   instagramUrl?: string
+  tiktokUrl?: string
   youtubeId?: string
-  kind: 'instagram' | 'youtube' | 'mp4'
+  kind: VideoKind
 }
 
 export const REELS: Reel[] = [
@@ -22,7 +26,7 @@ export const REELS: Reel[] = [
   },
   {
     id: 'reel-2',
-    titulo: 'La fiesta del Mundial en Tehuacán, con la gente',
+    titulo: 'Deporte que une a las colonias de Tehuacán',
     kind: 'instagram',
     instagramUrl: 'https://www.instagram.com/marcobalseca1/reel/DZh-CPJRqow/',
   },
@@ -58,7 +62,7 @@ export const REELS: Reel[] = [
   },
   {
     id: 'reel-8',
-    titulo: 'El Mundial en Puebla — Complejo Cultural El Carmen',
+    titulo: 'Fútbol comunitario — Complejo Cultural El Carmen',
     kind: 'instagram',
     instagramUrl: 'https://www.instagram.com/marcobalseca1/reel/DY2AKVMxNQ6/',
   },

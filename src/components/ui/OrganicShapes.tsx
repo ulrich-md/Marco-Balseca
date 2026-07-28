@@ -15,11 +15,11 @@ export function OrganicShapes({
 }) {
   const isDark = tone === 'dark'
   const isGold = tone === 'gold'
-  // Nota: en dark las formas son un guinda MÁS CLARO que el fondo (#711924/#5e1922)
-  // para que siempre se perciban; en gold son DORADO cálido sobre guinda; en
-  // light reusan el token institucional crema.
-  const fillC = isDark ? '#7f2230' : isGold ? 'var(--color-sand)' : 'var(--color-cream-deep)'
-  const strokeC = isDark ? '#9a2c3a' : isGold ? '#efe3bd' : '#e6d8b8'
+  // Nota: en dark las formas son un guinda-MORADO más claro que el fondo
+  // (#711924/#5e1922) para que siempre se perciban con un matiz violáceo; en
+  // gold son DORADO cálido sobre guinda; en light reusan el token crema.
+  const fillC = isDark ? '#7d244c' : isGold ? 'var(--color-sand)' : 'var(--color-cream-deep)'
+  const strokeC = isDark ? '#94315e' : isGold ? '#efe3bd' : '#e6d8b8'
   // Opacidades por forma, calibradas para verse sutiles pero presentes.
   const fA = isGold ? 0.22 : isDark ? 0.34 : 0.55
   const fB = isGold ? 0.17 : isDark ? 0.3 : 0.5
