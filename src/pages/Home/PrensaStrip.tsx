@@ -199,7 +199,27 @@ export function PrensaStrip() {
   const { noticias } = useNoticias()
 
   return (
-    <section className="relative overflow-hidden bg-accent py-20 text-white md:py-32">
+    <section className="relative overflow-hidden bg-accent pb-20 pt-24 text-white md:pb-32 md:pt-36">
+      {/* Transición suave desde el Hero claro: una curva crema con filo dorado
+          que da un borde superior redondeado a la sección guinda (evita el corte
+          recto contra el Hero). */}
+      <div aria-hidden className="absolute inset-x-0 top-0 z-[2] leading-[0]">
+        <svg
+          viewBox="0 0 1440 110"
+          preserveAspectRatio="none"
+          className="block h-[52px] w-full md:h-[84px] lg:h-[104px]"
+          fill="none"
+        >
+          <path d="M0 0 H1440 V66 C 1080 16, 360 16, 0 66 Z" fill="var(--color-cream)" />
+          <path
+            d="M0 66 C 360 16, 1080 16, 1440 66"
+            stroke="var(--color-sand)"
+            strokeWidth="2.5"
+            opacity="0.55"
+          />
+        </svg>
+      </div>
+
       {/* Fondo tipo "En Territorio": foto difuminada B&N + capa guinda
           (multiply) + formas orgánicas + grano. */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
