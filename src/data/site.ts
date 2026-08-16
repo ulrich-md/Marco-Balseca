@@ -92,7 +92,7 @@ export const PILARES = [
     num: '02',
     titulo: 'Raíces e identidad',
     texto:
-      'Vengo de una familia que ayudó a construir el Tehuacán del agua mineral y del servicio público. Llevo ese orgullo conmigo: nuestra historia y nuestras tradiciones se honran y se heredan.',
+      'Soy la tercera generación de mi familia dedicada al agua mineral que le dio a Tehuacán su nombre y su orgullo. Llevo esa herencia conmigo: nuestra historia y nuestras tradiciones se honran y se heredan.',
   },
   {
     num: '03',

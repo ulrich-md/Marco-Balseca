@@ -1,14 +1,6 @@
-/* Hitos de trayectoria — en primera persona, tono profesional y verificable.
-   Anclas: origen familiar (agua mineral de Tehuacán), el servicio público de
-   familia, los primeros pasos en la vida pública, la etapa en Chiapas
-   (campaña de Manuel Velasco e INAES / economía social) y hoy: delegado de
-   Gobernación del Estado de Puebla, microrregión 25, con sede en Tehuacán.
-
-   Años: documentados → 1981 (padre presidente municipal 1981–1984), 2012
-   (Manuel Velasco toma posesión en Chiapas), 2013–2018 (INAES en Chiapas,
-   delegado confirmado en prensa en 2015), 2024 (delegado de Gobernación).
-   Aproximados (confirmar con el equipo) → 1996 (inicio a los 15 años, según
-   los "30 años en la vida pública") y 2004 (etapa de formación / estudios). */
+/* Hitos de trayectoria — contenido EXACTO proporcionado por el equipo de
+   Marco Balseca (documento oficial mb_info). Voz en primera persona.
+   Sólo se corrigieron erratas evidentes de acentuación y ortografía. */
 
 export type Hito = {
   anio: string
@@ -19,66 +11,65 @@ export type Hito = {
 
 export const TRAYECTORIA: Hito[] = [
   {
-    anio: '1943',
-    titulo: 'Raíces en Tehuacán',
+    anio: '1995',
+    titulo: 'Líder juvenil en el Valle de Tehuacán',
     texto:
-      'La familia Balseca formó parte de la industria del agua mineral que dio identidad y orgullo a Tehuacán, junto a casas como Peñafiel y Garci-Crespo. De ese origen heredé el valor del trabajo, del oficio y de la palabra cumplida.',
+      'Líder juvenil en el Valle de Tehuacán, mi región, que empecé a caminar desde los quince años de edad.',
     lugar: 'Tehuacán, Puebla',
   },
   {
-    anio: '1981',
-    titulo: 'El servicio público, de familia',
+    anio: '2001–2011',
+    titulo: 'Una década de fomento deportivo',
     texto:
-      'Mi padre, Marco Antonio Balseca Chávez, fue presidente municipal de Tehuacán (1981–1984). Crecí viendo que servir a la ciudad se ejerce con cercanía y responsabilidad; esa vocación marcó mi camino.',
+      'Emprendimos un programa de fomento deportivo de 10 años con carreras atléticas, patrocinios a deportistas locales y de la Federación Mexicana de Atletismo; así como las jornadas municipales de la salud y el deporte.',
     lugar: 'Tehuacán, Puebla',
   },
   {
-    anio: '1996',
-    titulo: 'Primeros pasos en la vida pública',
+    anio: '2006',
+    titulo: 'Nace FUBA, Fundación Balseca',
     texto:
-      'Empecé a los quince años en la organización juvenil y comunitaria, al frente del Frente Juvenil Revolucionario en Puebla. Ahí aprendí lo esencial: la política se ejerce de cerca, escuchando a la gente y organizando causas comunes.',
-    lugar: 'Puebla',
+      'Inicia FUBA (Fundación Balseca), por medio de la cual atendimos causas sociales a través de los ejes de educación, cultura y deporte.',
+    lugar: 'Tehuacán, Puebla',
   },
   {
-    anio: '2004',
-    titulo: 'Abogado, maestro y emprendedor',
-    texto:
-      'Me formé como abogado y maestro en Administración, y desarrollé actividad empresarial en Tehuacán. Esa combinación —derecho, gestión y empresa— me dio un método claro para resolver: entender el problema a fondo y actuar con orden.',
+    anio: '2009',
+    titulo: 'Presidente de Coparmex Tehuacán',
+    texto: 'Me desempeñé como presidente de Coparmex Tehuacán.',
     lugar: 'Tehuacán, Puebla',
   },
   {
     anio: '2012',
-    titulo: 'Coordinación de campaña en Chiapas',
+    titulo: 'Coordinación de Asesores en Chiapas',
     texto:
-      'Coordiné la campaña de Manuel Velasco en Chiapas, quien tomó posesión como gobernador ese mismo año. Fue una etapa de intenso trabajo territorial que reafirmó una convicción: los proyectos se sostienen con organización y con gente que cree en ellos.',
+      'Participé en el Gobierno del Estado de Chiapas, encabezado por Manuel Velasco Coello, como parte de la Coordinación de Asesores, atendiendo asuntos de índole social, comunidades indígenas y de derechos humanos.',
     lugar: 'Chiapas',
   },
   {
     anio: '2013',
-    titulo: 'Economía social en el INAES',
+    titulo: 'Delegado Federal del INAES en Chiapas',
     texto:
-      'De 2013 a 2018 coordiné en Chiapas el equipo de asesores del Gobierno del estado y fui delegado del INAES (Instituto Nacional de la Economía Social). Trabajé de cerca con cooperativas, artesanos y productores, impulsando que los apoyos llegaran a quienes generan trabajo.',
+      'Fui nombrado Delegado Federal del INAES (Instituto Nacional de la Economía Social) en el estado de Chiapas, a través del cual transformamos la vida de miles de chiapanecos. Fuimos 1er. lugar en proyectos productivos para mujeres, jóvenes y comunidades indígenas.',
     lugar: 'Chiapas',
   },
   {
     anio: '2016',
-    titulo: 'Planeación con visión de país',
+    titulo: 'Director general de MOG Selections México',
     texto:
-      'Participé en la planeación nacional del INAES, una responsabilidad que me dio una visión integral del país y confirmó una idea de fondo: las mejores políticas públicas nacen del territorio y del contacto directo con la gente.',
-    lugar: 'Ciudad de México',
+      'Me desempeño como director general de MOG Selections México S.A. de C.V., a través de la cual desarrollamos proyectos de alimentos y bebidas.',
+    lugar: 'México',
   },
   {
-    anio: '2024',
+    anio: '2018',
+    titulo: 'Director nacional de Planeación y Análisis del INAES',
+    texto:
+      'Fui designado Director de Planeación y Análisis a nivel nacional del INAES (Instituto Nacional de la Economía Social).',
+    lugar: 'Nacional',
+  },
+  {
+    anio: '2026',
     titulo: 'Delegado de Gobernación en Tehuacán',
     texto:
-      'Regresé a casa como delegado de Gobernación del Estado de Puebla en la microrregión 25. Mi trabajo es territorial: en los mercados, en las juntas auxiliares y en las colonias, atendiendo y resolviendo de cerca las necesidades de las familias.',
-    lugar: 'Tehuacán, Puebla',
-  },
-  {
-    anio: 'Hoy',
-    titulo: 'Cerca de la gente',
-    texto:
-      'Cerca de la gente, por nuestra tierra. Tehuacán es mi casa y mi compromiso, y seguiré trabajando en territorio, todos los días, al lado de sus familias.',
+      'Delegado de la Secretaría de Gobernación del Gobierno del Estado de Puebla en Tehuacán.',
     lugar: 'Tehuacán, Puebla',
   },
 ]

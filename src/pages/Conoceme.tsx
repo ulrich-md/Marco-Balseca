@@ -14,14 +14,14 @@ export default function Conoceme() {
       <Seo
         title="Conóceme"
         path="/conoceme"
-        description="Conoce a Marco Balseca: abogado y emprendedor con raíces en Tehuacán, Puebla. Comunidad, raíces y lenguas maternas, trabajo y cercanía."
+        description="Conoce a Marco Balseca: orgullosamente tehuacanero, abogado y maestro en Administración de Empresas, tercera generación en el agua mineral y delegado de la Secretaría de Gobernación de la microrregión 25."
       />
 
       <PageHero
         index="02"
         label="Conóceme"
         title={'Marco\nBalseca'}
-        intro="Soy abogado y emprendedor de Tehuacán, Puebla, hoy delegado de Gobernación de la microrregión 25. Vengo de una familia de servicio y de trabajo, y dedico mis días a una sola cosa: estar cerca de mi gente."
+        intro="Orgullosamente tehuacanero. Abogado y maestro en Administración de Empresas, tercera generación de mi familia en el agua mineral, hoy delegado de la Secretaría de Gobernación de la microrregión 25, con un enfoque humanista y de territorio."
       />
 
       {/* Bio editorial */}
@@ -42,33 +42,23 @@ export default function Conoceme() {
             <SectionLabel tone="accent">Origen y arraigo</SectionLabel>
             <RevealText
               as="h2"
-              text="Raíces en Tehuacán"
+              text="Orgullosamente tehuacanero"
               className="font-display mt-5 text-5xl leading-[0.9] text-ink md:text-6xl"
             />
             <div className="mt-6 space-y-5 text-lg leading-relaxed text-ink/85">
               <p>
-                Soy abogado, con maestría en administración (MBA), y emprendedor de Tehuacán,
-                Puebla. Vengo de una familia con larga vocación de servicio público y de empresa en
-                la ciudad: la nuestra fue una de las casas del agua mineral que le dieron a Tehuacán
-                su nombre y su orgullo, junto a marcas como Peñafiel y Garci-Crespo.
+                Soy orgullosamente tehuacanero. Nací el 31 de enero de 1979 en el hermoso estado de
+                Puebla, y he tenido la fortuna de caminar el valle y mi región desde los quince años
+                de edad.
               </p>
               <p>
-                El servicio lo aprendí en casa. Mi padre, Marco Antonio Balseca Chávez, fue
-                presidente municipal de Tehuacán entre 1981 y 1984 —de su gestión es el mural
-                emblemático que hoy es orgullo de la ciudad—. De él entendí que servir a Tehuacán no
-                es un cargo, sino una forma de vivir.
+                Estudié la carrera de Derecho y la maestría en Administración de Empresas. Soy,
+                además, la tercera generación de mi familia dedicada al embotellamiento de agua
+                mineral, la industria que le dio a Tehuacán su nombre y su orgullo.
               </p>
               <p>
-                Mi formación como abogado y mi experiencia como emprendedor me dan una mirada
-                práctica: escuchar primero, resolver después. Esa cercanía se ve en lo que impulso
-                cada semana como delegado de la microrregión 25: deporte que une a las colonias,
-                apoyo a las juventudes y a la educación, y jornadas que acercan servicios a las
-                familias.
-              </p>
-              <p>
-                Tehuacán es mi casa y mi causa. Lo digo y lo repito en cada colonia que recorro: la
-                fuerza de esta ciudad está en su gente, y mientras pueda caminarla, voy a seguir
-                haciéndolo a tu lado.
+                Actualmente me desempeño como delegado de la Secretaría de Gobernación de la
+                microrregión 25, con cabecera en Tehuacán, con un enfoque humanista y de territorio.
               </p>
               <p className="border-l-2 border-accent pl-5 font-condensed text-2xl font-medium uppercase tracking-wide text-ink">
                 La fuerza de Tehuacán está en su gente.

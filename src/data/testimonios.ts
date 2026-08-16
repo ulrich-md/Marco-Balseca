@@ -43,6 +43,6 @@ export const TESTIMONIOS: Testimonio[] = [
     rol: 'Jubilado',
     lugar: 'Centro de Tehuacán',
     texto:
-      'Conocí a su papá cuando fue presidente municipal. El muchacho salió igual: de palabra. Y la palabra, en política, es todo.',
+      'A Marco lo conozco de hace años, de aquí de Tehuacán. Es de palabra. Y la palabra, en política, es todo.',
   },
 ]
