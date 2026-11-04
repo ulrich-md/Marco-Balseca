@@ -35,6 +35,40 @@ const HERO_SLIDES: VideoPhoto[] = [
    marca y sello circular "Súmate". El video (montaje de fotos reales) vuelve a ser el protagonista.
    Cierra con una franja guinda de credenciales (cifras verificables).
    ========================================================================= */
+/** Textura de serigrafía dentro del triángulo: semitono dorado que se
+ *  desvanece hacia la punta, luz diagonal y grano. Da cuerpo sin competir
+ *  con el video. Si existe /assets/generated/triangulo-textura.webp (pintura
+ *  / papel), se suma encima. */
+function TriangleTexture() {
+  return (
+    <>
+      <div
+        className="halftone absolute inset-0 text-sand opacity-[0.16]"
+        style={{
+          WebkitMaskImage: 'linear-gradient(200deg, #000 0%, transparent 55%)',
+          maskImage: 'linear-gradient(200deg, #000 0%, transparent 55%)',
+        }}
+      />
+      <div
+        className="absolute inset-0"
+        style={{ background: 'linear-gradient(115deg, rgba(255,255,255,0.10) 0%, transparent 35%, rgba(0,0,0,0.22) 100%)' }}
+      />
+      <img
+        src="/assets/generated/triangulo-textura.webp"
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover opacity-50 mix-blend-soft-light"
+        onError={(e) => {
+          e.currentTarget.style.display = 'none'
+        }}
+      />
+      <div
+        className="absolute inset-0 opacity-[0.10] mix-blend-overlay"
+        style={{ backgroundImage: 'url(/assets/backgrounds/grain.png)', backgroundSize: '320px' }}
+      />
+    </>
+  )
+}
+
 export function Hero() {
   const reduce = useReducedMotion()
   const phoneRef = useParallax<HTMLDivElement>(30)
@@ -77,9 +111,11 @@ export function Hero() {
         {/* anclado al contenedor: acompaña siempre al teléfono y no toca el nombre */}
         <div className="absolute inset-y-0 left-1/2 hidden w-full max-w-[88rem] -translate-x-1/2 lg:block">
           <div
-            className="absolute -right-[120px] left-[54%] top-[104px] h-[86%] bg-gradient-to-b from-accent to-accent-deep"
+            className="absolute -right-[120px] left-[54%] top-[104px] h-[86%] overflow-hidden bg-gradient-to-b from-accent to-accent-deep"
             style={{ clipPath: 'polygon(0 0, 100% 0, 50% 100%)' }}
-          />
+          >
+            <TriangleTexture />
+          </div>
         </div>
         {/* papel de cartel (pliegues + fibras, en gris neutro: no tiñe el blanco) */}
         <img
@@ -101,9 +137,9 @@ export function Hero() {
         />
       </div>
 
-      {/* Marco del cartel: borde guinda + filete dorado interior */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 z-30 border-[8px] border-accent md:border-[12px]" />
-      <div aria-hidden className="pointer-events-none absolute inset-[14px] z-30 border border-gold/35 md:inset-[22px]" />
+      {/* Marco del cartel: borde guinda delgado (sin filete interior: competía
+          con el menú y formaba una doble raya) */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-30 border-[6px] border-accent md:border-[8px]" />
 
       <div className="container-x relative z-10 pt-24 lg:pt-28">
         <div className="grid items-center gap-y-10 lg:grid-cols-12 lg:gap-x-8">
@@ -196,9 +232,11 @@ export function Hero() {
             {/* Triángulo guinda en móvil: solo detrás del teléfono */}
             <div
               aria-hidden
-              className="pointer-events-none absolute -inset-x-6 -top-8 bottom-[8%] bg-gradient-to-b from-accent to-accent-deep lg:hidden"
+              className="pointer-events-none absolute -inset-x-6 -top-8 bottom-[8%] overflow-hidden bg-gradient-to-b from-accent to-accent-deep lg:hidden"
               style={{ clipPath: 'polygon(0 0, 100% 0, 50% 100%)' }}
-            />
+            >
+              <TriangleTexture />
+            </div>
             {/* Prueba social en móvil/tablet: sobre el triángulo, arriba del teléfono
                 (en desktop vive junto al botón) */}
             <motion.div

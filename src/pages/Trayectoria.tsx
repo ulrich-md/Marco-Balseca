@@ -2,7 +2,7 @@ import { Seo } from '../lib/Seo'
 import { PageHero } from '../components/layout/PageHero'
 import { CtaBand } from '../components/layout/CtaBand'
 import { SectionLabel } from '../components/ui/SectionLabel'
-import { CaminoTimeline } from '../components/ui/CaminoTimeline'
+import { MapaTrayectoria } from '../components/ui/MapaTrayectoria'
 import { TRAYECTORIA } from '../data/trayectoria'
 
 export default function Trayectoria() {
@@ -23,14 +23,12 @@ export default function Trayectoria() {
         intro="De las raíces del agua mineral al trabajo en territorio de hoy. Este es el camino que me trajo hasta aquí, contado con honestidad: de dónde vengo, qué aprendí y por qué sigo caminando Tehuacán."
       />
 
-      {/* === El camino, paso a paso: se dibuja con el scroll === */}
-      <section className="relative overflow-x-clip bg-paper py-20 text-ink md:py-28">
+      {/* === El recorrido completo sobre el mapa, hito por hito con el scroll === */}
+      <section className="relative overflow-x-clip bg-paper pt-16 text-ink md:pt-20">
         <div className="container-x">
           <SectionLabel tone="accent">Línea de tiempo</SectionLabel>
-          <div className="mt-14">
-            <CaminoTimeline hitos={TRAYECTORIA} />
-          </div>
         </div>
+        <MapaTrayectoria hitos={TRAYECTORIA} />
       </section>
 
       <CtaBand />

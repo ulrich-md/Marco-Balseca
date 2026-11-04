@@ -5,10 +5,14 @@ import { MapaTrayectoria } from '../../components/ui/MapaTrayectoria'
 import { Sticker } from '../../components/ui/Sticker'
 import { TRAYECTORIA } from '../../data/trayectoria'
 
-/** Teaser de Trayectoria en Inicio: "El camino, paso a paso" — recorrido sobre
- *  el mapa (Tehuacán → Chiapas → Nacional → Tehuacán) que avanza hito por
- *  hito con el scroll, con toda la información de cada año. */
+/** Teaser de Trayectoria en Inicio: "El camino, paso a paso" — 3 hitos que
+ *  cuentan el arco completo (inicio → Chiapas → hoy) sobre el mapa, avanzando
+ *  con el scroll. Los 9 completos viven en /trayectoria. */
+const PICK = [0, 5, 8] // 1995 · 2013 · 2026
+
 export function TrayectoriaTeaser() {
+  const hitos = PICK.map((i) => TRAYECTORIA[i]).filter(Boolean)
+
 
   return (
     <section className="relative overflow-x-clip bg-paper py-20 text-ink md:py-20">
@@ -47,7 +51,7 @@ export function TrayectoriaTeaser() {
 
       </div>
 
-      <MapaTrayectoria hitos={TRAYECTORIA} />
+      <MapaTrayectoria hitos={hitos} />
 
       <div className="container-x relative z-10 md:hidden">
         <ButtonLink to="/trayectoria" variant="outline" tone="accent" full>
