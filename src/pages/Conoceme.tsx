@@ -1,5 +1,5 @@
 import { Seo } from '../lib/Seo'
-import { PageHero } from '../components/layout/PageHero'
+import { PosterHero } from '../components/layout/PosterHero'
 import { CtaBand } from '../components/layout/CtaBand'
 import { SectionLabel } from '../components/ui/SectionLabel'
 import { RevealText } from '../components/ui/RevealText'
@@ -17,17 +17,18 @@ export default function Conoceme() {
         description="Conoce a Marco Balseca: orgullosamente tehuacanero, abogado y maestro en Administración de Empresas, tercera generación en el agua mineral y delegado de la Secretaría de Gobernación de la microrregión 25."
       />
 
-      <PageHero
+      <PosterHero
         index="02"
         label="Conóceme"
         title={'Marco\nBalseca'}
-        cutout="/assets/portraits/marco-fuerza-cut"
-        imageAlt="Marco Balseca"
+        face="/assets/portraits/marco-rostro-bn.webp"
+        cutout="/assets/portraits/marco-sumate-cut"
+        alt="Marco Balseca"
         intro="Orgullosamente tehuacanero. Abogado y maestro en Administración de Empresas, tercera generación de mi familia en el agua mineral, hoy delegado de la Secretaría de Gobernación de la microrregión 25, con un enfoque humanista y de territorio."
       />
 
       {/* Bio editorial */}
-      <section className="bg-paper py-20 text-ink md:py-36">
+      <section className="overflow-x-clip bg-paper py-20 text-ink md:py-36">
         <div className="container-x grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
           <Reveal>
             {/* Retrato principal. REEMPLAZAR -> si falta, queda el bloque gris (sin imagen rota). */}
