@@ -21,39 +21,25 @@ type Sticker = {
   href?: string
 }
 
+/* Composición tipo hoja de stickers (ref.): filas 3 · 4 · 3 sobre una rejilla
+   de 12 columnas en escritorio; el dedo "Súmate" al centro arriba. En móvil,
+   2 columnas con los stickers más chicos. */
+const S = (w: string) => `max-w-[150px] sm:max-w-[200px] ${w}`
+
 const STICKERS: Sticker[] = [
-  {
-    src: '/assets/stickers/sumate.webp',
-    alt: 'Sticker: Súmate',
-    rotate: -7,
-    to: '/contacto',
-    cls: 'max-w-[150px] sm:max-w-[190px] lg:col-span-2 lg:max-w-[210px]',
-  },
-  {
-    src: '/assets/stickers/microrregion-25.webp',
-    alt: 'Sticker: Microrregión 25',
-    rotate: 5,
-    cls: 'max-w-[170px] sm:max-w-[230px] lg:col-span-2 lg:max-w-[260px] lg:translate-y-6',
-  },
-  {
-    src: '/assets/stickers/anos-30.webp',
-    alt: 'Sticker: 30 años',
-    rotate: -3,
-    cls: 'max-w-[170px] sm:max-w-[230px] lg:col-span-2 lg:max-w-[250px]',
-  },
-  {
-    src: '/assets/stickers/juntas-12.webp',
-    alt: 'Sticker: 12 juntas auxiliares',
-    rotate: 4,
-    cls: 'max-w-[170px] sm:max-w-[230px] lg:col-span-2 lg:col-start-2 lg:max-w-[250px]',
-  },
-  {
-    src: '/assets/stickers/puro-tehuacan.webp',
-    alt: 'Sticker: #PuroTehuacán',
-    rotate: -5,
-    href: SOCIAL.instagram.url,
-    cls: 'col-span-2 max-w-[230px] sm:col-span-1 sm:max-w-[250px] lg:col-span-2 lg:max-w-[280px] lg:-translate-y-4',
-  },
+  // Fila 1 (3)
+  { src: '/assets/stickers/por-nuestra-tierra.webp', alt: 'Sticker: Por nuestra tierra', rotate: -6, cls: S('lg:col-span-4 lg:max-w-[250px] lg:translate-y-10') },
+  { src: '/assets/stickers/sumate.webp', alt: 'Sticker: Súmate', rotate: 4, to: '/contacto', cls: S('lg:col-span-4 lg:max-w-[190px]') },
+  { src: '/assets/stickers/tehuacan-puebla.webp', alt: 'Sticker: Tehuacán, Puebla', rotate: 7, cls: S('lg:col-span-4 lg:max-w-[210px] lg:translate-y-8') },
+  // Fila 2 (4)
+  { src: '/assets/stickers/anos-30.webp', alt: 'Sticker: 30 años', rotate: -4, cls: S('lg:col-span-3 lg:max-w-[200px]') },
+  { src: '/assets/stickers/megafono.webp', alt: 'Sticker: Cerca de la gente', rotate: -9, cls: S('lg:col-span-3 lg:max-w-[240px] lg:translate-y-6') },
+  { src: '/assets/stickers/jersey-balseca.webp', alt: 'Sticker: jersey Balseca', rotate: 5, cls: S('lg:col-span-3 lg:max-w-[200px] lg:-translate-y-2') },
+  { src: '/assets/stickers/juntas-12.webp', alt: 'Sticker: 12 juntas auxiliares', rotate: -3, cls: S('lg:col-span-3 lg:max-w-[200px] lg:translate-y-4') },
+  // Fila 3 (3)
+  { src: '/assets/stickers/puro-tehuacan.webp', alt: 'Sticker: #PuroTehuacán', rotate: -5, href: SOCIAL.instagram.url, cls: S('lg:col-span-4 lg:max-w-[240px]') },
+  { src: '/assets/stickers/microrregion-25.webp', alt: 'Sticker: Microrregión 25', rotate: 6, cls: S('lg:col-span-4 lg:max-w-[200px] lg:translate-y-6') },
+  { src: '/assets/stickers/cactus-territorio.webp', alt: 'Sticker: Tehuacán en territorio', rotate: -2, cls: S('lg:col-span-4 lg:max-w-[210px]') },
 ]
 
 const SHADOW = 'drop-shadow(0 18px 18px rgba(0,0,0,0.38)) drop-shadow(0 3px 3px rgba(0,0,0,0.3))'
@@ -181,7 +167,7 @@ export function StickerWall() {
       </div>
 
       <div ref={bounds} className="container-x relative z-10 py-24 md:py-28">
-        <div className="mx-auto grid max-w-5xl grid-cols-2 items-center gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-6 lg:gap-x-10 lg:gap-y-6">
+        <div className="mx-auto grid max-w-6xl grid-cols-2 items-center gap-x-5 gap-y-8 sm:grid-cols-3 sm:gap-x-8 lg:grid-cols-12 lg:gap-x-6 lg:gap-y-4">
           {STICKERS.map((s, i) => (
             <StickerItem key={s.src} s={s} i={i} bounds={bounds} draggable={fine} />
           ))}
