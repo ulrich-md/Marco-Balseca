@@ -49,7 +49,7 @@ export function PosterHero({ index, label, title, intro, face, cutout, alt }: Pr
       />
 
       <div className="container-x relative z-10">
-        <div className="grid items-end gap-10 lg:grid-cols-[auto_minmax(0,1.25fr)_minmax(0,0.85fr)] lg:gap-12">
+        <div className="grid items-end gap-10 lg:grid-cols-[auto_minmax(0,1.25fr)_minmax(0,0.85fr)] lg:gap-x-10">
           {/* ---- Nombre: vertical en desktop, horizontal en móvil ---- */}
           <div className="lg:self-stretch">
             <div className="lg:hidden">
@@ -81,7 +81,7 @@ export function PosterHero({ index, label, title, intro, face, cutout, alt }: Pr
           </div>
 
           {/* ---- Figura guinda con rostro rebanado + recorte al frente ---- */}
-          <div className="relative mx-auto w-full max-w-[560px] lg:max-w-[min(520px,62vh)]">
+          <div className="relative mx-auto w-full max-w-[560px] lg:mr-0 lg:max-w-[min(520px,62vh)]">
             <motion.div
               initial={reduce ? undefined : { opacity: 0, x: 30 }}
               animate={reduce ? undefined : { opacity: 1, x: 0 }}
@@ -95,10 +95,10 @@ export function PosterHero({ index, label, title, intro, face, cutout, alt }: Pr
                 {/* rostro en franjas desplazadas (cada franja = la misma foto, recortada) */}
                 <div
                   ref={faceRef}
-                  className="absolute inset-x-0 -top-[2%] h-[84%]"
+                  className="absolute inset-x-0 -top-[2%] h-[100%]"
                   style={{
-                    WebkitMaskImage: 'linear-gradient(to bottom, #000 55%, transparent 98%)',
-                    maskImage: 'linear-gradient(to bottom, #000 55%, transparent 98%)',
+                    WebkitMaskImage: 'linear-gradient(to bottom, #000 82%, transparent 100%)',
+                    maskImage: 'linear-gradient(to bottom, #000 82%, transparent 100%)',
                   }}
                 >
                   {Array.from({ length: BANDS }).map((_, k) => (
@@ -143,7 +143,7 @@ export function PosterHero({ index, label, title, intro, face, cutout, alt }: Pr
                 initial={reduce ? undefined : { opacity: 0, y: 40 }}
                 animate={reduce ? undefined : { opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute -bottom-2 -right-[4%] block w-[50%] sm:-right-[6%]"
+                className="absolute -bottom-2 -right-[4%] block w-[50%] sm:-right-[6%] lg:right-[3%]"
               >
                 <source media="(max-width: 640px)" srcSet={`${cutout}-sm.webp`} type="image/webp" />
                 <img
