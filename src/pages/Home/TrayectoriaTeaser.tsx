@@ -1,20 +1,17 @@
 import { SectionLabel } from '../../components/ui/SectionLabel'
 import { RevealText } from '../../components/ui/RevealText'
 import { ButtonLink } from '../../components/ui/Button'
-import { CaminoTimeline } from '../../components/ui/CaminoTimeline'
+import { MapaTrayectoria } from '../../components/ui/MapaTrayectoria'
 import { Sticker } from '../../components/ui/Sticker'
 import { TRAYECTORIA } from '../../data/trayectoria'
 
-/** Teaser de Trayectoria en Inicio: "El camino, paso a paso" — un camino que
- *  se dibuja con el scroll entre 5 hitos del arco completo (del inicio a hoy)
- *  y enlace a la página con los 10. */
-const PICK = [0, 2, 3, 7, 9]
-
+/** Teaser de Trayectoria en Inicio: "El camino, paso a paso" — recorrido sobre
+ *  el mapa (Tehuacán → Chiapas → Nacional → Tehuacán) que avanza hito por
+ *  hito con el scroll, con toda la información de cada año. */
 export function TrayectoriaTeaser() {
-  const hitos = PICK.map((i) => TRAYECTORIA[i]).filter(Boolean)
 
   return (
-    <section className="relative overflow-x-clip bg-paper py-24 text-ink md:py-32">
+    <section className="relative overflow-x-clip bg-paper py-20 text-ink md:py-20">
       {/* luz dorada cálida en la esquina (decorativo) */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
@@ -38,7 +35,7 @@ export function TrayectoriaTeaser() {
               name="anos-30"
               alt="30 años"
               rotate={8}
-              className="-right-4 -top-6 w-24 sm:-right-28 sm:top-6 md:w-32 lg:-right-40 lg:w-36"
+              className="-top-16 right-0 w-20 sm:-right-28 sm:top-6 md:w-32 lg:-right-40 lg:w-36"
             />
           </div>
           <div className="hidden md:block">
@@ -48,15 +45,14 @@ export function TrayectoriaTeaser() {
           </div>
         </div>
 
-        <div className="mt-16 md:mt-20">
-          <CaminoTimeline hitos={hitos} />
-        </div>
+      </div>
 
-        <div className="mt-14 flex justify-center">
-          <ButtonLink to="/trayectoria" variant="solid" tone="accent">
-            Ver trayectoria
-          </ButtonLink>
-        </div>
+      <MapaTrayectoria hitos={TRAYECTORIA} />
+
+      <div className="container-x relative z-10 md:hidden">
+        <ButtonLink to="/trayectoria" variant="outline" tone="accent" full>
+          Ver trayectoria
+        </ButtonLink>
       </div>
     </section>
   )

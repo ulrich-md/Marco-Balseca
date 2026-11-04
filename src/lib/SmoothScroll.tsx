@@ -81,3 +81,9 @@ export function scrollToTop() {
   if (lenisInstance) lenisInstance.scrollTo(0)
   else window.scrollTo({ top: 0, behavior: 'smooth' })
 }
+
+/** Desplaza a una posición absoluta (px) respetando Lenis si está activo. */
+export function smoothScrollTo(top: number) {
+  if (lenisInstance) lenisInstance.scrollTo(top)
+  else window.scrollTo({ top, behavior: 'smooth' })
+}
