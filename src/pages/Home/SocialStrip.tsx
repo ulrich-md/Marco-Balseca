@@ -3,6 +3,7 @@ import { RevealText } from '../../components/ui/RevealText'
 import { Reveal } from '../../components/ui/Reveal'
 import { ButtonAnchor } from '../../components/ui/Button'
 import { ResponsiveImg } from '../../components/ui/ResponsiveImg'
+import { Sticker } from '../../components/ui/Sticker'
 import { SOCIAL } from '../../data/site'
 
 /**
@@ -61,6 +62,13 @@ export function SocialStrip() {
 
         <Reveal delay={0.1}>
           <div className="relative mx-auto w-full max-w-md">
+            <Sticker
+              name="puro-tehuacan"
+              alt="#PuroTehuacán en Instagram"
+              href={SOCIAL.instagram.url}
+              rotate={-9}
+              className="-bottom-12 -left-6 z-30 w-36 sm:-left-16 md:w-44"
+            />
             {/* Pila de fotos (profundidad): dos momentos reales detrás de la pieza */}
             <div aria-hidden className="absolute -left-6 top-8 w-[62%] -rotate-[8deg] rounded-md bg-white p-1.5 shadow-soft sm:-left-14">
               <img

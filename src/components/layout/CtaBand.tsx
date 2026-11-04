@@ -4,6 +4,7 @@ import { SectionLabel } from '../ui/SectionLabel'
 import { Reveal } from '../ui/Reveal'
 import { ArchPortrait } from '../ui/ArchPortrait'
 import { GrecaField } from '../ui/Greca'
+import { Sticker } from '../ui/Sticker'
 import { SOCIAL } from '../../data/site'
 
 /**
@@ -73,6 +74,13 @@ export function CtaBand() {
             tone="white"
             className="aspect-[4/5] w-full"
             cutoutClassName="w-[94%]"
+          />
+          <Sticker
+            name="sumate"
+            alt="Súmate"
+            to="/contacto"
+            rotate={-12}
+            className="-left-4 top-[14%] w-20 sm:-left-10 sm:w-24 lg:-left-16 lg:w-28"
           />
         </Reveal>
       </div>

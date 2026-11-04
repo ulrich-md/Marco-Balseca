@@ -2,6 +2,7 @@ import { Reveal } from '../../components/ui/Reveal'
 import { RevealText } from '../../components/ui/RevealText'
 import { ButtonLink } from '../../components/ui/Button'
 import { GrecaField } from '../../components/ui/Greca'
+import { Sticker } from '../../components/ui/Sticker'
 
 /* =========================================================================
    "EN TERRITORIO" — collage estilo sitio del Gobierno del Estado
@@ -55,6 +56,12 @@ export function ComunidadStrip() {
         />
       </div>
 
+      <Sticker
+        name="juntas-12"
+        alt="12 juntas auxiliares"
+        rotate={-7}
+        className="bottom-8 left-[3%] hidden w-36 md:block lg:left-[5%] lg:w-44"
+      />
       <div className="container-x relative z-10">
         {/* Eyebrow centrado (ref. Armenta) */}
         <Reveal>

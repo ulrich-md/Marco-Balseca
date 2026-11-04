@@ -2,7 +2,7 @@ import { SectionLabel } from '../../components/ui/SectionLabel'
 import { Reveal } from '../../components/ui/Reveal'
 import { ButtonLink } from '../../components/ui/Button'
 import { ResponsiveImg } from '../../components/ui/ResponsiveImg'
-import { GrecaMark } from '../../components/ui/Greca'
+import { Sticker } from '../../components/ui/Sticker'
 import { useParallax } from '../../lib/useParallax'
 
 /** "Quién soy": composición de fotos (retrato en arco + foto en territorio
@@ -44,12 +44,12 @@ export function StatsBand() {
               </div>
               </div>
             </div>
-            <span
-              aria-hidden
-              className="absolute -left-5 top-10 grid h-14 w-14 place-items-center rounded-full bg-accent text-sand shadow-soft"
-            >
-              <GrecaMark className="h-7 w-7" />
-            </span>
+            <Sticker
+              name="jersey-balseca"
+              alt="Jersey Balseca"
+              rotate={-8}
+              className="-left-6 -top-8 w-28 sm:-left-12 md:w-36"
+            />
           </Reveal>
 
           {/* Biografía */}

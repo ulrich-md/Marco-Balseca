@@ -4,6 +4,7 @@ import { ButtonLink } from '../../components/ui/Button'
 import { Reveal } from '../../components/ui/Reveal'
 import { VideoEmbed } from '../../components/ui/VideoEmbed'
 import { useReels } from '../../lib/useContent'
+import { Sticker } from '../../components/ui/Sticker'
 
 /** Franja de Reels en Inicio: 4 reels embebidos; "ver más" lleva a /reels. */
 export function ReelsStrip() {
@@ -19,6 +20,12 @@ export function ReelsStrip() {
           background:
             'radial-gradient(45% 55% at 0% 0%, rgba(113,25,36,0.55), transparent 70%), radial-gradient(40% 50% at 100% 100%, rgba(165,127,44,0.18), transparent 70%)',
         }}
+      />
+      <Sticker
+        name="tehuacan-puebla"
+        alt="Tehuacán, Puebla"
+        rotate={8}
+        className="right-[3%] top-6 hidden w-32 md:block lg:right-[5%] lg:w-36"
       />
       <div className="container-x relative z-10">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">

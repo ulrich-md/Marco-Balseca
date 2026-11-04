@@ -9,7 +9,6 @@ import { ReelsStrip } from './ReelsStrip'
 import { ComunidadStrip } from './ComunidadStrip'
 import { SocialStrip } from './SocialStrip'
 import { QuoteAncla } from './QuoteAncla'
-import { StickerWall } from './StickerWall'
 
 export default function Home() {
   return (
@@ -23,7 +22,6 @@ export default function Home() {
       <StatsBand />
       <PrensaStrip />
       <Marquee tone="dark" />
-      <StickerWall />
       <TrayectoriaTeaser />
       <ReelsStrip />
       <ComunidadStrip />

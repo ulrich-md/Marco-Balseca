@@ -4,6 +4,7 @@ import { SectionLabel } from '../components/ui/SectionLabel'
 import { TestimonialGallery } from '../components/ui/TestimonialGallery'
 import { ButtonLink } from '../components/ui/Button'
 import { useTestimonios } from '../lib/useContent'
+import { Sticker } from '../components/ui/Sticker'
 
 /* =========================================================================
    TESTIMONIOS — galería de tarjetas flotantes "en la pared": cada voz es una
@@ -52,9 +53,12 @@ export default function Testimonios() {
 
         {/* Bloque inferior (ref. "Stories"): sello de color + CTA */}
         <div className="container-x relative z-10 mt-6 flex items-center gap-5">
-          <span
-            aria-hidden
-            className="h-11 w-11 shrink-0 rounded-md bg-gradient-to-br from-accent to-gold shadow-soft"
+          <Sticker
+            inline
+            name="cactus-territorio"
+            alt="Tehuacán en territorio"
+            rotate={-6}
+            className="w-24 shrink-0 md:w-28"
           />
           <ButtonLink to="/contacto" tone="accent" variant="outline">
             Cuéntame el tuyo

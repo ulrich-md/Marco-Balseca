@@ -7,6 +7,7 @@ import { CommunityAvatars } from '../../components/ui/CommunityAvatars'
 import { InstagramIcon, FacebookIcon, XIcon } from '../../components/ui/Icons'
 import { StatCounter } from '../../components/ui/StatCounter'
 import { GrecaBand } from '../../components/ui/Greca'
+import { Sticker } from '../../components/ui/Sticker'
 import { useParallax } from '../../lib/useParallax'
 import { SOCIAL, STATS } from '../../data/site'
 
@@ -230,18 +231,14 @@ export function Hero() {
                 </div>
               </motion.div>
 
-              {/* Sello circular (ref. "VOTE JUNE 24" del cartel). Decorativo: el
-                  dato ya está en el cargo; así "Súmate" no se repite 3 veces. */}
-              <motion.div
-                {...appear(0.85)}
-                aria-hidden
-                className="absolute -right-1 top-[40%] z-40 sm:right-[6%] lg:-left-12 lg:right-auto lg:top-auto lg:bottom-[14%]"
-              >
-                <span className="font-display grid h-28 w-28 -rotate-12 place-content-center rounded-full bg-accent text-center leading-none text-white shadow-lift ring-[3px] ring-white md:h-32 md:w-32">
-                  <span className="text-[0.62rem] tracking-[0.12em] md:text-[0.7rem]">Microrregión</span>
-                  <span className="mt-1 text-5xl md:text-6xl">25</span>
-                </span>
-              </motion.div>
+              {/* Sticker "Microrregión 25" (ref. sello "VOTE JUNE 24" del cartel) */}
+              <Sticker
+                name="microrregion-25"
+                alt="Microrregión 25"
+                rotate={-10}
+                delay={0.6}
+                className="-right-2 top-[38%] w-28 sm:right-[4%] md:w-36 lg:-left-16 lg:right-auto lg:top-auto lg:bottom-[10%] lg:w-40"
+              />
             </div>
           </div>
         </div>

@@ -2,6 +2,7 @@ import { RevealText } from '../../components/ui/RevealText'
 import { Reveal } from '../../components/ui/Reveal'
 import { SectionLabel } from '../../components/ui/SectionLabel'
 import { GrecaBand } from '../../components/ui/Greca'
+import { Sticker } from '../../components/ui/Sticker'
 
 /** Cita ancla editorial: arcos concéntricos de filete dorado (el portal de
  *  marca) enmarcan la frase; firma con retrato circular. */
@@ -32,6 +33,12 @@ export function QuoteAncla() {
       />
       <GrecaBand className="absolute inset-x-0 bottom-0 text-accent/15" height={14} />
 
+      <Sticker
+        name="por-nuestra-tierra"
+        alt="Por nuestra tierra"
+        rotate={-8}
+        className="bottom-10 right-[5%] hidden w-40 sm:block lg:right-[8%] lg:w-52"
+      />
       <div className="container-x relative z-10">
         <div className="flex justify-center">
           <SectionLabel tone="accent">En sus palabras</SectionLabel>

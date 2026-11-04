@@ -4,6 +4,7 @@ import { SectionLabel } from '../../components/ui/SectionLabel'
 import { RevealText } from '../../components/ui/RevealText'
 import { Reveal } from '../../components/ui/Reveal'
 import { GrecaField } from '../../components/ui/Greca'
+import { Sticker } from '../../components/ui/Sticker'
 import { ButtonAnchor } from '../../components/ui/Button'
 import { FacebookRecentPosts } from '../../components/ui/FacebookRecentPosts'
 import { useNoticias } from '../../lib/useContent'
@@ -275,9 +276,17 @@ export function PrensaStrip() {
 
         {/* Spotlight de notas (izq) + muro de Facebook AL LADO (der) */}
         <div className="mt-12 grid items-start gap-10 lg:mt-14 lg:grid-cols-[1.55fr_1fr] lg:gap-12">
-          <Reveal>
-            <NewsSpotlight noticias={noticias} />
-          </Reveal>
+          <div className="relative">
+            <Reveal>
+              <NewsSpotlight noticias={noticias} />
+            </Reveal>
+            <Sticker
+              name="megafono"
+              alt="Cerca de la gente"
+              rotate={-10}
+              className="-left-8 -top-12 hidden w-36 md:block lg:-left-14 lg:w-44"
+            />
+          </div>
 
           {/* Columna del muro de Facebook (sticky en desktop) */}
           <Reveal delay={0.1}>
