@@ -19,7 +19,7 @@ export default function AvisoPrivacidad() {
         title={'Aviso de\nPrivacidad'}
         intro="Cómo cuidamos los datos que nos compartes a través de este sitio."
       />
-      <section className="bg-bone py-20 text-ink md:py-36">
+      <section className="bg-paper py-20 text-ink md:py-36">
         <div className="container-x max-w-3xl space-y-8 leading-relaxed text-ink/80">
           <p>
             <strong>{SITE.name}</strong>, con domicilio en {SITE.ciudad}, {SITE.estado},{' '}

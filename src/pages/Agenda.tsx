@@ -32,10 +32,12 @@ export default function Agenda() {
         index="06"
         label="Agenda y eventos"
         title={'Nos vemos\nen territorio'}
+        image="/assets/comunidad/comunidad-visita.webp"
+        imageAlt="Marco con vecinas y vecinos de Tehuacán"
         intro="Aquí te comparto mis próximos recorridos, encuentros y jornadas por las colonias de Tehuacán. Las fechas marcadas como tentativas las confirmo en cuanto cierro sede y hora: nos vemos en territorio."
       />
 
-      <section className="bg-bone py-20 text-ink md:py-32">
+      <section className="bg-paper py-20 text-ink md:py-32">
         <div className="container-x">
           <ul className="divide-y divide-ink/10 border-y border-ink/10">
             {eventos.map((ev, i) => {

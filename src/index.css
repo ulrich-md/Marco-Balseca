@@ -16,6 +16,8 @@
   --color-sand: #e6d194; /* DORADO oficial Gob. de México (Pantone 7402 C) */
   --color-cream: #f8f1e4; /* crema institucional (fondos claros cálidos) */
   --color-cream-deep: #eee0c6; /* crema profundo (blobs sobre crema) */
+  --color-paper: #fcf8f1; /* papel: superficie clara alterna (más luminosa que crema) */
+  --color-wine: #3d0f16; /* vino profundo: footer y sombras de marca */
 
   /* ---- Base neutra B&N ---- */
   --color-black: #0b0b0b; /* negro real: campos oscuros, footer, CTA, menú */
@@ -69,7 +71,7 @@
 
   body {
     margin: 0;
-    background-color: var(--color-bone);
+    background-color: var(--color-cream);
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: 17px;
@@ -134,6 +136,14 @@
     font-family: var(--font-condensed);
   }
 
+  /* Sombras de marca (tinte vino, no gris) */
+  .shadow-soft {
+    box-shadow: 0 1px 2px rgba(61, 15, 22, 0.06), 0 12px 32px -14px rgba(61, 15, 22, 0.22);
+  }
+  .shadow-lift {
+    box-shadow: 0 2px 4px rgba(61, 15, 22, 0.06), 0 34px 70px -30px rgba(61, 15, 22, 0.45);
+  }
+
   /* Etiqueta técnica tipo índice (mono, ref. ESPN/Yeezy): "01 — TRAYECTORIA" */
   .eyebrow {
     font-family: var(--font-mono);
@@ -177,6 +187,39 @@
       transparent 1px
     );
     background-size: 4px 4px;
+  }
+
+  /* ARCO — motivo recurrente (arquitectura colonial de Tehuacán / portal).
+     Esquinas superiores en semicírculo perfecto, base recta. */
+  .arch {
+    border-radius: 9999px 9999px 0 0;
+  }
+  .arch-sm {
+    border-radius: 9999px 9999px 1.25rem 1.25rem;
+  }
+
+  /* Grano de papel/película para superficies (pseudo-elemento, sin DOM extra) */
+  .grain {
+    position: relative;
+    isolation: isolate;
+  }
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: url('/assets/backgrounds/grain.png');
+    background-size: 420px;
+    opacity: var(--grain, 0.05);
+    mix-blend-mode: multiply;
+  }
+
+  /* Hilo dorado (regla institucional con degradado) */
+  .rule-gold {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+    opacity: 0.55;
   }
 
   /* Línea fina de marca */
@@ -225,6 +268,12 @@
     transform: translateX(-50%);
   }
 }
+
+/* Insignia giratoria (texto en círculo) */
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow { animation: spin-slow 22s linear infinite; }
 
 /* Punto "en vivo" del contador (único uso de animación continua, mínima). */
 @keyframes live-pulse {

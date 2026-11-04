@@ -10,6 +10,7 @@ import {
   useReducedMotion,
   useInView,
 } from 'framer-motion'
+import { GrecaBand } from './Greca'
 
 /* =========================================================================
    MOMENTO FIRMA — "La cinta".
@@ -36,7 +37,7 @@ function Greca({ className = '' }: { className?: string }) {
       viewBox="0 0 100 100"
       fill="none"
       aria-hidden
-      className={`mx-6 h-[0.62em] w-[0.62em] shrink-0 text-accent md:mx-10 ${className}`}
+      className={`mx-6 h-[0.62em] w-[0.62em] shrink-0 md:mx-10 ${className}`}
     >
       <path
         d="M12 88 L12 38 L50 38 L50 66 L30 66 L30 52 L40 52 L40 58"
@@ -87,29 +88,38 @@ function Row({ baseVelocity, children }: { baseVelocity: number; children: React
 
 const solid = 'font-display leading-[0.9] text-[11vw] md:text-[6.5vw]'
 const outline =
-  'font-display leading-[0.9] text-[11vw] md:text-[6.5vw] text-transparent [-webkit-text-stroke:1.5px_rgba(244,244,242,0.9)]'
+  'font-display leading-[0.9] text-[11vw] md:text-[6.5vw] text-transparent [-webkit-text-stroke:1.5px_rgba(230,209,148,0.75)]'
 
 export function Marquee({ tone = 'dark', speed = 3 }: Props) {
   const bg =
-    tone === 'dark' ? 'bg-black text-white' : 'bg-white text-ink border-y border-ink/10'
+    tone === 'dark' ? 'bg-accent text-white' : 'bg-white text-ink border-y border-ink/10'
+  const second = tone === 'dark' ? 'text-sand' : 'text-accent'
+  const mark = tone === 'dark' ? 'text-sand' : 'text-accent'
 
   return (
     <section className={`relative w-full overflow-hidden py-6 md:py-9 ${bg}`} aria-hidden>
+      {tone === 'dark' && (
+        <>
+          <GrecaBand className="absolute inset-x-0 top-1.5 text-sand/25" height={10} />
+          <GrecaBand className="absolute inset-x-0 bottom-1.5 text-sand/25" height={10} />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/20" />
+        </>
+      )}
       <Row baseVelocity={-speed}>
         <span className={`${solid} px-4`}>CERCA DE LA GENTE</span>
-        <Greca />
-        <span className={`${solid} px-4 text-accent`}>POR NUESTRA TIERRA</span>
+        <Greca className={mark} />
+        <span className={`${solid} px-4 ${second}`}>POR NUESTRA TIERRA</span>
         <Greca className="text-white/70" />
       </Row>
 
       <div className="mt-1 md:mt-2">
         <Row baseVelocity={speed}>
           <span className={`${outline} px-4`}>MARCO BALSECA</span>
-          <Greca />
+          <Greca className={mark} />
           <span className={`${outline} px-4`}>TEHUACÁN · PUEBLA</span>
-          <Greca />
+          <Greca className={mark} />
           <span className={`${outline} px-4`}>SÚMATE</span>
-          <Greca />
+          <Greca className={mark} />
         </Row>
       </div>
     </section>

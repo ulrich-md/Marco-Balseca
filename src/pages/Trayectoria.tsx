@@ -61,6 +61,8 @@ export default function Trayectoria() {
         index="03"
         label="Trayectoria"
         title={'El camino'}
+        image="/assets/comunidad/comunidad-cancha.webp"
+        imageAlt="Marco en la cancha del barrio"
         intro="De las raíces del agua mineral al trabajo en territorio de hoy. Este es el camino que me trajo hasta aquí, contado con honestidad: de dónde vengo, qué aprendí y por qué sigo caminando Tehuacán."
       />
 
@@ -68,7 +70,7 @@ export default function Trayectoria() {
       {!reduce && (
         <section
           ref={sectionRef}
-          className="relative hidden h-screen items-center overflow-hidden bg-bone lg:flex"
+          className="relative hidden h-screen items-center overflow-hidden bg-paper lg:flex"
         >
           <div className="pointer-events-none absolute left-0 right-0 top-12 z-10">
             <div className="container-x flex items-center justify-between">
@@ -88,7 +90,7 @@ export default function Trayectoria() {
       )}
 
       {/* === Móvil / reduced-motion: vertical === */}
-      <section className={`bg-bone py-20 ${reduce ? '' : 'lg:hidden'}`}>
+      <section className={`bg-paper py-20 ${reduce ? '' : 'lg:hidden'}`}>
         <div className="container-x">
           <SectionLabel tone="accent">Línea de tiempo</SectionLabel>
           <div className="relative mt-10 space-y-8 pl-8">

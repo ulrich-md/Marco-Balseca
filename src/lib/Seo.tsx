@@ -35,7 +35,7 @@ function setCanonical(href: string) {
  * SEO por página: title, description, canonical y Open Graph.
  * Ligero y sin dependencias (no react-helmet).
  */
-export function Seo({ title, description, path = '/', image = '/og-image.svg', noindex = false }: SeoProps) {
+export function Seo({ title, description, path = '/', image = '/og-image.jpg', noindex = false }: SeoProps) {
   const fullTitle =
     title === SITE.name ? `${SITE.name} — ${SITE.ciudad}, ${SITE.estado}` : `${title} — ${SITE.name}`
   const desc = description ?? SITE.descripcion

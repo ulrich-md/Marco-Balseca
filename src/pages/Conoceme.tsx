@@ -21,11 +21,13 @@ export default function Conoceme() {
         index="02"
         label="Conóceme"
         title={'Marco\nBalseca'}
+        cutout="/assets/portraits/marco-fuerza-cut"
+        imageAlt="Marco Balseca"
         intro="Orgullosamente tehuacanero. Abogado y maestro en Administración de Empresas, tercera generación de mi familia en el agua mineral, hoy delegado de la Secretaría de Gobernación de la microrregión 25, con un enfoque humanista y de territorio."
       />
 
       {/* Bio editorial */}
-      <section className="bg-bone py-20 text-ink md:py-36">
+      <section className="bg-paper py-20 text-ink md:py-36">
         <div className="container-x grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
           <Reveal>
             {/* Retrato principal. REEMPLAZAR -> si falta, queda el bloque gris (sin imagen rota). */}
@@ -99,7 +101,7 @@ export default function Conoceme() {
       </section>
 
       {/* Frase ancla (clara) con retrato de apoyo */}
-      <section className="relative overflow-hidden bg-bone py-20 text-ink md:py-36">
+      <section className="relative overflow-hidden bg-paper py-20 text-ink md:py-36">
         <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-accent/20" />
         <div className="container-x relative grid items-center gap-12 lg:grid-cols-2">
           <Reveal>

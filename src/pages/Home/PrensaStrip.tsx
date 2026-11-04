@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { SectionLabel } from '../../components/ui/SectionLabel'
 import { RevealText } from '../../components/ui/RevealText'
 import { Reveal } from '../../components/ui/Reveal'
-import { OrganicShapes } from '../../components/ui/OrganicShapes'
+import { GrecaField } from '../../components/ui/Greca'
 import { ButtonAnchor } from '../../components/ui/Button'
 import { FacebookRecentPosts } from '../../components/ui/FacebookRecentPosts'
 import { useNoticias } from '../../lib/useContent'
@@ -41,7 +41,7 @@ function SpotlightSlide({ n }: { n: Noticia }) {
       href={n.url}
       target="_blank"
       rel="noreferrer"
-      className="group relative block aspect-[16/12] w-full overflow-hidden rounded-lg shadow-[0_30px_70px_-30px_rgba(0,0,0,0.6)] ring-1 ring-white/10 sm:aspect-[16/10]"
+      className="group relative block aspect-[16/12] w-full overflow-hidden rounded-2xl bg-accent shadow-lift sm:aspect-[16/10]"
     >
       {n.imagen ? (
         <img
@@ -73,7 +73,7 @@ function SpotlightSlide({ n }: { n: Noticia }) {
       )}
 
       {/* degradado para legibilidad del titular */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-wine/95 via-wine/40 to-transparent" />
       {/* brillo diagonal que barre al hover */}
       <span
         aria-hidden
@@ -98,8 +98,10 @@ function SpotlightSlide({ n }: { n: Noticia }) {
   )
 }
 
-/* Spotlight automático: una nota a la vez, avanza sola cada AUTO_MS, con
-   flechas, puntos y pausa al pasar el mouse / enfocar. Respeta reduce-motion. */
+/* Spotlight automático + "playlist" de notas sincronizada: la nota grande
+   avanza sola cada AUTO_MS; las miniaturas de abajo funcionan como pestañas
+   (con barra de progreso en la activa). Pausa al pasar el mouse / enfocar.
+   Respeta reduce-motion. */
 function NewsSpotlight({ noticias }: { noticias: Noticia[] }) {
   const reduce = useReducedMotion()
   const [index, setIndex] = useState(0)
@@ -116,7 +118,7 @@ function NewsSpotlight({ noticias }: { noticias: Noticia[] }) {
     if (reduce || paused || count <= 1) return
     const id = setInterval(() => setIndex((i) => (i + 1) % count), AUTO_MS)
     return () => clearInterval(id)
-  }, [reduce, paused, count])
+  }, [reduce, paused, count, index])
 
   if (count === 0) return null
   const safe = Math.min(index, count - 1)
@@ -134,7 +136,7 @@ function NewsSpotlight({ noticias }: { noticias: Noticia[] }) {
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={() => setPaused(false)}
     >
-      <div className="relative overflow-hidden rounded-lg">
+      <div className="relative overflow-hidden rounded-2xl">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={n.id}
@@ -148,12 +150,12 @@ function NewsSpotlight({ noticias }: { noticias: Noticia[] }) {
         </AnimatePresence>
 
         {count > 1 && (
-          <>
+          <div className="absolute right-4 top-4 z-10 flex gap-2">
             <button
               type="button"
               aria-label="Nota anterior"
               onClick={() => go(-1)}
-              className="absolute left-3 top-1/2 z-10 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-black/35 text-lg text-white backdrop-blur-sm transition-colors duration-200 hover:bg-black/60"
+              className="grid h-11 w-11 cursor-pointer place-items-center rounded-full bg-white/90 text-lg text-ink shadow-soft transition-colors duration-200 hover:bg-accent hover:text-white"
             >
               ‹
             </button>
@@ -161,35 +163,69 @@ function NewsSpotlight({ noticias }: { noticias: Noticia[] }) {
               type="button"
               aria-label="Nota siguiente"
               onClick={() => go(1)}
-              className="absolute right-3 top-1/2 z-10 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-black/35 text-lg text-white backdrop-blur-sm transition-colors duration-200 hover:bg-black/60"
+              className="grid h-11 w-11 cursor-pointer place-items-center rounded-full bg-white/90 text-lg text-ink shadow-soft transition-colors duration-200 hover:bg-accent hover:text-white"
             >
               ›
             </button>
-          </>
+          </div>
         )}
       </div>
 
       {count > 1 && (
-        <div className="mt-5 flex items-center justify-between gap-4">
-          <div className="flex flex-wrap items-center gap-2" role="tablist" aria-label="Ir a la nota">
-            {noticias.map((it, i) => (
+        <div
+          className="mt-4 grid grid-cols-3 gap-3 sm:grid-cols-5"
+          role="tablist"
+          aria-label="Ir a la nota"
+        >
+          {noticias.map((it, i) => {
+            const active = i === safe
+            return (
               <button
                 key={it.id}
                 type="button"
                 role="tab"
-                aria-selected={i === safe}
+                aria-selected={active}
                 aria-label={`Nota ${i + 1} de ${count}`}
                 onClick={() => setIndex(i)}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  i === safe ? 'w-7 bg-sand' : 'w-2.5 bg-white/30 hover:bg-white/60'
-                }`}
-              />
-            ))}
-          </div>
-          <span className="eyebrow shrink-0 text-white/60">
-            {safe + 1} / {count}
-          </span>
+                className={`group relative cursor-pointer overflow-hidden rounded-lg text-left ring-1 transition-all duration-300 ${
+                  active ? 'ring-accent' : 'opacity-70 ring-ink/10 hover:opacity-100'
+                } ${i >= 3 ? 'hidden sm:block' : ''}`}
+              >
+                <div className="aspect-[16/10] bg-accent">
+                  {it.imagen && (
+                    <img
+                      src={it.imagen}
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none'
+                      }}
+                    />
+                  )}
+                </div>
+                {/* barra de progreso de la nota activa */}
+                <span aria-hidden className="absolute inset-x-0 bottom-0 h-1 bg-black/20">
+                  {active && (
+                    <motion.span
+                      key={`${it.id}-${paused}`}
+                      className="block h-full bg-sand"
+                      initial={{ width: reduce || paused ? '100%' : '0%' }}
+                      animate={{ width: '100%' }}
+                      transition={{ duration: reduce || paused ? 0 : AUTO_MS / 1000, ease: 'linear' }}
+                    />
+                  )}
+                </span>
+              </button>
+            )
+          })}
         </div>
+      )}
+      {count > 1 && (
+        <span className="eyebrow mt-4 block text-right text-mute">
+          {safe + 1} / {count}
+        </span>
       )}
     </div>
   )
@@ -199,90 +235,69 @@ export function PrensaStrip() {
   const { noticias } = useNoticias()
 
   return (
-    <section className="relative overflow-hidden bg-accent pb-20 pt-24 text-white md:pb-32 md:pt-36">
-      {/* Transición suave desde el Hero claro: una curva crema con filo dorado
-          que da un borde superior redondeado a la sección guinda (evita el corte
-          recto contra el Hero). */}
-      <div aria-hidden className="absolute inset-x-0 top-0 z-[2] leading-[0]">
-        <svg
-          viewBox="0 0 1440 110"
-          preserveAspectRatio="none"
-          className="block h-[52px] w-full md:h-[84px] lg:h-[104px]"
-          fill="none"
-        >
-          <path d="M0 0 H1440 V66 C 1080 16, 360 16, 0 66 Z" fill="var(--color-cream)" />
-          <path
-            d="M0 66 C 360 16, 1080 16, 1440 66"
-            stroke="var(--color-sand)"
-            strokeWidth="2.5"
-            opacity="0.55"
-          />
-        </svg>
-      </div>
-
-      {/* Fondo tipo "En Territorio": foto difuminada B&N + capa guinda
-          (multiply) + formas orgánicas + grano. */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-        <img
-          src="/assets/comunidad/comunidad-visita.webp"
-          alt=""
-          loading="lazy"
-          decoding="async"
-          className="h-full w-full scale-110 object-cover opacity-25 blur-[3px] grayscale"
-          onError={(e) => {
-            e.currentTarget.style.display = 'none'
-          }}
-        />
-        <div className="absolute inset-0 bg-accent/85 mix-blend-multiply" />
-        <OrganicShapes opacity={0.5} />
-        <div
-          className="absolute inset-0 opacity-[0.06]"
-          style={{ backgroundImage: 'url(/assets/backgrounds/grain.png)', backgroundSize: '420px' }}
-        />
+    <section className="relative overflow-hidden bg-cream pb-24 pt-24 text-ink md:pb-32 md:pt-32">
+      {/* greca dorada muy tenue en la esquina (textura cultural, sin ruido) */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-20 -top-10 hidden h-[420px] w-[520px] md:block"
+        style={{
+          WebkitMaskImage: 'radial-gradient(closest-side, #000, transparent)',
+          maskImage: 'radial-gradient(closest-side, #000, transparent)',
+        }}
+      >
+        <GrecaField color="var(--color-gold)" opacity={0.2} size={64} strokeWidth={2} />
       </div>
 
       <div className="container-x relative z-10">
-        {/* Encabezado centrado */}
-        <div className="flex flex-col items-center text-center">
-          <SectionLabel tone="bone">En las noticias</SectionLabel>
-          <RevealText
-            as="h2"
-            text="Últimas Noticias"
-            className="font-display mt-5 text-[13vw] leading-[0.9] text-white sm:text-6xl lg:text-7xl"
-          />
-          <Reveal delay={0.1}>
-            <p className="mt-4 max-w-xl text-white/75">
-              El trabajo en territorio de Marco, contado por la prensa y sus redes.
-            </p>
-          </Reveal>
+        {/* Encabezado editorial */}
+        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div>
+            <SectionLabel tone="accent">
+              En las noticias
+            </SectionLabel>
+            <RevealText
+              as="h2"
+              text="Últimas Noticias"
+              className="font-display mt-5 text-[13vw] leading-[0.9] text-ink sm:text-6xl lg:text-7xl"
+            />
+            <Reveal delay={0.1}>
+              <p className="mt-4 max-w-xl text-ink/70">
+                El trabajo en territorio de Marco, contado por la prensa y sus redes.
+              </p>
+            </Reveal>
+          </div>
+          <div className="hidden md:block">
+            <ButtonAnchor href={SOCIAL.facebook.url} tone="accent" variant="outline" arrow>
+              Más actividades de Marco
+            </ButtonAnchor>
+          </div>
         </div>
 
         {/* Spotlight de notas (izq) + muro de Facebook AL LADO (der) */}
-        <div className="mt-14 grid items-start gap-10 lg:grid-cols-[1.55fr_1fr] lg:gap-12">
-          <div>
-            <Reveal>
-              <NewsSpotlight noticias={noticias} />
-            </Reveal>
-            <div className="mt-8">
-              <ButtonAnchor href={SOCIAL.facebook.url} tone="bone" variant="outline" arrow>
-                Más actividades de Marco
-              </ButtonAnchor>
-            </div>
-          </div>
+        <div className="mt-12 grid items-start gap-10 lg:mt-14 lg:grid-cols-[1.55fr_1fr] lg:gap-12">
+          <Reveal>
+            <NewsSpotlight noticias={noticias} />
+          </Reveal>
 
           {/* Columna del muro de Facebook (sticky en desktop) */}
           <Reveal delay={0.1}>
             <div className="lg:sticky lg:top-24">
               <div className="mb-4 flex items-center gap-2">
                 <span aria-hidden className="relative flex h-2.5 w-2.5">
-                  <span className="animate-live-pulse absolute inline-flex h-full w-full rounded-full bg-sand" />
-                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-sand" />
+                  <span className="animate-live-pulse absolute inline-flex h-full w-full rounded-full bg-accent" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-accent" />
                 </span>
-                <span className="eyebrow text-sand">En vivo en Facebook</span>
+                <span className="eyebrow text-accent">En vivo en Facebook</span>
               </div>
               <FacebookRecentPosts />
             </div>
           </Reveal>
+        </div>
+
+        <div className="mt-10 md:hidden">
+          <ButtonAnchor href={SOCIAL.facebook.url} tone="accent" variant="outline" arrow full>
+            Más actividades de Marco
+          </ButtonAnchor>
         </div>
       </div>
     </section>

@@ -1,4 +1,4 @@
-import { motion, useReducedMotion, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { RevealText } from '../../components/ui/RevealText'
 import { ButtonLink } from '../../components/ui/Button'
 import { ScrollIndicator } from '../../components/ui/ScrollIndicator'
@@ -6,10 +6,11 @@ import { HeroVideo, type VideoPhoto } from '../../components/ui/HeroVideo'
 import { LiveCounter } from '../../components/ui/LiveCounter'
 import { CommunityAvatars } from '../../components/ui/CommunityAvatars'
 import { InstagramIcon, FacebookIcon, XIcon } from '../../components/ui/Icons'
-import { PrehispanicField } from '../../components/ui/PrehispanicField'
-import { OrganicShapes } from '../../components/ui/OrganicShapes'
+import { ArchPortrait } from '../../components/ui/ArchPortrait'
+import { StatCounter } from '../../components/ui/StatCounter'
+import { GrecaField } from '../../components/ui/Greca'
 import { useParallax } from '../../lib/useParallax'
-import { SOCIAL } from '../../data/site'
+import { SOCIAL, STATS } from '../../data/site'
 
 const HERO_SOCIAL = [
   { Icon: InstagramIcon, ...SOCIAL.instagram },
@@ -17,38 +18,24 @@ const HERO_SOCIAL = [
   { Icon: XIcon, ...SOCIAL.x },
 ]
 
-// Fotos REALES para el "video" principal del hero (montaje; usa el MP4 real
-// si se sube a /assets/video/marco-reel.mp4).
+// Fotos REALES para el montaje "en territorio" (polaroid flotante del hero).
 const HERO_SLIDES: VideoPhoto[] = [
-  { src: '/assets/portraits/marco-formal.jpg', alt: 'Marco Balseca, retrato' },
   { src: '/assets/comunidad/comunidad-familia.jpg', alt: 'Marco con las familias de Tehuacán' },
   { src: '/assets/comunidad/comunidad-mercado.jpg', alt: 'Marco en el mercado de Tehuacán' },
   { src: '/assets/comunidad/comunidad-cancha.jpg', alt: 'Marco en la cancha del barrio' },
   { src: '/assets/portraits/marco-corazon-fondo.jpg', alt: 'Marco con la comunidad' },
 ]
 
+/* =========================================================================
+   HERO — "El portal".
+   Crema cálido + ARCO guinda (portal colonial de Tehuacán) con el recorte de
+   Marco. Jerarquía: nombre → cargo → promesa → CTA. Prueba social flotando
+   sobre el arco (cerca del rostro = confianza) y el montaje de fotos reales
+   como polaroid. Cierra con la barra de credenciales (cifras verificables).
+   ========================================================================= */
 export function Hero() {
   const reduce = useReducedMotion()
-  const photoRef = useParallax<HTMLDivElement>(36)
-  const heroBgRef = useParallax<HTMLDivElement>(70)
-
-  // Micro-interacción: la foto se inclina en 3D siguiendo el mouse (solo
-  // transform + springs = fluido; se desactiva con reduced-motion).
-  const px = useMotionValue(0)
-  const py = useMotionValue(0)
-  const spring = { stiffness: 140, damping: 18, mass: 0.4 }
-  const rotY = useSpring(useTransform(px, [-0.5, 0.5], [-7, 7]), spring)
-  const rotX = useSpring(useTransform(py, [-0.5, 0.5], [5, -5]), spring)
-  const onMove = (e: React.MouseEvent<HTMLElement>) => {
-    if (reduce) return
-    const r = e.currentTarget.getBoundingClientRect()
-    px.set((e.clientX - r.left) / r.width - 0.5)
-    py.set((e.clientY - r.top) / r.height - 0.5)
-  }
-  const onLeave = () => {
-    px.set(0)
-    py.set(0)
-  }
+  const archRef = useParallax<HTMLDivElement>(28)
 
   const appear = (delay: number) =>
     reduce
@@ -56,154 +43,92 @@ export function Hero() {
       : {
           initial: { opacity: 0, y: 16 },
           animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] as const },
+          transition: { duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] as const },
         }
 
   return (
-    <section onMouseMove={onMove} onMouseLeave={onLeave} className="relative overflow-hidden bg-white text-ink">
-      {/* Fondo BLANCO editorial. Glow guinda muy sutil en la esquina superior
-          izquierda (calidez, no ruido) + símbolos prehispánicos confinados a la
-          zona del nombre, difuminándose antes del cuerpo y del teléfono. */}
+    <section className="grain relative overflow-hidden bg-cream text-ink [--grain:0.05]">
+      {/* Atmósfera: luz cálida arriba a la izquierda + greca dorada casi
+          imperceptible detrás del arco (textura cultural sin ruido). */}
       <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
-        <div
-          className="absolute inset-0"
-          style={{ background: 'radial-gradient(58% 55% at 6% -2%, rgba(113,25,36,0.06), transparent 58%)' }}
-        />
-        <PrehispanicField opacity={0.26} />
-      </div>
-
-      {/* Panel guinda a la DERECHA (detrás del teléfono). Capas para dar
-          PROFUNDIDAD (ya no se siente flat): degradado guinda + RETRATO de Marco
-          difuminado con parallax + formas orgánicas + grano. El borde izquierdo
-          se DIFUMINA hacia el blanco (máscara) para que la "división" ya no
-          corte el diseño. Solo desktop. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[61%] overflow-hidden lg:block"
-        style={{
-          // Curva suave (elipse) en el borde izquierdo → sin corte recto a la mitad.
-          WebkitMaskImage: 'radial-gradient(122% 135% at 128% 50%, #000 58%, transparent 82%)',
-          maskImage: 'radial-gradient(122% 135% at 128% 50%, #000 58%, transparent 82%)',
-        }}
-      >
-        {/* Base con degradado diagonal (profundidad, no color plano) */}
-        <div className="absolute inset-0 bg-gradient-to-br from-accent via-accent to-accent-deep" />
-
-        {/* Collage de fotos reales DIFUMINADAS (como el fondo de "En Territorio",
-            pero en collage): textura y profundidad detrás del teléfono; parallax
-            sutil en scroll. Todas a la derecha → el nombre queda limpio. */}
-        <div ref={heroBgRef} className="absolute inset-[-16%]">
-          <img
-            src="/assets/comunidad/comunidad-familia.webp"
-            alt=""
-            loading="lazy"
-            decoding="async"
-            className="absolute right-[8%] top-0 aspect-[3/4] w-[42%] rotate-2 rounded-2xl object-cover opacity-[0.62] blur-[4px] grayscale"
-          />
-          <img
-            src="/assets/comunidad/comunidad-mercado.webp"
-            alt=""
-            loading="lazy"
-            decoding="async"
-            className="absolute right-[46%] top-[26%] aspect-[3/4] w-[40%] -rotate-3 rounded-2xl object-cover opacity-[0.55] blur-[4px] grayscale"
-          />
-          <img
-            src="/assets/comunidad/comunidad-cancha.webp"
-            alt=""
-            loading="lazy"
-            decoding="async"
-            className="absolute bottom-[1%] right-[12%] aspect-[16/10] w-[54%] rotate-2 rounded-2xl object-cover opacity-[0.55] blur-[4px] grayscale"
-          />
-        </div>
-
-        {/* Capa guinda (multiply MÁS LIGERA → el collage SÍ se ve) + más guinda
-            sólido a la IZQUIERDA (nombre legible), revelando el collage a la DERECHA. */}
-        <div className="absolute inset-0 bg-accent/62 mix-blend-multiply" />
-        <div className="absolute inset-0 bg-gradient-to-r from-accent via-accent/60 to-accent/25" />
-
-        {/* Toque DORADO muy sutil (el fondo emula al de "En Territorio":
-            guinda + foto difuminada + formas guinda). */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(50% 44% at 74% 16%, rgba(230,209,148,0.13), transparent 60%), radial-gradient(46% 46% at 92% 84%, rgba(230,209,148,0.08), transparent 60%)',
+              'radial-gradient(55% 60% at 0% 0%, rgba(255,255,255,0.9), transparent 60%), radial-gradient(45% 55% at 85% 55%, rgba(113,25,36,0.08), transparent 70%)',
           }}
         />
-
-        {/* Formas orgánicas GUINDA (tono sobre tono, igual que "En Territorio") + grano */}
-        <OrganicShapes opacity={0.6} />
         <div
-          className="absolute inset-0 opacity-[0.06]"
-          style={{ backgroundImage: 'url(/assets/backgrounds/grain.png)', backgroundSize: '420px' }}
-        />
+          className="absolute inset-y-0 right-0 hidden w-1/2 lg:block"
+          style={{
+            WebkitMaskImage: 'radial-gradient(70% 70% at 70% 50%, #000 30%, transparent 75%)',
+            maskImage: 'radial-gradient(70% 70% at 70% 50%, #000 30%, transparent 75%)',
+          }}
+        >
+          <GrecaField color="var(--color-gold)" opacity={0.14} size={72} strokeWidth={2} />
+        </div>
       </div>
 
       <div className="container-x relative z-10 pt-28 lg:pt-32">
-        {/* Titular gigante — MARCO en guinda, BALSECA en tinta; el nombre pasa
-            POR DETRÁS del teléfono (capas = profundidad, ref. póster editorial) */}
-        <div className="relative">
-          <h1 className="relative z-10">
-            <RevealText
-              as="span"
-              text="Marco"
-              onMount
-              stagger={0.05}
-              className="font-display block text-[19vw] leading-[0.8] text-accent sm:text-[16vw] lg:text-[12.5vw]"
-            />
-            <RevealText
-              as="span"
-              text="Balseca"
-              onMount
-              delay={0.12}
-              stagger={0.04}
-              className="font-display block text-[19vw] leading-[0.8] text-ink sm:text-[16vw] lg:text-[12.5vw]"
-            />
-          </h1>
-          {/* Cargo completo, pegado al nombre */}
-          <motion.p
-            {...appear(0.35)}
-            className="relative z-10 mt-5 flex max-w-xl items-start gap-3 lg:mt-6"
-          >
-            <span aria-hidden className="mt-[0.55em] h-[3px] w-10 shrink-0 bg-accent" />
-            <span className="font-condensed text-base font-semibold uppercase leading-snug tracking-[0.08em] text-accent md:text-lg">
-              Delegado de Gobernación del Estado de Puebla · Microrregión 25
-            </span>
-          </motion.p>
+        <div className="grid items-center gap-y-10 lg:grid-cols-12 lg:gap-x-10">
+          {/* ---------------- Columna de texto ---------------- */}
+          <div className="relative z-20 lg:col-span-7">
+            <h1>
+              <RevealText
+                as="span"
+                text="Marco"
+                onMount
+                stagger={0.05}
+                className="font-display block text-[19vw] leading-[0.8] text-accent sm:text-[16vw] lg:text-[12.5vw]"
+              />
+              <RevealText
+                as="span"
+                text="Balseca"
+                onMount
+                delay={0.12}
+                stagger={0.04}
+                className="font-display block text-[19vw] leading-[0.8] text-ink sm:text-[16vw] lg:text-[12.5vw]"
+              />
+            </h1>
 
-          {/* Titular / promesa — el mensaje, no solo el nombre */}
-          <motion.p
-            {...appear(0.44)}
-            className="font-condensed relative z-10 mt-5 max-w-xl text-[1.7rem] font-bold leading-[1.08] text-ink sm:text-[2rem] lg:text-[2.4rem]"
-          >
-            Cerca de la gente, <span className="text-accent">por nuestra tierra.</span>
-          </motion.p>
-        </div>
+            <motion.p {...appear(0.35)} className="mt-6 flex max-w-xl items-start gap-3 lg:mt-7">
+              <span aria-hidden className="mt-[0.55em] h-[3px] w-10 shrink-0 bg-gradient-to-r from-accent to-gold" />
+              <span className="font-condensed text-base font-semibold uppercase leading-snug tracking-[0.08em] text-accent md:text-lg">
+                Delegado de Gobernación del Estado de Puebla · Microrregión 25
+              </span>
+            </motion.p>
 
-        {/* Fila inferior. En MÓVIL el orden DOM es copy/CTA → contador → video →
-            prensa. En desktop, el placement explícito apila copy/contador/prensa
-            en la columna izquierda y el video (span 3 filas) a la derecha. */}
-        <div className="mt-6 grid items-start lg:mt-0 lg:grid-cols-[1fr_0.78fr] lg:gap-x-12">
-          {/* A — copy + CTA + redes */}
-          <div className="lg:pt-4">
-            <motion.p {...appear(0.5)} className="max-w-xl text-lg text-ink/75 md:text-xl">
+            <motion.p
+              {...appear(0.44)}
+              className="font-condensed mt-5 max-w-xl text-[1.7rem] font-bold leading-[1.08] text-ink sm:text-[2rem] lg:text-[2.4rem]"
+            >
+              Cerca de la gente, <span className="text-accent">por nuestra tierra.</span>
+            </motion.p>
+
+            <motion.p {...appear(0.5)} className="mt-5 max-w-xl text-lg text-ink/75 md:text-xl">
               Soy abogado y maestro en Administración. Empecé en esto a los 15 años y llevo 30 en
               la vida pública, siempre con la misma idea: la política se hace en territorio, cara a
               cara, todos los días.
             </motion.p>
 
-            <motion.div {...appear(0.55)} className="mt-7">
-              <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-                <ButtonLink to="/contacto" tone="accent" variant="solid">
+            <motion.div {...appear(0.55)} className="mt-8">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
+                <ButtonLink
+                  to="/contacto"
+                  tone="accent"
+                  variant="solid"
+                  className="px-9 py-4 shadow-[0_18px_40px_-16px_rgba(113,25,36,0.75)]"
+                >
                   Súmate
                 </ButtonLink>
-                <ButtonLink to="/conoceme" tone="ink" variant="ghost" className="px-2">
+                <ButtonLink to="/conoceme" tone="ink" variant="outline" className="border-ink/20 bg-white/60">
                   Conoce a Marco
                 </ButtonLink>
               </div>
 
-              <div className="mt-6 flex items-center gap-3">
+              <div className="mt-7 flex items-center gap-3">
                 <span className="eyebrow text-mute">Sígueme</span>
+                <span aria-hidden className="h-px w-6 bg-ink/20" />
                 <div className="flex items-center gap-2">
                   {HERO_SOCIAL.map(({ Icon, label, url }) => (
                     <a
@@ -212,9 +137,9 @@ export function Hero() {
                       target="_blank"
                       rel="noreferrer"
                       aria-label={label}
-                      className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 text-ink/70 transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:border-accent hover:text-accent"
+                      className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/12 bg-white/70 text-ink/70 transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-white"
                     >
-                      <Icon className="h-5 w-5" />
+                      <Icon className="h-[18px] w-[18px]" />
                     </a>
                   ))}
                 </div>
@@ -222,80 +147,87 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Media principal: VIDEO en pantalla de teléfono. En desktop sube y
-              se TRASLAPA con el nombre (z-20 sobre el h1), con rotación sutil y
-              halo guinda detrás = capas y energía. */}
-          <div
-            ref={photoRef}
-            className="relative z-20 mt-8 lg:col-start-2 lg:mt-[max(-31vw,-440px)]"
-          >
-            {/* Fondo guinda curvo SOLO en móvil (en desktop existe el panel de
-                la derecha): mantiene la marca presente en la pantalla chica. */}
-            <div
-              aria-hidden
-              className="absolute -inset-x-4 -top-4 bottom-[-1.5rem] -z-10 overflow-hidden rounded-[2.4rem] bg-accent lg:hidden"
-            >
-              <OrganicShapes opacity={0.7} />
-              <div
-                className="absolute inset-0 opacity-[0.06]"
-                style={{ backgroundImage: 'url(/assets/backgrounds/grain.png)', backgroundSize: '420px' }}
-              />
-            </div>
-
-            {/* Halo de gradiente guinda + dorado detrás del teléfono: aporta
-                color, calidez y profundidad, y equilibra el peso del nombre a
-                la izquierda (va sobre zona sin texto → suma sin quitar jerarquía). */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[135%] w-[155%] -translate-x-1/2 -translate-y-1/2 blur-[2px]"
-              style={{
-                background:
-                  'radial-gradient(52% 46% at 50% 47%, rgba(113,25,36,0.26), rgba(113,25,36,0.09) 54%, transparent 74%), radial-gradient(40% 34% at 72% 15%, rgba(165,127,44,0.16), transparent 62%)',
-              }}
-            />
-            {/* Prueba social INTEGRADA arriba del teléfono, directamente sobre
-                el guinda (SIN tarjeta): avatares de la comunidad + contador en
-                blanco. En móvil va EN FLUJO (evita encimarse con lo de arriba);
-                en desktop se ancla sobre el panel guinda, arriba del teléfono. */}
+          {/* ---------------- Columna del arco ---------------- */}
+          <div className="relative lg:col-span-5">
+            {/* Prueba social en móvil: en flujo, arriba del arco (no se encima) */}
             <motion.div
               {...appear(0.5)}
-              className="relative z-40 mb-5 flex items-center gap-2.5 lg:absolute lg:inset-x-0 lg:-top-[5.75rem] lg:mx-auto lg:mb-0 lg:w-[320px] lg:pl-1"
+              className="mx-auto mb-8 flex w-fit items-center gap-3 rounded-2xl border border-ink/10 bg-white/85 py-2 pl-2 pr-5 shadow-soft lg:hidden"
             >
               <CommunityAvatars count={3} />
-              <LiveCounter tone="bone" layout="inline" />
+              <LiveCounter tone="ink" layout="inline" />
             </motion.div>
 
             <motion.div
-              className="relative mx-auto w-full max-w-[270px] rotate-2 lg:max-w-[320px] lg:rotate-3"
-              style={{ rotateX: reduce ? 0 : rotX, rotateY: reduce ? 0 : rotY, transformPerspective: 1000 }}
+              initial={reduce ? undefined : { opacity: 0, y: 40 }}
+              animate={reduce ? undefined : { opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="relative mx-auto w-full max-w-[340px] sm:max-w-[400px] lg:max-w-[480px]"
             >
-              {/* Carcasa del teléfono (bezel + botones + dynamic island) */}
-              <div className="relative rounded-[2.7rem] bg-black p-2.5 shadow-[0_35px_70px_-25px_rgba(0,0,0,0.55)] ring-1 ring-black/20">
-                <span aria-hidden className="absolute -left-[3px] top-24 h-9 w-[3px] rounded-l-sm bg-black" />
-                <span aria-hidden className="absolute -left-[3px] top-36 h-14 w-[3px] rounded-l-sm bg-black" />
-                <span aria-hidden className="absolute -right-[3px] top-28 h-16 w-[3px] rounded-r-sm bg-black" />
-                <div className="relative overflow-hidden rounded-[2.1rem]">
-                  {/* Montaje de fotos reales (no hay MP4 todavía). Para activar un
-                      video real, vuelve a pasar videoSrc={{ mp4, webm }} con el
-                      archivo subido a /assets/video/. */}
-                  <HeroVideo
-                    photos={HERO_SLIDES}
-                    caption="En territorio · Tehuacán, Puebla"
-                    poster="/assets/portraits/marco-formal.jpg"
-                    className="aspect-[9/19] w-full"
-                  />
-                  {/* dynamic island */}
-                  <span aria-hidden className="absolute left-1/2 top-2.5 z-30 h-[22px] w-24 -translate-x-1/2 rounded-full bg-black" />
-                </div>
+              {/* Arcos concéntricos de filete dorado (profundidad) */}
+              <div aria-hidden className="arch pointer-events-none absolute -inset-5 border border-gold/30 md:-inset-7" />
+              <div aria-hidden className="arch pointer-events-none absolute -inset-10 border border-gold/15 md:-inset-14" />
+
+              <div ref={archRef}>
+                <ArchPortrait
+                  cutout="/assets/portraits/marco-sumate-cut"
+                  alt="Marco Balseca"
+                  backdrop="/assets/generated/hero-valle-tehuacan.webp"
+                  tone="accent"
+                  eager
+                  className="aspect-[4/5] w-full"
+                  cutoutClassName="w-[90%]"
+                />
               </div>
 
+              {/* Prueba social (desktop): tarjeta flotante junto al rostro */}
+              <motion.div
+                {...appear(0.75)}
+                className="absolute -left-16 top-[46%] z-30 hidden items-center gap-3 rounded-2xl border border-ink/5 bg-white/95 p-3 pr-5 shadow-lift backdrop-blur lg:flex xl:-left-24"
+              >
+                <CommunityAvatars count={3} />
+                <LiveCounter tone="ink" layout="inline" />
+              </motion.div>
+
+              {/* Montaje de fotos reales "en territorio" como polaroid */}
+              <motion.div
+                {...appear(0.9)}
+                className="absolute -bottom-14 -left-10 z-30 hidden w-[40%] -rotate-[5deg] rounded-md bg-white p-1.5 pb-2 shadow-lift sm:block lg:-left-24 lg:w-[40%]"
+              >
+                <HeroVideo
+                  photos={HERO_SLIDES}
+                  caption="En territorio · Tehuacán, Puebla"
+                  poster="/assets/comunidad/comunidad-familia.jpg"
+                  className="aspect-[4/5] w-full rounded-[3px]"
+                  interval={2800}
+                />
+              </motion.div>
             </motion.div>
           </div>
-
         </div>
 
-        <div className="flex justify-center py-5 lg:justify-start lg:pt-0 lg:pb-2">
-          <ScrollIndicator tone="accent" />
+        {/* ---------------- Barra de credenciales ---------------- */}
+        <div className="relative mt-16 lg:mt-20">
+          <div aria-hidden className="rule-gold" />
+          <div className="grid grid-cols-3 gap-4 py-8 sm:gap-8 md:py-10">
+            {STATS.map((s, i) => (
+              <div
+                key={s.label}
+                className={`relative ${i > 0 ? 'border-l border-ink/10 pl-4 sm:pl-8' : ''}`}
+              >
+                <StatCounter
+                  value={s.value}
+                  suffix={s.suffix}
+                  placeholder={s.placeholder}
+                  label={s.label}
+                  tone="accent"
+                />
+              </div>
+            ))}
+          </div>
+          <div className="hidden justify-end pb-6 lg:flex">
+            <ScrollIndicator tone="accent" />
+          </div>
         </div>
       </div>
     </section>

@@ -27,7 +27,7 @@ function VideoGroup({ titulo, videos }: { titulo: string; videos: Reel[] }) {
       <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {shown.map((v, i) => (
           <Reveal key={v.id} delay={(i % 3) * 0.06}>
-            <VideoEmbed video={v} />
+            <VideoEmbed video={v} index={i} />
           </Reveal>
         ))}
       </div>

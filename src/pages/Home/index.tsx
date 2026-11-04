@@ -19,9 +19,9 @@ export default function Home() {
         description="Marco Balseca, figura política y comunitaria de Tehuacán, Puebla. Cerca de la gente, por nuestra tierra. Súmate al movimiento."
       />
       <Hero />
+      <StatsBand />
       <PrensaStrip />
       <Marquee tone="dark" />
-      <StatsBand />
       <TrayectoriaTeaser />
       <ReelsStrip />
       <ComunidadStrip />

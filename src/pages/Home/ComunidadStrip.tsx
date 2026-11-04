@@ -1,7 +1,7 @@
 import { Reveal } from '../../components/ui/Reveal'
 import { RevealText } from '../../components/ui/RevealText'
 import { ButtonLink } from '../../components/ui/Button'
-import { OrganicShapes } from '../../components/ui/OrganicShapes'
+import { GrecaField } from '../../components/ui/Greca'
 
 /* =========================================================================
    "EN TERRITORIO" — collage estilo sitio del Gobierno del Estado
@@ -29,7 +29,7 @@ const FOTOS = [
 
 export function ComunidadStrip() {
   return (
-    <section className="relative overflow-hidden bg-accent py-20 text-white md:py-32">
+    <section className="relative overflow-hidden bg-accent-deep py-24 text-white md:py-32">
       {/* Fondo: foto real difuminada en B&N (textura/profundidad) + capa guinda
           (multiply) + formas orgánicas + grano. Riqueza detrás del collage. */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -43,8 +43,12 @@ export function ComunidadStrip() {
             e.currentTarget.style.display = 'none'
           }}
         />
-        <div className="absolute inset-0 bg-accent/80 mix-blend-multiply" />
-        <OrganicShapes opacity={0.5} />
+        <div className="absolute inset-0 bg-accent-deep/80 mix-blend-multiply" />
+        <div
+          className="absolute inset-0"
+          style={{ background: 'radial-gradient(60% 55% at 50% 45%, rgba(148,48,60,0.55), transparent 75%)' }}
+        />
+        <GrecaField color="var(--color-sand)" opacity={0.045} size={64} strokeWidth={2.5} />
         <div
           className="absolute inset-0 opacity-[0.06]"
           style={{ backgroundImage: 'url(/assets/backgrounds/grain.png)', backgroundSize: '420px' }}
@@ -68,13 +72,13 @@ export function ComunidadStrip() {
               alt={f.alt}
               loading="lazy"
               decoding="async"
-              className={`absolute rounded-sm shadow-[0_25px_60px_-20px_rgba(0,0,0,0.55)] ${f.cls}`}
+              className={`absolute rounded-md border-[6px] border-white bg-white shadow-[0_30px_60px_-20px_rgba(0,0,0,0.6)] transition-[rotate,translate] duration-500 ease-[var(--ease-out-expo)] hover:z-10 hover:rotate-0 hover:-translate-y-2 md:border-[10px] ${f.cls}`}
               onError={(e) => {
                 e.currentTarget.style.display = 'none'
               }}
             />
           ))}
-          <div className="absolute inset-0 z-20 flex items-center justify-center">
+          <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center">
             <RevealText
               as="h2"
               text="En territorio"

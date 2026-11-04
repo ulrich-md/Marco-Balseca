@@ -1,6 +1,6 @@
 import { Seo } from '../lib/Seo'
 import { CtaBand } from '../components/layout/CtaBand'
-import { OrganicShapes } from '../components/ui/OrganicShapes'
+import { GrecaField } from '../components/ui/Greca'
 import { SectionLabel } from '../components/ui/SectionLabel'
 import { StaggerTestimonials } from '../components/ui/StaggerTestimonials'
 import { ButtonLink } from '../components/ui/Button'
@@ -24,7 +24,16 @@ export default function Testimonios() {
       />
 
       <section className="relative min-h-screen overflow-hidden bg-cream pt-32 pb-16 text-ink md:pt-40">
-        <OrganicShapes tone="light" />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            WebkitMaskImage: 'radial-gradient(60% 60% at 50% 45%, #000, transparent 80%)',
+            maskImage: 'radial-gradient(60% 60% at 50% 45%, #000, transparent 80%)',
+          }}
+        >
+          <GrecaField color="var(--color-gold)" opacity={0.12} size={72} strokeWidth={2} />
+        </div>
         {/* Comilla gigante decorativa detrás del carrusel */}
         <span
           aria-hidden
