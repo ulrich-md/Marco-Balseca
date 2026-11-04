@@ -143,7 +143,7 @@ export function PosterHero({ index, label, title, intro, face, cutout, alt }: Pr
                 initial={reduce ? undefined : { opacity: 0, y: 40 }}
                 animate={reduce ? undefined : { opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute -bottom-2 -right-[10%] block w-[50%] sm:-right-[16%]"
+                className="absolute -bottom-2 -right-[4%] block w-[50%] sm:-right-[6%]"
               >
                 <source media="(max-width: 640px)" srcSet={`${cutout}-sm.webp`} type="image/webp" />
                 <img
