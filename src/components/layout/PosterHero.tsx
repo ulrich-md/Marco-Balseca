@@ -7,9 +7,9 @@ import { useParallax } from '../../lib/useParallax'
 /* =========================================================================
    POSTER HERO — cartel editorial de figura (ref. pósters de jugador):
    · Nombre VERTICAL gigante a la izquierda (desktop).
-   · Figura guinda inclinada con el ROSTRO en grande, en grises claros (foto
-     sonriente) y cortado en franjas: el guinda solo asoma entre franjas y en
-     la base. Amable, no oscuro.
+   · Figura guinda inclinada con el ROSTRO en grande, a color natural (foto
+     sonriente), cortado por líneas guinda finas SIN desplazar las franjas
+     (desplazarlas fractura la cara). El guinda asoma en las líneas y la base.
    · Recorte de cuerpo completo al frente, rompiendo la figura.
    · Columna derecha: índice + intro (el texto no cambia).
    Fotos reales de Marco (nunca generadas); el tratamiento es solo CSS.
@@ -105,19 +105,15 @@ export function PosterHero({ index, label, title, intro, face, cutout, alt }: Pr
                     <div
                       key={k}
                       className="absolute inset-x-0 overflow-hidden"
-                      style={{ top: `${(k * 100) / BANDS}%`, height: `calc(${100 / BANDS}% - 6px)` }}
+                      style={{ top: `${(k * 100) / BANDS}%`, height: `calc(${100 / BANDS}% - 4px)` }}
                     >
                       <img
                         src={face}
                         alt=""
                         aria-hidden
                         decoding="async"
-                        className="absolute left-0 w-full object-cover object-top contrast-[1.04] brightness-[1.06] grayscale"
-                        style={{
-                          height: `${BANDS * 100}%`,
-                          top: `${-k * 100}%`,
-                          transform: `translateX(${k % 2 === 0 ? 0 : k === 1 ? 10 : -8}px)`,
-                        }}
+                        className="absolute left-0 w-full object-cover object-top saturate-[0.85]"
+                        style={{ height: `${BANDS * 100}%`, top: `${-k * 100}%` }}
                         onError={(e) => {
                           e.currentTarget.style.display = 'none'
                         }}
@@ -147,7 +143,7 @@ export function PosterHero({ index, label, title, intro, face, cutout, alt }: Pr
                 initial={reduce ? undefined : { opacity: 0, y: 40 }}
                 animate={reduce ? undefined : { opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute -bottom-2 -right-[6%] block w-[64%] sm:-right-[10%]"
+                className="absolute -bottom-2 -right-[10%] block w-[50%] sm:-right-[16%]"
               >
                 <source media="(max-width: 640px)" srcSet={`${cutout}-sm.webp`} type="image/webp" />
                 <img
