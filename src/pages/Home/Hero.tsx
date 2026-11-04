@@ -31,7 +31,7 @@ const HERO_SLIDES: VideoPhoto[] = [
    HERO — "El cartel".
    Estructura de póster de campaña (ref. Mamdani) con la identidad propia:
    campo BLANCO, un solo color de peso (GUINDA) en el triángulo que apunta al
-   teléfono, marco guinda con filete dorado fino, nombre en sus colores de
+   teléfono, nombre en sus colores de
    marca y sello circular "Súmate". El video (montaje de fotos reales) vuelve a ser el protagonista.
    Cierra con una franja guinda de credenciales (cifras verificables).
    ========================================================================= */
@@ -137,9 +137,6 @@ export function Hero() {
         />
       </div>
 
-      {/* Marco del cartel: borde guinda delgado (sin filete interior: competía
-          con el menú y formaba una doble raya) */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 z-30 border-[6px] border-accent md:border-[8px]" />
 
       <div className="container-x relative z-10 pt-24 lg:pt-28">
         <div className="grid items-center gap-y-10 lg:grid-cols-12 lg:gap-x-8">
