@@ -81,6 +81,16 @@ export function Hero() {
             style={{ clipPath: 'polygon(0 0, 100% 0, 50% 100%)' }}
           />
         </div>
+        {/* papel de cartel (pliegues + fibras, en gris neutro: no tiñe el blanco) */}
+        <img
+          src="/assets/generated/poster-papel.webp"
+          alt=""
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover opacity-[0.28] mix-blend-multiply"
+          onError={(e) => {
+            e.currentTarget.style.display = 'none'
+          }}
+        />
         {/* semitono guinda muy tenue al pie (textura de serigrafía) */}
         <div
           className="halftone absolute inset-0 text-accent opacity-[0.06]"

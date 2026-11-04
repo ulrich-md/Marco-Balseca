@@ -24,7 +24,19 @@ export function SocialStrip() {
         className="pointer-events-none absolute right-0 top-0 hidden h-full w-[58%] bg-gradient-to-b from-accent to-accent-deep lg:block"
         style={{ clipPath: 'polygon(18% 0, 100% 0, 100% 100%)' }}
       />
-            <div className="container-x relative z-10 grid items-center gap-16 lg:grid-cols-2">
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        {/* papel de cartel (pliegues + fibras, en gris neutro: no tiñe el blanco) */}
+        <img
+          src="/assets/generated/poster-papel.webp"
+          alt=""
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover opacity-[0.28] mix-blend-multiply"
+          onError={(e) => {
+            e.currentTarget.style.display = 'none'
+          }}
+        />
+      </div>
+      <div className="container-x relative z-10 grid items-center gap-16 lg:grid-cols-2">
         <div>
           <SectionLabel tone="accent">Momentos · Redes</SectionLabel>
           <RevealText

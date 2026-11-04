@@ -34,7 +34,7 @@ export function ComunidadStrip() {
           (multiply) + formas orgánicas + grano. Riqueza detrás del collage. */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
         <img
-          src="/assets/comunidad/comunidad-visita.webp"
+          src="/assets/comunidad/comunidad-evento.webp"
           alt=""
           loading="lazy"
           decoding="async"
