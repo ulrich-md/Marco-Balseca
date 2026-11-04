@@ -3,7 +3,7 @@
 El sitio ya está listo: en cuanto haya un token en Vercel, **Inicio** y **Videos**
 muestran solos los últimos reels de @marcobalseca1 con su **portada real**, sin
 cargarlos a mano. Sin token, se siguen usando los reels de `/admin` o los locales.
-Los TikToks se siguen agregando desde `/admin` y aparecen después de los reels.
+Los TikToks también se importan solos: ver `TIKTOK_SETUP.md`.
 
 La función está en `api/ig-reels.js` (cache de 30 min en Vercel).
 

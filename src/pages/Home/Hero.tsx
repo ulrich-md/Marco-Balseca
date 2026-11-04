@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { motion, useReducedMotion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { RevealText } from '../../components/ui/RevealText'
 import { ButtonLink } from '../../components/ui/Button'
@@ -105,8 +104,8 @@ export function Hero() {
       <div aria-hidden className="pointer-events-none absolute inset-0 z-30 border-[8px] border-accent md:border-[12px]" />
       <div aria-hidden className="pointer-events-none absolute inset-[14px] z-30 border border-gold/35 md:inset-[22px]" />
 
-      <div className="container-x relative z-10 pt-28 lg:pt-32">
-        <div className="grid items-center gap-y-12 lg:grid-cols-12 lg:gap-x-8">
+      <div className="container-x relative z-10 pt-24 lg:pt-28">
+        <div className="grid items-center gap-y-10 lg:grid-cols-12 lg:gap-x-8">
           {/* ---------------- Texto ---------------- */}
           <div className="relative z-20 lg:col-span-7">
             <h1>
@@ -127,7 +126,7 @@ export function Hero() {
               />
             </h1>
 
-            <motion.p {...appear(0.35)} className="mt-7 flex max-w-xl items-start gap-3">
+            <motion.p {...appear(0.35)} className="mt-5 flex max-w-xl items-start gap-3">
               <span aria-hidden className="mt-[0.55em] h-[3px] w-10 shrink-0 bg-gradient-to-r from-accent to-gold" />
               <span className="font-condensed text-base font-semibold uppercase leading-snug tracking-[0.08em] text-accent md:text-lg">
                 Delegado de Gobernación del Estado de Puebla · Microrregión 25
@@ -136,33 +135,40 @@ export function Hero() {
 
             <motion.p
               {...appear(0.44)}
-              className="font-condensed mt-5 max-w-xl text-[1.7rem] font-bold leading-[1.08] text-ink sm:text-[2rem] lg:text-[2.4rem]"
+              className="font-condensed mt-4 max-w-xl text-[1.7rem] font-bold leading-[1.08] text-ink sm:text-[2rem] lg:text-[2.4rem]"
             >
               Cerca de la gente, <span className="text-accent">por nuestra tierra.</span>
             </motion.p>
 
-            <motion.p {...appear(0.5)} className="mt-5 max-w-xl text-lg text-ink/75 md:text-xl">
+            <motion.p {...appear(0.5)} className="mt-4 max-w-[40rem] text-lg text-ink/75 md:text-xl">
               Soy abogado y maestro en Administración. Empecé en esto a los 15 años y llevo 30 en
               la vida pública, siempre con la misma idea: la política se hace en territorio, cara a
               cara, todos los días.
             </motion.p>
 
-            <motion.div {...appear(0.55)} className="mt-8">
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
+            <motion.div {...appear(0.55)} className="mt-6">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-3 sm:gap-x-4">
                 <ButtonLink
                   to="/contacto"
                   tone="accent"
                   variant="solid"
-                  className="shadow-[0_16px_36px_-14px_rgba(113,25,36,0.7)]"
+                  className="shadow-[0_16px_36px_-14px_rgba(113,25,36,0.7)] max-sm:px-5"
                 >
                   Súmate
                 </ButtonLink>
-                <ButtonLink to="/conoceme" tone="ink" variant="outline">
+                <ButtonLink to="/conoceme" tone="ink" variant="outline" className="max-sm:px-5">
                   Conoce a Marco
                 </ButtonLink>
               </div>
 
-              <div className="mt-7 flex items-center gap-3">
+              {/* Prueba social JUNTO al botón (punto de decisión) + redes */}
+              <div className="mt-8 hidden flex-wrap items-center gap-x-6 gap-y-4 sm:flex">
+                <div className="hidden items-center gap-2.5 lg:flex">
+                  <CommunityAvatars count={3} />
+                  <LiveCounter tone="ink" layout="inline" />
+                </div>
+                <span aria-hidden className="hidden h-10 w-px bg-ink/12 lg:block" />
+                <div className="flex items-center gap-3">
                 <span className="eyebrow text-mute">Sígueme</span>
                 <span aria-hidden className="h-px w-6 bg-ink/15" />
                 <div className="flex items-center gap-2">
@@ -179,6 +185,7 @@ export function Hero() {
                     </a>
                   ))}
                 </div>
+                </div>
               </div>
             </motion.div>
           </div>
@@ -191,10 +198,11 @@ export function Hero() {
               className="pointer-events-none absolute -inset-x-6 -top-8 bottom-[8%] bg-gradient-to-b from-accent to-accent-deep lg:hidden"
               style={{ clipPath: 'polygon(0 0, 100% 0, 50% 100%)' }}
             />
-            {/* Prueba social: sobre el triángulo guinda, arriba del teléfono */}
+            {/* Prueba social en móvil/tablet: sobre el triángulo, arriba del teléfono
+                (en desktop vive junto al botón) */}
             <motion.div
               {...appear(0.5)}
-              className="relative z-40 mx-auto mb-6 flex w-fit items-center gap-2.5 rounded-2xl bg-white px-3 py-2 pr-5 shadow-lift ring-1 ring-ink/5 lg:mb-7"
+              className="relative z-40 mx-auto mb-6 flex w-fit items-center gap-2.5 rounded-2xl bg-white px-3 py-2 pr-5 shadow-lift ring-1 ring-ink/5 lg:hidden"
             >
               <CommunityAvatars count={3} />
               <LiveCounter tone="ink" layout="inline" />
@@ -222,17 +230,17 @@ export function Hero() {
                 </div>
               </motion.div>
 
-              {/* Sello circular (ref. "VOTE JUNE 24" del cartel) */}
+              {/* Sello circular (ref. "VOTE JUNE 24" del cartel). Decorativo: el
+                  dato ya está en el cargo; así "Súmate" no se repite 3 veces. */}
               <motion.div
                 {...appear(0.85)}
-                className="absolute -right-1 top-[42%] z-40 sm:right-[6%] lg:-left-10 lg:right-auto lg:top-auto lg:bottom-[12%]"
+                aria-hidden
+                className="absolute -right-1 top-[40%] z-40 sm:right-[6%] lg:-left-12 lg:right-auto lg:top-auto lg:bottom-[14%]"
               >
-                <Link
-                  to="/contacto"
-                  className="font-display group grid h-28 w-28 -rotate-12 place-items-center rounded-full bg-accent text-center text-2xl leading-none text-white shadow-lift ring-[3px] ring-white transition-transform duration-300 hover:-rotate-6 hover:scale-105 md:h-32 md:w-32 md:text-[1.7rem]"
-                >
-                  Súmate
-                </Link>
+                <span className="font-display grid h-28 w-28 -rotate-12 place-content-center rounded-full bg-accent text-center leading-none text-white shadow-lift ring-[3px] ring-white md:h-32 md:w-32">
+                  <span className="text-[0.62rem] tracking-[0.12em] md:text-[0.7rem]">Microrregión</span>
+                  <span className="mt-1 text-5xl md:text-6xl">25</span>
+                </span>
               </motion.div>
             </div>
           </div>

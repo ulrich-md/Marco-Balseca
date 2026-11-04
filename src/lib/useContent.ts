@@ -75,6 +75,18 @@ function mapIgReel(r: IgReel): Reel {
   }
 }
 
+type TtVideo = { id: string; titulo: string; tiktokUrl: string; poster?: string | null }
+
+function mapTtVideo(v: TtVideo): Reel {
+  return {
+    id: v.id,
+    titulo: v.titulo,
+    kind: 'tiktok',
+    tiktokUrl: v.tiktokUrl,
+    poster: v.poster ?? undefined,
+  }
+}
+
 function mapReel(r: ReelRow): Reel {
   const isTikTok = (r.plataforma ?? 'instagram') === 'tiktok'
   return {
@@ -90,14 +102,19 @@ export function useReels() {
   const [reels, setReels] = useState<Reel[]>(() => REELS)
   const [loading, setLoading] = useState(true)
 
-  // Prioridad: 1) Instagram en automático (/api/ig-reels, con portada real),
-  // 2) lo que Marco cargue en /admin (Supabase), 3) datos locales.
-  // Los TikToks siempre vienen de /admin o locales y se suman al final.
+  // Prioridad por plataforma: 1) automático desde la API oficial (Instagram
+  // /api/ig-reels y TikTok /api/tiktok-videos, con portada real), 2) lo que
+  // Marco cargue en /admin (Supabase), 3) datos locales. Si una API no está
+  // configurada o falla, esa plataforma usa /admin o locales: nunca se rompe.
   const reload = useCallback(() => {
     setLoading(true)
     const fromApi = fetch('/api/ig-reels')
       .then((r) => (r.ok ? r.json() : { reels: [] }))
       .then((d: { reels?: IgReel[] }) => (d.reels ?? []).map(mapIgReel))
+      .catch(() => [] as Reel[])
+    const fromTikTok = fetch('/api/tiktok-videos')
+      .then((r) => (r.ok ? r.json() : { videos: [] }))
+      .then((d: { videos?: TtVideo[] }) => (d.videos ?? []).map(mapTtVideo))
       .catch(() => [] as Reel[])
     const fromDb = supabaseEnabled
       ? sbSelect<ReelRow>('reels', 'select=*&order=orden.asc,created_at.desc')
@@ -105,11 +122,17 @@ export function useReels() {
           .catch(() => [] as Reel[])
       : Promise.resolve([] as Reel[])
 
-    Promise.all([fromApi, fromDb])
-      .then(([ig, db]) => {
+    Promise.all([fromApi, fromTikTok, fromDb])
+      .then(([ig, tt, db]) => {
         const base = db.length > 0 ? db : REELS
-        if (ig.length > 0) setReels([...ig, ...base.filter((r) => r.kind !== 'instagram')])
-        else if (db.length > 0) setReels(db)
+        if (ig.length === 0 && tt.length === 0) {
+          if (db.length > 0) setReels(db)
+          return
+        }
+        const igList = ig.length > 0 ? ig : base.filter((r) => r.kind === 'instagram')
+        const ttList = tt.length > 0 ? tt : base.filter((r) => r.kind === 'tiktok')
+        const others = base.filter((r) => r.kind !== 'instagram' && r.kind !== 'tiktok')
+        setReels([...igList, ...ttList, ...others])
       })
       .finally(() => setLoading(false))
   }, [])
