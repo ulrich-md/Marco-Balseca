@@ -69,7 +69,7 @@ export function CtaBand() {
             cutout="/assets/portraits/marco-hero-cut"
             alt="Súmate con Marco Balseca"
             backdrop="/assets/generated/cta-atardecer-tehuacan.webp"
-            tone="marigold"
+            tone="white"
             className="aspect-[4/5] w-full"
             cutoutClassName="w-[94%]"
           />

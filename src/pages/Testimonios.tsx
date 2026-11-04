@@ -7,7 +7,7 @@ import { useTestimonios } from '../lib/useContent'
 
 /* =========================================================================
    TESTIMONIOS — galería de tarjetas flotantes "en la pared": cada voz es una
-   tarjeta con aura de color (guinda / dorado póster), la cita y la foto del
+   tarjeta con aura de color (guinda / dorado institucional), la cita y la foto del
    lugar fundiéndose desde abajo. Editable desde /admin.
    ========================================================================= */
 
@@ -22,7 +22,7 @@ export default function Testimonios() {
         description="Lo que vecinas y vecinos de Tehuacán dicen de Marco Balseca. Voces reales del territorio."
       />
 
-      <section className="relative min-h-screen overflow-hidden bg-gradient-to-b from-white via-paper to-[#ece9e2] pt-32 pb-16 text-ink md:pt-40">
+      <section className="relative min-h-screen overflow-hidden bg-gradient-to-b from-white via-white to-paper pt-32 pb-16 text-ink md:pt-40">
         {/* Comilla gigante decorativa detrás de la galería */}
         <span
           aria-hidden
@@ -54,7 +54,7 @@ export default function Testimonios() {
         <div className="container-x relative z-10 mt-6 flex items-center gap-5">
           <span
             aria-hidden
-            className="h-11 w-11 shrink-0 rounded-md bg-gradient-to-br from-accent to-marigold shadow-[4px_4px_0_0_var(--color-ink)]"
+            className="h-11 w-11 shrink-0 rounded-md bg-gradient-to-br from-accent to-gold shadow-soft"
           />
           <ButtonLink to="/contacto" tone="accent" variant="outline">
             Cuéntame el tuyo

@@ -29,10 +29,10 @@ const HERO_SLIDES: VideoPhoto[] = [
 
 /* =========================================================================
    HERO — "El cartel".
-   Lenguaje de póster de campaña (ref. Mamdani) con identidad propia: campo
-   DORADO intenso, triángulo GUINDA que apunta al teléfono, marco guinda con
-   filete crema, nombre en crema con sombra dura guinda y sello circular
-   "Súmate". El video (montaje de fotos reales) vuelve a ser el protagonista.
+   Estructura de póster de campaña (ref. Mamdani) con la identidad propia:
+   campo BLANCO, un solo color de peso (GUINDA) en el triángulo que apunta al
+   teléfono, marco guinda con filete dorado fino, nombre en sus colores de
+   marca y sello circular "Súmate". El video (montaje de fotos reales) vuelve a ser el protagonista.
    Cierra con una franja guinda de credenciales (cifras verificables).
    ========================================================================= */
 export function Hero() {
@@ -69,62 +69,43 @@ export function Hero() {
     <section
       onMouseMove={onMove}
       onMouseLeave={onLeave}
-      className="relative overflow-hidden bg-marigold text-ink"
+      className="relative overflow-hidden bg-white text-ink"
     >
-      {/* ---------- Fondo de cartel ---------- */}
+      {/* ---------- Fondo de cartel (blanco + guinda) ---------- */}
       <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
-        {/* luz y viñeta: el dorado no se siente plano */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'radial-gradient(60% 55% at 25% 20%, rgba(255,236,190,0.55), transparent 65%), radial-gradient(80% 70% at 50% 120%, rgba(201,138,26,0.65), transparent 70%)',
-          }}
-        />
         {/* TRIÁNGULO guinda invertido (figura del cartel) detrás del teléfono */}
+        {/* anclado al contenedor: acompaña siempre al teléfono y no toca el nombre */}
+        <div className="absolute inset-y-0 left-1/2 hidden w-full max-w-[88rem] -translate-x-1/2 lg:block">
+          <div
+            className="absolute -right-[120px] left-[54%] top-[104px] h-[86%] bg-gradient-to-b from-accent to-accent-deep"
+            style={{ clipPath: 'polygon(0 0, 100% 0, 50% 100%)' }}
+          />
+        </div>
+        {/* semitono guinda muy tenue al pie (textura de serigrafía) */}
         <div
-          className="absolute inset-x-0 top-[104px] hidden h-[86%] bg-accent lg:left-[38%] lg:block"
-          style={{ clipPath: 'polygon(0 0, 100% 0, 50% 100%)' }}
-        />
-        {/* semitono guinda sobre el dorado (serigrafía) */}
-        <div
-          className="halftone absolute inset-0 text-accent opacity-[0.10]"
+          className="halftone absolute inset-0 text-accent opacity-[0.06]"
           style={{
-            WebkitMaskImage: 'linear-gradient(to bottom, transparent 30%, #000 100%)',
-            maskImage: 'linear-gradient(to bottom, transparent 30%, #000 100%)',
-          }}
-        />
-        {/* papel/grano */}
-        <div
-          className="absolute inset-0 opacity-[0.09] mix-blend-multiply"
-          style={{ backgroundImage: 'url(/assets/backgrounds/grain.png)', backgroundSize: '420px' }}
-        />
-        {/* textura de póster generada (opcional; si falta, se oculta) */}
-        <img
-          src="/assets/generated/poster-papel.webp"
-          alt=""
-          className="absolute inset-0 h-full w-full object-cover opacity-40 mix-blend-multiply"
-          onError={(e) => {
-            e.currentTarget.style.display = 'none'
+            WebkitMaskImage: 'linear-gradient(to bottom, transparent 45%, #000 100%)',
+            maskImage: 'linear-gradient(to bottom, transparent 45%, #000 100%)',
           }}
         />
       </div>
 
-      {/* Marco del cartel: borde guinda + filete crema interior */}
+      {/* Marco del cartel: borde guinda + filete dorado interior */}
       <div aria-hidden className="pointer-events-none absolute inset-0 z-30 border-[8px] border-accent md:border-[12px]" />
-      <div aria-hidden className="pointer-events-none absolute inset-[14px] z-30 border border-cream/70 md:inset-[22px]" />
+      <div aria-hidden className="pointer-events-none absolute inset-[14px] z-30 border border-gold/35 md:inset-[22px]" />
 
       <div className="container-x relative z-10 pt-28 lg:pt-32">
         <div className="grid items-center gap-y-12 lg:grid-cols-12 lg:gap-x-8">
           {/* ---------------- Texto ---------------- */}
           <div className="relative z-20 lg:col-span-7">
-            <h1 className="[--poster-shadow:var(--color-accent)]">
+            <h1>
               <RevealText
                 as="span"
                 text="Marco"
                 onMount
                 stagger={0.05}
-                className="font-display poster-shadow block text-[19vw] leading-[0.8] text-cream sm:text-[16vw] lg:text-[12.5vw]"
+                className="font-display block text-[19vw] leading-[0.8] text-accent sm:text-[16vw] lg:text-[12.5vw] 2xl:text-[11.25rem]"
               />
               <RevealText
                 as="span"
@@ -132,12 +113,12 @@ export function Hero() {
                 onMount
                 delay={0.12}
                 stagger={0.04}
-                className="font-display poster-shadow block text-[19vw] leading-[0.8] text-cream sm:text-[16vw] lg:text-[12.5vw]"
+                className="font-display block text-[19vw] leading-[0.8] text-ink sm:text-[16vw] lg:text-[12.5vw] 2xl:text-[11.25rem]"
               />
             </h1>
 
             <motion.p {...appear(0.35)} className="mt-7 flex max-w-xl items-start gap-3">
-              <span aria-hidden className="mt-[0.55em] h-[3px] w-10 shrink-0 bg-accent" />
+              <span aria-hidden className="mt-[0.55em] h-[3px] w-10 shrink-0 bg-gradient-to-r from-accent to-gold" />
               <span className="font-condensed text-base font-semibold uppercase leading-snug tracking-[0.08em] text-accent md:text-lg">
                 Delegado de Gobernación del Estado de Puebla · Microrregión 25
               </span>
@@ -150,7 +131,7 @@ export function Hero() {
               Cerca de la gente, <span className="text-accent">por nuestra tierra.</span>
             </motion.p>
 
-            <motion.p {...appear(0.5)} className="mt-5 max-w-xl text-lg text-ink/80 md:text-xl">
+            <motion.p {...appear(0.5)} className="mt-5 max-w-xl text-lg text-ink/75 md:text-xl">
               Soy abogado y maestro en Administración. Empecé en esto a los 15 años y llevo 30 en
               la vida pública, siempre con la misma idea: la política se hace en territorio, cara a
               cara, todos los días.
@@ -162,7 +143,7 @@ export function Hero() {
                   to="/contacto"
                   tone="accent"
                   variant="solid"
-                  className="shadow-[5px_5px_0_0_var(--color-ink)] hover:shadow-[7px_7px_0_0_var(--color-ink)]"
+                  className="shadow-[0_16px_36px_-14px_rgba(113,25,36,0.7)]"
                 >
                   Súmate
                 </ButtonLink>
@@ -172,8 +153,8 @@ export function Hero() {
               </div>
 
               <div className="mt-7 flex items-center gap-3">
-                <span className="eyebrow text-ink/70">Sígueme</span>
-                <span aria-hidden className="h-px w-6 bg-ink/25" />
+                <span className="eyebrow text-mute">Sígueme</span>
+                <span aria-hidden className="h-px w-6 bg-ink/15" />
                 <div className="flex items-center gap-2">
                   {HERO_SOCIAL.map(({ Icon, label, url }) => (
                     <a
@@ -182,7 +163,7 @@ export function Hero() {
                       target="_blank"
                       rel="noreferrer"
                       aria-label={label}
-                      className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/20 text-ink/80 transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-cream"
+                      className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/12 text-ink/70 transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-white"
                     >
                       <Icon className="h-[18px] w-[18px]" />
                     </a>
@@ -197,16 +178,16 @@ export function Hero() {
             {/* Triángulo guinda en móvil: solo detrás del teléfono */}
             <div
               aria-hidden
-              className="pointer-events-none absolute -inset-x-6 -top-8 bottom-[8%] bg-accent lg:hidden"
+              className="pointer-events-none absolute -inset-x-6 -top-8 bottom-[8%] bg-gradient-to-b from-accent to-accent-deep lg:hidden"
               style={{ clipPath: 'polygon(0 0, 100% 0, 50% 100%)' }}
             />
             {/* Prueba social: sobre el triángulo guinda, arriba del teléfono */}
             <motion.div
               {...appear(0.5)}
-              className="relative z-40 mx-auto mb-6 flex w-fit items-center gap-2.5 rounded-2xl bg-accent px-3 py-2 shadow-[4px_4px_0_0_var(--color-ink)] lg:mb-7"
+              className="relative z-40 mx-auto mb-6 flex w-fit items-center gap-2.5 rounded-2xl bg-white px-3 py-2 pr-5 shadow-lift ring-1 ring-ink/5 lg:mb-7"
             >
               <CommunityAvatars count={3} />
-              <LiveCounter tone="bone" layout="inline" />
+              <LiveCounter tone="ink" layout="inline" />
             </motion.div>
 
             <div ref={phoneRef} className="relative">
@@ -215,7 +196,7 @@ export function Hero() {
                 style={{ rotateX: reduce ? 0 : rotX, rotateY: reduce ? 0 : rotY, transformPerspective: 1000 }}
               >
                 {/* Carcasa del teléfono (bezel + botones + dynamic island) */}
-                <div className="relative rounded-[2.7rem] bg-black p-2.5 shadow-[14px_14px_0_0_var(--color-accent-deep),0_40px_70px_-25px_rgba(0,0,0,0.55)] ring-1 ring-black/20">
+                <div className="relative rounded-[2.7rem] bg-black p-2.5 shadow-[0_45px_80px_-30px_rgba(0,0,0,0.6)] ring-1 ring-black/20">
                   <span aria-hidden className="absolute -left-[3px] top-24 h-9 w-[3px] rounded-l-sm bg-black" />
                   <span aria-hidden className="absolute -left-[3px] top-36 h-14 w-[3px] rounded-l-sm bg-black" />
                   <span aria-hidden className="absolute -right-[3px] top-28 h-16 w-[3px] rounded-r-sm bg-black" />
@@ -238,7 +219,7 @@ export function Hero() {
               >
                 <Link
                   to="/contacto"
-                  className="font-display group grid h-28 w-28 -rotate-12 place-items-center rounded-full bg-accent text-center text-2xl leading-none text-cream shadow-[5px_5px_0_0_var(--color-ink)] ring-[3px] ring-cream transition-transform duration-300 hover:-rotate-6 hover:scale-105 md:h-32 md:w-32 md:text-[1.7rem]"
+                  className="font-display group grid h-28 w-28 -rotate-12 place-items-center rounded-full bg-accent text-center text-2xl leading-none text-white shadow-lift ring-[3px] ring-white transition-transform duration-300 hover:-rotate-6 hover:scale-105 md:h-32 md:w-32 md:text-[1.7rem]"
                 >
                   Súmate
                 </Link>

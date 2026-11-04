@@ -17,11 +17,6 @@
   --color-cream: #f8f1e4; /* crema institucional (fondos claros cálidos) */
   --color-cream-deep: #eee0c6; /* crema profundo (blobs sobre crema) */
   --color-paper: #f6f4f0; /* papel neutro: superficie clara alterna (no amarillenta) */
-  /* ---- Póster (inspiración campaña Mamdani, con nuestra identidad) ----
-     Dorado intenso derivado del dorado institucional: campo de energía para
-     los momentos póster; el guinda hace de figura y de marco. */
-  --color-marigold: #e3a52f; /* dorado póster (campo) */
-  --color-marigold-deep: #c98a1a; /* dorado póster sombra */
   --color-wine: #3d0f16; /* vino profundo: footer y sombras de marca */
 
   /* ---- Base neutra B&N ---- */
@@ -218,12 +213,6 @@
     background-size: 420px;
     opacity: var(--grain, 0.05);
     mix-blend-mode: multiply;
-  }
-
-  /* Sombra dura de póster (offset sólido, sin blur) — ref. cartel de campaña.
-     Solo efecto de color: la fuente y el peso no cambian. */
-  .poster-shadow {
-    text-shadow: 0.055em 0.055em 0 var(--poster-shadow, var(--color-accent));
   }
 
   /* Semitono de puntos (textura de serigrafía) */

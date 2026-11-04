@@ -21,12 +21,12 @@ const FALLBACKS = [
   '/assets/acciones/accion-obra-cancha.webp',
 ]
 
-// Auras alternadas (identidad: guinda + dorado póster)
+// Auras alternadas (identidad: guinda + dorado institucional)
 const AURAS = [
-  { glow: 'rgba(113,25,36,0.55)', avatar: 'from-accent to-accent-soft' },
-  { glow: 'rgba(227,165,47,0.65)', avatar: 'from-marigold-deep to-marigold' },
-  { glow: 'rgba(148,48,60,0.5)', avatar: 'from-accent-deep to-marigold' },
-  { glow: 'rgba(201,138,26,0.55)', avatar: 'from-marigold to-accent' },
+  { glow: 'rgba(113,25,36,0.42)', avatar: 'from-accent to-accent-soft' },
+  { glow: 'rgba(165,127,44,0.35)', avatar: 'from-gold to-[#c9a75a]' },
+  { glow: 'rgba(148,48,60,0.38)', avatar: 'from-accent-deep to-accent' },
+  { glow: 'rgba(230,209,148,0.6)', avatar: 'from-[#8a6a22] to-gold' },
 ]
 
 function initials(nombre: string) {
@@ -99,7 +99,7 @@ function Card({ t, i }: { t: Testimonio; i: number }) {
           ) : (
             <span
               aria-hidden
-              className={`font-condensed grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br text-sm font-bold text-cream ring-2 ring-white ${aura.avatar}`}
+              className={`font-condensed grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br text-sm font-bold text-white ring-2 ring-white ${aura.avatar}`}
             >
               {initials(t.nombre)}
             </span>
