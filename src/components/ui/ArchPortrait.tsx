@@ -18,6 +18,8 @@ type Props = {
   cutout: string
   alt: string
   backdrop?: string
+  /** 'blend' = solo luces/sombras sobre el color de marca · 'photo' = foto a color */
+  backdropMode?: 'blend' | 'photo'
   tone?: Tone
   className?: string
   /** tamaño/posición del recorte dentro del arco */
@@ -61,6 +63,7 @@ export function ArchPortrait({
   cutout,
   alt,
   backdrop,
+  backdropMode = 'blend',
   tone = 'accent',
   className = '',
   cutoutClassName = 'w-[96%]',
@@ -78,14 +81,18 @@ export function ArchPortrait({
             alt=""
             loading={eager ? 'eager' : 'lazy'}
             decoding="async"
-            className="absolute inset-0 h-full w-full object-cover opacity-45 mix-blend-luminosity"
+            className={`absolute inset-0 h-full w-full object-cover ${
+              backdropMode === 'photo' ? 'saturate-[0.8]' : 'opacity-45 mix-blend-luminosity'
+            }`}
             onError={(e) => {
               e.currentTarget.style.display = 'none'
             }}
           />
         )}
         <div className="absolute inset-0" style={{ background: t.glow }} />
-        <GrecaField color={t.grecaColor} opacity={t.grecaOpacity} size={64} />
+        {!(backdrop && backdropMode === 'photo') && (
+          <GrecaField color={t.grecaColor} opacity={t.grecaOpacity} size={64} />
+        )}
         {/* sombra interior en la base: asienta el recorte */}
         <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/25 to-transparent" />
       </div>

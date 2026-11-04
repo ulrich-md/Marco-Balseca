@@ -18,8 +18,8 @@ rota. Guarda cada archivo con el **nombre y la ruta exactos** y se activa solo.
 | ✅ 1 | `public/assets/generated/testimonios/t1.webp` | Tarjeta de Doña Rosa (Mercado La Purísima) | 16:10, 1200×750 |
 | ✅ 2 | `public/assets/generated/testimonios/t2.webp` | Tarjeta de Luis (cancha, Col. San Diego Chalma) | 16:10, 1200×750 |
 | ✅ 3 | `public/assets/generated/testimonios/t3.webp` | Tarjeta de Mari (calle de la escuela, San Pablo Tepetzingo) | 16:10, 1200×750 |
-| 4 | `public/assets/generated/testimonios/t4.webp` | Tarjeta de Don Chucho (Centro de Tehuacán) — **pendiente** | 16:10, 1200×750 |
-| 5 | `public/assets/generated/cta-atardecer-tehuacan.webp` | Arco blanco del cierre "Vamos juntos" | 4:5, 1200×1500 |
+| ✅ 4 | `public/assets/generated/testimonios/t4.webp` | Tarjeta de Don Chucho (Centro de Tehuacán) | 16:10, 1200×750 |
+| ✅ 5 | `public/assets/generated/cta-atardecer-tehuacan.webp` | Arco del cierre "Vamos juntos" (foto a color, saturación 80 %) | 4:5, 1200×1500 |
 | 6 | `public/assets/generated/valle-tehuacan-lineal.webp` | Horizonte dibujado bajo la cita | 4:1, 2400×600, fondo blanco |
 
 Los prompts completos (en inglés, que es como mejor responden los modelos) están en
