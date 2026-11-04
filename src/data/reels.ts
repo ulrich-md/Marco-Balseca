@@ -14,6 +14,8 @@ export type Reel = {
   instagramUrl?: string
   tiktokUrl?: string
   youtubeId?: string
+  /** portada (p. ej. thumbnail_url que entrega la API de Instagram) */
+  poster?: string
   kind: VideoKind
 }
 

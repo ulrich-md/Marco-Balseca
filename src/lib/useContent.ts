@@ -63,6 +63,18 @@ type ReelRow = {
   orden?: number | null
 }
 
+type IgReel = { id: string; titulo: string; instagramUrl: string; poster?: string | null }
+
+function mapIgReel(r: IgReel): Reel {
+  return {
+    id: r.id,
+    titulo: r.titulo,
+    kind: 'instagram',
+    instagramUrl: r.instagramUrl,
+    poster: r.poster ?? undefined,
+  }
+}
+
 function mapReel(r: ReelRow): Reel {
   const isTikTok = (r.plataforma ?? 'instagram') === 'tiktok'
   return {
@@ -76,16 +88,29 @@ function mapReel(r: ReelRow): Reel {
 
 export function useReels() {
   const [reels, setReels] = useState<Reel[]>(() => REELS)
-  const [loading, setLoading] = useState(supabaseEnabled)
+  const [loading, setLoading] = useState(true)
 
+  // Prioridad: 1) Instagram en automático (/api/ig-reels, con portada real),
+  // 2) lo que Marco cargue en /admin (Supabase), 3) datos locales.
+  // Los TikToks siempre vienen de /admin o locales y se suman al final.
   const reload = useCallback(() => {
-    if (!supabaseEnabled) return
     setLoading(true)
-    sbSelect<ReelRow>('reels', 'select=*&order=orden.asc,created_at.desc')
-      .then((rows) => {
-        if (rows.length > 0) setReels(rows.map(mapReel))
+    const fromApi = fetch('/api/ig-reels')
+      .then((r) => (r.ok ? r.json() : { reels: [] }))
+      .then((d: { reels?: IgReel[] }) => (d.reels ?? []).map(mapIgReel))
+      .catch(() => [] as Reel[])
+    const fromDb = supabaseEnabled
+      ? sbSelect<ReelRow>('reels', 'select=*&order=orden.asc,created_at.desc')
+          .then((rows) => rows.map(mapReel))
+          .catch(() => [] as Reel[])
+      : Promise.resolve([] as Reel[])
+
+    Promise.all([fromApi, fromDb])
+      .then(([ig, db]) => {
+        const base = db.length > 0 ? db : REELS
+        if (ig.length > 0) setReels([...ig, ...base.filter((r) => r.kind !== 'instagram')])
+        else if (db.length > 0) setReels(db)
       })
-      .catch(() => {})
       .finally(() => setLoading(false))
   }, [])
 

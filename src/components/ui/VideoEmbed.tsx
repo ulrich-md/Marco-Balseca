@@ -41,7 +41,7 @@ export function VideoEmbed({ video, className = '', poster, index = 0, theme = '
   // Portada: 1) la que se pase por props, 2) /assets/reels/<id>.webp si existe
   // (captura real del video), 3) foto real de respaldo.
   const fallback = REEL_POSTERS[index % REEL_POSTERS.length]
-  const [cover, setCover] = useState(poster ?? `/assets/reels/${video.id}.webp`)
+  const [cover, setCover] = useState(poster ?? video.poster ?? `/assets/reels/${video.id}.webp`)
   const dark = theme === 'dark'
 
   return (
