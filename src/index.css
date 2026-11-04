@@ -215,6 +215,27 @@
     mix-blend-mode: multiply;
   }
 
+  /* Letra 3D de cartel (ref. tipografía de campaña con extrusión): filete
+     de color pegado a la letra + bloque de profundidad escalonado hacia
+     abajo-derecha. Solo text-shadow: la fuente, el peso y el color de la
+     letra no cambian. Colores por variables. */
+  .text-3d {
+    text-shadow:
+      0.012em 0.012em 0 var(--x3d-edge, var(--color-sand)),
+      0.024em 0.024em 0 var(--x3d-edge, var(--color-sand)),
+      0.034em 0.034em 0 var(--x3d-depth, var(--color-accent-deep)),
+      0.044em 0.044em 0 var(--x3d-depth, var(--color-accent-deep)),
+      0.054em 0.054em 0 var(--x3d-depth, var(--color-accent-deep)),
+      0.064em 0.064em 0 var(--x3d-depth, var(--color-accent-deep)),
+      0.09em 0.11em 0.12em rgba(59, 14, 21, 0.22);
+  }
+  /* La máscara del revelado (overflow hidden) recortaría la extrusión:
+     se le da aire con padding y se compensa con margen negativo. */
+  .text-3d .reveal-mask {
+    padding: 0 0.1em 0.12em 0;
+    margin: 0 -0.1em -0.12em 0;
+  }
+
   /* Semitono de puntos (textura de serigrafía) */
   .halftone {
     background-image: radial-gradient(currentColor 1.1px, transparent 1.3px);

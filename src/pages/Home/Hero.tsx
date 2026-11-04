@@ -148,7 +148,7 @@ export function Hero() {
                 text="Marco"
                 onMount
                 stagger={0.05}
-                className="font-display block text-[19vw] leading-[0.8] text-accent sm:text-[16vw] lg:text-[12.5vw] 2xl:text-[11.25rem]"
+                className="font-display block text-[19vw] leading-[0.8] text-accent sm:text-[16vw] lg:text-[12.5vw] 2xl:text-[11.25rem] text-3d [--x3d-edge:var(--color-sand)] [--x3d-depth:var(--color-accent-deep)]"
               />
               <RevealText
                 as="span"
@@ -156,7 +156,7 @@ export function Hero() {
                 onMount
                 delay={0.12}
                 stagger={0.04}
-                className="font-display block text-[19vw] leading-[0.8] text-ink sm:text-[16vw] lg:text-[12.5vw] 2xl:text-[11.25rem]"
+                className="font-display block text-[19vw] leading-[0.8] text-ink sm:text-[16vw] lg:text-[12.5vw] 2xl:text-[11.25rem] text-3d [--x3d-edge:var(--color-sand)] [--x3d-depth:var(--color-accent)]"
               />
             </h1>
 
