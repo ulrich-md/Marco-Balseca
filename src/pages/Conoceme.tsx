@@ -21,7 +21,7 @@ export default function Conoceme() {
         index="02"
         label="Conóceme"
         title={'Marco\nBalseca'}
-        face="/assets/portraits/marco-rostro-bn.webp"
+        face="/assets/portraits/marco-rostro.webp"
         cutout="/assets/portraits/marco-sumate-cut"
         alt="Marco Balseca"
         intro="Orgullosamente tehuacanero. Abogado y maestro en Administración de Empresas, tercera generación de mi familia en el agua mineral, hoy delegado de la Secretaría de Gobernación de la microrregión 25, con un enfoque humanista y de territorio."

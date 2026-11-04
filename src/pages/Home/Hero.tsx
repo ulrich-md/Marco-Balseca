@@ -56,7 +56,7 @@ function TriangleTexture() {
       <img
         src="/assets/generated/triangulo-textura.webp"
         alt=""
-        className="absolute inset-0 h-full w-full object-cover opacity-50 mix-blend-soft-light"
+        className="absolute inset-0 h-full w-full object-cover opacity-60 mix-blend-multiply"
         onError={(e) => {
           e.currentTarget.style.display = 'none'
         }}

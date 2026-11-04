@@ -7,8 +7,9 @@ import { useParallax } from '../../lib/useParallax'
 /* =========================================================================
    POSTER HERO — cartel editorial de figura (ref. pósters de jugador):
    · Nombre VERTICAL gigante a la izquierda (desktop).
-   · Figura guinda inclinada con el ROSTRO en grande, en B/N virado a guinda
-     (multiply) y cortado en franjas desplazadas.
+   · Figura guinda inclinada con el ROSTRO en grande, en grises claros (foto
+     sonriente) y cortado en franjas: el guinda solo asoma entre franjas y en
+     la base. Amable, no oscuro.
    · Recorte de cuerpo completo al frente, rompiendo la figura.
    · Columna derecha: índice + intro (el texto no cambia).
    Fotos reales de Marco (nunca generadas); el tratamiento es solo CSS.
@@ -94,10 +95,10 @@ export function PosterHero({ index, label, title, intro, face, cutout, alt }: Pr
                 {/* rostro en franjas desplazadas (cada franja = la misma foto, recortada) */}
                 <div
                   ref={faceRef}
-                  className="absolute inset-x-0 -top-[6%] h-[86%] mix-blend-multiply"
+                  className="absolute inset-x-0 -top-[2%] h-[84%]"
                   style={{
-                    WebkitMaskImage: 'linear-gradient(to bottom, #000 72%, transparent 100%)',
-                    maskImage: 'linear-gradient(to bottom, #000 72%, transparent 100%)',
+                    WebkitMaskImage: 'linear-gradient(to bottom, #000 55%, transparent 98%)',
+                    maskImage: 'linear-gradient(to bottom, #000 55%, transparent 98%)',
                   }}
                 >
                   {Array.from({ length: BANDS }).map((_, k) => (
@@ -111,7 +112,7 @@ export function PosterHero({ index, label, title, intro, face, cutout, alt }: Pr
                         alt=""
                         aria-hidden
                         decoding="async"
-                        className="absolute left-0 w-full object-cover"
+                        className="absolute left-0 w-full object-cover object-top contrast-[1.04] brightness-[1.06] grayscale"
                         style={{
                           height: `${BANDS * 100}%`,
                           top: `${-k * 100}%`,
@@ -126,7 +127,7 @@ export function PosterHero({ index, label, title, intro, face, cutout, alt }: Pr
                 </div>
                 {/* semitono + grano: textura de serigrafía */}
                 <div
-                  className="halftone absolute inset-0 text-accent-deep opacity-25"
+                  className="halftone absolute inset-0 text-accent-deep opacity-20"
                   style={{
                     WebkitMaskImage: 'linear-gradient(to top, #000 0%, transparent 60%)',
                     maskImage: 'linear-gradient(to top, #000 0%, transparent 60%)',
