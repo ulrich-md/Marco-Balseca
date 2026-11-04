@@ -12,29 +12,36 @@ import { SOCIAL } from '../../data/site'
  */
 export function SocialStrip() {
   return (
-    <section className="grain relative overflow-hidden bg-cream py-24 text-ink [--grain:0.05] md:py-32">
+    <section className="grain relative overflow-hidden bg-marigold py-24 text-ink [--grain:0.09] md:py-32">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-y-0 right-0 w-full lg:w-1/2"
-        style={{ background: 'radial-gradient(60% 60% at 60% 50%, rgba(113,25,36,0.10), transparent 70%)' }}
+        style={{ background: 'radial-gradient(60% 60% at 30% 30%, rgba(255,236,190,0.5), transparent 70%)' }}
       />
+      {/* triángulo guinda del cartel detrás de las fotos */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute right-0 top-0 h-full w-full bg-accent lg:w-[58%]"
+        style={{ clipPath: 'polygon(18% 0, 100% 0, 100% 100%)' }}
+      />
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-[1] border-[8px] border-accent md:border-[12px]" />
       <div className="container-x relative z-10 grid items-center gap-16 lg:grid-cols-2">
         <div>
           <SectionLabel tone="accent">Momentos · Redes</SectionLabel>
           <RevealText
             as="h2"
             text="#PuroTehuacán"
-            className="font-display mt-5 text-[12vw] leading-[0.9] text-accent sm:text-6xl lg:text-7xl"
+            className="font-display poster-shadow mt-5 text-[12vw] leading-[0.9] text-cream [--poster-shadow:var(--color-accent)] sm:text-6xl lg:text-7xl"
           />
           <Reveal delay={0.1}>
-            <p className="mt-5 max-w-md text-lg text-ink/70">
+            <p className="mt-5 max-w-md text-lg text-ink/85">
               Así vivo el día a día: en territorio, con la gente, colonia por colonia. Sígueme en
               Instagram y caminemos juntos.
             </p>
           </Reveal>
           <Reveal delay={0.18}>
             <div className="mt-7">
-              <ButtonAnchor href={SOCIAL.instagram.url} tone="accent" variant="solid" arrow>
+              <ButtonAnchor href={SOCIAL.instagram.url} tone="accent" variant="solid" arrow className="shadow-[5px_5px_0_0_var(--color-ink)]">
                 Seguir {SOCIAL.instagram.handle}
               </ButtonAnchor>
             </div>

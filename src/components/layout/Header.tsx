@@ -33,8 +33,8 @@ export function Header() {
       <header
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ease-[var(--ease-out-expo)] ${
           scrolled
-            ? 'border-b border-ink/8 bg-cream/90 py-3 shadow-[0_10px_30px_-18px_rgba(59,14,21,0.35)] backdrop-blur-md'
-            : 'bg-gradient-to-b from-cream via-cream/70 to-transparent py-5'
+            ? 'border-b border-ink/8 bg-white/92 py-3 shadow-[0_10px_30px_-18px_rgba(59,14,21,0.35)] backdrop-blur-md'
+            : 'bg-transparent py-5 md:py-7'
         }`}
       >
         {/* Hilo dorado institucional en el borde inferior (aparece al hacer

@@ -30,7 +30,7 @@ export function PageHero({ index, label, title, intro, compact = false, image, i
   const hasMedia = !compact && (image || cutout)
   return (
     <section
-      className={`grain relative overflow-hidden bg-cream text-ink [--grain:0.05] ${
+      className={`grain relative overflow-hidden bg-white text-ink [--grain:0.05] ${
         compact ? 'pt-28 pb-8 md:pt-32 md:pb-10' : 'pt-32 pb-16 md:pt-44 md:pb-24'
       }`}
     >

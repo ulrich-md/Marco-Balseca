@@ -11,7 +11,7 @@ import { GrecaField } from './Greca'
    oculta sola y queda el degradado de marca (nunca imagen rota).
    ========================================================================= */
 
-type Tone = 'accent' | 'sand' | 'cream'
+type Tone = 'accent' | 'sand' | 'cream' | 'marigold'
 
 type Props = {
   /** ruta base del recorte SIN extensión (usa .webp y -sm.webp) */
@@ -40,6 +40,13 @@ const TONES: Record<Tone, { bg: string; grecaColor: string; grecaOpacity: number
     grecaOpacity: 0.08,
     ring: 'border-accent/30',
     glow: 'radial-gradient(60% 45% at 50% 30%, rgba(255,255,255,0.55), transparent 70%)',
+  },
+  marigold: {
+    bg: 'bg-gradient-to-b from-[#f0c060] via-marigold to-marigold-deep',
+    grecaColor: 'var(--color-accent)',
+    grecaOpacity: 0.09,
+    ring: 'border-cream/70',
+    glow: 'radial-gradient(60% 45% at 50% 30%, rgba(255,240,200,0.6), transparent 70%)',
   },
   cream: {
     bg: 'bg-gradient-to-b from-white via-cream to-cream-deep',

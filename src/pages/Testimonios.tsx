@@ -1,15 +1,14 @@
 import { Seo } from '../lib/Seo'
 import { CtaBand } from '../components/layout/CtaBand'
-import { GrecaField } from '../components/ui/Greca'
 import { SectionLabel } from '../components/ui/SectionLabel'
-import { StaggerTestimonials } from '../components/ui/StaggerTestimonials'
+import { TestimonialGallery } from '../components/ui/TestimonialGallery'
 import { ButtonLink } from '../components/ui/Button'
 import { useTestimonios } from '../lib/useContent'
 
 /* =========================================================================
-   TESTIMONIOS — solo el carrusel escalonado interactivo (asset adaptado a la
-   identidad guinda), sobre crema institucional con comilla gigante y formas
-   orgánicas de fondo. Editable desde /admin.
+   TESTIMONIOS — galería de tarjetas flotantes "en la pared": cada voz es una
+   tarjeta con aura de color (guinda / dorado póster), la cita y la foto del
+   lugar fundiéndose desde abajo. Editable desde /admin.
    ========================================================================= */
 
 export default function Testimonios() {
@@ -23,39 +22,40 @@ export default function Testimonios() {
         description="Lo que vecinas y vecinos de Tehuacán dicen de Marco Balseca. Voces reales del territorio."
       />
 
-      <section className="relative min-h-screen overflow-hidden bg-cream pt-32 pb-16 text-ink md:pt-40">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{
-            WebkitMaskImage: 'radial-gradient(60% 60% at 50% 45%, #000, transparent 80%)',
-            maskImage: 'radial-gradient(60% 60% at 50% 45%, #000, transparent 80%)',
-          }}
-        >
-          <GrecaField color="var(--color-gold)" opacity={0.12} size={72} strokeWidth={2} />
-        </div>
-        {/* Comilla gigante decorativa detrás del carrusel */}
+      <section className="relative min-h-screen overflow-hidden bg-gradient-to-b from-white via-paper to-[#ece9e2] pt-32 pb-16 text-ink md:pt-40">
+        {/* Comilla gigante decorativa detrás de la galería */}
         <span
           aria-hidden
-          className="font-display pointer-events-none absolute left-1/2 top-10 -translate-x-1/2 select-none text-[42vw] leading-[0.7] text-accent/[0.06] md:top-16 md:text-[26vw]"
+          className="font-display pointer-events-none absolute right-[4%] top-16 select-none text-[42vw] leading-[0.7] text-accent/[0.05] md:text-[26vw]"
         >
           “
         </span>
+        {/* "piso" de la pared: sombra horizontal suave bajo las tarjetas */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-[34%]"
+          style={{ background: 'linear-gradient(to bottom, transparent, rgba(22,22,22,0.05))' }}
+        />
 
-        <div className="container-x relative z-10 flex flex-col items-center text-center">
+        <div className="container-x relative z-10 flex flex-wrap items-center justify-between gap-4">
           <SectionLabel tone="accent">Voces de Tehuacán · En vivo</SectionLabel>
+          <p className="eyebrow hidden text-mute/80 sm:block">Arrastra · toca los lados · usa ← →</p>
         </div>
 
-        <div className="relative z-10 mt-8">
+        <div className="relative z-10 mt-10">
           {testimonios.length > 0 ? (
-            <StaggerTestimonials items={testimonios} />
+            <TestimonialGallery items={testimonios} />
           ) : (
             <p className="py-16 text-center text-mute">Pronto compartiremos más voces del territorio.</p>
           )}
         </div>
 
-        <div className="relative z-10 mt-4 flex flex-col items-center gap-6">
-          <p className="eyebrow text-mute/70">Arrastra · toca los lados · usa ← →</p>
+        {/* Bloque inferior (ref. "Stories"): sello de color + CTA */}
+        <div className="container-x relative z-10 mt-6 flex items-center gap-5">
+          <span
+            aria-hidden
+            className="h-11 w-11 shrink-0 rounded-md bg-gradient-to-br from-accent to-marigold shadow-[4px_4px_0_0_var(--color-ink)]"
+          />
           <ButtonLink to="/contacto" tone="accent" variant="outline">
             Cuéntame el tuyo
           </ButtonLink>

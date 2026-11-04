@@ -235,7 +235,7 @@ export function PrensaStrip() {
   const { noticias } = useNoticias()
 
   return (
-    <section className="relative overflow-hidden bg-cream pb-24 pt-24 text-ink md:pb-32 md:pt-32">
+    <section className="relative overflow-hidden bg-paper pb-24 pt-24 text-ink md:pb-32 md:pt-32">
       {/* greca dorada muy tenue en la esquina (textura cultural, sin ruido) */}
       <div
         aria-hidden
