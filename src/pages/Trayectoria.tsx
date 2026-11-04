@@ -28,7 +28,9 @@ export default function Trayectoria() {
         <div className="container-x">
           <SectionLabel tone="accent">Línea de tiempo</SectionLabel>
         </div>
-        <MapaTrayectoria hitos={TRAYECTORIA} />
+        <div className="mt-10">
+          <MapaTrayectoria hitos={TRAYECTORIA} />
+        </div>
       </section>
 
       <CtaBand />

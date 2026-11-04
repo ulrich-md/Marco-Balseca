@@ -51,7 +51,9 @@ export function TrayectoriaTeaser() {
 
       </div>
 
-      <MapaTrayectoria hitos={hitos} />
+      <div className="mt-10 md:mt-14">
+        <MapaTrayectoria hitos={hitos} />
+      </div>
 
       <div className="container-x relative z-10 md:hidden">
         <ButtonLink to="/trayectoria" variant="outline" tone="accent" full>
