@@ -49,7 +49,7 @@ export function PosterHero({ index, label, title, intro, face, cutout, alt }: Pr
       />
 
       <div className="container-x relative z-10">
-        <div className="grid items-end gap-10 lg:grid-cols-[auto_minmax(0,1.25fr)_minmax(0,0.85fr)] lg:gap-x-10">
+        <div className="grid items-end gap-10 lg:grid-cols-[auto_auto_minmax(0,1fr)] lg:gap-x-4 xl:gap-x-6">
           {/* ---- Nombre: vertical en desktop, horizontal en móvil ---- */}
           <div className="lg:self-stretch">
             <div className="lg:hidden">
@@ -81,7 +81,7 @@ export function PosterHero({ index, label, title, intro, face, cutout, alt }: Pr
           </div>
 
           {/* ---- Figura guinda con rostro rebanado + recorte al frente ---- */}
-          <div className="relative mx-auto w-full max-w-[560px] lg:mr-0 lg:max-w-[min(520px,62vh)]">
+          <div className="relative mx-auto w-full max-w-[560px] lg:mx-0 lg:w-[min(520px,62vh)] lg:max-w-none">
             <motion.div
               initial={reduce ? undefined : { opacity: 0, x: 30 }}
               animate={reduce ? undefined : { opacity: 1, x: 0 }}
@@ -143,7 +143,7 @@ export function PosterHero({ index, label, title, intro, face, cutout, alt }: Pr
                 initial={reduce ? undefined : { opacity: 0, y: 40 }}
                 animate={reduce ? undefined : { opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute -bottom-2 -right-[4%] block w-[50%] sm:-right-[6%] lg:right-[3%]"
+                className="absolute -bottom-2 -right-[4%] block w-[50%] sm:-right-[6%] lg:-right-[12%]"
               >
                 <source media="(max-width: 640px)" srcSet={`${cutout}-sm.webp`} type="image/webp" />
                 <img
@@ -157,7 +157,7 @@ export function PosterHero({ index, label, title, intro, face, cutout, alt }: Pr
           </div>
 
           {/* ---- Índice + intro ---- */}
-          <div className="lg:pb-6">
+          <div className="lg:max-w-md lg:justify-self-end lg:pb-6 lg:pl-10">
             <div className="hidden lg:block">
               <SectionLabel num={index} tone="accent">
                 {label}
